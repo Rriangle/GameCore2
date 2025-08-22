@@ -1,0 +1,335 @@
+version: '3.8'
+
+# =============================================================================
+# GameCore 本地開發環境 Docker Compose
+# =============================================================================
+# 
+# 使用說明：
+# 1. 此檔案專用於本地開發環境
+# 2. 包含 SQL Server、Redis、後端 API、前端開發伺服器
+# 3. 已優化開發體驗，支援熱重載
+# 4. 使用本地檔案掛載，方便開發除錯
+#
+# 啟動指令：
+# docker-compose -f docker-compose.local.yml up -d
+#
+# 停止指令：
+# docker-compose -f docker-compose.local.yml down
+# =============================================================================
+
+services:
+  # =============================================================================
+  # SQL Server 資料庫 (本地開發)
+  # =============================================================================
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: gamecore-sqlserver-local
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+      - MSSQL_AGENT_ENABLED=true
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data_local:/var/opt/mssql
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+      - ./scripts/seed-data.sql:/docker-entrypoint-initdb.d/seed-data.sql:ro
+      - ./logs/sqlserver:/var/opt/mssql/log
+    networks:
+      - gamecore-local
+    healthcheck:
+      test: [ "CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q 'SELECT 1'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # =============================================================================
+  # Redis 快取 (本地開發)
+  # =============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: gamecore-redis-local
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_local:/data
+      - ./logs/redis:/var/log/redis
+    networks:
+      - gamecore-local
+    command: redis-server --appendonly yes --loglevel notice
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # =============================================================================
+  # 後端 API (本地開發)
+  # =============================================================================
+  api:
+    build:
+      context: .
+      dockerfile: src/GameCore.Api/Dockerfile
+      target: development
+    container_name: gamecore-api-local
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000;https://+:5001
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=GameCore;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true
+      - Jwt__SecretKey=your-super-secret-key-with-at-least-32-characters-for-local-development
+      - Jwt__Issuer=GameCore
+      - Jwt__Audience=GameCoreUsers
+      - Jwt__ExpirationHours=24
+      - Redis__ConnectionString=redis:6379
+      - CORS__AllowedOrigins=http://localhost:3000,https://localhost:3000
+      - Logging__LogLevel__Default=Information
+      - Logging__LogLevel__Microsoft=Warning
+      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Information
+      - Logging__LogLevel__Microsoft.EntityFrameworkCore.Database.Command=Information
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - gamecore-local
+    volumes:
+      - ./src:/app/src:ro
+      - ./logs/api:/app/logs
+      - ./uploads:/app/uploads
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    profiles:
+      - full
+      - backend
+
+  # =============================================================================
+  # 前端開發伺服器 (本地開發)
+  # =============================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: gamecore-frontend-local
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:5000
+      - VITE_APP_TITLE=GameCore (Local)
+      - VITE_APP_ENV=local
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - ./logs/frontend:/app/logs
+    depends_on:
+      - api
+    networks:
+      - gamecore-local
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    profiles:
+      - full
+      - frontend
+
+  # =============================================================================
+  # 監控儀表板 (本地開發)
+  # =============================================================================
+  monitoring:
+    image: grafana/grafana:latest
+    container_name: gamecore-monitoring-local
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data_local:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./logs/grafana:/var/log/grafana
+    networks:
+      - gamecore-local
+    depends_on:
+      - api
+    restart: unless-stopped
+    profiles:
+      - full
+      - monitoring
+
+  # =============================================================================
+  # 資料庫管理工具 (本地開發)
+  # =============================================================================
+  db-admin:
+    image: adminer:latest
+    container_name: gamecore-db-admin-local
+    ports:
+      - "8080:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=sqlserver
+      - ADMINER_DESIGN=pepa-linha-dark
+    networks:
+      - gamecore-local
+    depends_on:
+      - sqlserver
+    restart: unless-stopped
+    profiles:
+      - full
+      - tools
+
+  # =============================================================================
+  # Redis 管理工具 (本地開發)
+  # =============================================================================
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: gamecore-redis-commander-local
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    networks:
+      - gamecore-local
+    depends_on:
+      - redis
+    restart: unless-stopped
+    profiles:
+      - full
+      - tools
+
+  # =============================================================================
+  # 日誌聚合器 (本地開發)
+  # =============================================================================
+  log-aggregator:
+    image: grafana/loki:latest
+    container_name: gamecore-loki-local
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./monitoring/loki/local-config.yaml:/etc/loki/local-config.yaml:ro
+      - loki_data_local:/loki
+    networks:
+      - gamecore-local
+    restart: unless-stopped
+    profiles:
+      - full
+      - monitoring
+
+  # =============================================================================
+  # 日誌收集器 (本地開發)
+  # =============================================================================
+  promtail:
+    image: grafana/promtail:latest
+    container_name: gamecore-promtail-local
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - ./monitoring/promtail/config.yml:/etc/promtail/config.yml:ro
+      - ./logs:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    networks:
+      - gamecore-local
+    restart: unless-stopped
+    profiles:
+      - full
+      - monitoring
+
+# =============================================================================
+# 資料卷定義
+# =============================================================================
+volumes:
+  sqlserver_data_local:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/sqlserver
+  redis_data_local:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/redis
+  grafana_data_local:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/grafana
+  loki_data_local:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/loki
+
+# =============================================================================
+# 網路定義
+# =============================================================================
+networks:
+  gamecore-local:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: gamecore-local-br
+
+# =============================================================================
+# 配置說明
+# =============================================================================
+# 
+# 使用方式：
+# 
+# 1. 完整環境 (包含所有服務)：
+#    docker-compose -f docker-compose.local.yml --profile full up -d
+# 
+# 2. 僅後端服務：
+#    docker-compose -f docker-compose.local.yml --profile backend up -d
+# 
+# 3. 僅前端服務：
+#    docker-compose -f docker-compose.local.yml --profile frontend up -d
+# 
+# 4. 僅監控服務：
+#    docker-compose -f docker-compose.local.yml --profile monitoring up -d
+# 
+# 5. 僅工具服務：
+#    docker-compose -f docker-compose.local.yml --profile tools up -d
+# 
+# 服務端口：
+# - SQL Server: localhost:1433
+# - Redis: localhost:6379
+# - API: localhost:5000 (HTTP), localhost:5001 (HTTPS)
+# - Frontend: localhost:3000
+# - Grafana: localhost:3001
+# - Adminer: localhost:8080
+# - Redis Commander: localhost:8081
+# - Loki: localhost:3100
+# 
+# 預設帳號：
+# - SQL Server: sa / YourStrong@Passw0rd
+# - Grafana: admin / admin
+# - Adminer: 無需登入，直接連線 SQL Server
+# 
+# 注意事項：
+# - 首次啟動會自動執行資料庫初始化腳本
+# - 日誌檔案會儲存在 ./logs 目錄
+# - 資料檔案會儲存在 ./data 目錄
+# - 上傳檔案會儲存在 ./uploads 目錄
+# =============================================================================
