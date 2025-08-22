@@ -1,0 +1,173 @@
+@description('GameCore 應用程式名稱')
+param appName string = 'gamecore'
+
+@description('環境名稱 (dev, staging, prod)')
+param environment string = 'dev'
+
+@description('位置')
+param location string = resourceGroup().location
+
+@description('資料庫管理員使用者名稱')
+param dbAdminUsername string = 'gamecoreadmin'
+
+@description('資料庫管理員密碼')
+@secure()
+param dbAdminPassword string
+
+@description('應用程式服務方案 SKU')
+param appServicePlanSku string = 'B1'
+
+@description('SQL Database SKU')
+param sqlDatabaseSku string = 'Basic'
+
+// 變數
+var appServicePlanName = '${appName}-plan-${environment}'
+var webAppName = '${appName}-web-${environment}'
+var sqlServerName = '${appName}-sql-${environment}'
+var databaseName = '${appName}-db-${environment}'
+var keyVaultName = '${appName}-kv-${environment}'
+var appInsightsName = '${appName}-ai-${environment}'
+
+// 應用程式服務方案
+resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {
+  name: appServicePlanName
+  location: location
+  sku: {
+    name: appServicePlanSku
+    tier: appServicePlanSku == 'F1' ? 'Free' : 'Basic'
+  }
+  kind: 'linux'
+  properties: {
+    reserved: true
+  }
+}
+
+// 應用程式洞察
+resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
+  name: appInsightsName
+  location: location
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+    WorkspaceResourceId: ''
+  }
+}
+
+// Key Vault
+resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
+  name: keyVaultName
+  location: location
+  properties: {
+    sku: {
+      family: 'A'
+      name: 'standard'
+    }
+    tenantId: subscription().tenantId
+    enableRbacAuthorization: true
+    enableSoftDelete: true
+    softDeleteRetentionInDays: 7
+  }
+}
+
+// SQL Server
+resource sqlServer 'Microsoft.Sql/servers@2023-05-01-preview' = {
+  name: sqlServerName
+  location: location
+  properties: {
+    administratorLogin: dbAdminUsername
+    administratorLoginPassword: dbAdminPassword
+    version: '12.0'
+  }
+}
+
+// SQL Database
+resource sqlDatabase 'Microsoft.Sql/servers/databases@2023-05-01-preview' = {
+  parent: sqlServer
+  name: databaseName
+  location: location
+  sku: {
+    name: sqlDatabaseSku
+    tier: sqlDatabaseSku == 'Basic' ? 'Basic' : 'Standard'
+  }
+  properties: {
+    collation: 'SQL_Latin1_General_CP1_CI_AS'
+    maxSizeBytes: 2147483648 // 2GB
+  }
+}
+
+// Web App
+resource webApp 'Microsoft.Web/sites@2023-01-01' = {
+  name: webAppName
+  location: location
+  properties: {
+    serverFarmId: appServicePlan.id
+    siteConfig: {
+      linuxFxVersion: 'DOTNETCORE|8.0'
+      appSettings: [
+        {
+          name: 'WEBSITE_RUN_FROM_PACKAGE'
+          value: '1'
+        }
+        {
+          name: 'ASPNETCORE_ENVIRONMENT'
+          value: environment == 'prod' ? 'Production' : 'Development'
+        }
+        {
+          name: 'ConnectionStrings__DefaultConnection'
+          value: 'Server=tcp:${sqlServer.properties.fullyQualifiedDomainName},1433;Initial Catalog=${databaseName};Persist Security Info=False;User ID=${dbAdminUsername};Password=${dbAdminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+        }
+        {
+          name: 'Jwt__SecretKey'
+          value: '@Microsoft.KeyVault(SecretUri=${keyVault.properties.vaultUri}secrets/JwtSecretKey/)'
+        }
+        {
+          name: 'Jwt__Issuer'
+          value: 'GameCore'
+        }
+        {
+          name: 'Jwt__Audience'
+          value: 'GameCoreUsers'
+        }
+        {
+          name: 'Jwt__ExpirationHours'
+          value: '24'
+        }
+        {
+          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          value: appInsights.properties.InstrumentationKey
+        }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: appInsights.properties.ConnectionString
+        }
+      ]
+    }
+  }
+}
+
+// Key Vault 存取原則
+resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-01' = {
+  parent: keyVault
+  name: 'add'
+  properties: {
+    accessPolicies: [
+      {
+        tenantId: subscription().tenantId
+        objectId: webApp.identity.principalId
+        permissions: {
+          secrets: [
+            'get'
+            'list'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+// 輸出
+output webAppUrl string = 'https://${webApp.properties.defaultHostName}'
+output sqlServerFqdn string = sqlServer.properties.fullyQualifiedDomainName
+output databaseName string = databaseName
+output keyVaultUri string = keyVault.properties.vaultUri
+output appInsightsKey string = appInsights.properties.InstrumentationKey

@@ -1,0 +1,204 @@
+trigger:
+  branches:
+    include:
+    - main
+    - develop
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  dotNetVersion: '8.0.x'
+  nodeVersion: '18.x'
+
+stages:
+- stage: Build
+  displayName: '建置與測試'
+  jobs:
+  - job: BuildAndTest
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: '設定 .NET'
+      inputs:
+        version: $(dotNetVersion)
+        includePreviewVersions: false
+
+    - task: NodeTool@0
+      displayName: '設定 Node.js'
+      inputs:
+        versionSpec: $(nodeVersion)
+
+    - task: Cache@2
+      displayName: '快取 pnpm 套件'
+      inputs:
+        key: 'pnpm | "$(Agent.OS)" | frontend/pnpm-lock.yaml'
+        restoreKeys: |
+          pnpm | "$(Agent.OS)"
+        path: $(PNPM_STORE_PATH)
+
+    - script: |
+        npm install -g pnpm
+      displayName: '安裝 pnpm'
+
+    - script: |
+        dotnet restore
+      displayName: '還原 .NET 套件'
+
+    - script: |
+        cd frontend
+        pnpm install --frozen-lockfile
+      displayName: '安裝前端套件'
+
+    - script: |
+        dotnet build --configuration $(buildConfiguration) --no-restore
+      displayName: '建置後端'
+
+    - script: |
+        cd frontend
+        pnpm build
+      displayName: '建置前端'
+
+    - script: |
+        dotnet test --configuration $(buildConfiguration) --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults
+      displayName: '執行後端測試'
+
+    - script: |
+        cd frontend
+        pnpm test:coverage
+      displayName: '執行前端測試'
+
+    - task: PublishTestResults@2
+      displayName: '發布測試結果'
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/TestResults/*.trx'
+        mergeTestResults: true
+        testRunTitle: 'GameCore Tests'
+
+    - task: PublishCodeCoverageResults@1
+      displayName: '發布程式碼涵蓋率'
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '**/coverage.cobertura.xml'
+        reportDirectory: '**/coverage'
+
+    - task: PublishBuildArtifacts@1
+      displayName: '發布建置成品'
+      inputs:
+        pathToPublish: 'src/GameCore.Api/bin/$(buildConfiguration)/net8.0'
+        artifactName: 'backend'
+        publishLocation: 'Container'
+
+    - task: PublishBuildArtifacts@1
+      displayName: '發布前端成品'
+      inputs:
+        pathToPublish: 'frontend/dist'
+        artifactName: 'frontend'
+        publishLocation: 'Container'
+
+- stage: DeployToDev
+  displayName: '部署到開發環境'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: backend
+
+          - download: current
+            artifact: frontend
+
+          - task: AzureResourceManagerTemplateDeployment@3
+            displayName: '部署 Azure 資源'
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Azure-Connection'
+              subscriptionId: '$(AZURE_SUBSCRIPTION_ID)'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'gamecore-dev-rg'
+              location: 'East Asia'
+              templateLocation: 'Linked artifact'
+              csmFile: 'azure-deploy.yml'
+              csmParametersFile: 'azure-deploy.parameters.dev.json'
+              overrideParameters: '-environment dev'
+              deploymentMode: 'Incremental'
+
+          - task: AzureWebApp@1
+            displayName: '部署 Web App'
+            inputs:
+              azureSubscription: 'Azure-Connection'
+              appName: 'gamecore-web-dev'
+              package: '$(Pipeline.Workspace)/backend/**/*.zip'
+              appType: 'webAppLinux'
+              runtimeStack: 'DOTNETCORE|8.0'
+
+          - task: AzureFileCopy@4
+            displayName: '部署前端檔案'
+            inputs:
+              sourcePath: '$(Pipeline.Workspace)/frontend'
+              azureSubscription: 'Azure-Connection'
+              destination: 'AzureBlob'
+              storage: 'gamecoredevstorage'
+              containerName: '$web'
+
+- stage: DeployToProd
+  displayName: '部署到生產環境'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: backend
+
+          - download: current
+            artifact: frontend
+
+          - task: AzureResourceManagerTemplateDeployment@3
+            displayName: '部署 Azure 資源'
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Azure-Connection'
+              subscriptionId: '$(AZURE_SUBSCRIPTION_ID)'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'gamecore-prod-rg'
+              location: 'East Asia'
+              templateLocation: 'Linked artifact'
+              csmFile: 'azure-deploy.yml'
+              csmParametersFile: 'azure-deploy.parameters.prod.json'
+              overrideParameters: '-environment prod'
+              deploymentMode: 'Incremental'
+
+          - task: AzureWebApp@1
+            displayName: '部署 Web App'
+            inputs:
+              azureSubscription: 'Azure-Connection'
+              appName: 'gamecore-web-prod'
+              package: '$(Pipeline.Workspace)/backend/**/*.zip'
+              appType: 'webAppLinux'
+              runtimeStack: 'DOTNETCORE|8.0'
+
+          - task: AzureFileCopy@4
+            displayName: '部署前端檔案'
+            inputs:
+              sourcePath: '$(Pipeline.Workspace)/frontend'
+              azureSubscription: 'Azure-Connection'
+              destination: 'AzureBlob'
+              storage: 'gamecoreprodstorage'
+              containerName: '$web'

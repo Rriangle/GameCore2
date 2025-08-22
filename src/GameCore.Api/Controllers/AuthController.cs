@@ -48,17 +48,33 @@ public class AuthController : ControllerBase
             return BadRequest(ApiResponse<object>.ErrorResult("請求資料無效", errors));
         }
 
-        var result = await _authService.RegisterAsync(request);
+        var result = await _authService.RegisterAsync(request.Username, request.Email, request.Password);
 
         if (result.Success)
         {
+            var response = new AuthResponseDto
+            {
+                Success = true,
+                Token = result.Token,
+                Message = "註冊成功",
+                User = new UserProfileDto
+                {
+                    UserId = result.User!.UserId,
+                    Username = result.User.Username,
+                    Email = result.User.Email,
+                    Balance = result.User.Balance,
+                    CreatedAt = result.User.CreatedAt,
+                    LastLoginAt = result.User.LastLoginAt
+                }
+            };
+
             _logger.LogInformation("註冊成功: {CorrelationId}, Username: {Username}", correlationId, request.Username);
-            return Ok(result);
+            return Ok(response);
         }
 
         _logger.LogWarning("註冊失敗: {CorrelationId}, Username: {Username}, Message: {Message}", 
-            correlationId, request.Username, result.Message);
-        return BadRequest(result);
+            correlationId, request.Username, result.ErrorMessage);
+        return BadRequest(new AuthResponseDto { Success = false, Message = result.ErrorMessage });
     }
 
     /// <summary>
@@ -88,17 +104,33 @@ public class AuthController : ControllerBase
             return BadRequest(ApiResponse<object>.ErrorResult("請求資料無效", errors));
         }
 
-        var result = await _authService.LoginAsync(request);
+        var result = await _authService.LoginAsync(request.Username, request.Password);
 
         if (result.Success)
         {
+            var response = new AuthResponseDto
+            {
+                Success = true,
+                Token = result.Token,
+                Message = "登入成功",
+                User = new UserProfileDto
+                {
+                    UserId = result.User!.UserId,
+                    Username = result.User.Username,
+                    Email = result.User.Email,
+                    Balance = result.User.Balance,
+                    CreatedAt = result.User.CreatedAt,
+                    LastLoginAt = result.User.LastLoginAt
+                }
+            };
+
             _logger.LogInformation("登入成功: {CorrelationId}, Username: {Username}", correlationId, request.Username);
-            return Ok(result);
+            return Ok(response);
         }
 
         _logger.LogWarning("登入失敗: {CorrelationId}, Username: {Username}, Message: {Message}", 
-            correlationId, request.Username, result.Message);
-        return Unauthorized(result);
+            correlationId, request.Username, result.ErrorMessage);
+        return Unauthorized(new AuthResponseDto { Success = false, Message = result.ErrorMessage });
     }
 
     /// <summary>
@@ -130,7 +162,17 @@ public class AuthController : ControllerBase
             return NotFound(ApiResponse<object>.ErrorResult("用戶不存在"));
         }
 
+        var profileDto = new UserProfileDto
+        {
+            UserId = profile.UserId,
+            Username = profile.Username,
+            Email = profile.Email,
+            Balance = profile.Balance,
+            CreatedAt = profile.CreatedAt,
+            LastLoginAt = profile.LastLoginAt
+        };
+
         _logger.LogInformation("成功獲取個人資料: {CorrelationId}, UserId: {UserId}", correlationId, userId);
-        return Ok(ApiResponse<UserProfileDto>.SuccessResult(profile));
+        return Ok(ApiResponse<UserProfileDto>.SuccessResult(profileDto));
     }
 }

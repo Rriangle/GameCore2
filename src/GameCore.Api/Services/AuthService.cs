@@ -1,4 +1,3 @@
-using GameCore.Api.DTOs;
 using GameCore.Domain.Entities;
 using GameCore.Domain.Interfaces;
 using BC = BCrypt.Net.BCrypt;
@@ -27,32 +26,32 @@ public class AuthService : IAuthService
         _logger = logger;
     }
 
-    public async Task<AuthResponseDto> RegisterAsync(RegisterRequestDto request)
+    public async Task<AuthResult> RegisterAsync(string username, string email, string password)
     {
-        _logger.LogInformation("開始處理用戶註冊請求: {Username}", request.Username);
+        _logger.LogInformation("開始處理用戶註冊請求: {Username}", username);
 
         try
         {
             // 檢查用戶名是否已存在
-            if (await _userRepository.ExistsByUsernameAsync(request.Username))
+            if (await _userRepository.ExistsByUsernameAsync(username))
             {
-                _logger.LogWarning("註冊失敗：用戶名已存在: {Username}", request.Username);
-                return CreateErrorResponse("用戶名已存在");
+                _logger.LogWarning("註冊失敗：用戶名已存在: {Username}", username);
+                return new AuthResult { Success = false, ErrorMessage = "用戶名已存在" };
             }
 
             // 檢查郵箱是否已存在
-            if (await _userRepository.ExistsByEmailAsync(request.Email))
+            if (await _userRepository.ExistsByEmailAsync(email))
             {
-                _logger.LogWarning("註冊失敗：郵箱已被註冊: {Email}", request.Email);
-                return CreateErrorResponse("郵箱已被註冊");
+                _logger.LogWarning("註冊失敗：郵箱已被註冊: {Email}", email);
+                return new AuthResult { Success = false, ErrorMessage = "郵箱已被註冊" };
             }
 
             // 建立新用戶
             var user = new User
             {
-                Username = request.Username.Trim(),
-                Email = request.Email.Trim().ToLowerInvariant(),
-                PasswordHash = BC.HashPassword(request.Password),
+                Username = username.Trim(),
+                Email = email.Trim().ToLowerInvariant(),
+                PasswordHash = BC.HashPassword(password),
                 CreatedAt = DateTime.UtcNow,
                 IsActive = true
             };
@@ -75,49 +74,54 @@ public class AuthService : IAuthService
 
             _logger.LogInformation("用戶註冊成功: {UserId} {Username}", createdUser.UserId, createdUser.Username);
 
-            return CreateSuccessResponse(token, new UserProfileDto
+            return new AuthResult
             {
-                UserId = createdUser.UserId,
-                Username = createdUser.Username,
-                Email = createdUser.Email,
-                Balance = wallet.Balance,
-                CreatedAt = createdUser.CreatedAt,
-                LastLoginAt = createdUser.LastLoginAt
-            }, "註冊成功");
+                Success = true,
+                Token = token,
+                User = new UserProfile
+                {
+                    UserId = createdUser.UserId,
+                    Username = createdUser.Username,
+                    Email = createdUser.Email,
+                    Balance = wallet.Balance,
+                    CreatedAt = createdUser.CreatedAt,
+                    LastLoginAt = createdUser.LastLoginAt
+                }
+            };
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "註冊過程中發生未預期的錯誤: {Username}", request.Username);
-            return CreateErrorResponse("註冊失敗，請稍後再試");
+            _logger.LogError(ex, "註冊過程中發生未預期的錯誤: {Username}", username);
+            return new AuthResult { Success = false, ErrorMessage = "註冊失敗，請稍後再試" };
         }
     }
 
-    public async Task<AuthResponseDto> LoginAsync(LoginRequestDto request)
+    public async Task<AuthResult> LoginAsync(string username, string password)
     {
-        _logger.LogInformation("開始處理用戶登入請求: {Username}", request.Username);
+        _logger.LogInformation("開始處理用戶登入請求: {Username}", username);
 
         try
         {
             // 查找用戶
-            var user = await _userRepository.GetByUsernameAsync(request.Username.Trim());
+            var user = await _userRepository.GetByUsernameAsync(username.Trim());
             if (user == null)
             {
-                _logger.LogWarning("登入失敗：用戶不存在: {Username}", request.Username);
-                return CreateErrorResponse("用戶名或密碼錯誤");
+                _logger.LogWarning("登入失敗：用戶不存在: {Username}", username);
+                return new AuthResult { Success = false, ErrorMessage = "用戶名或密碼錯誤" };
             }
 
             // 驗證密碼
-            if (!BC.Verify(request.Password, user.PasswordHash))
+            if (!BC.Verify(password, user.PasswordHash))
             {
-                _logger.LogWarning("登入失敗：密碼錯誤: {Username}", request.Username);
-                return CreateErrorResponse("用戶名或密碼錯誤");
+                _logger.LogWarning("登入失敗：密碼錯誤: {Username}", username);
+                return new AuthResult { Success = false, ErrorMessage = "用戶名或密碼錯誤" };
             }
 
             // 檢查用戶是否啟用
             if (!user.IsActive)
             {
                 _logger.LogWarning("登入失敗：帳戶已被停用: {UserId}", user.UserId);
-                return CreateErrorResponse("帳戶已被停用");
+                return new AuthResult { Success = false, ErrorMessage = "帳戶已被停用" };
             }
 
             // 更新最後登入時間
@@ -132,24 +136,29 @@ public class AuthService : IAuthService
 
             _logger.LogInformation("用戶登入成功: {UserId} {Username}", user.UserId, user.Username);
 
-            return CreateSuccessResponse(token, new UserProfileDto
+            return new AuthResult
             {
-                UserId = user.UserId,
-                Username = user.Username,
-                Email = user.Email,
-                Balance = balance,
-                CreatedAt = user.CreatedAt,
-                LastLoginAt = user.LastLoginAt
-            }, "登入成功");
+                Success = true,
+                Token = token,
+                User = new UserProfile
+                {
+                    UserId = user.UserId,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Balance = balance,
+                    CreatedAt = user.CreatedAt,
+                    LastLoginAt = user.LastLoginAt
+                }
+            };
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "登入過程中發生未預期的錯誤: {Username}", request.Username);
-            return CreateErrorResponse("登入失敗，請稍後再試");
+            _logger.LogError(ex, "登入過程中發生未預期的錯誤: {Username}", username);
+            return new AuthResult { Success = false, ErrorMessage = "登入失敗，請稍後再試" };
         }
     }
 
-    public async Task<UserProfileDto?> GetUserProfileAsync(int userId)
+    public async Task<UserProfile?> GetUserProfileAsync(int userId)
     {
         _logger.LogDebug("獲取用戶資料: {UserId}", userId);
 
@@ -164,7 +173,7 @@ public class AuthService : IAuthService
 
             var balance = await _walletRepository.GetBalanceAsync(userId);
 
-            return new UserProfileDto
+            return new UserProfile
             {
                 UserId = user.UserId,
                 Username = user.Username,
@@ -179,25 +188,5 @@ public class AuthService : IAuthService
             _logger.LogError(ex, "獲取用戶資料時發生錯誤: {UserId}", userId);
             return null;
         }
-    }
-
-    private static AuthResponseDto CreateSuccessResponse(string token, UserProfileDto user, string message)
-    {
-        return new AuthResponseDto
-        {
-            Success = true,
-            Token = token,
-            Message = message,
-            User = user
-        };
-    }
-
-    private static AuthResponseDto CreateErrorResponse(string message)
-    {
-        return new AuthResponseDto
-        {
-            Success = false,
-            Message = message
-        };
     }
 }

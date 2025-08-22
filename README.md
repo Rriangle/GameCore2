@@ -12,6 +12,7 @@ GameCore 是一個功能豐富的遊戲社群平台，提供：
 - 🐾 **寵物養成**：可愛史萊姆寵物系統
 - 🎮 **小遊戲**：冒險模式與每日簽到
 - 👥 **用戶系統**：完整的註冊登入與權限管理
+- ☁️ **雲端同步**：本地與雲端環境無縫整合
 
 ## 🛠️ 技術棧
 
@@ -31,16 +32,23 @@ GameCore 是一個功能豐富的遊戲社群平台，提供：
 - **Pinia** - 狀態管理
 - **Vue Router** - 路由管理
 
+### 雲端與部署
+- **Azure** - 雲端平台
+- **Docker** - 容器化
+- **GitHub Actions** - CI/CD
+- **Application Insights** - 監控
+
 ## 🚀 快速開始
 
 ### 必要條件
 
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Node.js 18+](https://nodejs.org/)
-- [SQL Server LocalDB](https://docs.microsoft.com/sql/database-engine/configure-windows/sql-server-express-localdb)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) (雲端部署)
 - [PowerShell 5.1+](https://docs.microsoft.com/powershell/scripting/install/installing-powershell)
 
-### 安裝步驟
+### 本地開發環境
 
 1. **複製專案**
    ```bash
@@ -48,19 +56,17 @@ GameCore 是一個功能豐富的遊戲社群平台，提供：
    cd GameCore
    ```
 
-2. **安裝前端套件**
+2. **使用 Docker Compose 啟動完整環境**
    ```bash
-   cd frontend
-   pnpm install
-   cd ..
+   docker-compose up -d
    ```
 
-3. **還原 .NET 套件**
+3. **或使用一鍵設定腳本**
    ```bash
-   dotnet restore
+   .\scripts\setup.ps1
    ```
 
-4. **啟動開發環境**
+4. **啟動開發伺服器**
    ```bash
    .\scripts\dev.ps1
    ```
@@ -73,6 +79,48 @@ GameCore 是一個功能豐富的遊戲社群平台，提供：
 - 📊 **後端 API**：http://localhost:5000
 - 📚 **API 文件**：http://localhost:5000/api-docs
 - 💚 **健康檢查**：http://localhost:5000/health
+- 📈 **監控儀表板**：http://localhost:3001
+
+## ☁️ 雲端與本地同步
+
+### 環境管理
+
+專案支援多環境部署：
+- **local**: 本地開發環境
+- **dev**: 開發環境
+- **staging**: 測試環境
+- **prod**: 生產環境
+
+### 部署指令
+
+```powershell
+# 本地環境部署
+.\scripts\deploy.ps1 -Environment local -Action full
+
+# 開發環境部署
+.\scripts\deploy.ps1 -Environment dev -Action deploy
+
+# 生產環境部署
+.\scripts\deploy.ps1 -Environment prod -Action deploy
+
+# 資料庫同步
+.\scripts\db-sync.ps1 -Environment local -Action migrate
+.\scripts\db-sync.ps1 -Environment dev -Action backup
+
+# 監控應用程式
+.\scripts\monitor.ps1 -Environment local
+.\scripts\monitor.ps1 -Environment prod -Duration 60
+```
+
+### Azure 資源部署
+
+```bash
+# 部署 Azure 資源
+az deployment group create \
+  --resource-group gamecore-dev-rg \
+  --template-file azure-deploy.yml \
+  --parameters environment=dev
+```
 
 ## 📁 專案結構
 
@@ -87,6 +135,11 @@ GameCore/
 ├── 📁 frontend/              # 前端專案
 ├── 📁 tests/                 # 測試專案
 ├── 📁 scripts/               # 建置腳本
+├── 📁 .github/workflows/     # CI/CD 管道
+├── 📄 azure-deploy.yml       # Azure 部署模板
+├── 📄 docker-compose.yml     # 本地容器化環境
+├── 📄 env.development        # 開發環境配置
+├── 📄 env.production         # 生產環境配置
 └── 📄 README.md              # 專案說明
 ```
 
@@ -111,6 +164,9 @@ GameCore/
 
 # 或直接執行
 dotnet test
+
+# 一鍵測試
+.\scripts\test.ps1
 ```
 
 ### 開發環境
@@ -127,27 +183,42 @@ dotnet test
 
 ## 📊 資料庫
 
+### 本地開發
 專案使用 SQL Server LocalDB 作為開發環境資料庫：
 
 - **連線字串**：`Server=(localdb)\mssqllocaldb;Database=GameCore;Trusted_Connection=true;MultipleActiveResultSets=true`
 - **自動建立**：應用程式啟動時會自動建立資料庫
 - **假資料**：後續會提供假資料腳本
 
+### 資料庫同步
+```powershell
+# 執行遷移
+.\scripts\db-sync.ps1 -Environment local -Action migrate
+
+# 建立種子資料
+.\scripts\db-sync.ps1 -Environment local -Action seed
+
+# 備份資料庫
+.\scripts\db-sync.ps1 -Environment dev -Action backup
+
+# 還原資料庫
+.\scripts\db-sync.ps1 -Environment prod -Action restore -Source dev
+```
+
 ## 🔐 環境變數
 
-重要設定請在 `appsettings.json` 中配置：
+### 本地環境 (env.development)
+```bash
+DATABASE_CONNECTION_STRING="Server=localhost,1433;Database=GameCore;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true"
+JWT_SECRET_KEY="dev-super-secret-key-with-at-least-32-characters"
+REDIS_CONNECTION_STRING="localhost:6379"
+```
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "your-connection-string"
-  },
-  "Jwt": {
-    "SecretKey": "your-secret-key",
-    "Issuer": "GameCore",
-    "Audience": "GameCoreUsers"
-  }
-}
+### 生產環境 (env.production)
+```bash
+DATABASE_CONNECTION_STRING="Server=tcp:gamecore-sql-prod.database.windows.net,1433;Initial Catalog=gamecore-db-prod;..."
+JWT_SECRET_KEY="@Microsoft.KeyVault(SecretUri=https://gamecore-kv-prod.vault.azure.net/secrets/JwtSecretKey/)"
+REDIS_CONNECTION_STRING="gamecore-redis-prod.redis.cache.windows.net:6380,password=${REDIS_PASSWORD},ssl=True"
 ```
 
 ## 🧪 測試
@@ -162,6 +233,47 @@ dotnet test
 ```powershell
 dotnet test --verbosity normal
 ```
+
+## 📈 監控與日誌
+
+### 本地監控
+```powershell
+# 即時監控
+.\scripts\monitor.ps1 -Environment local
+
+# 持續監控
+.\scripts\monitor.ps1 -Environment local -Duration 60 -Interval 30
+```
+
+### 雲端監控
+- **Application Insights**: 應用程式效能監控
+- **Azure Monitor**: 資源監控
+- **Grafana**: 自訂儀表板
+
+## 🚀 部署
+
+### 本地部署
+```powershell
+# 使用 Docker Compose
+docker-compose up -d
+
+# 或使用部署腳本
+.\scripts\deploy.ps1 -Environment local -Action deploy
+```
+
+### 雲端部署
+```powershell
+# 部署到開發環境
+.\scripts\deploy.ps1 -Environment dev -Action deploy
+
+# 部署到生產環境
+.\scripts\deploy.ps1 -Environment prod -Action deploy
+```
+
+### CI/CD 管道
+- **GitHub Actions**: 自動化測試和建置
+- **Azure DevOps**: 雲端部署管道
+- **Docker**: 容器化部署
 
 ## 📝 開發規範
 

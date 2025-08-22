@@ -1,0 +1,23 @@
+# 前端開發環境 Dockerfile
+FROM node:18-alpine
+
+# 設定工作目錄
+WORKDIR /app
+
+# 安裝 pnpm
+RUN npm install -g pnpm
+
+# 複製 package.json 和 pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml ./
+
+# 安裝依賴
+RUN pnpm install --frozen-lockfile
+
+# 複製所有原始碼
+COPY . .
+
+# 暴露端口
+EXPOSE 3000
+
+# 啟動開發伺服器
+CMD ["pnpm", "dev", "--host", "0.0.0.0"]
