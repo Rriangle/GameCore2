@@ -135,6 +135,7 @@ GameCore/
 ├── 📁 frontend/              # 前端專案
 ├── 📁 tests/                 # 測試專案
 ├── 📁 scripts/               # 建置腳本
+├── 📁 docs/                  # 專案文件
 ├── 📁 .github/workflows/     # CI/CD 管道
 ├── 📄 azure-deploy.yml       # Azure 部署模板
 ├── 📄 docker-compose.yml     # 本地容器化環境
@@ -142,6 +143,24 @@ GameCore/
 ├── 📄 env.production         # 生產環境配置
 └── 📄 README.md              # 專案說明
 ```
+
+## 🏗️ 系統架構
+
+詳細架構說明請參考：[📋 系統架構文件](docs/architecture.md)
+
+### 核心架構
+- **Clean Architecture**: 領域驅動設計，分層架構
+- **CQRS Pattern**: 命令查詢職責分離
+- **Repository Pattern**: 資料存取抽象化
+- **Dependency Injection**: 依賴注入容器
+
+### 技術架構
+- **後端**: ASP.NET Core 8.0 + Entity Framework Core
+- **前端**: Vue 3 + TypeScript + Tailwind CSS
+- **資料庫**: SQL Server 2019
+- **快取**: Redis
+- **容器化**: Docker + Docker Compose
+- **CI/CD**: GitHub Actions + Azure DevOps
 
 ## 🔧 開發指令
 
@@ -277,10 +296,55 @@ docker-compose up -d
 
 ## 📝 開發規範
 
-- **程式碼風格**：遵循 .editorconfig 設定
-- **命名規範**：C# 使用 PascalCase，JavaScript 使用 camelCase
-- **註解**：重要邏輯必須加上中文註解
-- **測試**：新功能必須包含對應測試
+### 程式碼風格
+- **C#**: 遵循 .editorconfig 設定，使用 PascalCase 命名
+- **TypeScript/JavaScript**: 使用 camelCase 命名，ESLint 規範
+- **註解**: 重要邏輯必須加上中文註解
+- **測試**: 新功能必須包含對應測試
+
+### Git 工作流程
+- **分支策略**: 
+  - `main`: 生產環境分支
+  - `develop`: 開發環境分支  
+  - `feature/*`: 功能開發分支
+  - `hotfix/*`: 緊急修復分支
+- **Commit 訊息格式**: `type(scope): description`
+  - `feat`: 新功能
+  - `fix`: 錯誤修復
+  - `docs`: 文件更新
+  - `style`: 程式碼格式調整
+  - `refactor`: 重構
+  - `test`: 測試相關
+  - `chore`: 建置工具或輔助工具的變動
+
+### 範例
+```bash
+feat(auth): 新增 JWT 認證機制
+fix(api): 修復用戶註冊 API 參數驗證問題
+docs(readme): 更新專案啟動說明
+```
+
+## 🚨 常見錯誤排解
+
+詳細錯誤排解請參考：[🔧 錯誤排解指南](docs/troubleshooting.md)
+
+### 常見問題
+1. **資料庫連線失敗**: 檢查 SQL Server 服務是否啟動
+2. **Docker 容器無法啟動**: 確認 Docker Desktop 已啟動
+3. **前端建置失敗**: 檢查 Node.js 版本是否為 18+
+4. **API 認證失敗**: 確認 JWT 密鑰設定正確
+
+### 快速修復指令
+```powershell
+# 重啟所有服務
+docker-compose down && docker-compose up -d
+
+# 重建資料庫
+.\scripts\db-sync.ps1 -Environment local -Action reset
+
+# 清除快取
+dotnet clean && npm run clean
+```
 
 ## 🤝 貢獻指南
 

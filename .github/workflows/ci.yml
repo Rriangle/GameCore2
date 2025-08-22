@@ -5,6 +5,13 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+# 分支策略
+# - main: 生產環境分支，需要 PR 審查
+# - develop: 開發環境分支，自動部署到測試環境
+# - feature/*: 功能開發分支，執行測試但不部署
+# - hotfix/*: 緊急修復分支，快速部署到生產環境
 
 env:
   DOTNET_VERSION: '8.0.x'

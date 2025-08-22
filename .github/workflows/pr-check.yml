@@ -1,0 +1,406 @@
+name: Pull Request Quality Check
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  NODE_VERSION: '18.x'
+
+jobs:
+  # 程式碼品質檢查
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # 完整歷史記錄，用於分析變更
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    # 後端程式碼品質檢查
+    - name: Backend Code Quality
+      run: |
+        echo "=== 後端程式碼品質檢查 ==="
+        
+        # 還原套件
+        dotnet restore
+        
+        # 建置檢查
+        dotnet build --configuration Release --no-restore
+        
+        # 程式碼分析
+        dotnet tool install --global dotnet-format
+        dotnet format --verify-no-changes --verbosity normal
+        
+        # 程式碼複雜度檢查
+        dotnet tool install --global dotnet-outdated-tool
+        dotnet outdated --fail-on-updates
+        
+        echo "✅ 後端程式碼品質檢查完成"
+
+    # 前端程式碼品質檢查
+    - name: Frontend Code Quality
+      run: |
+        echo "=== 前端程式碼品質檢查 ==="
+        cd frontend
+        
+        # 安裝依賴
+        pnpm install --frozen-lockfile
+        
+        # TypeScript 型別檢查
+        pnpm type-check
+        
+        # ESLint 檢查
+        pnpm lint
+        
+        # 程式碼格式檢查
+        pnpm format:check
+        
+        # 依賴安全性檢查
+        pnpm audit --audit-level moderate
+        
+        echo "✅ 前端程式碼品質檢查完成"
+
+    # 提交訊息格式檢查
+    - name: Commit Message Check
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: commits } = await github.rest.pulls.listCommits({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+          });
+          
+          const conventionalCommitRegex = /^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .+/;
+          const invalidCommits = commits.filter(commit => 
+            !conventionalCommitRegex.test(commit.commit.message.split('\n')[0])
+          );
+          
+          if (invalidCommits.length > 0) {
+            core.setFailed(`發現 ${invalidCommits.length} 個不符合規範的提交訊息`);
+            console.log('不符合規範的提交:');
+            invalidCommits.forEach(commit => {
+              console.log(`- ${commit.sha.substring(0, 7)}: ${commit.commit.message.split('\n')[0]}`);
+            });
+          } else {
+            console.log('✅ 所有提交訊息都符合規範');
+          }
+
+  # 測試覆蓋率檢查
+  test-coverage:
+    name: Test Coverage Check
+    runs-on: ubuntu-latest
+    needs: code-quality
+    
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: "YourStrong@Passw0rd"
+          ACCEPT_EULA: "Y"
+        options: >-
+          --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q 'SELECT 1'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 1433:1433
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    # 後端測試覆蓋率
+    - name: Backend Test Coverage
+      run: |
+        echo "=== 後端測試覆蓋率檢查 ==="
+        
+        dotnet restore
+        dotnet build --configuration Release --no-restore
+        
+        # 執行測試並收集覆蓋率
+        dotnet test --no-build --verbosity normal --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults
+        
+        # 檢查覆蓋率報告
+        dotnet tool install --global dotnet-reportgenerator-globaltool
+        reportgenerator -reports:./TestResults/**/coverage.cobertura.xml -targetdir:./TestResults/CoverageReport -reporttypes:Html
+        
+        echo "✅ 後端測試覆蓋率檢查完成"
+
+    # 前端測試覆蓋率
+    - name: Frontend Test Coverage
+      run: |
+        echo "=== 前端測試覆蓋率檢查 ==="
+        cd frontend
+        
+        pnpm install --frozen-lockfile
+        pnpm test:coverage
+        
+        # 檢查覆蓋率是否達到要求
+        COVERAGE=$(cat coverage/lcov.info | grep -E "^SF:" | wc -l)
+        if [ $COVERAGE -lt 10 ]; then
+          echo "⚠️  警告: 測試覆蓋率較低"
+        else
+          echo "✅ 測試覆蓋率符合要求"
+        fi
+
+    # 上傳覆蓋率報告
+    - name: Upload Coverage Reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-reports
+        path: |
+          TestResults/CoverageReport/
+          frontend/coverage/
+
+  # 安全性檢查
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: code-quality
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    # 後端安全性檢查
+    - name: Backend Security Scan
+      run: |
+        echo "=== 後端安全性檢查 ==="
+        
+        dotnet restore
+        
+        # 依賴安全性檢查
+        dotnet list package --vulnerable
+        
+        # 程式碼安全性分析
+        dotnet tool install --global dotnet-security-scan
+        dotnet security-scan
+        
+        echo "✅ 後端安全性檢查完成"
+
+    # 前端安全性檢查
+    - name: Frontend Security Scan
+      run: |
+        echo "=== 前端安全性檢查 ==="
+        cd frontend
+        
+        pnpm install --frozen-lockfile
+        
+        # 依賴安全性檢查
+        pnpm audit --audit-level high
+        
+        # 程式碼安全性檢查
+        pnpm run security:check
+        
+        echo "✅ 前端安全性檢查完成"
+
+  # 效能檢查
+  performance-check:
+    name: Performance Check
+    runs-on: ubuntu-latest
+    needs: code-quality
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    # 建置時間檢查
+    - name: Build Performance Check
+      run: |
+        echo "=== 建置效能檢查 ==="
+        
+        # 記錄建置開始時間
+        BUILD_START=$(date +%s)
+        
+        dotnet restore
+        dotnet build --configuration Release --no-restore
+        
+        # 記錄建置結束時間
+        BUILD_END=$(date +%s)
+        BUILD_TIME=$((BUILD_END - BUILD_START))
+        
+        echo "建置時間: ${BUILD_TIME} 秒"
+        
+        # 檢查建置時間是否在合理範圍內
+        if [ $BUILD_TIME -gt 300 ]; then
+          echo "⚠️  警告: 建置時間超過 5 分鐘"
+        else
+          echo "✅ 建置時間正常"
+        fi
+
+    # 前端建置效能檢查
+    - name: Frontend Build Performance
+      run: |
+        echo "=== 前端建置效能檢查 ==="
+        cd frontend
+        
+        pnpm install --frozen-lockfile
+        
+        # 記錄建置開始時間
+        BUILD_START=$(date +%s)
+        
+        pnpm build
+        
+        # 記錄建置結束時間
+        BUILD_END=$(date +%s)
+        BUILD_TIME=$((BUILD_END - BUILD_START))
+        
+        echo "前端建置時間: ${BUILD_TIME} 秒"
+        
+        if [ $BUILD_TIME -gt 120 ]; then
+          echo "⚠️  警告: 前端建置時間超過 2 分鐘"
+        else
+          echo "✅ 前端建置時間正常"
+        fi
+
+  # PR 評論與總結
+  pr-summary:
+    name: PR Summary
+    runs-on: ubuntu-latest
+    needs: [code-quality, test-coverage, security-scan, performance-check]
+    if: always()
+    
+    steps:
+    - name: Generate PR Summary
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: checks } = await github.rest.checks.listForRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: context.payload.pull_request.head.sha,
+          });
+          
+          const summary = {
+            codeQuality: checks.check_runs.find(c => c.name === 'Code Quality Check')?.conclusion,
+            testCoverage: checks.check_runs.find(c => c.name === 'Test Coverage Check')?.conclusion,
+            securityScan: checks.check_runs.find(c => c.name === 'Security Scan')?.conclusion,
+            performanceCheck: checks.check_runs.find(c => c.name === 'Performance Check')?.conclusion,
+          };
+          
+          const allPassed = Object.values(summary).every(result => result === 'success');
+          const hasFailures = Object.values(summary).some(result => result === 'failure');
+          
+          let commentBody = `## 🔍 Pull Request 品質檢查結果
+          
+          ### 📊 檢查項目
+          - **程式碼品質**: ${summary.codeQuality === 'success' ? '✅ 通過' : '❌ 失敗'}
+          - **測試覆蓋率**: ${summary.testCoverage === 'success' ? '✅ 通過' : '❌ 失敗'}
+          - **安全性檢查**: ${summary.securityScan === 'success' ? '✅ 通過' : '❌ 失敗'}
+          - **效能檢查**: ${summary.performanceCheck === 'success' ? '✅ 通過' : '❌ 失敗'}
+          
+          ### 📈 整體評估
+          ${allPassed ? '🎉 **所有檢查都通過了！**' : hasFailures ? '⚠️ **發現問題需要修復**' : '⚠️ **部分檢查未完成**'}
+          
+          ### 📋 建議
+          ${allPassed ? '- 程式碼品質良好，可以進行合併' : '- 請修復失敗的檢查項目後再合併'}
+          
+          ---
+          *此評論由自動化品質檢查系統生成*`;
+          
+          // 尋找現有的機器人評論
+          const { data: comments } = await github.rest.issues.listComments({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('## 🔍 Pull Request 品質檢查結果')
+          );
+          
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              comment_id: botComment.id,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody,
+            });
+          } else {
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody,
+            });
+          }
+          
+          // 如果所有檢查都通過，添加標籤
+          if (allPassed) {
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['quality-check-passed'],
+            });
+          } else if (hasFailures) {
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['quality-check-failed'],
+            });
+          }
