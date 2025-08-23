@@ -1,307 +1,311 @@
-# 🎮 GameCore 遊戲平台
+# 🎮 GameCore 遊戲數據分析平台
 
-一個整合遊戲熱度觀測、論壇社群、商城、玩家市場、寵物養成的綜合平台。
+## 📖 專案介紹
 
-## 📋 專案概述
+GameCore 是一個現代化的遊戲數據分析平台，專為遊戲開發者、發行商和數據分析師設計。平台整合多個遊戲數據來源，提供實時監控、趨勢分析和洞察報告，幫助遊戲產業做出數據驅動的決策。
 
-GameCore 是一個功能豐富的遊戲社群平台，提供：
+### ✨ 核心功能
+- **多平台數據整合**：支援 Steam、App Store、Google Play、Twitch 等平台
+- **實時數據監控**：同時在線人數、日活躍用戶、收入等關鍵指標
+- **智能分析引擎**：AI 驅動的趨勢預測和異常檢測
+- **可視化儀表板**：互動式圖表和自定義報告
+- **API 優先架構**：RESTful API 支援第三方整合
 
-- 🎯 **遊戲熱度觀測**：即時追蹤遊戲熱度與排行榜
-- 💬 **論壇社群**：遊戲討論與社群互動
-- 🛒 **商城市集**：官方商城與玩家自由市場
-- 🐾 **寵物養成**：可愛史萊姆寵物系統
-- 🎮 **小遊戲**：冒險模式與每日簽到
-- 👥 **用戶系統**：完整的註冊登入與權限管理
-- ☁️ **雲端同步**：本地與雲端環境無縫整合
-
-## 🛠️ 技術棧
-
-### 後端
-- **.NET 8.0** - 核心框架
-- **ASP.NET Core** - Web API 與 MVC
-- **Entity Framework Core** - 資料存取
-- **SQL Server** - 資料庫
-- **Serilog** - 日誌記錄
-- **xUnit** - 單元測試
-
-### 前端
-- **Vue 3** - 前端框架
-- **TypeScript** - 型別安全
-- **Tailwind CSS** - 樣式框架
-- **Vite** - 建置工具
-- **Pinia** - 狀態管理
-- **Vue Router** - 路由管理
-
-### 雲端與部署
-- **Azure** - 雲端平台
-- **Docker** - 容器化
-- **GitHub Actions** - CI/CD
-- **Application Insights** - 監控
+### 🏗️ 技術架構
+- **後端**：ASP.NET Core 8.0 + C# + Entity Framework Core
+- **資料庫**：SQL Server 2019+ + Redis 快取
+- **前端**：Vue 3 + TypeScript + Tailwind CSS + Vite
+- **部署**：Docker + Docker Compose + GitHub Actions
+- **認證**：JWT + OAuth (Google, Facebook, Discord)
 
 ## 🚀 快速開始
 
-### 必要條件
+### 環境需求
+- .NET 8.0 SDK
+- Node.js 18+
+- Docker & Docker Compose
+- SQL Server 2019+ (或使用 Docker)
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Node.js 18+](https://nodejs.org/)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) (雲端部署)
-- [PowerShell 5.1+](https://docs.microsoft.com/powershell/scripting/install/installing-powershell)
-
-### 本地開發環境
-
-1. **複製專案**
-   ```bash
-   git clone <repository-url>
-   cd GameCore
-   ```
-
-2. **使用 Docker Compose 啟動完整環境**
-   ```bash
-   docker-compose up -d
-   ```
-
-3. **或使用一鍵設定腳本**
-   ```bash
-   .\scripts\setup.ps1
-   ```
-
-4. **啟動開發伺服器**
-   ```bash
-   .\scripts\dev.ps1
-   ```
-
-### 驗證安裝
-
-啟動完成後，您應該能夠訪問：
-
-- 🌐 **前端應用**：http://localhost:3000
-- 📊 **後端 API**：http://localhost:5000
-- 📚 **API 文件**：http://localhost:5000/api-docs
-- 💚 **健康檢查**：http://localhost:5000/health
-- 📈 **監控儀表板**：http://localhost:3001
-
-## ☁️ 雲端與本地同步
-
-### 環境管理
-
-專案支援多環境部署：
-- **local**: 本地開發環境
-- **dev**: 開發環境
-- **staging**: 測試環境
-- **prod**: 生產環境
-
-### 部署指令
-
-```powershell
-# 本地環境部署
-.\scripts\deploy.ps1 -Environment local -Action full
-
-# 開發環境部署
-.\scripts\deploy.ps1 -Environment dev -Action deploy
-
-# 生產環境部署
-.\scripts\deploy.ps1 -Environment prod -Action deploy
-
-# 資料庫同步
-.\scripts\db-sync.ps1 -Environment local -Action migrate
-.\scripts\db-sync.ps1 -Environment dev -Action backup
-
-# 監控應用程式
-.\scripts\monitor.ps1 -Environment local
-.\scripts\monitor.ps1 -Environment prod -Duration 60
-```
-
-### Azure 資源部署
-
+### 1. 克隆專案
 ```bash
-# 部署 Azure 資源
-az deployment group create \
-  --resource-group gamecore-dev-rg \
-  --template-file azure-deploy.yml \
-  --parameters environment=dev
+git clone https://github.com/your-username/gamecore.git
+cd gamecore
 ```
 
-## 📁 專案結構
+### 2. 配置環境變數
+```bash
+# 複製環境變數範本
+cp .env.sample .env
 
-```
-GameCore/
-├── 📁 src/                    # 後端原始碼
-│   ├── 📁 GameCore.Api/      # Web API 專案
-│   ├── 📁 GameCore.Mvc/      # MVC 專案
-│   ├── 📁 GameCore.Domain/   # 領域層
-│   ├── 📁 GameCore.Infrastructure/ # 基礎設施層
-│   └── 📁 GameCore.Shared/   # 共用元件
-├── 📁 frontend/              # 前端專案
-├── 📁 tests/                 # 測試專案
-├── 📁 scripts/               # 建置腳本
-├── 📁 .github/workflows/     # CI/CD 管道
-├── 📄 azure-deploy.yml       # Azure 部署模板
-├── 📄 docker-compose.yml     # 本地容器化環境
-├── 📄 env.development        # 開發環境配置
-├── 📄 env.production         # 生產環境配置
-└── 📄 README.md              # 專案說明
+# 編輯 .env 檔案，填入必要的配置
+nano .env
 ```
 
-## 🔧 開發指令
+### 3. 啟動資料庫
+```bash
+# 使用 Docker 啟動 SQL Server
+docker-compose -f docker-compose.dev.yml up -d sqlserver
 
-### 建置專案
-```powershell
-# 完整建置
-.\scripts\build.ps1 -All
-
-# 僅後端
-.\scripts\build.ps1 -Build
-
-# 包含前端
-.\scripts\build.ps1 -Build -Frontend
+# 等待資料庫啟動完成（約 30-60 秒）
 ```
 
-### 執行測試
-```powershell
-# 執行所有測試
-.\scripts\build.ps1 -Test
+### 4. 初始化資料庫
+```bash
+# 執行資料庫初始化腳本
+docker exec -i gamecore-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -i scripts/init-database.sql
 
-# 或直接執行
-dotnet test
-
-# 一鍵測試
-.\scripts\test.ps1
+# 執行假資料 Seeder
+docker exec -i gamecore-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -i scripts/seed-data.sql
 ```
 
-### 開發環境
-```powershell
-# 啟動完整開發環境
-.\scripts\dev.ps1
+### 5. 啟動後端 API
+```bash
+# 啟動 API 服務
+docker-compose -f docker-compose.dev.yml up -d api
 
-# 僅啟動後端
-.\scripts\dev.ps1 -Api
-
-# 僅啟動前端
-.\scripts\dev.ps1 -Frontend
+# 檢查 API 狀態
+curl http://localhost:5000/health
 ```
 
-## 📊 資料庫
+### 6. 啟動前端應用
+```bash
+# 啟動前端服務
+docker-compose -f docker-compose.dev.yml up -d frontend
+
+# 或使用本地開發模式
+cd frontend
+pnpm install
+pnpm dev
+```
+
+### 7. 訪問應用
+- **前端應用**：http://localhost:3000
+- **後端 API**：http://localhost:5000
+- **API 文件**：http://localhost:5000/swagger
+- **資料庫管理**：http://localhost:8080 (Adminer)
+
+## 🏛️ 專案架構
+
+### 目錄結構
+```
+gamecore/
+├── src/                          # 後端原始碼
+│   ├── GameCore.Api/            # Web API 專案
+│   ├── GameCore.Domain/         # 領域模型和業務邏輯
+│   ├── GameCore.Infrastructure/ # 基礎設施層（資料庫、外部服務）
+│   ├── GameCore.Mvc/            # MVC 專案（管理後台）
+│   └── GameCore.Shared/         # 共用類別和工具
+├── frontend/                     # 前端應用
+│   ├── src/                     # Vue 組件和邏輯
+│   ├── public/                  # 靜態資源
+│   └── dist/                    # 建置輸出
+├── tests/                       # 測試專案
+├── scripts/                     # 資料庫腳本和工具
+├── .github/                     # GitHub Actions 配置
+└── docs/                        # 專案文件
+```
+
+### 架構圖
+- **系統架構圖**：[docs/architecture/system-architecture.png]
+- **資料庫 ER 圖**：[docs/database/er-diagram.png]
+- **API 流程圖**：[docs/api/api-flow.png]
+- **部署架構圖**：[docs/deployment/deployment-architecture.png]
+
+## 🧪 開發與測試
 
 ### 本地開發
-專案使用 SQL Server LocalDB 作為開發環境資料庫：
-
-- **連線字串**：`Server=(localdb)\mssqllocaldb;Database=GameCore;Trusted_Connection=true;MultipleActiveResultSets=true`
-- **自動建立**：應用程式啟動時會自動建立資料庫
-- **假資料**：後續會提供假資料腳本
-
-### 資料庫同步
-```powershell
-# 執行遷移
-.\scripts\db-sync.ps1 -Environment local -Action migrate
-
-# 建立種子資料
-.\scripts\db-sync.ps1 -Environment local -Action seed
-
-# 備份資料庫
-.\scripts\db-sync.ps1 -Environment dev -Action backup
-
-# 還原資料庫
-.\scripts\db-sync.ps1 -Environment prod -Action restore -Source dev
-```
-
-## 🔐 環境變數
-
-### 本地環境 (env.development)
 ```bash
-DATABASE_CONNECTION_STRING="Server=localhost,1433;Database=GameCore;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true"
-JWT_SECRET_KEY="dev-super-secret-key-with-at-least-32-characters"
-REDIS_CONNECTION_STRING="localhost:6379"
+# 後端開發
+cd src/GameCore.Api
+dotnet run
+
+# 前端開發
+cd frontend
+pnpm dev
+
+# 執行測試
+dotnet test
+pnpm test
 ```
 
-### 生產環境 (env.production)
+### 測試覆蓋率
 ```bash
-DATABASE_CONNECTION_STRING="Server=tcp:gamecore-sql-prod.database.windows.net,1433;Initial Catalog=gamecore-db-prod;..."
-JWT_SECRET_KEY="@Microsoft.KeyVault(SecretUri=https://gamecore-kv-prod.vault.azure.net/secrets/JwtSecretKey/)"
-REDIS_CONNECTION_STRING="gamecore-redis-prod.redis.cache.windows.net:6380,password=${REDIS_PASSWORD},ssl=True"
+# 後端測試覆蓋率
+dotnet test --collect:"XPlat Code Coverage"
+
+# 前端測試覆蓋率
+pnpm test:coverage
 ```
 
-## 🧪 測試
+### 程式碼品質
+```bash
+# 後端程式碼分析
+dotnet build --verbosity normal
 
-專案包含完整的測試架構：
-
-- **單元測試**：使用 xUnit
-- **整合測試**：資料庫與 API 測試
-- **端對端測試**：完整流程測試
-
-執行測試：
-```powershell
-dotnet test --verbosity normal
+# 前端程式碼檢查
+pnpm lint
+pnpm type-check
 ```
 
-## 📈 監控與日誌
+## 🔧 常見錯誤排解
 
-### 本地監控
-```powershell
-# 即時監控
-.\scripts\monitor.ps1 -Environment local
+### 1. 資料庫連線問題
+**錯誤**：`A network-related or instance-specific error occurred`
+**解決方案**：
+```bash
+# 檢查 SQL Server 容器狀態
+docker-compose ps sqlserver
 
-# 持續監控
-.\scripts\monitor.ps1 -Environment local -Duration 60 -Interval 30
+# 檢查連線字串
+echo $DefaultConnection
+
+# 重新啟動資料庫服務
+docker-compose restart sqlserver
 ```
 
-### 雲端監控
-- **Application Insights**: 應用程式效能監控
-- **Azure Monitor**: 資源監控
-- **Grafana**: 自訂儀表板
+### 2. API 啟動失敗
+**錯誤**：`Failed to start application`
+**解決方案**：
+```bash
+# 檢查日誌
+docker-compose logs api
 
-## 🚀 部署
+# 檢查環境變數
+docker-compose exec api env | grep -E "(ASPNETCORE|Jwt|DefaultConnection)"
 
-### 本地部署
-```powershell
-# 使用 Docker Compose
-docker-compose up -d
-
-# 或使用部署腳本
-.\scripts\deploy.ps1 -Environment local -Action deploy
+# 檢查端口衝突
+netstat -tulpn | grep :5000
 ```
 
-### 雲端部署
-```powershell
-# 部署到開發環境
-.\scripts\deploy.ps1 -Environment dev -Action deploy
+### 3. 前端建置失敗
+**錯誤**：`Build failed with errors`
+**解決方案**：
+```bash
+# 清除快取
+rm -rf frontend/node_modules
+rm -rf frontend/.pnpm-store
 
-# 部署到生產環境
-.\scripts\deploy.ps1 -Environment prod -Action deploy
+# 重新安裝依賴
+cd frontend
+pnpm install --force
+
+# 檢查 TypeScript 配置
+pnpm type-check
 ```
 
-### CI/CD 管道
-- **GitHub Actions**: 自動化測試和建置
-- **Azure DevOps**: 雲端部署管道
-- **Docker**: 容器化部署
+### 4. Docker 映像建置失敗
+**錯誤**：`Docker build failed`
+**解決方案**：
+```bash
+# 清除 Docker 快取
+docker system prune -a
 
-## 📝 開發規範
+# 重新建置映像
+docker-compose build --no-cache
 
-- **程式碼風格**：遵循 .editorconfig 設定
-- **命名規範**：C# 使用 PascalCase，JavaScript 使用 camelCase
-- **註解**：重要邏輯必須加上中文註解
-- **測試**：新功能必須包含對應測試
+# 檢查 Dockerfile 語法
+docker build --target build .
+```
+
+## 📋 開發慣例
+
+### Git 提交規範
+```bash
+# 提交格式
+<type>(<scope>): <description>
+
+# 類型說明
+feat:     新功能
+fix:      錯誤修復
+docs:     文件更新
+style:    程式碼格式調整
+refactor: 重構
+test:     測試相關
+chore:    建置或輔助工具變更
+
+# 範例
+feat(auth): 新增 Google OAuth 登入功能
+fix(api): 修復用戶註冊驗證問題
+docs(readme): 更新安裝說明
+```
+
+### 分支策略
+```bash
+main          # 生產環境分支
+├── develop   # 開發主分支
+├── feature/* # 功能開發分支
+├── bugfix/*  # 錯誤修復分支
+└── hotfix/*  # 緊急修復分支
+```
+
+### 程式碼風格
+- **C#**：遵循 Microsoft C# 編碼慣例
+- **TypeScript**：使用 ESLint + Prettier
+- **SQL**：使用 PascalCase 命名，加入中文註解
+- **註解**：關鍵邏輯必須加入中文註解
+
+### API 設計規範
+- RESTful 設計原則
+- 使用 HTTP 狀態碼
+- 統一的回應格式
+- 版本控制（/api/v1/）
+- 完整的 Swagger 文件
+
+## 🚀 CI/CD 流程
+
+### GitHub Actions 工作流程
+1. **程式碼檢查**：Lint、Type Check、Build
+2. **測試執行**：單元測試、整合測試
+3. **品質檢查**：程式碼覆蓋率、安全掃描
+4. **建置部署**：Docker 映像建置、部署
+
+### 部署環境
+- **開發環境**：自動部署到 develop 分支
+- **測試環境**：手動觸發部署
+- **生產環境**：手動審核後部署
+
+## 📚 相關文件
+
+- [部署指南](DEPLOYMENT.md)
+- [API 文件](docs/api/README.md)
+- [資料庫設計](docs/database/README.md)
+- [前端組件庫](docs/frontend/components.md)
+- [測試指南](docs/testing/README.md)
 
 ## 🤝 貢獻指南
 
+### 如何貢獻
 1. Fork 專案
 2. 建立功能分支 (`git checkout -b feature/AmazingFeature`)
 3. 提交變更 (`git commit -m 'Add some AmazingFeature'`)
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 開啟 Pull Request
 
+### 開發環境設定
+```bash
+# 安裝開發工具
+dotnet tool install --global dotnet-ef
+dotnet tool install --global dotnet-format
+
+# 設定 Git Hooks
+cp scripts/git-hooks/* .git/hooks/
+chmod +x .git/hooks/*
+```
+
 ## 📄 授權
 
-本專案採用 MIT 授權條款 - 詳見 [LICENSE](LICENSE) 檔案
+此專案採用 MIT 授權條款 - 詳見 [LICENSE](LICENSE) 檔案
 
-## 📞 支援
+## 📞 聯絡資訊
 
-如有問題或建議，請：
+- **專案維護者**：[your-email@example.com]
+- **技術支援**：[support@gamecore.com]
+- **專案網站**：[https://gamecore.example.com]
 
-1. 查看 [Issues](../../issues)
-2. 建立新的 Issue
-3. 聯繫開發團隊
+## 🙏 致謝
+
+感謝所有為此專案做出貢獻的開發者和社群成員。
 
 ---
 
-**🎮 享受 GameCore 的遊戲世界！**
+**注意**：此專案仍在積極開發中，API 和功能可能會有所變更。請查看 [CHANGELOG](CHANGELOG.md) 了解最新變更。

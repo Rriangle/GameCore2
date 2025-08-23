@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # SQL Server 資料庫
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: gamecore-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./scripts:/scripts
+    networks:
+      - gamecore-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 後端 API
+  api:
+    build:
+      context: .
+      dockerfile: src/GameCore.Api/Dockerfile
+    container_name: gamecore-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - DefaultConnection=Server=sqlserver,1433;Database=GameCore;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true
+      - Jwt__SecretKey=dev-secret-key-for-development-only-minimum-32-chars
+      - Jwt__Issuer=GameCore
+      - Jwt__Audience=GameCoreUsers
+      - Jwt__ExpiryMinutes=60
+    ports:
+      - "5000:5000"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - gamecore-network
+    volumes:
+      - ./logs:/app/logs
+
+  # 前端應用
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: gamecore-frontend
+    environment:
+      - VITE_API_BASE_URL=http://localhost:5000/api
+      - VITE_APP_TITLE=GameCore Dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    networks:
+      - gamecore-network
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - /app/node_modules
+
+  # Redis 快取（可選）
+  redis:
+    image: redis:7-alpine
+    container_name: gamecore-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - gamecore-network
+    volumes:
+      - redis_data:/data
+
+  # 資料庫管理工具（可選）
+  adminer:
+    image: adminer:latest
+    container_name: gamecore-adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sqlserver
+    networks:
+      - gamecore-network
+
+volumes:
+  sqlserver_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  gamecore-network:
+    driver: bridge
