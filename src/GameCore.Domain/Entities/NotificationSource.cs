@@ -4,40 +4,44 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶錢包表
+    /// 通知來源表
     /// </summary>
-    [Table("user_wallet")]
-    public class UserWallet
+    [Table("notification_sources")]
+    public class NotificationSource
     {
         /// <summary>
-        /// 錢包ID（主鍵，自動遞增）
+        /// 來源ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int wallet_id { get; set; }
+        public int source_id { get; set; }
 
         /// <summary>
-        /// 用戶ID（外鍵參考 users.user_id）
+        /// 來源名稱
         /// </summary>
         [Required]
-        public int user_id { get; set; }
+        [StringLength(100)]
+        public string source_name { get; set; } = string.Empty;
 
         /// <summary>
-        /// 帳戶餘額
+        /// 來源描述
+        /// </summary>
+        [StringLength(500)]
+        public string? description { get; set; }
+
+        /// <summary>
+        /// 來源類型（system/user/order/forum等）
         /// </summary>
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal balance { get; set; } = 0.00m;
+        [StringLength(50)]
+        public string source_type { get; set; } = string.Empty;
 
         /// <summary>
-        /// 積分餘額
+        /// 來源狀態（active/inactive）
         /// </summary>
-        public int points_balance { get; set; } = 0;
-
-        /// <summary>
-        /// 最後交易時間
-        /// </summary>
-        public DateTime? last_transaction_at { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string status { get; set; } = "active";
 
         /// <summary>
         /// 建立時間
@@ -48,12 +52,5 @@ namespace GameCore.Domain.Entities
         /// 更新時間
         /// </summary>
         public DateTime? updated_at { get; set; }
-
-        // 導航屬性
-        /// <summary>
-        /// 用戶
-        /// </summary>
-        [ForeignKey("user_id")]
-        public virtual User User { get; set; } = null!;
     }
 }

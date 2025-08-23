@@ -4,53 +4,47 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶表
+    /// 論壇主題回覆表
     /// </summary>
-    [Table("users")]
-    public class User
+    [Table("thread_posts")]
+    public class ThreadPost
     {
         /// <summary>
-        /// 用戶ID（主鍵，自動遞增）
+        /// 回覆ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int user_id { get; set; }
+        public long post_id { get; set; }
 
         /// <summary>
-        /// 用戶名
+        /// 主題ID（外鍵參考 threads.thread_id）
         /// </summary>
         [Required]
-        [StringLength(50)]
-        public string username { get; set; } = string.Empty;
+        public long thread_id { get; set; }
 
         /// <summary>
-        /// 電子郵件
+        /// 作者ID（外鍵參考 users.user_id）
         /// </summary>
         [Required]
-        [StringLength(100)]
-        [EmailAddress]
-        public string email { get; set; } = string.Empty;
+        public int author_id { get; set; }
 
         /// <summary>
-        /// 密碼雜湊
+        /// 回覆內容
         /// </summary>
         [Required]
-        [StringLength(255)]
-        public string password_hash { get; set; } = string.Empty;
+        public string content { get; set; } = string.Empty;
 
         /// <summary>
-        /// 用戶狀態（active/inactive/banned）
+        /// 回覆狀態（active/hidden/deleted）
         /// </summary>
         [Required]
         [StringLength(20)]
         public string status { get; set; } = "active";
 
         /// <summary>
-        /// 用戶角色（user/moderator/admin）
+        /// 點讚次數
         /// </summary>
-        [Required]
-        [StringLength(20)]
-        public string role { get; set; } = "user";
+        public int like_count { get; set; } = 0;
 
         /// <summary>
         /// 建立時間
@@ -64,8 +58,15 @@ namespace GameCore.Domain.Entities
 
         // 導航屬性
         /// <summary>
-        /// 貼文
+        /// 主題
         /// </summary>
-        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+        [ForeignKey("thread_id")]
+        public virtual Thread Thread { get; set; } = null!;
+
+        /// <summary>
+        /// 作者
+        /// </summary>
+        [ForeignKey("author_id")]
+        public virtual User Author { get; set; } = null!;
     }
 }

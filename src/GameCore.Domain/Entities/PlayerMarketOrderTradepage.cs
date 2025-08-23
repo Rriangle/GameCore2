@@ -4,40 +4,40 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶錢包表
+    /// 自由市場訂單交易頁面表
     /// </summary>
-    [Table("user_wallet")]
-    public class UserWallet
+    [Table("player_market_order_tradepage")]
+    public class PlayerMarketOrderTradepage
     {
         /// <summary>
-        /// 錢包ID（主鍵，自動遞增）
+        /// 交易頁面ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int wallet_id { get; set; }
+        public long tradepage_id { get; set; }
 
         /// <summary>
-        /// 用戶ID（外鍵參考 users.user_id）
+        /// 訂單ID（外鍵參考 player_market_order_info.order_id）
         /// </summary>
         [Required]
-        public int user_id { get; set; }
+        public long order_id { get; set; }
 
         /// <summary>
-        /// 帳戶餘額
+        /// 交易狀態（pending/completed/cancelled）
         /// </summary>
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal balance { get; set; } = 0.00m;
+        [StringLength(20)]
+        public string trade_status { get; set; } = "pending";
 
         /// <summary>
-        /// 積分餘額
+        /// 交易開始時間
         /// </summary>
-        public int points_balance { get; set; } = 0;
+        public DateTime trade_start_time { get; set; } = DateTime.UtcNow;
 
         /// <summary>
-        /// 最後交易時間
+        /// 交易完成時間
         /// </summary>
-        public DateTime? last_transaction_at { get; set; }
+        public DateTime? trade_complete_time { get; set; }
 
         /// <summary>
         /// 建立時間
@@ -51,9 +51,9 @@ namespace GameCore.Domain.Entities
 
         // 導航屬性
         /// <summary>
-        /// 用戶
+        /// 訂單
         /// </summary>
-        [ForeignKey("user_id")]
-        public virtual User User { get; set; } = null!;
+        [ForeignKey("order_id")]
+        public virtual PlayerMarketOrderInfo Order { get; set; } = null!;
     }
 }

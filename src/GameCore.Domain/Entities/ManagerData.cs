@@ -4,53 +4,57 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶表
+    /// 管理員資料表
     /// </summary>
-    [Table("users")]
-    public class User
+    [Table("manager_data")]
+    public class ManagerData
     {
         /// <summary>
-        /// 用戶ID（主鍵，自動遞增）
+        /// 管理員ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int user_id { get; set; }
+        public int manager_id { get; set; }
 
         /// <summary>
-        /// 用戶名
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string username { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 電子郵件
+        /// 管理員姓名
         /// </summary>
         [Required]
         [StringLength(100)]
-        [EmailAddress]
-        public string email { get; set; } = string.Empty;
+        public string manager_name { get; set; } = string.Empty;
 
         /// <summary>
-        /// 密碼雜湊
+        /// 管理員帳號
+        /// </summary>
+        [Required]
+        [StringLength(50)]
+        public string manager_account { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 管理員密碼雜湊
         /// </summary>
         [Required]
         [StringLength(255)]
         public string password_hash { get; set; } = string.Empty;
 
         /// <summary>
-        /// 用戶狀態（active/inactive/banned）
+        /// 管理員角色（admin/moderator/support）
+        /// </summary>
+        [Required]
+        [StringLength(20)]
+        public string role { get; set; } = "support";
+
+        /// <summary>
+        /// 管理員狀態（active/inactive/suspended）
         /// </summary>
         [Required]
         [StringLength(20)]
         public string status { get; set; } = "active";
 
         /// <summary>
-        /// 用戶角色（user/moderator/admin）
+        /// 最後登入時間
         /// </summary>
-        [Required]
-        [StringLength(20)]
-        public string role { get; set; } = "user";
+        public DateTime? last_login_at { get; set; }
 
         /// <summary>
         /// 建立時間
@@ -61,11 +65,5 @@ namespace GameCore.Domain.Entities
         /// 更新時間
         /// </summary>
         public DateTime? updated_at { get; set; }
-
-        // 導航屬性
-        /// <summary>
-        /// 貼文
-        /// </summary>
-        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
     }
 }

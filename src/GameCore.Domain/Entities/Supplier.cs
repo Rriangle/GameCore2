@@ -4,53 +4,56 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶表
+    /// 供應商表
     /// </summary>
-    [Table("users")]
-    public class User
+    [Table("suppliers")]
+    public class Supplier
     {
         /// <summary>
-        /// 用戶ID（主鍵，自動遞增）
+        /// 供應商ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int user_id { get; set; }
+        public int supplier_id { get; set; }
 
         /// <summary>
-        /// 用戶名
+        /// 供應商名稱
         /// </summary>
         [Required]
-        [StringLength(50)]
-        public string username { get; set; } = string.Empty;
+        [StringLength(200)]
+        public string supplier_name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 供應商描述
+        /// </summary>
+        [StringLength(1000)]
+        public string? description { get; set; }
+
+        /// <summary>
+        /// 聯絡電話
+        /// </summary>
+        [StringLength(20)]
+        public string? phone { get; set; }
 
         /// <summary>
         /// 電子郵件
         /// </summary>
-        [Required]
         [StringLength(100)]
         [EmailAddress]
-        public string email { get; set; } = string.Empty;
+        public string? email { get; set; }
 
         /// <summary>
-        /// 密碼雜湊
+        /// 聯絡地址
         /// </summary>
-        [Required]
-        [StringLength(255)]
-        public string password_hash { get; set; } = string.Empty;
+        [StringLength(500)]
+        public string? address { get; set; }
 
         /// <summary>
-        /// 用戶狀態（active/inactive/banned）
+        /// 供應商狀態（active/inactive）
         /// </summary>
         [Required]
         [StringLength(20)]
         public string status { get; set; } = "active";
-
-        /// <summary>
-        /// 用戶角色（user/moderator/admin）
-        /// </summary>
-        [Required]
-        [StringLength(20)]
-        public string role { get; set; } = "user";
 
         /// <summary>
         /// 建立時間
@@ -61,11 +64,5 @@ namespace GameCore.Domain.Entities
         /// 更新時間
         /// </summary>
         public DateTime? updated_at { get; set; }
-
-        // 導航屬性
-        /// <summary>
-        /// 貼文
-        /// </summary>
-        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
     }
 }

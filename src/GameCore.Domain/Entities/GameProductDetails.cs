@@ -4,53 +4,49 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶表
+    /// 遊戲商品詳情表
     /// </summary>
-    [Table("users")]
-    public class User
+    [Table("game_product_details")]
+    public class GameProductDetails
     {
         /// <summary>
-        /// 用戶ID（主鍵，自動遞增）
+        /// 詳情ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int user_id { get; set; }
+        public int detail_id { get; set; }
 
         /// <summary>
-        /// 用戶名
+        /// 遊戲ID（外鍵參考 games.game_id）
         /// </summary>
         [Required]
-        [StringLength(50)]
-        public string username { get; set; } = string.Empty;
+        public int game_id { get; set; }
 
         /// <summary>
-        /// 電子郵件
+        /// 商品名稱
         /// </summary>
         [Required]
-        [StringLength(100)]
-        [EmailAddress]
-        public string email { get; set; } = string.Empty;
+        [StringLength(200)]
+        public string product_name { get; set; } = string.Empty;
 
         /// <summary>
-        /// 密碼雜湊
+        /// 商品描述
         /// </summary>
-        [Required]
-        [StringLength(255)]
-        public string password_hash { get; set; } = string.Empty;
+        [StringLength(1000)]
+        public string? description { get; set; }
 
         /// <summary>
-        /// 用戶狀態（active/inactive/banned）
+        /// 商品價格
         /// </summary>
-        [Required]
-        [StringLength(20)]
-        public string status { get; set; } = "active";
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal? price { get; set; }
 
         /// <summary>
-        /// 用戶角色（user/moderator/admin）
+        /// 商品狀態（available/sold-out/discontinued）
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string role { get; set; } = "user";
+        public string status { get; set; } = "available";
 
         /// <summary>
         /// 建立時間
@@ -64,8 +60,9 @@ namespace GameCore.Domain.Entities
 
         // 導航屬性
         /// <summary>
-        /// 貼文
+        /// 遊戲
         /// </summary>
-        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+        [ForeignKey("game_id")]
+        public virtual Game Game { get; set; } = null!;
     }
 }

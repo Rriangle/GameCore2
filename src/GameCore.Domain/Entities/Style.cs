@@ -4,53 +4,56 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶表
+    /// 樣式表
     /// </summary>
-    [Table("users")]
-    public class User
+    [Table("styles")]
+    public class Style
     {
         /// <summary>
-        /// 用戶ID（主鍵，自動遞增）
+        /// 樣式ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int user_id { get; set; }
+        public int style_id { get; set; }
 
         /// <summary>
-        /// 用戶名
+        /// 管理員ID（外鍵參考 manager_data.manager_id）
         /// </summary>
         [Required]
-        [StringLength(50)]
-        public string username { get; set; } = string.Empty;
+        public int manager_id { get; set; }
 
         /// <summary>
-        /// 電子郵件
+        /// 樣式名稱
         /// </summary>
         [Required]
         [StringLength(100)]
-        [EmailAddress]
-        public string email { get; set; } = string.Empty;
+        public string style_name { get; set; } = string.Empty;
 
         /// <summary>
-        /// 密碼雜湊
+        /// 樣式描述
+        /// </summary>
+        [StringLength(500)]
+        public string? description { get; set; }
+
+        /// <summary>
+        /// 樣式類型（theme/layout/color等）
         /// </summary>
         [Required]
-        [StringLength(255)]
-        public string password_hash { get; set; } = string.Empty;
+        [StringLength(50)]
+        public string style_type { get; set; } = string.Empty;
 
         /// <summary>
-        /// 用戶狀態（active/inactive/banned）
+        /// 樣式內容（CSS/JSON等）
+        /// </summary>
+        [Required]
+        public string style_content { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 樣式狀態（active/inactive/draft）
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string status { get; set; } = "active";
-
-        /// <summary>
-        /// 用戶角色（user/moderator/admin）
-        /// </summary>
-        [Required]
-        [StringLength(20)]
-        public string role { get; set; } = "user";
+        public string status { get; set; } = "draft";
 
         /// <summary>
         /// 建立時間
@@ -64,8 +67,9 @@ namespace GameCore.Domain.Entities
 
         // 導航屬性
         /// <summary>
-        /// 貼文
+        /// 管理員
         /// </summary>
-        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+        [ForeignKey("manager_id")]
+        public virtual ManagerData Manager { get; set; } = null!;
     }
 }

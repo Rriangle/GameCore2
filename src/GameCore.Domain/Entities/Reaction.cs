@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶錢包表
+    /// 反應表
     /// </summary>
-    [Table("user_wallet")]
-    public class UserWallet
+    [Table("reactions")]
+    public class Reaction
     {
         /// <summary>
-        /// 錢包ID（主鍵，自動遞增）
+        /// 反應ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int wallet_id { get; set; }
+        public long reaction_id { get; set; }
 
         /// <summary>
         /// 用戶ID（外鍵參考 users.user_id）
@@ -23,31 +23,29 @@ namespace GameCore.Domain.Entities
         public int user_id { get; set; }
 
         /// <summary>
-        /// 帳戶餘額
+        /// 反應類型（like/love/laugh/wow/sad/angry）
         /// </summary>
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal balance { get; set; } = 0.00m;
+        [StringLength(20)]
+        public string reaction_type { get; set; } = "like";
 
         /// <summary>
-        /// 積分餘額
+        /// 目標類型（post/thread/comment）
         /// </summary>
-        public int points_balance { get; set; } = 0;
+        [Required]
+        [StringLength(20)]
+        public string target_type { get; set; } = string.Empty;
 
         /// <summary>
-        /// 最後交易時間
+        /// 目標ID
         /// </summary>
-        public DateTime? last_transaction_at { get; set; }
+        [Required]
+        public long target_id { get; set; }
 
         /// <summary>
         /// 建立時間
         /// </summary>
         public DateTime created_at { get; set; } = DateTime.UtcNow;
-
-        /// <summary>
-        /// 更新時間
-        /// </summary>
-        public DateTime? updated_at { get; set; }
 
         // 導航屬性
         /// <summary>
