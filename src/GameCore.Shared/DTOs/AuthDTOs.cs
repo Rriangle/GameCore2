@@ -26,13 +26,13 @@ public class RegisterRequestDto
     /// </summary>
     [Required(ErrorMessage = "密碼為必填欄位")]
     [StringLength(100, MinimumLength = 6, ErrorMessage = "密碼長度必須在6-100個字元之間")]
-    public string Password { get; set; } = string.Empty;
+    public string User_Password { get; set; } = string.Empty;
 
     /// <summary>
     /// 確認密碼
     /// </summary>
     [Required(ErrorMessage = "確認密碼為必填欄位")]
-    [Compare("Password", ErrorMessage = "密碼與確認密碼不符")]
+    [Compare("User_Password", ErrorMessage = "密碼與確認密碼不符")]
     public string ConfirmPassword { get; set; } = string.Empty;
 
     /// <summary>
@@ -100,7 +100,7 @@ public class LoginRequestDto
     /// 密碼
     /// </summary>
     [Required(ErrorMessage = "密碼為必填欄位")]
-    public string Password { get; set; } = string.Empty;
+    public string User_Password { get; set; } = string.Empty;
 
     /// <summary>
     /// 記住我
@@ -120,10 +120,27 @@ public class OAuthLoginRequestDto
     public string Provider { get; set; } = string.Empty;
 
     /// <summary>
+    /// OAuth 用戶唯一識別碼
+    /// </summary>
+    [Required(ErrorMessage = "OAuth 用戶ID為必填欄位")]
+    public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// OAuth 用戶姓名
+    /// </summary>
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// OAuth 用戶電子郵件
+    /// </summary>
+    [Required(ErrorMessage = "OAuth 電子郵件為必填欄位")]
+    [EmailAddress(ErrorMessage = "請輸入有效的電子郵件格式")]
+    public string Email { get; set; } = string.Empty;
+
+    /// <summary>
     /// OAuth 授權碼
     /// </summary>
-    [Required(ErrorMessage = "授權碼為必填欄位")]
-    public string Code { get; set; } = string.Empty;
+    public string? Code { get; set; }
 
     /// <summary>
     /// 回調 URL
@@ -132,10 +149,37 @@ public class OAuthLoginRequestDto
 }
 
 /// <summary>
+/// 重新整理權杖請求 DTO
+/// </summary>
+public class RefreshTokenRequestDto
+{
+    /// <summary>
+    /// 重新整理權杖
+    /// </summary>
+    [Required(ErrorMessage = "重新整理權杖為必填欄位")]
+    public string RefreshToken { get; set; } = string.Empty;
+}
+
+/// <summary>
 /// 登入回應 DTO
 /// </summary>
 public class LoginResponseDto
 {
+    /// <summary>
+    /// 用戶編號
+    /// </summary>
+    public int User_ID { get; set; }
+
+    /// <summary>
+    /// 用戶姓名
+    /// </summary>
+    public string User_name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 登入帳號
+    /// </summary>
+    public string User_Account { get; set; } = string.Empty;
+
     /// <summary>
     /// JWT 存取權杖
     /// </summary>
@@ -152,9 +196,9 @@ public class LoginResponseDto
     public DateTime ExpiresAt { get; set; }
 
     /// <summary>
-    /// 使用者基本資訊
+    /// 權杖類型
     /// </summary>
-    public UserProfileDto User { get; set; } = new();
+    public string TokenType { get; set; } = "Bearer";
 }
 
 /// <summary>
@@ -265,6 +309,11 @@ public class UserRightsDto
 public class UserWalletDto
 {
     /// <summary>
+    /// 使用者編號
+    /// </summary>
+    public int User_Id { get; set; }
+
+    /// <summary>
     /// 使用者點數
     /// </summary>
     public int User_Point { get; set; }
@@ -338,7 +387,7 @@ public class ChangePasswordRequestDto
     /// 目前密碼
     /// </summary>
     [Required(ErrorMessage = "目前密碼為必填欄位")]
-    public string CurrentPassword { get; set; } = string.Empty;
+    public string OldPassword { get; set; } = string.Empty;
 
     /// <summary>
     /// 新密碼
@@ -352,5 +401,5 @@ public class ChangePasswordRequestDto
     /// </summary>
     [Required(ErrorMessage = "確認新密碼為必填欄位")]
     [Compare("NewPassword", ErrorMessage = "新密碼與確認新密碼不符")]
-    public string ConfirmNewPassword { get; set; } = string.Empty;
+    public string ConfirmPassword { get; set; } = string.Empty;
 }
