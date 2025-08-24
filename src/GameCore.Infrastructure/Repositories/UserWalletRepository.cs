@@ -17,7 +17,7 @@ public class UserWalletRepository : IUserWalletRepository
     public async Task<UserWallet?> GetByUserIdAsync(int userId)
     {
         return await _context.UserWallets
-            .FirstOrDefaultAsync(w => w.UserId == userId);
+            .FirstOrDefaultAsync(w => w.User_Id == userId);
     }
 
     public async Task<UserWallet> CreateAsync(UserWallet wallet)
@@ -29,16 +29,15 @@ public class UserWalletRepository : IUserWalletRepository
 
     public async Task<UserWallet> UpdateAsync(UserWallet wallet)
     {
-        wallet.UpdatedAt = DateTime.UtcNow;
         _context.UserWallets.Update(wallet);
         await _context.SaveChangesAsync();
         return wallet;
     }
 
-    public async Task<decimal> GetBalanceAsync(int userId)
+    public async Task<int> GetBalanceAsync(int userId)
     {
         var wallet = await _context.UserWallets
-            .FirstOrDefaultAsync(w => w.UserId == userId);
-        return wallet?.Balance ?? 0m;
+            .FirstOrDefaultAsync(w => w.User_Id == userId);
+        return wallet?.User_Point ?? 0;
     }
 }

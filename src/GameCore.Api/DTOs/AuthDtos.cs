@@ -40,14 +40,21 @@ public class AuthResponseDto
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 }
 
+/// <summary>
+/// 用戶個人資料 DTO - 對應新的用戶實體結構
+/// </summary>
 public class UserProfileDto
 {
     public int UserId { get; set; }
     public string Username { get; set; } = string.Empty;
+    public string FullName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public decimal Balance { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime? LastLoginAt { get; set; }
+    public string Nickname { get; set; } = string.Empty;
+    public int Points { get; set; }
+    public bool CanShop { get; set; }
+    public bool CanMessage { get; set; }
+    public bool CanSell { get; set; }
+    public bool IsActive { get; set; }
 }
 
 public class WalletBalanceDto

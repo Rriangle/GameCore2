@@ -3,24 +3,35 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameCore.Domain.Entities;
 
+/// <summary>
+/// 使用者錢包資料表 - 存放用戶點數和優惠券
+/// 對應資料庫表格: User_wallet
+/// </summary>
 [Table("User_wallet")]
 public class UserWallet
 {
+    /// <summary>
+    /// 使用者編號 (主鍵，外鍵到 Users)
+    /// </summary>
     [Key]
-    public int WalletId { get; set; }
+    public int User_Id { get; set; }
 
+    /// <summary>
+    /// 使用者點數餘額
+    /// </summary>
     [Required]
-    public int UserId { get; set; }
+    public int User_Point { get; set; } = 0;
 
-    [Required]
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal Balance { get; set; } = 100.00m; // 初始點數 100
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    /// <summary>
+    /// 優惠券編號 (可為空)
+    /// </summary>
+    [StringLength(50)]
+    public string? Coupon_Number { get; set; }
 
     // 導航屬性
-    [ForeignKey("UserId")]
+    /// <summary>
+    /// 關聯到使用者主檔
+    /// </summary>
+    [ForeignKey("User_Id")]
     public virtual User User { get; set; } = null!;
 }

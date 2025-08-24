@@ -6,6 +6,7 @@ namespace GameCore.Api.Services;
 
 /// <summary>
 /// 認證服務，處理用戶註冊、登入和個人資料管理
+/// 根據新的實體結構設計：Users + UserIntroduce + UserRights + UserWallet
 /// </summary>
 public class AuthService : IAuthService
 {
@@ -26,7 +27,10 @@ public class AuthService : IAuthService
         _logger = logger;
     }
 
-    public async Task<AuthResult> RegisterAsync(string username, string email, string password)
+    /// <summary>
+    /// 用戶註冊 - 建立完整的用戶資料 (Users + UserIntroduce + UserRights + UserWallet)
+    /// </summary>
+    public async Task<AuthResult> RegisterAsync(string username, string email, string password, string fullName, string nickname, string gender, string idNumber, string cellphone, string address, DateTime dateOfBirth)
     {
         _logger.LogInformation("開始處理用戶註冊請求: {Username}", username);
 
@@ -46,64 +50,109 @@ public class AuthService : IAuthService
                 return new AuthResult { Success = false, ErrorMessage = "郵箱已被註冊" };
             }
 
-            // 建立新用戶
+            // 建立用戶詳細資料 (UserIntroduce 表)
+            var userIntroduce = new UserIntroduce
+            {
+                User_NickName = nickname.Trim(),
+                Gender = gender.Trim().ToUpperInvariant(),
+                IdNumber = idNumber.Trim(),
+                Cellphone = cellphone.Trim(),
+                Email = email.Trim().ToLowerInvariant(),
+                Address = address.Trim(),
+                DateOfBirth = dateOfBirth,
+                Create_Account = DateTime.UtcNow
+            };
+
+            // 建立用戶權限 (UserRights 表)
+            var userRights = new UserRights
+            {
+                User_Status = true,       // 預設啟用
+                ShoppingPermission = true, // 預設可購物
+                MessagePermission = true,  // 預設可留言
+                SalesAuthority = false     // 預設不開放銷售，需申請
+            };
+
+            // 建立用戶錢包 (UserWallet 表)
+            var wallet = new UserWallet
+            {
+                User_Point = 0, // 初始點數為 0
+                Coupon_Number = null
+            };
+
+            // 建立新用戶主檔並關聯所有相關資料 (一次性建立)
             var user = new User
             {
-                Username = username.Trim(),
-                Email = email.Trim().ToLowerInvariant(),
-                PasswordHash = BC.HashPassword(password),
-                CreatedAt = DateTime.UtcNow,
-                IsActive = true
+                User_name = fullName.Trim(),
+                User_Account = username.Trim(),
+                User_Password = BC.HashPassword(password),
+                UserIntroduce = userIntroduce,
+                UserRights = userRights,
+                Wallet = wallet
             };
 
             var createdUser = await _userRepository.CreateAsync(user);
 
-            // 建立用戶錢包
-            var wallet = new UserWallet
-            {
-                UserId = createdUser.UserId,
-                Balance = 100.00m, // 初始點數
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
+            // 產生 JWT Token
+            var token = _jwtService.GenerateToken(createdUser.User_ID, createdUser.User_Account, email);
 
-            await _walletRepository.CreateAsync(wallet);
-
-            // 生成 JWT Token
-            var token = _jwtService.GenerateToken(createdUser.UserId, createdUser.Username, createdUser.Email);
-
-            _logger.LogInformation("用戶註冊成功: {UserId} {Username}", createdUser.UserId, createdUser.Username);
+            _logger.LogInformation("用戶註冊成功: User_ID = {UserId}, User_Account = {UserAccount}", 
+                createdUser.User_ID, createdUser.User_Account);
 
             return new AuthResult
             {
                 Success = true,
                 Token = token,
-                User = new UserProfile
+                User = new UserInfo
                 {
-                    UserId = createdUser.UserId,
-                    Username = createdUser.Username,
-                    Email = createdUser.Email,
-                    Balance = wallet.Balance,
-                    CreatedAt = createdUser.CreatedAt,
-                    LastLoginAt = createdUser.LastLoginAt
+                    UserId = createdUser.User_ID,
+                    Username = createdUser.User_Account,
+                    FullName = createdUser.User_name,
+                    Email = createdUser.UserIntroduce?.Email ?? email,
+                    Nickname = createdUser.UserIntroduce?.User_NickName ?? nickname,
+                    Points = createdUser.Wallet?.User_Point ?? 0,
+                    CanShop = createdUser.UserRights?.ShoppingPermission ?? true,
+                    CanMessage = createdUser.UserRights?.MessagePermission ?? true,
+                    CanSell = createdUser.UserRights?.SalesAuthority ?? false,
+                    IsActive = createdUser.UserRights?.User_Status ?? true
                 }
             };
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "註冊過程中發生未預期的錯誤: {Username}", username);
+            _logger.LogError(ex, "註冊過程中發生錯誤: {Username}", username);
             return new AuthResult { Success = false, ErrorMessage = "註冊失敗，請稍後再試" };
         }
     }
 
+    /// <summary>
+    /// 簡化版註冊方法 (向後相容)
+    /// </summary>
+    public async Task<AuthResult> RegisterAsync(string username, string email, string password)
+    {
+        return await RegisterAsync(
+            username: username,
+            email: email,
+            password: password,
+            fullName: username, // 使用 username 作為姓名
+            nickname: username, // 使用 username 作為暱稱
+            gender: "M", // 預設男性
+            idNumber: GenerateRandomIdNumber(), // 產生假的身分證字號
+            cellphone: GenerateRandomPhone(), // 產生假的電話號碼
+            address: "台北市中正區", // 預設地址
+            dateOfBirth: new DateTime(1990, 1, 1) // 預設生日
+        );
+    }
+
+    /// <summary>
+    /// 用戶登入
+    /// </summary>
     public async Task<AuthResult> LoginAsync(string username, string password)
     {
         _logger.LogInformation("開始處理用戶登入請求: {Username}", username);
 
         try
         {
-            // 查找用戶
-            var user = await _userRepository.GetByUsernameAsync(username.Trim());
+            var user = await _userRepository.GetByUsernameForLoginAsync(username);
             if (user == null)
             {
                 _logger.LogWarning("登入失敗：用戶不存在: {Username}", username);
@@ -111,82 +160,107 @@ public class AuthService : IAuthService
             }
 
             // 驗證密碼
-            if (!BC.Verify(password, user.PasswordHash))
+            if (!BC.Verify(password, user.User_Password))
             {
-                _logger.LogWarning("登入失敗：密碼錯誤: {Username}", username);
+                _logger.LogWarning("登入失敗：密碼錯誤: User_ID = {UserId}", user.User_ID);
                 return new AuthResult { Success = false, ErrorMessage = "用戶名或密碼錯誤" };
             }
 
-            // 檢查用戶是否啟用
-            if (!user.IsActive)
+            // 檢查用戶狀態
+            if (user.UserRights?.User_Status != true)
             {
-                _logger.LogWarning("登入失敗：帳戶已被停用: {UserId}", user.UserId);
-                return new AuthResult { Success = false, ErrorMessage = "帳戶已被停用" };
+                _logger.LogWarning("登入失敗：用戶已被停權: User_ID = {UserId}", user.User_ID);
+                return new AuthResult { Success = false, ErrorMessage = "帳號已被停權，請聯繫客服" };
             }
 
-            // 更新最後登入時間
-            user.LastLoginAt = DateTime.UtcNow;
-            await _userRepository.UpdateAsync(user);
+            // 產生 JWT Token
+            var token = _jwtService.GenerateToken(user.User_ID, user.User_Account, user.UserIntroduce?.Email ?? "");
 
-            // 獲取錢包餘額
-            var balance = await _walletRepository.GetBalanceAsync(user.UserId);
-
-            // 生成 JWT Token
-            var token = _jwtService.GenerateToken(user.UserId, user.Username, user.Email);
-
-            _logger.LogInformation("用戶登入成功: {UserId} {Username}", user.UserId, user.Username);
+            _logger.LogInformation("用戶登入成功: User_ID = {UserId}, User_Account = {UserAccount}", 
+                user.User_ID, user.User_Account);
 
             return new AuthResult
             {
                 Success = true,
                 Token = token,
-                User = new UserProfile
+                User = new UserInfo
                 {
-                    UserId = user.UserId,
-                    Username = user.Username,
-                    Email = user.Email,
-                    Balance = balance,
-                    CreatedAt = user.CreatedAt,
-                    LastLoginAt = user.LastLoginAt
+                    UserId = user.User_ID,
+                    Username = user.User_Account,
+                    FullName = user.User_name,
+                    Email = user.UserIntroduce?.Email ?? "",
+                    Nickname = user.UserIntroduce?.User_NickName ?? "",
+                    Points = user.Wallet?.User_Point ?? 0,
+                    CanShop = user.UserRights?.ShoppingPermission ?? false,
+                    CanMessage = user.UserRights?.MessagePermission ?? false,
+                    CanSell = user.UserRights?.SalesAuthority ?? false,
+                    IsActive = user.UserRights?.User_Status ?? false
                 }
             };
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "登入過程中發生未預期的錯誤: {Username}", username);
+            _logger.LogError(ex, "登入過程中發生錯誤: {Username}", username);
             return new AuthResult { Success = false, ErrorMessage = "登入失敗，請稍後再試" };
         }
     }
 
-    public async Task<UserProfile?> GetUserProfileAsync(int userId)
+    /// <summary>
+    /// 取得用戶個人資訊
+    /// </summary>
+    public async Task<UserInfo?> GetUserInfoAsync(int userId)
     {
-        _logger.LogDebug("獲取用戶資料: {UserId}", userId);
+        _logger.LogDebug("查詢用戶資訊: User_ID = {UserId}", userId);
 
         try
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
-                _logger.LogWarning("用戶不存在: {UserId}", userId);
+                _logger.LogWarning("用戶不存在: User_ID = {UserId}", userId);
                 return null;
             }
 
-            var balance = await _walletRepository.GetBalanceAsync(userId);
-
-            return new UserProfile
+            return new UserInfo
             {
-                UserId = user.UserId,
-                Username = user.Username,
-                Email = user.Email,
-                Balance = balance,
-                CreatedAt = user.CreatedAt,
-                LastLoginAt = user.LastLoginAt
+                UserId = user.User_ID,
+                Username = user.User_Account,
+                FullName = user.User_name,
+                Email = user.UserIntroduce?.Email ?? "",
+                Nickname = user.UserIntroduce?.User_NickName ?? "",
+                Points = user.Wallet?.User_Point ?? 0,
+                CanShop = user.UserRights?.ShoppingPermission ?? false,
+                CanMessage = user.UserRights?.MessagePermission ?? false,
+                CanSell = user.UserRights?.SalesAuthority ?? false,
+                IsActive = user.UserRights?.User_Status ?? false
             };
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "獲取用戶資料時發生錯誤: {UserId}", userId);
+            _logger.LogError(ex, "查詢用戶資訊時發生錯誤: User_ID = {UserId}", userId);
             return null;
         }
     }
+
+    /// <summary>
+    /// 產生隨機身分證字號 (假資料)
+    /// </summary>
+    private string GenerateRandomIdNumber()
+    {
+        var random = new Random();
+        var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var firstLetter = letters[random.Next(letters.Length)];
+        var numbers = random.Next(100000000, 999999999);
+        return $"{firstLetter}{numbers}";
+    }
+
+    /// <summary>
+    /// 產生隨機電話號碼 (假資料)
+    /// </summary>
+    private string GenerateRandomPhone()
+    {
+        var random = new Random();
+        return $"09{random.Next(10000000, 99999999)}";
+    }
 }
+

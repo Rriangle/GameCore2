@@ -62,10 +62,14 @@ public class AuthController : ControllerBase
                 {
                     UserId = result.User!.UserId,
                     Username = result.User.Username,
+                    FullName = result.User.FullName,
                     Email = result.User.Email,
-                    Balance = result.User.Balance,
-                    CreatedAt = result.User.CreatedAt,
-                    LastLoginAt = result.User.LastLoginAt
+                    Nickname = result.User.Nickname,
+                    Points = result.User.Points,
+                    CanShop = result.User.CanShop,
+                    CanMessage = result.User.CanMessage,
+                    CanSell = result.User.CanSell,
+                    IsActive = result.User.IsActive
                 }
             };
 
@@ -118,10 +122,14 @@ public class AuthController : ControllerBase
                 {
                     UserId = result.User!.UserId,
                     Username = result.User.Username,
+                    FullName = result.User.FullName,
                     Email = result.User.Email,
-                    Balance = result.User.Balance,
-                    CreatedAt = result.User.CreatedAt,
-                    LastLoginAt = result.User.LastLoginAt
+                    Nickname = result.User.Nickname,
+                    Points = result.User.Points,
+                    CanShop = result.User.CanShop,
+                    CanMessage = result.User.CanMessage,
+                    CanSell = result.User.CanSell,
+                    IsActive = result.User.IsActive
                 }
             };
 
@@ -156,7 +164,7 @@ public class AuthController : ControllerBase
             return Unauthorized(ApiResponse<object>.ErrorResult("無效的認證資訊"));
         }
 
-        var profile = await _authService.GetUserProfileAsync(userId);
+        var profile = await _authService.GetUserInfoAsync(userId);
         if (profile == null)
         {
             _logger.LogWarning("用戶不存在: {CorrelationId}, UserId: {UserId}", correlationId, userId);
@@ -167,10 +175,14 @@ public class AuthController : ControllerBase
         {
             UserId = profile.UserId,
             Username = profile.Username,
+            FullName = profile.FullName,
             Email = profile.Email,
-            Balance = profile.Balance,
-            CreatedAt = profile.CreatedAt,
-            LastLoginAt = profile.LastLoginAt
+            Nickname = profile.Nickname,
+            Points = profile.Points,
+            CanShop = profile.CanShop,
+            CanMessage = profile.CanMessage,
+            CanSell = profile.CanSell,
+            IsActive = profile.IsActive
         };
 
         _logger.LogInformation("成功獲取個人資料: {CorrelationId}, UserId: {UserId}", correlationId, userId);

@@ -127,11 +127,26 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health");
 
-// 確保資料庫已建立
+// 確保資料庫已建立並生成種子資料
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GameCoreDbContext>();
-    context.Database.EnsureCreated();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
+    try
+    {
+        await context.Database.EnsureCreatedAsync();
+        
+        // 生成種子資料
+        var seeder = new DbSeeder(context, scope.ServiceProvider.GetRequiredService<ILogger<DbSeeder>>());
+        await seeder.SeedAsync();
+        
+        logger.LogInformation("資料庫初始化完成");
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "資料庫初始化失敗");
+    }
 }
 
 Log.Information("GameCore API 啟動完成");
