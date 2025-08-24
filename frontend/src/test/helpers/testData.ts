@@ -5,8 +5,8 @@ export const createMockUserProfile = (overrides: Partial<UserProfile> = {}): Use
     username: 'testuser',
     email: 'test@example.com',
     balance: 100.00,
-    createdAt: new Date('2024-01-01T00:00:00Z'),
-    lastLoginAt: new Date('2024-01-01T12:00:00Z'),
+    createdAt: '2024-01-01T00:00:00Z',
+    lastLoginAt: '2024-01-01T12:00:00Z',
     ...overrides
 });
 
@@ -35,8 +35,8 @@ export const createMockAuthResponse = (overrides: Partial<AuthResponse> = {}): A
 export const createMockErrorResponse = (message: string = '操作失敗'): AuthResponse => ({
     success: false,
     message,
-    token: null,
-    user: null
+    token: undefined,
+    user: undefined
 });
 
 export const mockApiError = {

@@ -1,4 +1,5 @@
 using GameCore.Api.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;

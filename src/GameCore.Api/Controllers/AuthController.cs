@@ -1,4 +1,5 @@
 using GameCore.Api.DTOs;
+using GameCore.Api.Extensions;
 using GameCore.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

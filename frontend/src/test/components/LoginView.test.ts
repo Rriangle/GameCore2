@@ -158,7 +158,7 @@ describe('LoginView', () => {
     });
 
     it('應該清除錯誤訊息', async () => {
-        mockAuthStore.error = '之前的錯誤';
+        mockAuthStore.error = '之前的錯誤' as any;
 
         const wrapper = mount(LoginView, {
             global: {
