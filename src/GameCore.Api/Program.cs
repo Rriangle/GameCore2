@@ -133,11 +133,17 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health");
 
-// 確保資料庫已建立
+// 確保資料庫已建立並初始化種子資料
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GameCoreDbContext>();
     context.Database.EnsureCreated();
+    
+    // 初始化種子資料（僅在開發環境）
+    if (app.Environment.IsDevelopment())
+    {
+        await GameCore.Infrastructure.Data.SeedData.InitializeAsync(context);
+    }
 }
 
 Log.Information("GameCore API 啟動完成");
