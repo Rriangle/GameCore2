@@ -1,5 +1,5 @@
 ////
-////使用者基本資料 
+////使用者基本資料-
 ///
 Table Users {
 User_ID int [pk, increment, note: '使用者編號']
