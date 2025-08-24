@@ -77,9 +77,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// 註冊服務
+// 註冊服務 - 使用者相關
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserIntroduceRepository, UserIntroduceRepository>();
+builder.Services.AddScoped<IUserRightsRepository, UserRightsRepository>();
 builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
+builder.Services.AddScoped<IMemberSalesProfileRepository, MemberSalesProfileRepository>();
+builder.Services.AddScoped<IUserSalesInformationRepository, UserSalesInformationRepository>();
+
+// 業務服務
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
 
