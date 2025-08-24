@@ -83,6 +83,18 @@ builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
 
+// 註冊業務邏輯服務
+builder.Services.AddScoped<ISignInService, SignInService>();
+builder.Services.AddScoped<IPetService, PetService>();
+builder.Services.AddScoped<IStoreService, StoreService>();
+builder.Services.AddScoped<IMarketService, MarketService>();
+builder.Services.AddScoped<IForumService, ForumService>();
+builder.Services.AddScoped<IMiniGameService, MiniGameService>();
+
+// 註冊資料填充服務
+builder.Services.AddScoped<SeedData>();
+builder.Services.AddHostedService<SeedCommand>();
+
 // CORS 設定
 builder.Services.AddCors(options =>
 {
