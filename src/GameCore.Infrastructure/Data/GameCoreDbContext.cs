@@ -105,12 +105,47 @@ public class GameCoreDbContext : DbContext
 
     #endregion
 
+    #region DbSet 屬性 - 自由市場相關表
+
+    /// <summary>
+    /// 自由市場商品資訊表
+    /// </summary>
+    public DbSet<PlayerMarketProductInfo> PlayerMarketProducts { get; set; }
+
+    /// <summary>
+    /// 自由市場商品圖片表
+    /// </summary>
+    public DbSet<PlayerMarketProductImgs> PlayerMarketProductImages { get; set; }
+
+    /// <summary>
+    /// 自由市場訂單表
+    /// </summary>
+    public DbSet<PlayerMarketOrderInfo> PlayerMarketOrders { get; set; }
+
+    /// <summary>
+    /// 自由市場交易頁面表
+    /// </summary>
+    public DbSet<PlayerMarketOrderTradepage> PlayerMarketTradepages { get; set; }
+
+    /// <summary>
+    /// 自由市場交易訊息表
+    /// </summary>
+    public DbSet<PlayerMarketTradeMsg> PlayerMarketTradeMessages { get; set; }
+
+    /// <summary>
+    /// 自由市場排行榜表
+    /// </summary>
+    public DbSet<PlayerMarketRanking> PlayerMarketRankings { get; set; }
+
+    #endregion
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         
         ConfigureUserEntities(modelBuilder);
         ConfigureStoreEntities(modelBuilder);
+        ConfigurePlayerMarketEntities(modelBuilder);
     }
 
     /// <summary>
@@ -563,6 +598,272 @@ public class GameCoreDbContext : DbContext
                 .WithMany(p => p.AuditLogs)
                 .HasForeignKey(e => e.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
+
+    /// <summary>
+    /// 配置自由市場相關實體
+    /// </summary>
+    private static void ConfigurePlayerMarketEntities(ModelBuilder modelBuilder)
+    {
+        // 配置 PlayerMarketProductInfo 實體
+        modelBuilder.Entity<PlayerMarketProductInfo>(entity =>
+        {
+            entity.HasKey(e => e.PProductId);
+            entity.Property(e => e.PProductId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.PProductType)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            entity.Property(e => e.PProductTitle)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.PProductName)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.PProductDescription)
+                .HasMaxLength(2000);
+            
+            entity.Property(e => e.PProductPrice)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.PStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.PProductImgId)
+                .HasMaxLength(100);
+            
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+            
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 User (賣家)
+            entity.HasOne(e => e.Seller)
+                .WithMany()
+                .HasForeignKey(e => e.SellerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // 關聯到 ProductInfo (可選)
+            entity.HasOne(e => e.Product)
+                .WithMany()
+                .HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // 索引
+            entity.HasIndex(e => e.SellerId);
+            entity.HasIndex(e => e.PProductType);
+            entity.HasIndex(e => e.PStatus);
+            entity.HasIndex(e => e.CreatedAt);
+        });
+
+        // 配置 PlayerMarketProductImgs 實體
+        modelBuilder.Entity<PlayerMarketProductImgs>(entity =>
+        {
+            entity.HasKey(e => e.PProductImgId);
+            entity.Property(e => e.PProductImgId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.PProductImgUrl)
+                .IsRequired();
+            
+            entity.Property(e => e.ImgDescription)
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.UploadedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 PlayerMarketProductInfo
+            entity.HasOne(e => e.Product)
+                .WithMany(p => p.Images)
+                .HasForeignKey(e => e.PProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引
+            entity.HasIndex(e => e.PProductId);
+            entity.HasIndex(e => new { e.PProductId, e.ImgOrder });
+        });
+
+        // 配置 PlayerMarketOrderInfo 實體
+        modelBuilder.Entity<PlayerMarketOrderInfo>(entity =>
+        {
+            entity.HasKey(e => e.POrderId);
+            entity.Property(e => e.POrderId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.POrderStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.PPaymentStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.POrderUnitPrice)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.POrderTotalAmount)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.POrderCreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+            
+            entity.Property(e => e.POrderUpdatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 PlayerMarketProductInfo
+            entity.HasOne(e => e.Product)
+                .WithMany(p => p.Orders)
+                .HasForeignKey(e => e.PProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // 關聯到 User (賣家)
+            entity.HasOne(e => e.Seller)
+                .WithMany()
+                .HasForeignKey(e => e.SellerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // 關聯到 User (買家)
+            entity.HasOne(e => e.Buyer)
+                .WithMany()
+                .HasForeignKey(e => e.BuyerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // 索引
+            entity.HasIndex(e => e.PProductId);
+            entity.HasIndex(e => e.SellerId);
+            entity.HasIndex(e => e.BuyerId);
+            entity.HasIndex(e => e.POrderStatus);
+            entity.HasIndex(e => e.POrderCreatedAt);
+        });
+
+        // 配置 PlayerMarketOrderTradepage 實體
+        modelBuilder.Entity<PlayerMarketOrderTradepage>(entity =>
+        {
+            entity.HasKey(e => e.POrderTradepageId);
+            entity.Property(e => e.POrderTradepageId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.POrderPlatformFee)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.Status)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.SellerNotes)
+                .HasMaxLength(500);
+            
+            entity.Property(e => e.BuyerNotes)
+                .HasMaxLength(500);
+            
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+            
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 PlayerMarketOrderInfo (一對一)
+            entity.HasOne(e => e.Order)
+                .WithOne(o => o.TradePage)
+                .HasForeignKey<PlayerMarketOrderTradepage>(e => e.POrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 關聯到 PlayerMarketProductInfo
+            entity.HasOne(e => e.Product)
+                .WithMany()
+                .HasForeignKey(e => e.PProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // 索引
+            entity.HasIndex(e => e.POrderId).IsUnique();
+            entity.HasIndex(e => e.Status);
+        });
+
+        // 配置 PlayerMarketTradeMsg 實體
+        modelBuilder.Entity<PlayerMarketTradeMsg>(entity =>
+        {
+            entity.HasKey(e => e.TradeMsgId);
+            entity.Property(e => e.TradeMsgId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.MsgFrom)
+                .IsRequired()
+                .HasMaxLength(20);
+            
+            entity.Property(e => e.MessageText)
+                .IsRequired()
+                .HasMaxLength(1000);
+            
+            entity.Property(e => e.MessageType)
+                .IsRequired()
+                .HasMaxLength(20);
+            
+            entity.Property(e => e.MessageStatus)
+                .IsRequired()
+                .HasMaxLength(20);
+            
+            entity.Property(e => e.AttachmentFilename)
+                .HasMaxLength(255);
+            
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 PlayerMarketOrderTradepage
+            entity.HasOne(e => e.TradePage)
+                .WithMany(tp => tp.Messages)
+                .HasForeignKey(e => e.POrderTradepageId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 關聯到 User (發送者)
+            entity.HasOne(e => e.Sender)
+                .WithMany()
+                .HasForeignKey(e => e.SenderUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // 索引
+            entity.HasIndex(e => e.POrderTradepageId);
+            entity.HasIndex(e => e.CreatedAt);
+            entity.HasIndex(e => new { e.POrderTradepageId, e.CreatedAt });
+        });
+
+        // 配置 PlayerMarketRanking 實體
+        modelBuilder.Entity<PlayerMarketRanking>(entity =>
+        {
+            entity.HasKey(e => e.PRankingId);
+            entity.Property(e => e.PRankingId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.PPeriodType)
+                .IsRequired()
+                .HasMaxLength(20);
+            
+            entity.Property(e => e.PRankingMetric)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.PTradingAmount)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.SellerRating)
+                .HasColumnType("decimal(3,2)");
+            
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("GETDATE()");
+            
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 PlayerMarketProductInfo
+            entity.HasOne(e => e.Product)
+                .WithMany(p => p.Rankings)
+                .HasForeignKey(e => e.PProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 複合索引
+            entity.HasIndex(e => new { e.PPeriodType, e.PRankingDate, e.PProductId })
+                .IsUnique();
+            entity.HasIndex(e => new { e.PPeriodType, e.PRankingMetric, e.PRankingPosition });
         });
     }
 
