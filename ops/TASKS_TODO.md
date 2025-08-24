@@ -9,9 +9,9 @@
 ### 1. 後端核心模組補齊
 
 #### 1.1 Game 模組
-- [ ] `src/GameCore.Api/Controllers/GameController.cs` - 遊戲控制器
-- [ ] `src/GameCore.Api/DTOs/GameDTOs.cs` - 遊戲相關 DTO
-- [ ] `src/GameCore.Api/Services/GameService.cs` - 遊戲服務層
+- [x] `src/GameCore.Api/Controllers/GameController.cs` - 遊戲控制器
+- [x] `src/GameCore.Api/DTOs/GameDTOs.cs` - 遊戲相關 DTO
+- [x] `src/GameCore.Api/Services/GameService.cs` - 遊戲服務層
 - [ ] `src/GameCore.Infrastructure/Repositories/GameRepository.cs` - 遊戲資料存取層
 - [ ] `tests/GameCore.Api.Tests/Controllers/GameControllerTests.cs` - 遊戲控制器測試
 
@@ -32,7 +32,7 @@
 ### 2. 前端 Pinia Stores 補齊
 
 #### 2.1 核心 Stores
-- [ ] `frontend/src/stores/game.ts` - 遊戲狀態管理
+- [x] `frontend/src/stores/game.ts` - 遊戲狀態管理
 - [ ] `frontend/src/stores/forum.ts` - 論壇狀態管理
 - [ ] `frontend/src/stores/pet.ts` - 寵物系統狀態管理
 - [ ] `frontend/src/stores/notification.ts` - 通知狀態管理
@@ -40,7 +40,7 @@
 - [ ] `frontend/src/stores/user.ts` - 用戶資料管理
 
 #### 2.2 前端服務層
-- [ ] `frontend/src/services/gameService.ts` - 遊戲 API 服務
+- [x] `frontend/src/services/gameService.ts` - 遊戲 API 服務
 - [ ] `frontend/src/services/forumService.ts` - 論壇 API 服務
 - [ ] `frontend/src/services/petService.ts` - 寵物 API 服務
 - [ ] `frontend/src/services/notificationService.ts` - 通知 API 服務
