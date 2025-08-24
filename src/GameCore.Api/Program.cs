@@ -136,3 +136,6 @@ using (var scope = app.Services.CreateScope())
 
 Log.Information("GameCore API 啟動完成");
 app.Run();
+
+// 測試專用 - 讓測試專案可以存取 Program 類別
+public partial class Program { }
