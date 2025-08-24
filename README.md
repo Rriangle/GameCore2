@@ -1,41 +1,62 @@
-# GameCore 專案 - Stage 1 實作
+# GameCore 專案 - Stage 2 實作
 
 ## 概述
 
 GameCore 是一個集結合遊戲熱度觀測、論壇社群、官方商城、玩家自由市場、寵物養成與小遊戲、即時訊息等功能的整合平台。
 
-本文件記錄 Stage 1 的實作內容，主要專注於核心身份驗證與用戶管理系統。
+本文件記錄 Stage 2 的實作內容，擴展了錢包系統與銷售功能，建構在 Stage 1 的身份驗證與用戶管理系統之上。
 
-## Stage 1 - 核心身份驗證與用戶系統
+## Stage 1 - 核心身份驗證與用戶系統 ✅ 已完成
+
+## Stage 2 - 錢包系統與銷售功能
 
 ### 已實作功能
 
-#### 1. 用戶身份驗證系統
-- ✅ **用戶註冊** - 支援完整的用戶資料註冊
-- ✅ **用戶登入** - 密碼雜湊驗證
-- ✅ **JWT 權杖系統** - 產生和驗證存取權杖
-- ✅ **OAuth 預備架構** - 支援 Google、Facebook、Discord 登入架構
-- ✅ **密碼安全** - SHA256 雜湊加鹽處理
+#### 1. 錢包系統 (Wallet System)
+- ✅ **錢包餘額查詢** - 取得用戶點數和優惠券資訊
+- ✅ **點數交易管理** - 增加/扣除點數操作
+- ✅ **交易明細查詢** - 分頁式交易記錄 (多來源彙整架構)
+- ✅ **餘額檢查** - 驗證用戶點數是否足夠
+- ✅ **管理者點數調整** - 後台點數增減功能
+- ✅ **銀行代號服務** - 台灣主要銀行資訊查詢
 
-#### 2. 用戶資料管理
-- ✅ **基本用戶資料** (Users 表)
-- ✅ **詳細用戶資料** (User_Introduce 表)
-- ✅ **用戶權限管理** (User_Rights 表)
-- ✅ **用戶錢包系統** (User_wallet 表)
-- ✅ **銷售檔案管理** (MemberSalesProfile 表)
-- ✅ **銷售錢包** (User_Sales_Information 表)
+#### 2. 銷售功能 (Sales System)
+- ✅ **銷售資料申請** - 用戶申請銷售功能
+- ✅ **銀行帳號管理** - 銀行代號與帳號驗證
+- ✅ **帳戶封面照片** - Base64 圖片上傳處理
+- ✅ **銷售權限控制** - 基於 User_Rights.SalesAuthority
+- ✅ **銷售錢包系統** - 獨立的銷售收入管理
+- ✅ **申請審核機制** - 管理者核准/拒絕銷售申請
+- ✅ **銀行帳號唯一性** - 防止重複銀行帳號註冊
 
-#### 3. 系統架構
-- ✅ **三層式架構** - Domain、Infrastructure、Presentation
-- ✅ **Entity Framework Core** - Code First 方式
-- ✅ **依賴注入** - 完整的 DI 容器設定
-- ✅ **JWT 認證中介軟體** - ASP.NET Core 整合
-- ✅ **Swagger UI** - API 文件與測試介面
+#### 3. 資料存取層 (Data Access)
+- ✅ **MemberSalesProfileRepository** - 銷售資料倉儲
+- ✅ **UserSalesInformationRepository** - 銷售錢包倉儲
+- ✅ **交易安全性** - 餘額不足保護機制
+- ✅ **資料一致性** - 原子性操作保證
 
-#### 4. 測試與品質保證
-- ✅ **單元測試** - AuthService 完整測試覆蓋
-- ✅ **Mock 物件** - 使用 Moq 框架
-- ✅ **測試資料** - 完整的種子資料
+#### 4. API 端點 (REST Endpoints)
+- ✅ **WalletController** - 錢包相關 API
+  - `GET /api/wallet/balance` - 查詢錢包餘額
+  - `GET /api/wallet/transactions` - 查詢交易明細
+  - `GET /api/wallet/check-balance/{amount}` - 檢查餘額
+  - `GET /api/wallet/bank-codes` - 取得銀行代號
+  - `POST /api/wallet/admin/adjust-points` - 管理者調整點數
+- ✅ **SalesController** - 銷售相關 API
+  - `POST /api/sales/apply` - 申請銷售功能
+  - `GET /api/sales/profile` - 查詢銷售資料
+  - `PUT /api/sales/profile` - 更新銷售資料
+  - `GET /api/sales/wallet` - 查詢銷售錢包
+  - `GET /api/sales/authority` - 檢查銷售權限
+  - `GET /api/sales/admin/pending-applications` - 待審核申請
+  - `POST /api/sales/admin/review/{userId}` - 審核銷售申請
+
+#### 5. 測試與品質保證
+- ✅ **WalletServiceTests** - 錢包服務單元測試 (19 個測試案例)
+- ✅ **SalesServiceTests** - 銷售服務單元測試 (19 個測試案例)
+- ✅ **Mock 物件架構** - 完整的測試隔離
+- ✅ **邊界條件測試** - 餘額不足、重複申請等情境
+- ✅ **業務邏輯驗證** - 權限檢查、資料驗證
 
 ## 專案結構
 
@@ -131,16 +152,55 @@ dotnet run
 | POST | `/api/users/change-password` | 修改密碼 |
 | POST | `/api/users/upload-avatar` | 上傳頭像 |
 
+### 錢包系統 (/api/wallet)
+
+| 方法 | 端點 | 說明 |
+|------|------|------|
+| GET | `/api/wallet/balance` | 查詢錢包餘額 |
+| GET | `/api/wallet/transactions` | 查詢交易明細 (分頁) |
+| GET | `/api/wallet/check-balance/{amount}` | 檢查餘額是否足夠 |
+| GET | `/api/wallet/bank-codes` | 取得銀行代號清單 |
+| POST | `/api/wallet/admin/adjust-points` | 管理者調整點數 |
+
+### 銷售系統 (/api/sales)
+
+| 方法 | 端點 | 說明 |
+|------|------|------|
+| POST | `/api/sales/apply` | 申請銷售功能 |
+| GET | `/api/sales/profile` | 查詢銷售資料 |
+| PUT | `/api/sales/profile` | 更新銷售資料 |
+| GET | `/api/sales/wallet` | 查詢銷售錢包 |
+| GET | `/api/sales/authority` | 檢查銷售權限 |
+| GET | `/api/sales/check-balance/{amount}` | 檢查銷售錢包餘額 |
+| GET | `/api/sales/admin/pending-applications` | 取得待審核申請 |
+| POST | `/api/sales/admin/review/{userId}` | 審核銷售申請 |
+
 ## 測試資料
 
 系統會自動建立以下測試帳號：
 
-| 帳號 | 密碼 | 說明 |
-|------|------|------|
-| admin@gamecore.com | admin123 | 管理員帳號 |
-| user1@gamecore.com | user123 | 測試用戶1 |
-| user2@gamecore.com | user123 | 測試用戶2 |
-| demo@gamecore.com | demo123 | 展示帳號 |
+| 帳號 | 密碼 | 說明 | 初始點數 | 銷售權限 | 銷售錢包 |
+|------|------|------|----------|----------|----------|
+| admin@gamecore.com | admin123 | 管理員帳號 | 10,000 | ✅ | 5,000 |
+| user1@gamecore.com | user123 | 測試用戶1 | 1,100 | ✅ | 2,500 |
+| user2@gamecore.com | user123 | 測試用戶2 | 1,200 | ❌ | - |
+| demo@gamecore.com | demo123 | 展示帳號 | 1,300 | ❌ | - |
+
+### 銀行資料範例
+
+已建立的銷售用戶銀行帳號：
+- **管理員**: 中國信託銀行 (822) - 1234567890123
+- **用戶1**: 中華郵政 (700) - 9876543210987
+
+### 支援的銀行代號
+
+| 銀行代號 | 銀行名稱 |
+|----------|----------|
+| 822 | 中國信託 |
+| 700 | 中華郵政 |
+| 808 | 玉山銀行 |
+| 812 | 台新銀行 |
+| 803 | 聯邦銀行 |
 
 ## 範例 API 呼叫
 
@@ -178,31 +238,65 @@ curl -X GET "https://localhost:7000/api/users/me" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
+### 查詢錢包餘額 (需要 JWT)
+```bash
+curl -X GET "https://localhost:7000/api/wallet/balance" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### 申請銷售功能 (需要 JWT)
+```bash
+curl -X POST "https://localhost:7000/api/sales/apply" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "bankCode": 822,
+    "bankAccountNumber": "1234567890123",
+    "accountCoverPhotoBase64": null
+  }'
+```
+
+### 管理者調整用戶點數 (需要 JWT)
+```bash
+curl -X POST "https://localhost:7000/api/wallet/admin/adjust-points" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "userId": 2,
+    "delta": 500,
+    "reason": "活動獎勵"
+  }'
+```
+
 ## 技術特色
 
 ### 安全性
 - **密碼雜湊**: SHA256 + 固定鹽值
 - **JWT 驗證**: HS256 演算法
 - **權限控制**: 角色基礎存取控制
+- **交易安全**: 餘額檢查與原子性操作
+- **銀行帳號驗證**: 唯一性檢查與格式驗證
 
 ### 效能
 - **非同步程式設計**: 全面使用 async/await
 - **連線管理**: Entity Framework Core 最佳化
+- **分頁查詢**: 交易記錄支援分頁避免效能問題
 - **快取準備**: 架構支援未來快取實作
 
 ### 可維護性
 - **SOLID 原則**: 依賴反轉、單一職責
 - **介面分離**: 清楚的抽象層
 - **測試友善**: 高度可測試的設計
+- **錯誤處理**: 完整的例外處理與日誌記錄
+
+### 資料一致性
+- **交易保護**: 避免重複扣款或餘額不足
+- **狀態管理**: 銷售申請審核流程控制
+- **外鍵約束**: 確保資料關聯完整性
 
 ## 下一階段規劃
 
-### Stage 2 - 錢包與銷售系統
-- 完整的點數交易系統
-- 銷售權限申請流程
-- 錢包交易記錄
-
-### Stage 3 - 商城系統
+### Stage 3 - 官方商城系統
 - 官方商城 B2C 功能
 - 玩家市集 C2C 功能
 - 訂單管理與支付整合

@@ -94,11 +94,15 @@ builder.Services.AddCors(options =>
 // Register repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
+builder.Services.AddScoped<IMemberSalesProfileRepository, MemberSalesProfileRepository>();
+builder.Services.AddScoped<IUserSalesInformationRepository, UserSalesInformationRepository>();
 
 // Register services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
+builder.Services.AddScoped<ISalesService, SalesService>();
 
 // Add logging
 builder.Services.AddLogging(logging =>
