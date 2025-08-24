@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities;
 
 /// <summary>
-/// 使用者錢包表 - 管理用戶點數和優惠券
+/// 開通銷售功能表 - 銀行帳戶資料
 /// </summary>
-[Table("User_wallet")]
-public class UserWallet
+[Table("MemberSalesProfile")]
+public class MemberSalesProfile
 {
     /// <summary>
     /// 使用者編號 (主鍵，外鍵到 Users)
@@ -17,17 +17,23 @@ public class UserWallet
     public int User_Id { get; set; }
 
     /// <summary>
-    /// 使用者點數
+    /// 銀行代號
     /// </summary>
-    [Column("User_Point")]
-    public int User_Point { get; set; } = 0;
+    [Column("BankCode")]
+    public int? BankCode { get; set; }
 
     /// <summary>
-    /// 優惠券編號
+    /// 銀行帳號
     /// </summary>
-    [Column("Coupon_Number")]
-    [StringLength(50)]
-    public string? Coupon_Number { get; set; }
+    [Column("BankAccountNumber")]
+    [StringLength(30)]
+    public string? BankAccountNumber { get; set; }
+
+    /// <summary>
+    /// 帳戶封面照片
+    /// </summary>
+    [Column("AccountCoverPhoto")]
+    public byte[]? AccountCoverPhoto { get; set; }
 
     // 導航屬性
     /// <summary>
