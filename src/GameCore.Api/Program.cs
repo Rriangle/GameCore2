@@ -90,6 +90,9 @@ builder.Services.AddScoped<IStoreService, StoreService>();
 builder.Services.AddScoped<IMarketService, MarketService>();
 builder.Services.AddScoped<IForumService, ForumService>();
 builder.Services.AddScoped<IMiniGameService, MiniGameService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IBlockedUserService, BlockedUserService>();
 
 // 註冊資料填充服務
 builder.Services.AddScoped<SeedData>();
