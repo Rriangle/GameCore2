@@ -61,11 +61,56 @@ public class GameCoreDbContext : DbContext
 
     #endregion
 
+    #region DbSet 屬性 - 官方商城相關表
+
+    /// <summary>
+    /// 供應商表
+    /// </summary>
+    public DbSet<Supplier> Suppliers { get; set; }
+
+    /// <summary>
+    /// 商品資訊表
+    /// </summary>
+    public DbSet<ProductInfo> ProductInfos { get; set; }
+
+    /// <summary>
+    /// 遊戲商品詳細資訊表
+    /// </summary>
+    public DbSet<GameProductDetails> GameProductDetails { get; set; }
+
+    /// <summary>
+    /// 其他商品詳細資訊表
+    /// </summary>
+    public DbSet<OtherProductDetails> OtherProductDetails { get; set; }
+
+    /// <summary>
+    /// 訂單資訊表
+    /// </summary>
+    public DbSet<OrderInfo> OrderInfos { get; set; }
+
+    /// <summary>
+    /// 訂單明細表
+    /// </summary>
+    public DbSet<OrderItems> OrderItems { get; set; }
+
+    /// <summary>
+    /// 官方商城排行榜表
+    /// </summary>
+    public DbSet<OfficialStoreRanking> OfficialStoreRankings { get; set; }
+
+    /// <summary>
+    /// 商品資訊異動記錄表
+    /// </summary>
+    public DbSet<ProductInfoAuditLog> ProductInfoAuditLogs { get; set; }
+
+    #endregion
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         
         ConfigureUserEntities(modelBuilder);
+        ConfigureStoreEntities(modelBuilder);
     }
 
     /// <summary>
@@ -280,6 +325,244 @@ public class GameCoreDbContext : DbContext
                   .WithMany(e => e.MiniGames)
                   .HasForeignKey(e => e.UserID)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
+
+    /// <summary>
+    /// 配置官方商城相關實體
+    /// </summary>
+    private static void ConfigureStoreEntities(ModelBuilder modelBuilder)
+    {
+        // 配置 Supplier 實體
+        modelBuilder.Entity<Supplier>(entity =>
+        {
+            entity.HasKey(e => e.SupplierId);
+            entity.Property(e => e.SupplierId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.SupplierName)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            entity.HasIndex(e => e.SupplierName).IsUnique();
+        });
+
+        // 配置 ProductInfo 實體
+        modelBuilder.Entity<ProductInfo>(entity =>
+        {
+            entity.HasKey(e => e.ProductId);
+            entity.Property(e => e.ProductId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.ProductName)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.ProductType)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.Price)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.CurrencyCode)
+                .HasMaxLength(10);
+            
+            entity.Property(e => e.ProductCreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+            
+            entity.Property(e => e.ProductUpdatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 User (建立者)
+            entity.HasOne(e => e.Creator)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 配置 GameProductDetails 實體
+        modelBuilder.Entity<GameProductDetails>(entity =>
+        {
+            entity.HasKey(e => e.ProductId);
+            
+            entity.Property(e => e.ProductName)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.ProductDescription)
+                .HasMaxLength(2000);
+            
+            entity.Property(e => e.GameName)
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.DownloadLink)
+                .HasMaxLength(500);
+
+            // 一對一關聯到 ProductInfo
+            entity.HasOne(e => e.ProductInfo)
+                .WithOne(p => p.GameProductDetails)
+                .HasForeignKey<GameProductDetails>(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 關聯到 Supplier
+            entity.HasOne(e => e.Supplier)
+                .WithMany(s => s.GameProducts)
+                .HasForeignKey(e => e.SupplierId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 配置 OtherProductDetails 實體
+        modelBuilder.Entity<OtherProductDetails>(entity =>
+        {
+            entity.HasKey(e => e.ProductId);
+            
+            entity.Property(e => e.ProductName)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.ProductDescription)
+                .HasMaxLength(2000);
+            
+            entity.Property(e => e.DigitalCode)
+                .HasMaxLength(100);
+            
+            entity.Property(e => e.Size)
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.Color)
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.Weight)
+                .HasColumnType("decimal(10,2)");
+            
+            entity.Property(e => e.Dimensions)
+                .HasMaxLength(100);
+            
+            entity.Property(e => e.Material)
+                .HasMaxLength(100);
+
+            // 一對一關聯到 ProductInfo
+            entity.HasOne(e => e.ProductInfo)
+                .WithOne(p => p.OtherProductDetails)
+                .HasForeignKey<OtherProductDetails>(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 關聯到 Supplier
+            entity.HasOne(e => e.Supplier)
+                .WithMany(s => s.OtherProducts)
+                .HasForeignKey(e => e.SupplierId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 配置 OrderInfo 實體
+        modelBuilder.Entity<OrderInfo>(entity =>
+        {
+            entity.HasKey(e => e.OrderId);
+            entity.Property(e => e.OrderId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.OrderDate)
+                .HasDefaultValueSql("GETDATE()");
+            
+            entity.Property(e => e.OrderStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.PaymentStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.OrderTotal)
+                .HasColumnType("decimal(18,2)");
+
+            // 關聯到 User
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 配置 OrderItems 實體
+        modelBuilder.Entity<OrderItems>(entity =>
+        {
+            entity.HasKey(e => e.ItemId);
+            entity.Property(e => e.ItemId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.UnitPrice)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.Subtotal)
+                .HasColumnType("decimal(18,2)");
+
+            // 關聯到 OrderInfo
+            entity.HasOne(e => e.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(e => e.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 關聯到 ProductInfo
+            entity.HasOne(e => e.Product)
+                .WithMany(p => p.OrderItems)
+                .HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 配置 OfficialStoreRanking 實體
+        modelBuilder.Entity<OfficialStoreRanking>(entity =>
+        {
+            entity.HasKey(e => e.RankingId);
+            entity.Property(e => e.RankingId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.PeriodType)
+                .IsRequired()
+                .HasMaxLength(20);
+            
+            entity.Property(e => e.RankingMetric)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.TradingAmount)
+                .HasColumnType("decimal(18,2)");
+            
+            entity.Property(e => e.RankingUpdatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 ProductInfo
+            entity.HasOne(e => e.Product)
+                .WithMany(p => p.Rankings)
+                .HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 複合索引
+            entity.HasIndex(e => new { e.PeriodType, e.RankingDate, e.ProductId })
+                .IsUnique();
+        });
+
+        // 配置 ProductInfoAuditLog 實體
+        modelBuilder.Entity<ProductInfoAuditLog>(entity =>
+        {
+            entity.HasKey(e => e.LogId);
+            entity.Property(e => e.LogId).ValueGeneratedOnAdd();
+            
+            entity.Property(e => e.ActionType)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.FieldName)
+                .HasMaxLength(100);
+            
+            entity.Property(e => e.OldValue)
+                .HasMaxLength(1000);
+            
+            entity.Property(e => e.NewValue)
+                .HasMaxLength(1000);
+            
+            entity.Property(e => e.ChangedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            // 關聯到 ProductInfo
+            entity.HasOne(e => e.Product)
+                .WithMany(p => p.AuditLogs)
+                .HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 
