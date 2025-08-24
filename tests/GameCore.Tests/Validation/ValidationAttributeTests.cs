@@ -29,9 +29,10 @@ public class ValidationAttributeTests
     {
         // Arrange
         var attribute = new PasswordValidationAttribute();
+        var testObject = new { Password = password };
 
         // Act
-        var result = attribute.GetValidationResult(password, new ValidationContext(password));
+        var result = attribute.GetValidationResult(password, new ValidationContext(testObject));
 
         // Assert
         result.Should().NotBe(ValidationResult.Success);
@@ -112,9 +113,10 @@ public class ValidationAttributeTests
     {
         // Arrange
         var attribute = new UsernameValidationAttribute();
+        var testObject = new { Username = username };
 
         // Act
-        var result = attribute.GetValidationResult(username, new ValidationContext(username));
+        var result = attribute.GetValidationResult(username, new ValidationContext(testObject));
 
         // Assert
         result.Should().NotBe(ValidationResult.Success);
@@ -197,7 +199,7 @@ public class ValidationAttributeTests
     [Theory]
     [InlineData("abc")]          // 最小長度
     [InlineData("validuser123")] // 正常長度
-    [InlineData("verylonguser123456789")] // 最大長度
+    [InlineData("verylonguser12345678")] // 最大長度 (20字元)
     public void UsernameValidationAttribute_WithValidLength_ShouldPass(string username)
     {
         // Arrange

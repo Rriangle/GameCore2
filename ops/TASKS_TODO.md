@@ -54,6 +54,11 @@
 - [ ] 修復現有 `ci.yml` 配置問題
 
 #### 3.2 測試覆蓋率
+- [ ] 修復 13 個失敗測試
+  - [ ] ValidationAttributeTests（6個）- 驗證屬性錯誤訊息和順序
+  - [ ] HealthControllerTests（2個）- 返回類型斷言
+  - [ ] AuthServiceTests（1個）- 認證邏輯問題
+  - [ ] AuthIntegrationTests（4個）- API 端點問題
 - [ ] 後端測試覆蓋率達到 80%
 - [ ] 前端測試配置與執行
 - [ ] 整合測試實作

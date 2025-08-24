@@ -176,6 +176,8 @@ public class AuthServiceTests
         var request = TestDataFactory.CreateValidLoginRequest();
         var user = TestDataFactory.CreateTestUser();
         user.Username = request.Username;
+        // 設定錯誤的密碼雜湊，讓密碼驗證失敗
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword("WrongPassword123!");
 
         _userRepositoryMock.Setup(x => x.GetByUsernameAsync(request.Username))
             .ReturnsAsync(user);

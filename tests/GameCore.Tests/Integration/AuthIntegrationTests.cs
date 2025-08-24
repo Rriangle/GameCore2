@@ -2,6 +2,7 @@ using GameCore.Api.DTOs;
 using GameCore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
@@ -36,6 +37,18 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
                 services.AddDbContext<GameCoreDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("TestDb_" + Guid.NewGuid().ToString());
+                });
+            });
+
+            builder.ConfigureAppConfiguration((context, config) =>
+            {
+                // 添加測試用的 JWT 配置
+                config.AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    ["Jwt:SecretKey"] = "your-super-secret-key-with-at-least-32-characters-for-testing",
+                    ["Jwt:Issuer"] = "GameCore-Test",
+                    ["Jwt:Audience"] = "GameCore-Test-Users",
+                    ["Jwt:ExpirationHours"] = "24"
                 });
             });
         });

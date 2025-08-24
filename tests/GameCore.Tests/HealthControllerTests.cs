@@ -25,11 +25,21 @@ public class HealthControllerTests
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var response = Assert.IsType<dynamic>(okResult.Value);
+        Assert.NotNull(okResult.Value);
         
-        Assert.Equal("healthy", response.status);
-        Assert.NotNull(response.timestamp);
-        Assert.Equal("1.0.0", response.version);
+        // 使用反射檢查匿名類型的屬性
+        var responseType = okResult.Value.GetType();
+        var statusProperty = responseType.GetProperty("status");
+        var timestampProperty = responseType.GetProperty("timestamp");
+        var versionProperty = responseType.GetProperty("version");
+        
+        Assert.NotNull(statusProperty);
+        Assert.NotNull(timestampProperty);
+        Assert.NotNull(versionProperty);
+        
+        Assert.Equal("healthy", statusProperty.GetValue(okResult.Value));
+        Assert.NotNull(timestampProperty.GetValue(okResult.Value));
+        Assert.Equal("1.0.0", versionProperty.GetValue(okResult.Value));
     }
 
     [Fact]
@@ -40,12 +50,26 @@ public class HealthControllerTests
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var response = Assert.IsType<dynamic>(okResult.Value);
+        Assert.NotNull(okResult.Value);
         
-        Assert.Equal("healthy", response.status);
-        Assert.NotNull(response.timestamp);
-        Assert.Equal("1.0.0", response.version);
-        Assert.NotNull(response.services);
-        Assert.NotNull(response.system);
+        // 使用反射檢查匿名類型的屬性
+        var responseType = okResult.Value.GetType();
+        var statusProperty = responseType.GetProperty("status");
+        var timestampProperty = responseType.GetProperty("timestamp");
+        var versionProperty = responseType.GetProperty("version");
+        var servicesProperty = responseType.GetProperty("services");
+        var systemProperty = responseType.GetProperty("system");
+        
+        Assert.NotNull(statusProperty);
+        Assert.NotNull(timestampProperty);
+        Assert.NotNull(versionProperty);
+        Assert.NotNull(servicesProperty);
+        Assert.NotNull(systemProperty);
+        
+        Assert.Equal("healthy", statusProperty.GetValue(okResult.Value));
+        Assert.NotNull(timestampProperty.GetValue(okResult.Value));
+        Assert.Equal("1.0.0", versionProperty.GetValue(okResult.Value));
+        Assert.NotNull(servicesProperty.GetValue(okResult.Value));
+        Assert.NotNull(systemProperty.GetValue(okResult.Value));
     }
 }

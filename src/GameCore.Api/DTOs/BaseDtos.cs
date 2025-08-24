@@ -69,6 +69,10 @@ public class PasswordValidationAttribute : ValidationAttribute
 
         var password = value.ToString()!;
         
+        // 檢查空字串或只有空白字元
+        if (string.IsNullOrWhiteSpace(password))
+            return new ValidationResult("密碼不能為空");
+        
         if (password.Length < 8)
             return new ValidationResult("密碼長度至少需要 8 個字元");
         
@@ -98,6 +102,10 @@ public class UsernameValidationAttribute : ValidationAttribute
         if (value == null) return new ValidationResult("用戶名不能為空");
 
         var username = value.ToString()!;
+        
+        // 檢查空字串或只有空白字元
+        if (string.IsNullOrWhiteSpace(username))
+            return new ValidationResult("用戶名不能為空");
         
         if (username.Length < 3 || username.Length > 20)
             return new ValidationResult("用戶名長度必須在 3-20 個字元之間");

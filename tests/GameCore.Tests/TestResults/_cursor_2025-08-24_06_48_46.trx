@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ca254f35-268a-4439-9352-300499465a56" name="@cursor 2025-08-24 06:48:46" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-08-24T06:48:46.7303000+00:00" queuing="2025-08-24T06:48:46.7303001+00:00" start="2025-08-24T06:48:45.2285096+00:00" finish="2025-08-24T06:48:47.1119966+00:00" />
+  <TestSettings name="default" id="a58d36b2-b68e-4869-9db9-befd59da491c">
+    <Deployment runDeploymentRoot="_cursor_2025-08-24_06_48_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="396cf8a9-c440-468b-8b38-733b652d3a74" testId="4e4b4a9b-efaa-c157-019a-11293dddde7f" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure" computerName="cursor" duration="00:00:00.3749685" startTime="2025-08-24T06:48:46.3056112+00:00" endTime="2025-08-24T06:48:46.3056116+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="396cf8a9-c440-468b-8b38-733b652d3a74">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected result.Success to be false, but found True.</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.BooleanAssertions`1.BeFalse(String because, Object[] becauseArgs)
+   at GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure() in /workspace/tests/GameCore.Tests/AuthServiceTests.cs:line 188
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1fefe1b8-e5b0-4177-a3f8-2bb307cb1913" testId="0e9bde1f-460e-60fc-f880-0077aeba0f37" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithInactiveUser_ShouldReturnFailure" computerName="cursor" duration="00:00:00.2492116" startTime="2025-08-24T06:48:47.0652695+00:00" endTime="2025-08-24T06:48:47.0652696+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1fefe1b8-e5b0-4177-a3f8-2bb307cb1913" />
+    <UnitTestResult executionId="ccab1f81-4851-4dfd-973e-164966e73fb6" testId="5571e2af-2da0-29d9-0b91-caa9e66a9d16" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithValidData_ShouldReturnSuccess" computerName="cursor" duration="00:00:00.1259091" startTime="2025-08-24T06:48:46.8158886+00:00" endTime="2025-08-24T06:48:46.8158887+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ccab1f81-4851-4dfd-973e-164966e73fb6" />
+    <UnitTestResult executionId="468c6900-e452-4bdf-9309-bf81801ef2ce" testId="3e30010c-e97d-bf57-6c78-a27766485673" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WhenRepositoryThrowsException_ShouldReturnError" computerName="cursor" duration="00:00:00.0206671" startTime="2025-08-24T06:48:45.7244780+00:00" endTime="2025-08-24T06:48:45.7244781+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="468c6900-e452-4bdf-9309-bf81801ef2ce" />
+    <UnitTestResult executionId="4fa301d3-dcee-4930-a907-599a7531b5ed" testId="0dc940d1-c6f5-eecc-f257-64f50d93436d" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithValidCredentials_ShouldReturnSuccess" computerName="cursor" duration="00:00:00.2529507" startTime="2025-08-24T06:48:46.5603310+00:00" endTime="2025-08-24T06:48:46.5603311+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4fa301d3-dcee-4930-a907-599a7531b5ed" />
+    <UnitTestResult executionId="ef5535e4-febd-4ac4-b601-4fca3c84bb8b" testId="9d72ba03-dba3-09c0-69c8-e2cfe231b66d" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingUsername_ShouldReturnFailure" computerName="cursor" duration="00:00:00.0033225" startTime="2025-08-24T06:48:46.3058146+00:00" endTime="2025-08-24T06:48:46.3058147+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef5535e4-febd-4ac4-b601-4fca3c84bb8b" />
+    <UnitTestResult executionId="4d0c99e6-4efa-46d6-aed8-26d46087e5b4" testId="615893cd-8786-88e8-cb83-303c375381b3" testName="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithValidUserId_ShouldReturnProfile" computerName="cursor" duration="00:00:00.2010896" startTime="2025-08-24T06:48:45.9255727+00:00" endTime="2025-08-24T06:48:45.9255728+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d0c99e6-4efa-46d6-aed8-26d46087e5b4" />
+    <UnitTestResult executionId="a19efae1-0834-4366-988f-99cd80b19a0f" testId="8a70f39e-70f0-1650-cec2-48be198d912c" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithNonExistentUser_ShouldReturnFailure" computerName="cursor" duration="00:00:00.0011207" startTime="2025-08-24T06:48:46.6880620+00:00" endTime="2025-08-24T06:48:46.6880621+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a19efae1-0834-4366-988f-99cd80b19a0f" />
+    <UnitTestResult executionId="bceafa6e-0a92-4ef7-9d24-c4751b80ddfc" testId="c664dc6a-96b6-b78b-f8c0-7d0c36e4d355" testName="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithInvalidUserId_ShouldReturnNull" computerName="cursor" duration="00:00:00.0545852" startTime="2025-08-24T06:48:45.7042776+00:00" endTime="2025-08-24T06:48:45.7042939+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bceafa6e-0a92-4ef7-9d24-c4751b80ddfc" />
+    <UnitTestResult executionId="f0603861-bbf1-44fc-8c08-e20b56bfd0b5" testId="17ea328b-a53a-3c7d-5d5e-063b9d32adc1" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithBoundaryValues_ShouldHandleCorrectly" computerName="cursor" duration="00:00:00.1264437" startTime="2025-08-24T06:48:46.6868616+00:00" endTime="2025-08-24T06:48:46.6868618+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0603861-bbf1-44fc-8c08-e20b56bfd0b5" />
+    <UnitTestResult executionId="5efc92e0-f849-449b-a9b6-75f4535acde2" testId="083fd8ed-7b87-d220-13f0-66d32da8ad15" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingEmail_ShouldReturnFailure" computerName="cursor" duration="00:00:00.0017677" startTime="2025-08-24T06:48:46.7099596+00:00" endTime="2025-08-24T06:48:46.7099597+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5efc92e0-f849-449b-a9b6-75f4535acde2" />
+    <UnitTestResult executionId="e735133b-a895-418f-9278-be66f97806d0" testId="7b810cd7-ece0-9860-936c-24bc7f99d385" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WhenRepositoryThrowsException_ShouldReturnError" computerName="cursor" duration="00:00:00.0017239" startTime="2025-08-24T06:48:46.3073047+00:00" endTime="2025-08-24T06:48:46.3073048+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e735133b-a895-418f-9278-be66f97806d0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="4e4b4a9b-efaa-c157-019a-11293dddde7f">
+      <Execution id="396cf8a9-c440-468b-8b38-733b652d3a74" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithInvalidCredentials_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingEmail_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="083fd8ed-7b87-d220-13f0-66d32da8ad15">
+      <Execution id="5efc92e0-f849-449b-a9b6-75f4535acde2" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithExistingEmail_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithValidCredentials_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0dc940d1-c6f5-eecc-f257-64f50d93436d">
+      <Execution id="4fa301d3-dcee-4930-a907-599a7531b5ed" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithValidCredentials_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithInvalidUserId_ShouldReturnNull" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="c664dc6a-96b6-b78b-f8c0-7d0c36e4d355">
+      <Execution id="bceafa6e-0a92-4ef7-9d24-c4751b80ddfc" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="GetUserProfileAsync_WithInvalidUserId_ShouldReturnNull" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingUsername_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="9d72ba03-dba3-09c0-69c8-e2cfe231b66d">
+      <Execution id="ef5535e4-febd-4ac4-b601-4fca3c84bb8b" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithExistingUsername_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WhenRepositoryThrowsException_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="7b810cd7-ece0-9860-936c-24bc7f99d385">
+      <Execution id="e735133b-a895-418f-9278-be66f97806d0" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WhenRepositoryThrowsException_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithInactiveUser_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0e9bde1f-460e-60fc-f880-0077aeba0f37">
+      <Execution id="1fefe1b8-e5b0-4177-a3f8-2bb307cb1913" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithInactiveUser_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WhenRepositoryThrowsException_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="3e30010c-e97d-bf57-6c78-a27766485673">
+      <Execution id="468c6900-e452-4bdf-9309-bf81801ef2ce" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WhenRepositoryThrowsException_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithValidData_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="5571e2af-2da0-29d9-0b91-caa9e66a9d16">
+      <Execution id="ccab1f81-4851-4dfd-973e-164966e73fb6" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithValidData_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithBoundaryValues_ShouldHandleCorrectly" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="17ea328b-a53a-3c7d-5d5e-063b9d32adc1">
+      <Execution id="f0603861-bbf1-44fc-8c08-e20b56bfd0b5" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithBoundaryValues_ShouldHandleCorrectly" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithNonExistentUser_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="8a70f39e-70f0-1650-cec2-48be198d912c">
+      <Execution id="a19efae1-0834-4366-988f-99cd80b19a0f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithNonExistentUser_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithValidUserId_ShouldReturnProfile" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="615893cd-8786-88e8-cb83-303c375381b3">
+      <Execution id="4d0c99e6-4efa-46d6-aed8-26d46087e5b4" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="GetUserProfileAsync_WithValidUserId_ShouldReturnProfile" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4e4b4a9b-efaa-c157-019a-11293dddde7f" executionId="396cf8a9-c440-468b-8b38-733b652d3a74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e9bde1f-460e-60fc-f880-0077aeba0f37" executionId="1fefe1b8-e5b0-4177-a3f8-2bb307cb1913" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5571e2af-2da0-29d9-0b91-caa9e66a9d16" executionId="ccab1f81-4851-4dfd-973e-164966e73fb6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e30010c-e97d-bf57-6c78-a27766485673" executionId="468c6900-e452-4bdf-9309-bf81801ef2ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0dc940d1-c6f5-eecc-f257-64f50d93436d" executionId="4fa301d3-dcee-4930-a907-599a7531b5ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d72ba03-dba3-09c0-69c8-e2cfe231b66d" executionId="ef5535e4-febd-4ac4-b601-4fca3c84bb8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="615893cd-8786-88e8-cb83-303c375381b3" executionId="4d0c99e6-4efa-46d6-aed8-26d46087e5b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a70f39e-70f0-1650-cec2-48be198d912c" executionId="a19efae1-0834-4366-988f-99cd80b19a0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c664dc6a-96b6-b78b-f8c0-7d0c36e4d355" executionId="bceafa6e-0a92-4ef7-9d24-c4751b80ddfc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17ea328b-a53a-3c7d-5d5e-063b9d32adc1" executionId="f0603861-bbf1-44fc-8c08-e20b56bfd0b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="083fd8ed-7b87-d220-13f0-66d32da8ad15" executionId="5efc92e0-f849-449b-a9b6-75f4535acde2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b810cd7-ece0-9860-936c-24bc7f99d385" executionId="e735133b-a895-418f-9278-be66f97806d0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="11" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.5.4.1+b9eacec401 (64-bit .NET 8.0.19)
+[xUnit.net 00:00:00.06]   Discovering: GameCore.Tests
+[xUnit.net 00:00:00.09]   Discovered:  GameCore.Tests
+[xUnit.net 00:00:00.10]   Starting:    GameCore.Tests
+[xUnit.net 00:00:00.78]       Expected result.Success to be false, but found True.
+[xUnit.net 00:00:00.78]       Stack Trace:
+[xUnit.net 00:00:00.78]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:00.78]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:00.78]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:00.78]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.78]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.78]            at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)
+[xUnit.net 00:00:00.78]            at FluentAssertions.Primitives.BooleanAssertions`1.BeFalse(String because, Object[] becauseArgs)
+[xUnit.net 00:00:00.78]         /workspace/tests/GameCore.Tests/AuthServiceTests.cs(188,0): at GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure()
+[xUnit.net 00:00:00.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.55]   Finished:    GameCore.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T06:48:46.3045119+00:00">
+        <Text>[xUnit.net 00:00:00.78]     GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
