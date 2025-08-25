@@ -110,4 +110,65 @@ namespace GameCore.Shared.DTOs
         public int ProductCount { get; set; }
         public DateTime CreatedAt { get; set; }
     }
+
+    /// <summary>
+    /// 分頁產品列表 DTO - 新增：支援分頁的產品列表
+    /// </summary>
+    public class PaginatedProductsDto
+    {
+        /// <summary>
+        /// 產品列表
+        /// </summary>
+        public List<ProductResponseDto> Products { get; set; } = new();
+
+        /// <summary>
+        /// 當前頁碼
+        /// </summary>
+        public int Page { get; set; }
+
+        /// <summary>
+        /// 頁面大小
+        /// </summary>
+        public int PageSize { get; set; }
+
+        /// <summary>
+        /// 總記錄數
+        /// </summary>
+        public int TotalCount { get; set; }
+
+        /// <summary>
+        /// 總頁數
+        /// </summary>
+        public int TotalPages { get; set; }
+
+        /// <summary>
+        /// 是否有下一頁
+        /// </summary>
+        public bool HasNextPage { get; set; }
+
+        /// <summary>
+        /// 是否有上一頁
+        /// </summary>
+        public bool HasPreviousPage { get; set; }
+
+        /// <summary>
+        /// 搜尋關鍵字（如果有的話）
+        /// </summary>
+        public string? SearchTerm { get; set; }
+
+        /// <summary>
+        /// 分類 ID（如果有的話）
+        /// </summary>
+        public int? CategoryId { get; set; }
+
+        /// <summary>
+        /// 排序欄位
+        /// </summary>
+        public string SortBy { get; set; } = "Name";
+
+        /// <summary>
+        /// 排序方向
+        /// </summary>
+        public string SortDirection { get; set; } = "asc";
+    }
 }

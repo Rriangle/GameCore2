@@ -3,6 +3,7 @@ using GameCore.Api.Services;
 using GameCore.Domain.Interfaces;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Repositories;
+using GameCore.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -82,6 +83,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
+
+// 註冊產品相關服務
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
+// 註冊記憶體快取
+builder.Services.AddMemoryCache();
 
 // CORS 設定
 builder.Services.AddCors(options =>

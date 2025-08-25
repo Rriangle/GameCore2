@@ -9,6 +9,7 @@ namespace GameCore.Domain.Interfaces
         Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId);
         Task<IEnumerable<Product>> GetOfficialStoreProductsAsync();
         Task<Product?> GetProductByIdAsync(int id);
+        Task<PaginatedProductsDto> GetProductsPaginatedAsync(int page = 1, int pageSize = 20, int? categoryId = null, string? searchTerm = null, string sortBy = "Name", string sortDirection = "asc");
         Task<Product> CreateProductAsync(CreateProductDto createProductDto);
         Task<Product> UpdateProductAsync(int id, UpdateProductDto updateProductDto);
         Task<bool> DeleteProductAsync(int id);
