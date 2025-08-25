@@ -93,6 +93,11 @@ builder.Services.AddScoped<IInsightService, InsightService>();
 builder.Services.AddScoped<IForumService, ForumService>();
 builder.Services.AddScoped<IInteractionService, InteractionService>();
 
+// 註冊社交相關服務
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
+
 // 註冊記憶體快取
 builder.Services.AddMemoryCache();
 
