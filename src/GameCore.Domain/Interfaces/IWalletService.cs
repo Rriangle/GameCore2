@@ -3,7 +3,7 @@ using GameCore.Api.DTOs;
 namespace GameCore.Domain.Interfaces;
 
 /// <summary>
-/// 錢包服務介面
+/// 錢包服務介面 - 優化版本
 /// </summary>
 public interface IWalletService
 {
@@ -12,50 +12,45 @@ public interface IWalletService
     /// </summary>
     /// <param name="userId">用戶 ID</param>
     /// <returns>錢包餘額</returns>
-    Task<WalletBalanceDto?> GetWalletBalanceAsync(int userId);
-
-    /// <summary>
-    /// 更新錢包餘額
-    /// </summary>
-    /// <param name="userId">用戶 ID</param>
-    /// <param name="amount">金額變化 (正數為增加，負數為減少)</param>
-    /// <param name="reason">變化原因</param>
-    /// <returns>是否成功</returns>
-    Task<bool> UpdateWalletBalanceAsync(int userId, int amount, string reason);
-
-    /// <summary>
-    /// 取得錢包交易記錄
-    /// </summary>
-    /// <param name="userId">用戶 ID</param>
-    /// <param name="page">頁碼</param>
-    /// <param name="pageSize">每頁大小</param>
-    /// <returns>交易記錄</returns>
-    Task<IEnumerable<WalletTransactionDto>> GetWalletTransactionsAsync(int userId, int page = 1, int pageSize = 20);
+    Task<int> GetUserWalletBalanceAsync(int userId);
 
     /// <summary>
     /// 取得銷售錢包餘額
     /// </summary>
     /// <param name="userId">用戶 ID</param>
     /// <returns>銷售錢包餘額</returns>
-    Task<SalesWalletDto?> GetSalesWalletBalanceAsync(int userId);
+    Task<decimal> GetSalesWalletBalanceAsync(int userId);
 
     /// <summary>
-    /// 更新銷售錢包餘額
+    /// 取得用戶完整錢包資訊
     /// </summary>
     /// <param name="userId">用戶 ID</param>
-    /// <param name="amount">金額變化</param>
-    /// <param name="reason">變化原因</param>
-    /// <returns>是否成功</returns>
-    Task<bool> UpdateSalesWalletBalanceAsync(int userId, decimal amount, string reason);
+    /// <returns>錢包摘要資訊</returns>
+    Task<WalletSummaryDto> GetWalletSummaryAsync(int userId);
 
     /// <summary>
-    /// 取得銷售錢包交易記錄
+    /// 取得錢包交易記錄（分頁）
     /// </summary>
     /// <param name="userId">用戶 ID</param>
     /// <param name="page">頁碼</param>
     /// <param name="pageSize">每頁大小</param>
-    /// <returns>交易記錄</returns>
-    Task<IEnumerable<SalesWalletTransactionDto>> GetSalesWalletTransactionsAsync(int userId, int page = 1, int pageSize = 20);
+    /// <returns>分頁交易記錄</returns>
+    Task<PaginatedWalletTransactionsDto> GetUserWalletTransactionsAsync(int userId, int page = 1, int pageSize = 20);
+
+    /// <summary>
+    /// 取得銷售錢包交易記錄（分頁）
+    /// </summary>
+    /// <param name="userId">用戶 ID</param>
+    /// <param name="page">頁碼</param>
+    /// <param name="pageSize">每頁大小</param>
+    /// <returns>分頁銷售交易記錄</returns>
+    Task<PaginatedSalesWalletTransactionsDto> GetSalesWalletTransactionsAsync(int userId, int page = 1, int pageSize = 20);
+
+    /// <summary>
+    /// 清除錢包快取
+    /// </summary>
+    /// <param name="userId">用戶 ID</param>
+    void ClearWalletCache(int userId);
 }
 
 /// <summary>
