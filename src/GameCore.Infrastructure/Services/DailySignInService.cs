@@ -3,31 +3,61 @@ using GameCore.Domain.Interfaces;
 using GameCore.Infrastructure.Data;
 using GameCore.Shared.DTOs.DailySignInDtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace GameCore.Infrastructure.Services;
 
 /// <summary>
-/// Service implementation for daily sign-in operations
+/// 每日簽到服務實現 - 優化版本
+/// 增強性能、快取、輸入驗證、錯誤處理和可維護性
 /// </summary>
 public class DailySignInService : IDailySignInService
 {
     private readonly GameCoreDbContext _context;
+    private readonly IMemoryCache _memoryCache;
     private readonly ILogger<DailySignInService> _logger;
 
-    public DailySignInService(GameCoreDbContext context, ILogger<DailySignInService> logger)
+    // 常數定義，提高可維護性
+    private const int MaxPageSize = 100;
+    private const int DefaultPageSize = 20;
+    private const int CacheExpirationMinutes = 30;
+    private const int MaxStreakBonus = 50;
+    private const int BasePoints = 10;
+    private const int StreakMultiplier = 2;
+    
+    // 快取鍵定義
+    private const string TodayStatusCacheKey = "TodayStatus_{0}";
+    private const string UserStatisticsCacheKey = "UserStatistics_{0}";
+    private const string UserHistoryCacheKey = "UserHistory_{0}_{1}_{2}";
+    private const string MonthlyAttendanceCacheKey = "MonthlyAttendance_{0}_{1}_{2}";
+    private const string AvailableRewardsCacheKey = "AvailableRewards";
+    private const string UserStreakCacheKey = "UserStreak_{0}";
+
+    public DailySignInService(
+        GameCoreDbContext context, 
+        IMemoryCache memoryCache, 
+        ILogger<DailySignInService> logger)
     {
-        _context = context;
-        _logger = logger;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task<DailySignInResponseDto> SignInAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+
         var today = DateTime.Today;
         var now = DateTime.UtcNow;
 
-        // Check if user has already signed in today
+        // 檢查用戶是否已經簽到
         var existingSignIn = await _context.DailySignIns
+            .AsNoTracking()
             .FirstOrDefaultAsync(ds => ds.UserId == userId && ds.SignInDate == today);
 
         if (existingSignIn != null)
@@ -49,8 +79,9 @@ public class DailySignInService : IDailySignInService
             };
         }
 
-        // Get user's last sign-in to calculate streak
+        // 獲取用戶最後簽到記錄來計算連續簽到
         var lastSignIn = await _context.DailySignIns
+            .AsNoTracking()
             .Where(ds => ds.UserId == userId)
             .OrderByDescending(ds => ds.SignInDate)
             .FirstOrDefaultAsync();
@@ -68,20 +99,19 @@ public class DailySignInService : IDailySignInService
             }
             else if (daysSinceLastSignIn > 1)
             {
-                currentStreak = 1; // Reset streak
+                currentStreak = 1; // 重置連續簽到
             }
         }
         else
         {
-            currentStreak = 1; // First sign-in
+            currentStreak = 1; // 首次簽到
         }
 
-        // Calculate points and bonus
-        var basePoints = 10;
-        var streakBonus = Math.Min(currentStreak * 2, 50); // Max 50 points for streak
+        // 計算積分和獎勵
+        var streakBonus = Math.Min(currentStreak * StreakMultiplier, MaxStreakBonus);
         var isBonusDay = IsBonusDay(today);
         var bonusMultiplier = isBonusDay ? 2 : 1;
-        var totalPoints = (basePoints + streakBonus) * bonusMultiplier;
+        var totalPoints = (BasePoints + streakBonus) * bonusMultiplier;
 
         // Create new daily sign-in record
         var dailySignIn = new DailySignIn
@@ -133,8 +163,11 @@ public class DailySignInService : IDailySignInService
 
         await _context.SaveChangesAsync();
 
-        // Generate achievements
+        // 生成成就
         var achievements = await GenerateAchievements(userId, currentStreak, dailySignIn.MonthlyPerfectAttendance);
+
+        // 清除相關快取
+        ClearUserRelatedCache(userId);
 
         _logger.LogInformation("User {UserId} signed in successfully. Points earned: {Points}, Streak: {Streak}", 
             userId, totalPoints, currentStreak);
@@ -158,13 +191,28 @@ public class DailySignInService : IDailySignInService
 
     public async Task<DailySignInStatusDto> GetTodayStatusAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(TodayStatusCacheKey, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out DailySignInStatusDto cachedStatus))
+        {
+            return cachedStatus;
+        }
+
         var today = DateTime.Today;
         var now = DateTime.UtcNow;
 
         var todaySignIn = await _context.DailySignIns
+            .AsNoTracking()
             .FirstOrDefaultAsync(ds => ds.UserId == userId && ds.SignInDate == today);
 
         var lastSignIn = await _context.DailySignIns
+            .AsNoTracking()
             .Where(ds => ds.UserId == userId)
             .OrderByDescending(ds => ds.SignInDate)
             .FirstOrDefaultAsync();
@@ -185,7 +233,7 @@ public class DailySignInService : IDailySignInService
             timeUntilNextSignIn = nextSignIn - now;
         }
 
-        return new DailySignInStatusDto
+        var status = new DailySignInStatusDto
         {
             HasSignedInToday = hasSignedInToday,
             LastSignInTime = lastSignIn?.SignInTime,
@@ -197,18 +245,42 @@ public class DailySignInService : IDailySignInService
             BonusMultiplier = bonusMultiplier,
             TimeUntilNextSignIn = timeUntilNextSignIn
         };
+
+        // 存入快取，設定較短的過期時間（因為狀態會頻繁變化）
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+        };
+        _memoryCache.Set(cacheKey, status, cacheOptions);
+
+        return status;
     }
 
     public async Task<SignInStatisticsDto> GetUserStatisticsAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(UserStatisticsCacheKey, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out SignInStatisticsDto cachedStats))
+        {
+            return cachedStats;
+        }
+
         var signIns = await _context.DailySignIns
+            .AsNoTracking()
             .Where(ds => ds.UserId == userId)
             .OrderBy(ds => ds.SignInDate)
             .ToListAsync();
 
+        SignInStatisticsDto statistics;
         if (!signIns.Any())
         {
-            return new SignInStatisticsDto
+            statistics = new SignInStatisticsDto
             {
                 TotalSignIns = 0,
                 CurrentStreak = 0,
@@ -221,34 +293,71 @@ public class DailySignInService : IDailySignInService
                 LastSignInDate = DateTime.MinValue
             };
         }
-
-        var totalSignIns = signIns.Count;
-        var currentStreak = signIns.Last().CurrentStreak;
-        var longestStreak = signIns.Max(ds => ds.LongestStreak);
-        var monthlyPerfectAttendance = signIns.Last().MonthlyPerfectAttendance;
-        var totalPointsEarned = signIns.Sum(ds => ds.PointsEarned);
-        var averagePointsPerSignIn = totalPointsEarned / totalSignIns;
-        var bonusDaysCount = signIns.Count(ds => ds.IsBonusDay);
-        var firstSignInDate = signIns.First().SignInDate;
-        var lastSignInDate = signIns.Last().SignInDate;
-
-        return new SignInStatisticsDto
+        else
         {
-            TotalSignIns = totalSignIns,
-            CurrentStreak = currentStreak,
-            LongestStreak = longestStreak,
-            MonthlyPerfectAttendance = monthlyPerfectAttendance,
-            TotalPointsEarned = totalPointsEarned,
-            AveragePointsPerSignIn = averagePointsPerSignIn,
-            BonusDaysCount = bonusDaysCount,
-            FirstSignInDate = firstSignInDate,
-            LastSignInDate = lastSignInDate
+            var totalSignIns = signIns.Count;
+            var currentStreak = signIns.Last().CurrentStreak;
+            var longestStreak = signIns.Max(ds => ds.LongestStreak);
+            var monthlyPerfectAttendance = signIns.Last().MonthlyPerfectAttendance;
+            var totalPointsEarned = signIns.Sum(ds => ds.PointsEarned);
+            var averagePointsPerSignIn = totalPointsEarned / totalSignIns;
+            var bonusDaysCount = signIns.Count(ds => ds.IsBonusDay);
+            var firstSignInDate = signIns.First().SignInDate;
+            var lastSignInDate = signIns.Last().SignInDate;
+
+            statistics = new SignInStatisticsDto
+            {
+                TotalSignIns = totalSignIns,
+                CurrentStreak = currentStreak,
+                LongestStreak = longestStreak,
+                MonthlyPerfectAttendance = monthlyPerfectAttendance,
+                TotalPointsEarned = totalPointsEarned,
+                AveragePointsPerSignIn = averagePointsPerSignIn,
+                BonusDaysCount = bonusDaysCount,
+                FirstSignInDate = firstSignInDate,
+                LastSignInDate = lastSignInDate
+            };
+        }
+
+        // 存入快取
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CacheExpirationMinutes)
         };
+        _memoryCache.Set(cacheKey, statistics, cacheOptions);
+
+        return statistics;
     }
 
     public async Task<SignInHistoryResponseDto> GetUserHistoryAsync(int userId, int page = 1, int pageSize = 20)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (page < 1)
+        {
+            throw new ArgumentException("Page must be greater than 0", nameof(page));
+        }
+        if (pageSize <= 0)
+        {
+            pageSize = DefaultPageSize;
+        }
+        if (pageSize > MaxPageSize)
+        {
+            pageSize = MaxPageSize;
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(UserHistoryCacheKey, userId, page, pageSize);
+        if (_memoryCache.TryGetValue(cacheKey, out SignInHistoryResponseDto cachedHistory))
+        {
+            return cachedHistory;
+        }
+
         var query = _context.UserSignInHistories
+            .AsNoTracking()
             .Where(ush => ush.UserId == userId)
             .OrderByDescending(ush => ush.SignInDate);
 
@@ -270,7 +379,7 @@ public class DailySignInService : IDailySignInService
             })
             .ToListAsync();
 
-        return new SignInHistoryResponseDto
+        var history = new SignInHistoryResponseDto
         {
             Items = items,
             TotalCount = totalCount,
@@ -278,15 +387,46 @@ public class DailySignInService : IDailySignInService
             PageSize = pageSize,
             TotalPages = totalPages
         };
+
+        // 存入快取
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CacheExpirationMinutes)
+        };
+        _memoryCache.Set(cacheKey, history, cacheOptions);
+
+        return history;
     }
 
     public async Task<MonthlyAttendanceDto> GetMonthlyAttendanceAsync(int userId, int year, int month)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (year < 2020 || year > 2030)
+        {
+            throw new ArgumentException("Year must be between 2020 and 2030", nameof(year));
+        }
+        if (month < 1 || month > 12)
+        {
+            throw new ArgumentException("Month must be between 1 and 12", nameof(month));
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(MonthlyAttendanceCacheKey, userId, year, month);
+        if (_memoryCache.TryGetValue(cacheKey, out MonthlyAttendanceDto cachedAttendance))
+        {
+            return cachedAttendance;
+        }
+
         var startDate = new DateTime(year, month, 1);
         var endDate = startDate.AddMonths(1).AddDays(-1);
         var totalDays = endDate.Day;
 
         var signIns = await _context.DailySignIns
+            .AsNoTracking()
             .Where(ds => ds.UserId == userId && 
                         ds.SignInDate >= startDate && 
                         ds.SignInDate <= endDate)
@@ -314,7 +454,7 @@ public class DailySignInService : IDailySignInService
 
         var perfectAttendanceDays = signIns.Count(ds => ds.MonthlyPerfectAttendance > 0);
 
-        return new MonthlyAttendanceDto
+        var attendance = new MonthlyAttendanceDto
         {
             Year = year,
             Month = month,
@@ -325,17 +465,33 @@ public class DailySignInService : IDailySignInService
             PerfectAttendanceDays = perfectAttendanceDays,
             DailyRecords = dailyRecords
         };
+
+        // 存入快取
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CacheExpirationMinutes)
+        };
+        _memoryCache.Set(cacheKey, attendance, cacheOptions);
+
+        return attendance;
     }
 
     public async Task<List<SignInRewardDto>> GetAvailableRewardsAsync()
     {
+        // 嘗試從快取獲取
+        if (_memoryCache.TryGetValue(AvailableRewardsCacheKey, out List<SignInRewardDto> cachedRewards))
+        {
+            return cachedRewards;
+        }
+
         var rewards = await _context.SignInRewards
+            .AsNoTracking()
             .Where(sr => sr.IsActive)
             .OrderBy(sr => sr.StreakRequirement)
             .ThenBy(sr => sr.AttendanceRequirement)
             .ToListAsync();
 
-        return rewards.Select(sr => new SignInRewardDto
+        var rewardDtos = rewards.Select(sr => new SignInRewardDto
         {
             Id = sr.Id,
             Name = sr.Name,
@@ -346,11 +502,31 @@ public class DailySignInService : IDailySignInService
             IsActive = sr.IsActive,
             CanClaim = false // Will be set by caller if needed
         }).ToList();
+
+        // 存入快取，獎勵列表變化較少，可以設定較長的過期時間
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2)
+        };
+        _memoryCache.Set(AvailableRewardsCacheKey, rewardDtos, cacheOptions);
+
+        return rewardDtos;
     }
 
     public async Task<bool> CanClaimRewardAsync(int userId, int rewardId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (rewardId <= 0)
+        {
+            throw new ArgumentException("Reward ID must be greater than 0", nameof(rewardId));
+        }
+
         var reward = await _context.SignInRewards
+            .AsNoTracking()
             .FirstOrDefaultAsync(sr => sr.Id == rewardId && sr.IsActive);
 
         if (reward == null) return false;
@@ -364,6 +540,16 @@ public class DailySignInService : IDailySignInService
 
     public async Task<ClaimRewardResponseDto> ClaimRewardAsync(int userId, int rewardId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (rewardId <= 0)
+        {
+            throw new ArgumentException("Reward ID must be greater than 0", nameof(rewardId));
+        }
+
         if (!await CanClaimRewardAsync(userId, rewardId))
         {
             return new ClaimRewardResponseDto
@@ -391,7 +577,7 @@ public class DailySignInService : IDailySignInService
             };
         }
 
-        // Update user wallet
+        // 更新用戶錢包
         var userWallet = await _context.UserWallets
             .FirstOrDefaultAsync(uw => uw.UserId == userId);
 
@@ -402,6 +588,9 @@ public class DailySignInService : IDailySignInService
         }
 
         await _context.SaveChangesAsync();
+
+        // 清除相關快取
+        ClearUserRelatedCache(userId);
 
         _logger.LogInformation("User {UserId} claimed reward {RewardId} and earned {Points} points", 
             userId, rewardId, reward.PointsReward);
@@ -466,4 +655,51 @@ public class DailySignInService : IDailySignInService
 
         return achievements;
     }
+
+    #region 快取管理
+
+    /// <summary>
+    /// 清除用戶相關的快取
+    /// </summary>
+    private void ClearUserRelatedCache(int userId)
+    {
+        var todayStatusKey = string.Format(TodayStatusCacheKey, userId);
+        var userStatisticsKey = string.Format(UserStatisticsCacheKey, userId);
+        var userStreakKey = string.Format(UserStreakCacheKey, userId);
+
+        _memoryCache.Remove(todayStatusKey);
+        _memoryCache.Remove(userStatisticsKey);
+        _memoryCache.Remove(userStreakKey);
+
+        // 清除分頁歷史記錄快取（需要遍歷所有可能的頁面）
+        for (int page = 1; page <= 10; page++) // 假設最多10頁
+        {
+            for (int pageSize = 10; pageSize <= MaxPageSize; pageSize += 10)
+            {
+                var historyKey = string.Format(UserHistoryCacheKey, userId, page, pageSize);
+                _memoryCache.Remove(historyKey);
+            }
+        }
+
+        // 清除月度出勤快取（當前年份的所有月份）
+        var currentYear = DateTime.UtcNow.Year;
+        for (int month = 1; month <= 12; month++)
+        {
+            var attendanceKey = string.Format(MonthlyAttendanceCacheKey, userId, currentYear, month);
+            _memoryCache.Remove(attendanceKey);
+        }
+
+        _logger.LogDebug("Cleared cache for user {UserId}", userId);
+    }
+
+    /// <summary>
+    /// 清除獎勵相關的快取
+    /// </summary>
+    private void ClearRewardRelatedCache()
+    {
+        _memoryCache.Remove(AvailableRewardsCacheKey);
+        _logger.LogDebug("Cleared reward-related cache");
+    }
+
+    #endregion
 }

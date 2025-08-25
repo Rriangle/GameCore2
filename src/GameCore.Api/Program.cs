@@ -98,6 +98,9 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
 
+// 註冊每日簽到服務
+builder.Services.AddScoped<IDailySignInService, DailySignInService>();
+
 // 註冊記憶體快取
 builder.Services.AddMemoryCache();
 
