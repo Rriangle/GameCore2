@@ -90,6 +90,8 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPlayerMarketService, PlayerMarketService>();
 builder.Services.AddScoped<IPopularityService, PopularityService>();
 builder.Services.AddScoped<IInsightService, InsightService>();
+builder.Services.AddScoped<IForumService, ForumService>();
+builder.Services.AddScoped<IInteractionService, InteractionService>();
 
 // 註冊記憶體快取
 builder.Services.AddMemoryCache();
