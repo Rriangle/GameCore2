@@ -50,6 +50,24 @@ namespace GameCore.Infrastructure.Services
             await GeneratePostSourcesAsync();
             await GenerateReactionsAsync();
             await GenerateBookmarksAsync();
+            
+            // Stage 4: Social/Notifications/DM/Groups/Blocks 相關假資料
+            await GenerateNotificationSourcesAsync();
+            await GenerateNotificationActionsAsync();
+            await GenerateNotificationsAsync();
+            await GenerateNotificationRecipientsAsync();
+            await GenerateChatMessagesAsync();
+            await GenerateGroupsAsync();
+            await GenerateGroupMembersAsync();
+            await GenerateGroupChatsAsync();
+            await GenerateGroupBlocksAsync();
+            await GenerateMutesAsync();
+            await GenerateStylesAsync();
+            
+            // Stage 5: Daily Sign-In 相關假資料
+            await GenerateSignInRewardsAsync();
+            await GenerateDailySignInsAsync();
+            await GenerateUserSignInHistoriesAsync();
         }
 
         private async Task GenerateUsersAsync()
@@ -1363,6 +1381,500 @@ namespace GameCore.Infrastructure.Services
         {
             var kinds = new[] { "like", "love", "laugh", "wow", "sad", "angry" };
             return kinds[_random.Next(kinds.Length)];
+        }
+
+        // Stage 4: Social/Notifications/DM/Groups/Blocks 相關假資料生成方法
+
+        /// <summary>
+        /// 生成通知來源假資料
+        /// </summary>
+        private async Task GenerateNotificationSourcesAsync()
+        {
+            if (await _context.NotificationSources.AnyAsync())
+                return;
+
+            var sources = new List<NotificationSource>
+            {
+                new NotificationSource { Name = "System", Description = "系統通知" },
+                new NotificationSource { Name = "Forum", Description = "論壇通知" },
+                new NotificationSource { Name = "Market", Description = "市場通知" },
+                new NotificationSource { Name = "Game", Description = "遊戲通知" },
+                new NotificationSource { Name = "Social", Description = "社交通知" }
+            };
+
+            _context.NotificationSources.AddRange(sources);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成通知動作假資料
+        /// </summary>
+        private async Task GenerateNotificationActionsAsync()
+        {
+            if (await _context.NotificationActions.AnyAsync())
+                return;
+
+            var actions = new List<NotificationAction>
+            {
+                new NotificationAction { Name = "Like", Description = "點讚" },
+                new NotificationAction { Name = "Comment", Description = "評論" },
+                new NotificationAction { Name = "Follow", Description = "關注" },
+                new NotificationAction { Name = "Mention", Description = "提及" },
+                new NotificationAction { Name = "Order", Description = "訂單" }
+            };
+
+            _context.NotificationActions.AddRange(actions);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成通知假資料
+        /// </summary>
+        private async Task GenerateNotificationsAsync()
+        {
+            if (await _context.Notifications.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(10).ToListAsync();
+            var sources = await _context.NotificationSources.ToListAsync();
+            var actions = await _context.NotificationActions.ToListAsync();
+            var notifications = new List<Notification>();
+
+            foreach (var user in users)
+            {
+                for (int i = 0; i < _random.Next(3, 8); i++)
+                {
+                    var source = sources[_random.Next(sources.Count)];
+                    var action = actions[_random.Next(actions.Count)];
+
+                    notifications.Add(new Notification
+                    {
+                        SourceId = source.Id,
+                        ActionId = action.Id,
+                        Title = $"{source.Name} - {action.Name}",
+                        Content = $"您收到了一個來自 {source.Name} 的 {action.Name} 通知",
+                        IsRead = _random.Next(100) < 70,
+                        CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(0, 7))
+                    });
+                }
+            }
+
+            _context.Notifications.AddRange(notifications);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成通知接收者假資料
+        /// </summary>
+        private async Task GenerateNotificationRecipientsAsync()
+        {
+            if (await _context.NotificationRecipients.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(10).ToListAsync();
+            var notifications = await _context.Notifications.ToListAsync();
+            var recipients = new List<NotificationRecipient>();
+
+            foreach (var user in users)
+            {
+                var userNotifications = notifications.Take(_random.Next(2, 5)).ToList();
+                foreach (var notification in userNotifications)
+                {
+                    recipients.Add(new NotificationRecipient
+                    {
+                        NotificationId = notification.Id,
+                        UserId = user.Id,
+                        IsRead = _random.Next(100) < 70,
+                        ReadAt = _random.Next(100) < 70 ? DateTime.UtcNow.AddDays(-_random.Next(0, 3)) : null
+                    });
+                }
+            }
+
+            _context.NotificationRecipients.AddRange(recipients);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成聊天訊息假資料
+        /// </summary>
+        private async Task GenerateChatMessagesAsync()
+        {
+            if (await _context.ChatMessages.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(10).ToListAsync();
+            var messages = new List<ChatMessage>();
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                for (int j = i + 1; j < users.Count; j++)
+                {
+                    var messageCount = _random.Next(3, 8);
+                    for (int k = 0; k < messageCount; k++)
+                    {
+                        messages.Add(new ChatMessage
+                        {
+                            SenderId = users[i].Id,
+                            ReceiverId = users[j].Id,
+                            Content = $"這是來自用戶 {users[i].Username} 的第 {k + 1} 條訊息",
+                            IsRead = _random.Next(100) < 80,
+                            CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(0, 7))
+                        });
+                    }
+                }
+            }
+
+            _context.ChatMessages.AddRange(messages);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成群組假資料
+        /// </summary>
+        private async Task GenerateGroupsAsync()
+        {
+            if (await _context.Groups.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(5).ToListAsync();
+            var groups = new List<Group>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new Group
+                {
+                    Name = $"群組 {i + 1}",
+                    Description = $"這是群組 {i + 1} 的描述",
+                    OwnerId = users[i % users.Count].Id,
+                    MaxMembers = _random.Next(50, 200),
+                    IsPublic = _random.Next(100) < 80,
+                    CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 30))
+                });
+            }
+
+            _context.Groups.AddRange(groups);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成群組成員假資料
+        /// </summary>
+        private async Task GenerateGroupMembersAsync()
+        {
+            if (await _context.GroupMembers.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(15).ToListAsync();
+            var groups = await _context.Groups.ToListAsync();
+            var members = new List<GroupMember>();
+
+            foreach (var group in groups)
+            {
+                var memberCount = _random.Next(5, 15);
+                var groupUsers = users.OrderBy(x => _random.Next()).Take(memberCount).ToList();
+
+                foreach (var user in groupUsers)
+                {
+                    members.Add(new GroupMember
+                    {
+                        GroupId = group.Id,
+                        UserId = user.Id,
+                        Role = user.Id == group.OwnerId ? "Admin" : "Member",
+                        JoinedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 30))
+                    });
+                }
+            }
+
+            _context.GroupMembers.AddRange(members);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成群組聊天假資料
+        /// </summary>
+        private async Task GenerateGroupChatsAsync()
+        {
+            if (await _context.GroupChats.AnyAsync())
+                return;
+
+            var groups = await _context.Groups.ToListAsync();
+            var chats = new List<GroupChat>();
+
+            foreach (var group in groups)
+            {
+                var messageCount = _random.Next(10, 25);
+                for (int i = 0; i < messageCount; i++)
+                {
+                    chats.Add(new GroupChat
+                    {
+                        GroupId = group.Id,
+                        SenderId = group.OwnerId, // 簡化，都用群主發送
+                        Content = $"群組 {group.Name} 的第 {i + 1} 條訊息",
+                        CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(0, 7))
+                    });
+                }
+            }
+
+            _context.GroupChats.AddRange(chats);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成群組封鎖假資料
+        /// </summary>
+        private async Task GenerateGroupBlocksAsync()
+        {
+            if (await _context.GroupBlocks.AnyAsync())
+                return;
+
+            var groups = await _context.Groups.ToListAsync();
+            var users = await _context.Users.Take(10).ToListAsync();
+            var blocks = new List<GroupBlock>();
+
+            foreach (var group in groups)
+            {
+                var blockCount = _random.Next(0, 3);
+                var blockedUsers = users.OrderBy(x => _random.Next()).Take(blockCount).ToList();
+
+                foreach (var user in blockedUsers)
+                {
+                    blocks.Add(new GroupBlock
+                    {
+                        GroupId = group.Id,
+                        BlockedUserId = user.Id,
+                        Reason = $"違反群組規則",
+                        BlockedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 7))
+                    });
+                }
+            }
+
+            _context.GroupBlocks.AddRange(blocks);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成禁言假資料
+        /// </summary>
+        private async Task GenerateMutesAsync()
+        {
+            if (await _context.Mutes.AnyAsync())
+                return;
+
+            var managers = await _context.ManagerData.Take(3).ToListAsync();
+            var mutes = new List<Mute>();
+
+            foreach (var manager in managers)
+            {
+                mutes.Add(new Mute
+                {
+                    MuteName = $"禁言選項 {manager.Manager_Id}",
+                    EffectDesc = $"由 {manager.Manager_Name} 創建的禁言選項",
+                    IsActive = true,
+                    ManagerId = manager.Manager_Id,
+                    CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 30))
+                });
+            }
+
+            _context.Mutes.AddRange(mutes);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成樣式假資料
+        /// </summary>
+        private async Task GenerateStylesAsync()
+        {
+            if (await _context.Styles.AnyAsync())
+                return;
+
+            var managers = await _context.ManagerData.Take(3).ToListAsync();
+            var styles = new List<Style>();
+
+            foreach (var manager in managers)
+            {
+                styles.Add(new Style
+                {
+                    StyleName = $"樣式 {manager.Manager_Id}",
+                    EffectDesc = $"由 {manager.Manager_Name} 創建的樣式效果",
+                    ManagerId = manager.Manager_Id,
+                    CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 30))
+                });
+            }
+
+            _context.Styles.AddRange(styles);
+            await _context.SaveChangesAsync();
+        }
+
+        // Stage 5: Daily Sign-In 相關假資料生成方法
+
+        /// <summary>
+        /// 生成簽到獎勵假資料
+        /// </summary>
+        private async Task GenerateSignInRewardsAsync()
+        {
+            if (await _context.SignInRewards.AnyAsync())
+                return;
+
+            var rewards = new List<SignInReward>
+            {
+                new SignInReward
+                {
+                    Name = "新手簽到",
+                    Description = "連續簽到3天獲得額外獎勵",
+                    PointsReward = 50,
+                    StreakRequirement = 3,
+                    AttendanceRequirement = 3,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+                new SignInReward
+                {
+                    Name = "週末戰士",
+                    Description = "連續簽到7天獲得週末獎勵",
+                    PointsReward = 100,
+                    StreakRequirement = 7,
+                    AttendanceRequirement = 7,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+                new SignInReward
+                {
+                    Name = "月度大師",
+                    Description = "連續簽到30天獲得月度獎勵",
+                    PointsReward = 500,
+                    StreakRequirement = 30,
+                    AttendanceRequirement = 25,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+                new SignInReward
+                {
+                    Name = "完美出勤",
+                    Description = "月度完美出勤獲得特殊獎勵",
+                    PointsReward = 1000,
+                    StreakRequirement = 0,
+                    AttendanceRequirement = 30,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                }
+            };
+
+            _context.SignInRewards.AddRange(rewards);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成每日簽到假資料
+        /// </summary>
+        private async Task GenerateDailySignInsAsync()
+        {
+            if (await _context.DailySignIns.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(20).ToListAsync(); // 只為前20個用戶生成簽到資料
+            var signIns = new List<DailySignIn>();
+            var now = DateTime.UtcNow;
+
+            foreach (var user in users)
+            {
+                var lastSignInDate = user.CreatedAt.Date;
+                var currentStreak = 0;
+                var longestStreak = 0;
+
+                // 生成過去30天的簽到資料
+                for (int i = 0; i < 30; i++)
+                {
+                    var signInDate = now.AddDays(-i);
+                    var shouldSignIn = _random.Next(100) < 80; // 80% 簽到率
+
+                    if (shouldSignIn)
+                    {
+                        if (currentStreak == 0 || (signInDate - lastSignInDate).Days == 1)
+                        {
+                            currentStreak++;
+                            longestStreak = Math.Max(longestStreak, currentStreak);
+                        }
+                        else
+                        {
+                            currentStreak = 1;
+                        }
+
+                        var isBonusDay = signInDate.DayOfWeek == DayOfWeek.Saturday || 
+                                       signInDate.DayOfWeek == DayOfWeek.Sunday || 
+                                       signInDate.Day == 1;
+                        var bonusMultiplier = isBonusDay ? 2 : 1;
+                        var basePoints = 10;
+                        var streakBonus = Math.Min(currentStreak * 2, 50);
+                        var totalPoints = (basePoints + streakBonus) * bonusMultiplier;
+
+                        signIns.Add(new DailySignIn
+                        {
+                            UserId = user.Id,
+                            SignInDate = signInDate.Date,
+                            SignInTime = signInDate,
+                            CurrentStreak = currentStreak,
+                            LongestStreak = longestStreak,
+                            MonthlyPerfectAttendance = 0, // 會在服務中計算
+                            PointsEarned = totalPoints,
+                            IsBonusDay = isBonusDay,
+                            BonusMultiplier = bonusMultiplier,
+                            CreatedAt = signInDate,
+                            UpdatedAt = signInDate
+                        });
+
+                        lastSignInDate = signInDate;
+                    }
+                    else
+                    {
+                        currentStreak = 0; // 重置連續簽到
+                    }
+                }
+            }
+
+            _context.DailySignIns.AddRange(signIns);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成用戶簽到歷史假資料
+        /// </summary>
+        private async Task GenerateUserSignInHistoriesAsync()
+        {
+            if (await _context.UserSignInHistories.AnyAsync())
+                return;
+
+            var dailySignIns = await _context.DailySignIns.ToListAsync();
+            var histories = new List<UserSignInHistory>();
+
+            foreach (var signIn in dailySignIns)
+            {
+                var signInDate = signIn.SignInDate;
+                var calendar = System.Globalization.CultureInfo.InvariantCulture.Calendar;
+
+                histories.Add(new UserSignInHistory
+                {
+                    UserId = signIn.UserId,
+                    SignInDate = signIn.SignInDate,
+                    SignInTime = signIn.SignInTime,
+                    DayOfWeek = (int)signInDate.DayOfWeek,
+                    DayOfMonth = signInDate.Day,
+                    Month = signInDate.Month,
+                    Year = signInDate.Year,
+                    WeekOfYear = calendar.GetWeekOfYear(signInDate, System.Globalization.CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday),
+                    PointsEarned = signIn.PointsEarned,
+                    IsStreakContinued = signIn.CurrentStreak > 1,
+                    IsBonusDay = signIn.IsBonusDay,
+                    BonusMultiplier = signIn.BonusMultiplier,
+                    CreatedAt = signIn.CreatedAt
+                });
+            }
+
+            _context.UserSignInHistories.AddRange(histories);
+            await _context.SaveChangesAsync();
         }
     }
 }

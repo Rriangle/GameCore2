@@ -66,6 +66,11 @@ public class GameCoreDbContext : DbContext
     public DbSet<Mute> Mutes { get; set; }
     public DbSet<Style> Styles { get; set; }
 
+    // Stage 5: Daily Sign-In 相關 DbSet
+    public DbSet<DailySignIn> DailySignIns { get; set; }
+    public DbSet<SignInReward> SignInRewards { get; set; }
+    public DbSet<UserSignInHistory> UserSignInHistories { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -424,6 +429,7 @@ public class GameCoreDbContext : DbContext
         ConfigureOrderEntities(modelBuilder);
         ConfigurePlayerMarketEntities(modelBuilder);
         ConfigureStage4Entities(modelBuilder);
+        ConfigureStage5Entities(modelBuilder);
     }
 
     /// <summary>
@@ -852,6 +858,81 @@ public class GameCoreDbContext : DbContext
                   .WithMany(e => e.Styles)
                   .HasForeignKey(e => e.manager_id)
                   .OnDelete(DeleteBehavior.Restrict);
+        });
+    }
+
+    /// <summary>
+    /// 配置 Stage 5: Daily Sign-In 相關實體
+    /// </summary>
+    private void ConfigureStage5Entities(ModelBuilder modelBuilder)
+    {
+        // 每日簽到實體配置
+        modelBuilder.Entity<DailySignIn>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserId).IsRequired();
+            entity.Property(e => e.SignInDate).IsRequired();
+            entity.Property(e => e.SignInTime).IsRequired();
+            entity.Property(e => e.CurrentStreak).IsRequired();
+            entity.Property(e => e.LongestStreak).IsRequired();
+            entity.Property(e => e.MonthlyPerfectAttendance).IsRequired();
+            entity.Property(e => e.PointsEarned).IsRequired();
+            entity.Property(e => e.IsBonusDay).IsRequired();
+            entity.Property(e => e.BonusMultiplier).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 複合索引：用戶ID + 簽到日期（確保每天只能簽到一次）
+            entity.HasIndex(e => new { e.UserId, e.SignInDate }).IsUnique();
+        });
+
+        // 簽到獎勵實體配置
+        modelBuilder.Entity<SignInReward>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.PointsReward).IsRequired();
+            entity.Property(e => e.StreakRequirement).IsRequired();
+            entity.Property(e => e.AttendanceRequirement).IsRequired();
+            entity.Property(e => e.IsActive).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+        });
+
+        // 用戶簽到歷史實體配置
+        modelBuilder.Entity<UserSignInHistory>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserId).IsRequired();
+            entity.Property(e => e.SignInDate).IsRequired();
+            entity.Property(e => e.SignInTime).IsRequired();
+            entity.Property(e => e.DayOfWeek).IsRequired();
+            entity.Property(e => e.DayOfMonth).IsRequired();
+            entity.Property(e => e.Month).IsRequired();
+            entity.Property(e => e.Year).IsRequired();
+            entity.Property(e => e.WeekOfYear).IsRequired();
+            entity.Property(e => e.PointsEarned).IsRequired();
+            entity.Property(e => e.IsStreakContinued).IsRequired();
+            entity.Property(e => e.IsBonusDay).IsRequired();
+            entity.Property(e => e.BonusMultiplier).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：用戶ID + 簽到日期（優化查詢）
+            entity.HasIndex(e => new { e.UserId, e.SignInDate });
+            entity.HasIndex(e => new { e.UserId, e.Year, e.Month });
         });
     }
 
