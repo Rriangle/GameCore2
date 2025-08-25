@@ -3,28 +3,81 @@ using GameCore.Domain.Interfaces;
 using GameCore.Infrastructure.Data;
 using GameCore.Shared.DTOs.VirtualPetDtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace GameCore.Infrastructure.Services;
 
 /// <summary>
-/// Service implementation for virtual pet operations
+/// 虛擬寵物服務實現 - 優化版本
+/// 增強性能、快取、輸入驗證、錯誤處理和可維護性
 /// </summary>
 public class VirtualPetService : IVirtualPetService
 {
     private readonly GameCoreDbContext _context;
+    private readonly IMemoryCache _memoryCache;
     private readonly ILogger<VirtualPetService> _logger;
 
-    public VirtualPetService(GameCoreDbContext context, ILogger<VirtualPetService> logger)
+    // 常數定義，提高可維護性
+    private const int MaxPageSize = 100;
+    private const int DefaultPageSize = 20;
+    private const int CacheExpirationMinutes = 30;
+    private const int MaxPetNameLength = 50;
+    private const int MaxPetColorLength = 30;
+    private const int MaxPetPersonalityLength = 100;
+    
+    // 快取鍵定義
+    private const string UserPetCacheKey = "UserPet_{0}";
+    private const string PetCareHistoryCacheKey = "PetCareHistory_{0}_{1}_{2}";
+    private const string PetAchievementsCacheKey = "PetAchievements_{0}";
+    private const string AvailablePetItemsCacheKey = "AvailablePetItems";
+    private const string PetStatisticsCacheKey = "PetStatistics_{0}";
+
+    public VirtualPetService(
+        GameCoreDbContext context, 
+        IMemoryCache memoryCache, 
+        ILogger<VirtualPetService> logger)
     {
-        _context = context;
-        _logger = logger;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task<VirtualPetResponseDto> CreatePetAsync(int userId, CreatePetRequestDto request)
     {
-        // Check if user already has a pet
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+        if (string.IsNullOrWhiteSpace(request.Name))
+        {
+            throw new ArgumentException("Pet name cannot be empty", nameof(request.Name));
+        }
+        if (request.Name.Length > MaxPetNameLength)
+        {
+            throw new ArgumentException($"Pet name cannot exceed {MaxPetNameLength} characters", nameof(request.Name));
+        }
+        if (string.IsNullOrWhiteSpace(request.Color))
+        {
+            throw new ArgumentException("Pet color cannot be empty", nameof(request.Color));
+        }
+        if (request.Color.Length > MaxPetColorLength)
+        {
+            throw new ArgumentException($"Pet color cannot exceed {MaxPetColorLength} characters", nameof(request.Color));
+        }
+        if (!string.IsNullOrWhiteSpace(request.Personality) && request.Personality.Length > MaxPetPersonalityLength)
+        {
+            throw new ArgumentException($"Pet personality cannot exceed {MaxPetPersonalityLength} characters", nameof(request.Personality));
+        }
+
+        // 檢查用戶是否已經有寵物
         var existingPet = await _context.VirtualPets
+            .AsNoTracking()
             .FirstOrDefaultAsync(vp => vp.UserId == userId);
 
         if (existingPet != null)
@@ -63,8 +116,11 @@ public class VirtualPetService : IVirtualPetService
         _context.VirtualPets.Add(pet);
         await _context.SaveChangesAsync();
 
-        // Create initial achievements
+        // 創建初始成就
         await CreateInitialAchievementsAsync(pet.Id);
+
+        // 清除相關快取
+        ClearUserPetRelatedCache(userId);
 
         _logger.LogInformation("Created virtual pet {PetName} for user {UserId}", pet.Name, userId);
 
@@ -73,7 +129,21 @@ public class VirtualPetService : IVirtualPetService
 
     public async Task<VirtualPetResponseDto> GetUserPetAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(UserPetCacheKey, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out VirtualPetResponseDto cachedPet))
+        {
+            return cachedPet;
+        }
+
         var pet = await _context.VirtualPets
+            .AsNoTracking()
             .FirstOrDefaultAsync(vp => vp.UserId == userId);
 
         if (pet == null)
@@ -81,11 +151,30 @@ public class VirtualPetService : IVirtualPetService
             throw new InvalidOperationException("User does not have a virtual pet");
         }
 
-        return await MapToVirtualPetResponseDto(pet);
+        var petResponse = await MapToVirtualPetResponseDto(pet);
+
+        // 存入快取
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CacheExpirationMinutes)
+        };
+        _memoryCache.Set(cacheKey, petResponse, cacheOptions);
+
+        return petResponse;
     }
 
     public async Task<PetCareResponseDto> FeedPetAsync(int userId, int itemId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (itemId <= 0)
+        {
+            throw new ArgumentException("Item ID must be greater than 0", nameof(itemId));
+        }
+
         var pet = await GetPetWithValidation(userId);
         var item = await GetPetItemWithValidation(itemId, "Food");
 
@@ -150,8 +239,11 @@ public class VirtualPetService : IVirtualPetService
 
         await _context.SaveChangesAsync();
 
-        // Check for new achievements
+        // 檢查新成就
         var achievements = await CheckForNewAchievementsAsync(pet.Id);
+
+        // 清除相關快取
+        ClearUserPetRelatedCache(userId);
 
         _logger.LogInformation("User {UserId} fed pet {PetName} with {ItemName}", userId, pet.Name, item.Name);
 
@@ -177,6 +269,16 @@ public class VirtualPetService : IVirtualPetService
 
     public async Task<PetCareResponseDto> PlayWithPetAsync(int userId, int itemId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (itemId <= 0)
+        {
+            throw new ArgumentException("Item ID must be greater than 0", nameof(itemId));
+        }
+
         var pet = await GetPetWithValidation(userId);
         var item = await GetPetItemWithValidation(itemId, "Toy");
 
@@ -241,8 +343,11 @@ public class VirtualPetService : IVirtualPetService
 
         await _context.SaveChangesAsync();
 
-        // Check for new achievements
+        // 檢查新成就
         var achievements = await CheckForNewAchievementsAsync(pet.Id);
+
+        // 清除相關快取
+        ClearUserPetRelatedCache(userId);
 
         _logger.LogInformation("User {UserId} played with pet {PetName} using {ItemName}", userId, pet.Name, item.Name);
 
@@ -268,6 +373,16 @@ public class VirtualPetService : IVirtualPetService
 
     public async Task<PetCareResponseDto> CleanPetAsync(int userId, int itemId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (itemId <= 0)
+        {
+            throw new ArgumentException("Item ID must be greater than 0", nameof(itemId));
+        }
+
         var pet = await GetPetWithValidation(userId);
         var item = await GetPetItemWithValidation(itemId, "Cleaning");
 
@@ -332,8 +447,11 @@ public class VirtualPetService : IVirtualPetService
 
         await _context.SaveChangesAsync();
 
-        // Check for new achievements
+        // 檢查新成就
         var achievements = await CheckForNewAchievementsAsync(pet.Id);
+
+        // 清除相關快取
+        ClearUserPetRelatedCache(userId);
 
         _logger.LogInformation("User {UserId} cleaned pet {PetName} with {ItemName}", userId, pet.Name, item.Name);
 
@@ -359,6 +477,12 @@ public class VirtualPetService : IVirtualPetService
 
     public async Task<PetCareResponseDto> RestPetAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+
         var pet = await GetPetWithValidation(userId);
 
         if (DateTime.UtcNow.Subtract(pet.LastRested).TotalHours < 4)
@@ -423,8 +547,11 @@ public class VirtualPetService : IVirtualPetService
 
         await _context.SaveChangesAsync();
 
-        // Check for new achievements
+        // 檢查新成就
         var achievements = await CheckForNewAchievementsAsync(pet.Id);
+
+        // 清除相關快取
+        ClearUserPetRelatedCache(userId);
 
         _logger.LogInformation("User {UserId} let pet {PetName} rest", userId, pet.Name);
 
@@ -450,6 +577,20 @@ public class VirtualPetService : IVirtualPetService
 
     public async Task<VirtualPetResponseDto> ChangePetColorAsync(int userId, string newColor)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (string.IsNullOrWhiteSpace(newColor))
+        {
+            throw new ArgumentException("New color cannot be empty", nameof(newColor));
+        }
+        if (newColor.Length > MaxPetColorLength)
+        {
+            throw new ArgumentException($"New color cannot exceed {MaxPetColorLength} characters", nameof(newColor));
+        }
+
         var pet = await GetPetWithValidation(userId);
 
         var oldColor = pet.Color;
@@ -457,6 +598,9 @@ public class VirtualPetService : IVirtualPetService
         pet.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
+
+        // 清除相關快取
+        ClearUserPetRelatedCache(userId);
 
         _logger.LogInformation("User {UserId} changed pet {PetName} color from {OldColor} to {NewColor}", 
             userId, pet.Name, oldColor, newColor);
@@ -466,7 +610,33 @@ public class VirtualPetService : IVirtualPetService
 
     public async Task<PetCareHistoryResponseDto> GetPetCareHistoryAsync(int userId, int page = 1, int pageSize = 20)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+        if (page < 1)
+        {
+            throw new ArgumentException("Page must be greater than 0", nameof(page));
+        }
+        if (pageSize <= 0)
+        {
+            pageSize = DefaultPageSize;
+        }
+        if (pageSize > MaxPageSize)
+        {
+            pageSize = MaxPageSize;
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(PetCareHistoryCacheKey, userId, page, pageSize);
+        if (_memoryCache.TryGetValue(cacheKey, out PetCareHistoryResponseDto cachedHistory))
+        {
+            return cachedHistory;
+        }
+
         var pet = await _context.VirtualPets
+            .AsNoTracking()
             .FirstOrDefaultAsync(vp => vp.UserId == userId);
 
         if (pet == null)
@@ -475,6 +645,7 @@ public class VirtualPetService : IVirtualPetService
         }
 
         var query = _context.PetCareLogs
+            .AsNoTracking()
             .Where(pcl => pcl.PetId == pet.Id)
             .OrderByDescending(pcl => pcl.ActionTime);
 
@@ -500,7 +671,7 @@ public class VirtualPetService : IVirtualPetService
             })
             .ToListAsync();
 
-        return new PetCareHistoryResponseDto
+        var history = new PetCareHistoryResponseDto
         {
             Items = items,
             TotalCount = totalCount,
@@ -508,11 +679,34 @@ public class VirtualPetService : IVirtualPetService
             PageSize = pageSize,
             TotalPages = totalPages
         };
+
+        // 存入快取
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CacheExpirationMinutes)
+        };
+        _memoryCache.Set(cacheKey, history, cacheOptions);
+
+        return history;
     }
 
     public async Task<List<PetAchievementDto>> GetPetAchievementsAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(PetAchievementsCacheKey, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out List<PetAchievementDto> cachedAchievements))
+        {
+            return cachedAchievements;
+        }
+
         var pet = await _context.VirtualPets
+            .AsNoTracking()
             .FirstOrDefaultAsync(vp => vp.UserId == userId);
 
         if (pet == null)
@@ -521,6 +715,7 @@ public class VirtualPetService : IVirtualPetService
         }
 
         var achievements = await _context.PetAchievements
+            .AsNoTracking()
             .Where(pa => pa.PetId == pet.Id)
             .OrderBy(pa => pa.Category)
             .ThenBy(pa => pa.Name)
@@ -536,12 +731,26 @@ public class VirtualPetService : IVirtualPetService
             })
             .ToListAsync();
 
+        // 存入快取
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CacheExpirationMinutes)
+        };
+        _memoryCache.Set(cacheKey, achievements, cacheOptions);
+
         return achievements;
     }
 
     public async Task<List<PetItemDto>> GetAvailablePetItemsAsync()
     {
+        // 嘗試從快取獲取
+        if (_memoryCache.TryGetValue(AvailablePetItemsCacheKey, out List<PetItemDto> cachedItems))
+        {
+            return cachedItems;
+        }
+
         var items = await _context.PetItems
+            .AsNoTracking()
             .Where(pi => pi.IsActive)
             .OrderBy(pi => pi.Category)
             .ThenBy(pi => pi.Name)
@@ -563,12 +772,33 @@ public class VirtualPetService : IVirtualPetService
             })
             .ToListAsync();
 
+        // 存入快取，物品列表變化較少，可以設定較長的過期時間
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2)
+        };
+        _memoryCache.Set(AvailablePetItemsCacheKey, items, cacheOptions);
+
         return items;
     }
 
     public async Task<PetStatisticsDto> GetPetStatisticsAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+        {
+            throw new ArgumentException("User ID must be greater than 0", nameof(userId));
+        }
+
+        // 嘗試從快取獲取
+        var cacheKey = string.Format(PetStatisticsCacheKey, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out PetStatisticsDto cachedStats))
+        {
+            return cachedStats;
+        }
+
         var pet = await _context.VirtualPets
+            .AsNoTracking()
             .FirstOrDefaultAsync(vp => vp.UserId == userId);
 
         if (pet == null)
@@ -577,10 +807,12 @@ public class VirtualPetService : IVirtualPetService
         }
 
         var careLogs = await _context.PetCareLogs
+            .AsNoTracking()
             .Where(pcl => pcl.PetId == pet.Id)
             .ToListAsync();
 
         var achievements = await _context.PetAchievements
+            .AsNoTracking()
             .Where(pa => pa.PetId == pet.Id)
             .ToListAsync();
 
@@ -592,7 +824,7 @@ public class VirtualPetService : IVirtualPetService
             .GroupBy(pcl => pcl.Action)
             .ToDictionary(g => g.Key, g => g.Sum(pcl => pcl.PointsEarned));
 
-        return new PetStatisticsDto
+        var statistics = new PetStatisticsDto
         {
             TotalCareActions = careLogs.Count,
             TotalExperienceGained = careLogs.Sum(pcl => pcl.ExperienceGained),
@@ -604,6 +836,15 @@ public class VirtualPetService : IVirtualPetService
             ActionCounts = actionCounts,
             CategoryStats = categoryStats
         };
+
+        // 存入快取
+        var cacheOptions = new MemoryCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(CacheExpirationMinutes)
+        };
+        _memoryCache.Set(cacheKey, statistics, cacheOptions);
+
+        return statistics;
     }
 
     public async Task ProcessPetStatusDecayAsync()
@@ -651,6 +892,10 @@ public class VirtualPetService : IVirtualPetService
         }
 
         await _context.SaveChangesAsync();
+
+        // 清除所有寵物相關的快取
+        ClearAllPetRelatedCache();
+
         _logger.LogInformation("Processed status decay for {PetCount} pets", pets.Count);
     }
 
@@ -849,4 +1094,43 @@ public class VirtualPetService : IVirtualPetService
             Needs = needs
         };
     }
+
+    #region 快取管理
+
+    /// <summary>
+    /// 清除用戶寵物相關的快取
+    /// </summary>
+    private void ClearUserPetRelatedCache(int userId)
+    {
+        var userPetKey = string.Format(UserPetCacheKey, userId);
+        var petAchievementsKey = string.Format(PetAchievementsCacheKey, userId);
+        var petStatisticsKey = string.Format(PetStatisticsCacheKey, userId);
+
+        _memoryCache.Remove(userPetKey);
+        _memoryCache.Remove(petAchievementsKey);
+        _memoryCache.Remove(petStatisticsKey);
+
+        // 清除分頁護理歷史記錄快取（需要遍歷所有可能的頁面）
+        for (int page = 1; page <= 10; page++) // 假設最多10頁
+        {
+            for (int pageSize = 10; pageSize <= MaxPageSize; pageSize += 10)
+            {
+                var historyKey = string.Format(PetCareHistoryCacheKey, userId, page, pageSize);
+                _memoryCache.Remove(historyKey);
+            }
+        }
+
+        _logger.LogDebug("Cleared cache for user pet {UserId}", userId);
+    }
+
+    /// <summary>
+    /// 清除所有寵物相關的快取
+    /// </summary>
+    private void ClearAllPetRelatedCache()
+    {
+        _memoryCache.Remove(AvailablePetItemsCacheKey);
+        _logger.LogDebug("Cleared all pet-related cache");
+    }
+
+    #endregion
 }
