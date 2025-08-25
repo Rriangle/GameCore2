@@ -87,6 +87,7 @@ builder.Services.AddScoped<JwtService>();
 // 註冊產品相關服務
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IPlayerMarketService, PlayerMarketService>();
 
 // 註冊記憶體快取
 builder.Services.AddMemoryCache();
