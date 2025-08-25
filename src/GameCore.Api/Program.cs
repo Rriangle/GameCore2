@@ -88,6 +88,8 @@ builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPlayerMarketService, PlayerMarketService>();
+builder.Services.AddScoped<IPopularityService, PopularityService>();
+builder.Services.AddScoped<IInsightService, InsightService>();
 
 // 註冊記憶體快取
 builder.Services.AddMemoryCache();
