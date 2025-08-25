@@ -68,6 +68,12 @@ namespace GameCore.Infrastructure.Services
             await GenerateSignInRewardsAsync();
             await GenerateDailySignInsAsync();
             await GenerateUserSignInHistoriesAsync();
+            
+            // Stage 6: Virtual Pet (Slime) 相關假資料
+            await GeneratePetItemsAsync();
+            await GenerateVirtualPetsAsync();
+            await GeneratePetCareLogsAsync();
+            await GeneratePetAchievementsAsync();
         }
 
         private async Task GenerateUsersAsync()
@@ -1875,6 +1881,345 @@ namespace GameCore.Infrastructure.Services
 
             _context.UserSignInHistories.AddRange(histories);
             await _context.SaveChangesAsync();
+        }
+
+        // Stage 6: Virtual Pet (Slime) 相關假資料生成方法
+
+        /// <summary>
+        /// 生成寵物物品假資料
+        /// </summary>
+        private async Task GeneratePetItemsAsync()
+        {
+            if (await _context.PetItems.AnyAsync())
+                return;
+
+            var items = new List<PetItem>
+            {
+                // 食物類
+                new PetItem
+                {
+                    Name = "基礎飼料",
+                    Description = "營養均衡的基礎飼料，適合日常餵食",
+                    Type = "Food",
+                    Category = "Basic",
+                    HealthEffect = 5,
+                    HungerEffect = 30,
+                    EnergyEffect = 10,
+                    HappinessEffect = 5,
+                    CleanlinessEffect = 0,
+                    ExperienceEffect = 5,
+                    Price = 10,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+                new PetItem
+                {
+                    Name = "高級飼料",
+                    Description = "富含營養的高級飼料，提供更好的效果",
+                    Type = "Food",
+                    Category = "Premium",
+                    HealthEffect = 15,
+                    HungerEffect = 50,
+                    EnergyEffect = 20,
+                    HappinessEffect = 15,
+                    CleanlinessEffect = 5,
+                    ExperienceEffect = 15,
+                    Price = 25,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+                new PetItem
+                {
+                    Name = "特製點心",
+                    Description = "美味的特製點心，寵物非常喜歡",
+                    Type = "Food",
+                    Category = "Treat",
+                    HealthEffect = 10,
+                    HungerEffect = 20,
+                    EnergyEffect = 5,
+                    HappinessEffect = 25,
+                    CleanlinessEffect = 0,
+                    ExperienceEffect = 10,
+                    Price = 20,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+
+                // 玩具類
+                new PetItem
+                {
+                    Name = "基礎球",
+                    Description = "簡單的球類玩具，適合基礎遊戲",
+                    Type = "Toy",
+                    Category = "Basic",
+                    HealthEffect = 5,
+                    HungerEffect = -10,
+                    EnergyEffect = -15,
+                    HappinessEffect = 20,
+                    CleanlinessEffect = -5,
+                    ExperienceEffect = 8,
+                    Price = 15,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+                new PetItem
+                {
+                    Name = "互動玩具",
+                    Description = "互動性強的玩具，提供豐富的遊戲體驗",
+                    Type = "Toy",
+                    Category = "Interactive",
+                    HealthEffect = 10,
+                    HungerEffect = -15,
+                    EnergyEffect = -20,
+                    HappinessEffect = 30,
+                    CleanlinessEffect = -8,
+                    ExperienceEffect = 15,
+                    Price = 30,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+
+                // 清潔類
+                new PetItem
+                {
+                    Name = "基礎清潔劑",
+                    Description = "溫和的清潔劑，適合日常清潔",
+                    Type = "Cleaning",
+                    Category = "Basic",
+                    HealthEffect = 5,
+                    HungerEffect = 0,
+                    EnergyEffect = 0,
+                    HappinessEffect = 10,
+                    CleanlinessEffect = 40,
+                    ExperienceEffect = 5,
+                    Price = 20,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                },
+                new PetItem
+                {
+                    Name = "高級清潔劑",
+                    Description = "高效清潔劑，提供更好的清潔效果",
+                    Type = "Cleaning",
+                    Category = "Premium",
+                    HealthEffect = 10,
+                    HungerEffect = 0,
+                    EnergyEffect = 0,
+                    HappinessEffect = 15,
+                    CleanlinessEffect = 60,
+                    ExperienceEffect = 10,
+                    Price = 35,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-30),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-30)
+                }
+            };
+
+            _context.PetItems.AddRange(items);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成虛擬寵物假資料
+        /// </summary>
+        private async Task GenerateVirtualPetsAsync()
+        {
+            if (await _context.VirtualPets.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(15).ToListAsync(); // 為前15個用戶生成寵物
+            var pets = new List<VirtualPet>();
+            var now = DateTime.UtcNow;
+
+            var colors = new[] { "Blue", "Green", "Red", "Yellow", "Purple", "Orange", "Pink", "Brown" };
+            var personalities = new[] { "Friendly", "Shy", "Energetic", "Calm", "Playful", "Serious", "Curious", "Loyal" };
+
+            foreach (var user in users)
+            {
+                var pet = new VirtualPet
+                {
+                    UserId = user.Id,
+                    Name = $"Slime_{user.Username}",
+                    Level = _random.Next(1, 8),
+                    Experience = _random.Next(0, 200),
+                    ExperienceToNextLevel = 150,
+                    Health = _random.Next(60, 101),
+                    MaxHealth = 100,
+                    Hunger = _random.Next(40, 101),
+                    MaxHunger = 100,
+                    Energy = _random.Next(50, 101),
+                    MaxEnergy = 100,
+                    Happiness = _random.Next(50, 101),
+                    MaxHappiness = 100,
+                    Cleanliness = _random.Next(40, 101),
+                    MaxCleanliness = 100,
+                    Color = colors[_random.Next(colors.Length)],
+                    Personality = personalities[_random.Next(personalities.Length)],
+                    LastFed = now.AddHours(-_random.Next(1, 8)),
+                    LastPlayed = now.AddHours(-_random.Next(2, 12)),
+                    LastCleaned = now.AddHours(-_random.Next(3, 24)),
+                    LastRested = now.AddHours(-_random.Next(4, 20)),
+                    CreatedAt = user.CreatedAt.AddDays(_random.Next(1, 30)),
+                    UpdatedAt = now
+                };
+
+                // 計算經驗值到下一級
+                pet.ExperienceToNextLevel = CalculatePetExperienceToNextLevel(pet.Level);
+                pets.Add(pet);
+            }
+
+            _context.VirtualPets.AddRange(pets);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成寵物照顧日誌假資料
+        /// </summary>
+        private async Task GeneratePetCareLogsAsync()
+        {
+            if (await _context.PetCareLogs.AnyAsync())
+                return;
+
+            var pets = await _context.VirtualPets.ToListAsync();
+            var items = await _context.PetItems.ToListAsync();
+            var careLogs = new List<PetCareLog>();
+            var now = DateTime.UtcNow;
+
+            foreach (var pet in pets)
+            {
+                var logCount = _random.Next(5, 15);
+                for (int i = 0; i < logCount; i++)
+                {
+                    var actionTime = now.AddDays(-_random.Next(0, 14));
+                    var item = items[_random.Next(items.Length)];
+                    var action = GetActionFromItemType(item.Type);
+
+                    careLogs.Add(new PetCareLog
+                    {
+                        PetId = pet.Id,
+                        UserId = pet.UserId,
+                        Action = action,
+                        Description = $"{action} {pet.Name} using {item.Name}",
+                        HealthChange = item.HealthEffect,
+                        HungerChange = item.HungerEffect,
+                        EnergyChange = item.EnergyEffect,
+                        HappinessChange = item.HappinessEffect,
+                        CleanlinessChange = item.CleanlinessEffect,
+                        ExperienceGained = item.ExperienceEffect,
+                        PointsEarned = CalculatePetPointsEarned(action, item.ExperienceEffect),
+                        ActionTime = actionTime,
+                        CreatedAt = actionTime
+                    });
+                }
+            }
+
+            _context.PetCareLogs.AddRange(careLogs);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 生成寵物成就假資料
+        /// </summary>
+        private async Task GeneratePetAchievementsAsync()
+        {
+            if (await _context.PetAchievements.AnyAsync())
+                return;
+
+            var pets = await _context.VirtualPets.ToListAsync();
+            var achievements = new List<PetAchievement>();
+
+            foreach (var pet in pets)
+            {
+                // 創建成就
+                var petAchievements = new List<PetAchievement>
+                {
+                    new PetAchievement
+                    {
+                        PetId = pet.Id,
+                        Name = "First Steps",
+                        Description = "Created your first virtual pet",
+                        Category = "Creation",
+                        PointsReward = 50,
+                        IsUnlocked = true,
+                        UnlockedAt = pet.CreatedAt,
+                        CreatedAt = pet.CreatedAt
+                    },
+                    new PetAchievement
+                    {
+                        PetId = pet.Id,
+                        Name = "Level 5",
+                        Description = "Reach level 5",
+                        Category = "Leveling",
+                        PointsReward = 100,
+                        IsUnlocked = pet.Level >= 5,
+                        UnlockedAt = pet.Level >= 5 ? pet.CreatedAt.AddDays(_random.Next(1, 10)) : null,
+                        CreatedAt = pet.CreatedAt
+                    },
+                    new PetAchievement
+                    {
+                        PetId = pet.Id,
+                        Name = "Level 10",
+                        Description = "Reach level 10",
+                        Category = "Leveling",
+                        PointsReward = 200,
+                        IsUnlocked = pet.Level >= 10,
+                        UnlockedAt = pet.Level >= 10 ? pet.CreatedAt.AddDays(_random.Next(10, 20)) : null,
+                        CreatedAt = pet.CreatedAt
+                    },
+                    new PetAchievement
+                    {
+                        PetId = pet.Id,
+                        Name = "Care Master",
+                        Description = "Perform 100 care actions",
+                        Category = "Care",
+                        PointsReward = 150,
+                        IsUnlocked = false,
+                        UnlockedAt = null,
+                        CreatedAt = pet.CreatedAt
+                    }
+                };
+
+                achievements.AddRange(petAchievements);
+            }
+
+            _context.PetAchievements.AddRange(achievements);
+            await _context.SaveChangesAsync();
+        }
+
+        private int CalculatePetExperienceToNextLevel(int level)
+        {
+            return level * 100 + (level - 1) * 50;
+        }
+
+        private string GetActionFromItemType(string itemType)
+        {
+            return itemType switch
+            {
+                "Food" => "Feed",
+                "Toy" => "Play",
+                "Cleaning" => "Clean",
+                _ => "Use"
+            };
+        }
+
+        private int CalculatePetPointsEarned(string action, int experienceGained)
+        {
+            var basePoints = action switch
+            {
+                "Feed" => 5,
+                "Play" => 8,
+                "Clean" => 6,
+                "Rest" => 4,
+                _ => 3
+            };
+
+            return basePoints + (experienceGained / 10);
         }
     }
 }

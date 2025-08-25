@@ -71,6 +71,12 @@ public class GameCoreDbContext : DbContext
     public DbSet<SignInReward> SignInRewards { get; set; }
     public DbSet<UserSignInHistory> UserSignInHistories { get; set; }
 
+    // Stage 6: Virtual Pet (Slime) 相關 DbSet
+    public DbSet<VirtualPet> VirtualPets { get; set; }
+    public DbSet<PetCareLog> PetCareLogs { get; set; }
+    public DbSet<PetAchievement> PetAchievements { get; set; }
+    public DbSet<PetItem> PetItems { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -430,6 +436,7 @@ public class GameCoreDbContext : DbContext
         ConfigurePlayerMarketEntities(modelBuilder);
         ConfigureStage4Entities(modelBuilder);
         ConfigureStage5Entities(modelBuilder);
+        ConfigureStage6Entities(modelBuilder);
     }
 
     /// <summary>
@@ -933,6 +940,131 @@ public class GameCoreDbContext : DbContext
             // 索引：用戶ID + 簽到日期（優化查詢）
             entity.HasIndex(e => new { e.UserId, e.SignInDate });
             entity.HasIndex(e => new { e.UserId, e.Year, e.Month });
+        });
+    }
+
+    /// <summary>
+    /// 配置 Stage 6: Virtual Pet (Slime) 相關實體
+    /// </summary>
+    private void ConfigureStage6Entities(ModelBuilder modelBuilder)
+    {
+        // 虛擬寵物實體配置
+        modelBuilder.Entity<VirtualPet>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserId).IsRequired();
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Level).IsRequired();
+            entity.Property(e => e.Experience).IsRequired();
+            entity.Property(e => e.ExperienceToNextLevel).IsRequired();
+            entity.Property(e => e.Health).IsRequired();
+            entity.Property(e => e.MaxHealth).IsRequired();
+            entity.Property(e => e.Hunger).IsRequired();
+            entity.Property(e => e.MaxHunger).IsRequired();
+            entity.Property(e => e.Energy).IsRequired();
+            entity.Property(e => e.MaxEnergy).IsRequired();
+            entity.Property(e => e.Happiness).IsRequired();
+            entity.Property(e => e.MaxHappiness).IsRequired();
+            entity.Property(e => e.Cleanliness).IsRequired();
+            entity.Property(e => e.MaxCleanliness).IsRequired();
+            entity.Property(e => e.Color).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Personality).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.LastFed).IsRequired();
+            entity.Property(e => e.LastPlayed).IsRequired();
+            entity.Property(e => e.LastCleaned).IsRequired();
+            entity.Property(e => e.LastRested).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 唯一索引：用戶ID（確保每個用戶只有一個寵物）
+            entity.HasIndex(e => e.UserId).IsUnique();
+        });
+
+        // 寵物照顧日誌實體配置
+        modelBuilder.Entity<PetCareLog>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.PetId).IsRequired();
+            entity.Property(e => e.UserId).IsRequired();
+            entity.Property(e => e.Action).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.HealthChange).IsRequired();
+            entity.Property(e => e.HungerChange).IsRequired();
+            entity.Property(e => e.EnergyChange).IsRequired();
+            entity.Property(e => e.HappinessChange).IsRequired();
+            entity.Property(e => e.CleanlinessChange).IsRequired();
+            entity.Property(e => e.ExperienceGained).IsRequired();
+            entity.Property(e => e.PointsEarned).IsRequired();
+            entity.Property(e => e.ActionTime).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Pet)
+                  .WithMany(e => e.CareLogs)
+                  .HasForeignKey(e => e.PetId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：寵物ID + 動作時間（優化查詢）
+            entity.HasIndex(e => new { e.PetId, e.ActionTime });
+            entity.HasIndex(e => new { e.UserId, e.ActionTime });
+        });
+
+        // 寵物成就實體配置
+        modelBuilder.Entity<PetAchievement>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.PetId).IsRequired();
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.Category).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.PointsReward).IsRequired();
+            entity.Property(e => e.IsUnlocked).IsRequired();
+            entity.Property(e => e.UnlockedAt);
+            entity.Property(e => e.CreatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Pet)
+                  .WithMany(e => e.Achievements)
+                  .HasForeignKey(e => e.PetId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：寵物ID + 類別（優化查詢）
+            entity.HasIndex(e => new { e.PetId, e.Category });
+        });
+
+        // 寵物物品實體配置
+        modelBuilder.Entity<PetItem>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.Type).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Category).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.HealthEffect).IsRequired();
+            entity.Property(e => e.HungerEffect).IsRequired();
+            entity.Property(e => e.EnergyEffect).IsRequired();
+            entity.Property(e => e.HappinessEffect).IsRequired();
+            entity.Property(e => e.CleanlinessEffect).IsRequired();
+            entity.Property(e => e.ExperienceEffect).IsRequired();
+            entity.Property(e => e.Price).IsRequired();
+            entity.Property(e => e.IsActive).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 索引：類型 + 類別（優化查詢）
+            entity.HasIndex(e => new { e.Type, e.Category });
+            entity.HasIndex(e => e.IsActive);
         });
     }
 
