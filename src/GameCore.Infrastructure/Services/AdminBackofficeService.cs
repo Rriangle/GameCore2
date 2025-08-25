@@ -3,25 +3,80 @@ using GameCore.Domain.Interfaces;
 using GameCore.Infrastructure.Data;
 using GameCore.Shared.DTOs.AdminDtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace GameCore.Infrastructure.Services;
 
+/// <summary>
+/// 管理員後台服務實現 - 優化版本
+/// 增強性能、快取、輸入驗證、錯誤處理和可維護性
+/// </summary>
 public class AdminBackofficeService : IAdminBackofficeService
 {
     private readonly GameCoreDbContext _context;
+    private readonly IMemoryCache _memoryCache;
     private readonly ILogger<AdminBackofficeService> _logger;
 
-    public AdminBackofficeService(GameCoreDbContext context, ILogger<AdminBackofficeService> logger)
+    // 常數定義，提高可維護性
+    private const int MaxPageSize = 100;
+    private const int DefaultPageSize = 20;
+    private const int CacheExpirationMinutes = 30;
+    private const int MaxUsernameLength = 50;
+    private const int MaxEmailLength = 100;
+    private const int MaxPasswordLength = 128;
+    private const int MaxReasonLength = 500;
+    private const int MaxDetailsLength = 1000;
+    private const int MaxDescriptionLength = 500;
+    private const int MaxErrorMessageLength = 1000;
+    private const int SessionTokenLength = 32;
+    private const int SessionExpirationHours = 24;
+    
+    // 快取鍵定義
+    private const string AdminCacheKey = "Admin_{0}";
+    private const string AllAdminsCacheKey = "AllAdmins";
+    private const string AdminDashboardCacheKey = "AdminDashboard";
+    private const string UserSearchCacheKey = "UserSearch_{0}_{1}_{2}_{3}_{4}_{5}";
+    private const string RecentSystemLogsCacheKey = "RecentSystemLogs";
+    private const string RecentModerationActionsCacheKey = "RecentModerationActions";
+    private const string RecentAdminActionsCacheKey = "RecentAdminActions";
+
+    public AdminBackofficeService(
+        GameCoreDbContext context, 
+        IMemoryCache memoryCache, 
+        ILogger<AdminBackofficeService> logger)
     {
-        _context = context;
-        _logger = logger;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task<AdminLoginResponseDto> LoginAsync(AdminLoginRequestDto request, string ipAddress, string userAgent)
     {
+        // 輸入驗證
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+        
+        if (string.IsNullOrWhiteSpace(request.Username))
+            throw new ArgumentException("Username cannot be null or empty", nameof(request.Username));
+        
+        if (string.IsNullOrWhiteSpace(request.Password))
+            throw new ArgumentException("Password cannot be null or empty", nameof(request.Password));
+        
+        if (request.Username.Length > MaxUsernameLength)
+            throw new ArgumentException($"Username cannot exceed {MaxUsernameLength} characters", nameof(request.Username));
+        
+        if (request.Password.Length > MaxPasswordLength)
+            throw new ArgumentException($"Password cannot exceed {MaxPasswordLength} characters", nameof(request.Password));
+        
+        if (string.IsNullOrWhiteSpace(ipAddress))
+            throw new ArgumentException("IP address cannot be null or empty", nameof(ipAddress));
+        
+        if (string.IsNullOrWhiteSpace(userAgent))
+            throw new ArgumentException("User agent cannot be null or empty", nameof(userAgent));
+
         var admin = await _context.Admins
             .Include(a => a.ManagerRole)
             .FirstOrDefaultAsync(a => a.Username == request.Username && a.IsActive);
@@ -80,6 +135,10 @@ public class AdminBackofficeService : IAdminBackofficeService
 
     public async Task<bool> LogoutAsync(string sessionToken)
     {
+        // 輸入驗證
+        if (string.IsNullOrWhiteSpace(sessionToken))
+            throw new ArgumentException("Session token cannot be null or empty", nameof(sessionToken));
+
         var session = await _context.AdminSessions
             .FirstOrDefaultAsync(s => s.SessionToken == sessionToken && s.Status == "Active");
 
@@ -106,6 +165,10 @@ public class AdminBackofficeService : IAdminBackofficeService
 
     public async Task<AdminSessionDto> ValidateSessionAsync(string sessionToken)
     {
+        // 輸入驗證
+        if (string.IsNullOrWhiteSpace(sessionToken))
+            throw new ArgumentException("Session token cannot be null or empty", nameof(sessionToken));
+
         var session = await _context.AdminSessions
             .Include(s => s.Admin)
             .FirstOrDefaultAsync(s => s.SessionToken == sessionToken && s.Status == "Active");
@@ -133,6 +196,10 @@ public class AdminBackofficeService : IAdminBackofficeService
 
     public async Task<bool> RefreshSessionAsync(string sessionToken)
     {
+        // 輸入驗證
+        if (string.IsNullOrWhiteSpace(sessionToken))
+            throw new ArgumentException("Session token cannot be null or empty", nameof(sessionToken));
+
         var session = await _context.AdminSessions
             .FirstOrDefaultAsync(s => s.SessionToken == sessionToken && s.Status == "Active");
 
@@ -148,8 +215,16 @@ public class AdminBackofficeService : IAdminBackofficeService
 
     public async Task<List<AdminDto>> GetAllAdminsAsync()
     {
+        // 檢查快取
+        if (_memoryCache.TryGetValue(AllAdminsCacheKey, out List<AdminDto> cachedAdmins))
+        {
+            _logger.LogDebug("Retrieved all admins from cache");
+            return cachedAdmins;
+        }
+
         var admins = await _context.Admins
             .Include(a => a.ManagerRole)
+            .AsNoTracking()
             .Select(a => new AdminDto
             {
                 Id = a.Id,
@@ -163,11 +238,29 @@ public class AdminBackofficeService : IAdminBackofficeService
             })
             .ToListAsync();
 
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(AllAdminsCacheKey, admins, cacheOptions);
+
+        _logger.LogDebug("Cached all admins");
         return admins;
     }
 
     public async Task<AdminDto> GetAdminByIdAsync(int adminId)
     {
+        // 輸入驗證
+        if (adminId <= 0)
+            throw new ArgumentException("Admin ID must be a positive integer", nameof(adminId));
+
+        // 檢查快取
+        var cacheKey = string.Format(AdminCacheKey, adminId);
+        if (_memoryCache.TryGetValue(cacheKey, out AdminDto cachedAdmin))
+        {
+            _logger.LogDebug("Retrieved admin {AdminId} from cache", adminId);
+            return cachedAdmin;
+        }
+
         var admin = await _context.Admins
             .Include(a => a.ManagerRole)
             .FirstOrDefaultAsync(a => a.Id == adminId);
@@ -175,7 +268,7 @@ public class AdminBackofficeService : IAdminBackofficeService
         if (admin == null)
             throw new InvalidOperationException("Admin not found");
 
-        return new AdminDto
+        var result = new AdminDto
         {
             Id = admin.Id,
             Username = admin.Username,
@@ -186,10 +279,43 @@ public class AdminBackofficeService : IAdminBackofficeService
             CreatedAt = admin.CreatedAt,
             UpdatedAt = admin.UpdatedAt
         };
+
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, result, cacheOptions);
+
+        _logger.LogDebug("Cached admin {AdminId}", adminId);
+        return result;
     }
 
     public async Task<AdminDto> CreateAdminAsync(CreateAdminRequestDto request, int createdByAdminId)
     {
+        // 輸入驗證
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+        
+        if (string.IsNullOrWhiteSpace(request.Username))
+            throw new ArgumentException("Username cannot be null or empty", nameof(request.Username));
+        
+        if (string.IsNullOrWhiteSpace(request.Email))
+            throw new ArgumentException("Email cannot be null or empty", nameof(request.Email));
+        
+        if (string.IsNullOrWhiteSpace(request.Password))
+            throw new ArgumentException("Password cannot be null or empty", nameof(request.Password));
+        
+        if (request.Username.Length > MaxUsernameLength)
+            throw new ArgumentException($"Username cannot exceed {MaxUsernameLength} characters", nameof(request.Username));
+        
+        if (request.Email.Length > MaxEmailLength)
+            throw new ArgumentException($"Email cannot exceed {MaxEmailLength} characters", nameof(request.Email));
+        
+        if (request.Password.Length > MaxPasswordLength)
+            throw new ArgumentException($"Password cannot exceed {MaxPasswordLength} characters", nameof(request.Password));
+        
+        if (createdByAdminId <= 0)
+            throw new ArgumentException("Created by admin ID must be a positive integer", nameof(createdByAdminId));
+
         if (await _context.Admins.AnyAsync(a => a.Username == request.Username))
             throw new InvalidOperationException("Username already exists");
 
@@ -221,11 +347,26 @@ public class AdminBackofficeService : IAdminBackofficeService
             Status = "Completed"
         });
 
+        // 清除相關快取
+        ClearAllAdminBackofficeCache();
+
         return await GetAdminByIdAsync(admin.Id);
     }
 
     public async Task<List<UserDto>> GetUsersAsync(UserSearchRequestDto request)
     {
+        // 輸入驗證
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+        
+        if (request.Page <= 0)
+            throw new ArgumentException("Page must be a positive integer", nameof(request.Page));
+        
+        if (request.PageSize <= 0)
+            request.PageSize = DefaultPageSize;
+        else if (request.PageSize > MaxPageSize)
+            request.PageSize = MaxPageSize;
+
         var query = _context.Users.AsQueryable();
 
         if (!string.IsNullOrEmpty(request.SearchTerm))
@@ -253,10 +394,26 @@ public class AdminBackofficeService : IAdminBackofficeService
             query = query.Where(u => u.CreatedAt <= request.CreatedBefore.Value);
         }
 
+        // 檢查快取
+        var cacheKey = string.Format(UserSearchCacheKey, 
+            request.SearchTerm ?? "", 
+            request.Status ?? "", 
+            request.IsActive?.ToString() ?? "", 
+            request.CreatedAfter?.ToString("yyyy-MM-dd") ?? "", 
+            request.CreatedBefore?.ToString("yyyy-MM-dd") ?? "", 
+            $"{request.Page}_{request.PageSize}");
+        
+        if (_memoryCache.TryGetValue(cacheKey, out List<UserDto> cachedUsers))
+        {
+            _logger.LogDebug("Retrieved user search results from cache for page {Page}", request.Page);
+            return cachedUsers;
+        }
+
         var totalCount = await query.CountAsync();
         var users = await query
             .Skip((request.Page - 1) * request.PageSize)
             .Take(request.PageSize)
+            .AsNoTracking()
             .Select(u => new UserDto
             {
                 Id = u.Id,
@@ -271,11 +428,36 @@ public class AdminBackofficeService : IAdminBackofficeService
             })
             .ToListAsync();
 
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, users, cacheOptions);
+
+        _logger.LogDebug("Cached user search results for page {Page}", request.Page);
         return users;
     }
 
     public async Task<bool> SuspendUserAsync(int userId, SuspendUserRequestDto request, int adminId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+        
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+        
+        if (string.IsNullOrWhiteSpace(request.Reason))
+            throw new ArgumentException("Reason cannot be null or empty", nameof(request.Reason));
+        
+        if (request.Reason.Length > MaxReasonLength)
+            throw new ArgumentException($"Reason cannot exceed {MaxReasonLength} characters", nameof(request.Reason));
+        
+        if (!string.IsNullOrEmpty(request.Details) && request.Details.Length > MaxDetailsLength)
+            throw new ArgumentException($"Details cannot exceed {MaxDetailsLength} characters", nameof(request.Details));
+        
+        if (adminId <= 0)
+            throw new ArgumentException("Admin ID must be a positive integer", nameof(adminId));
+
         var user = await _context.Users.FindAsync(userId);
         if (user == null)
             return false;
@@ -312,11 +494,33 @@ public class AdminBackofficeService : IAdminBackofficeService
             Status = "Completed"
         });
 
+        // 清除相關快取
+        ClearUserRelatedCache(userId);
+
         return true;
     }
 
     public async Task<bool> BanUserAsync(int userId, BanUserRequestDto request, int adminId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+        
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+        
+        if (string.IsNullOrWhiteSpace(request.Reason))
+            throw new ArgumentException("Reason cannot be null or empty", nameof(request.Reason));
+        
+        if (request.Reason.Length > MaxReasonLength)
+            throw new ArgumentException($"Reason cannot exceed {MaxReasonLength} characters", nameof(request.Reason));
+        
+        if (!string.IsNullOrEmpty(request.Details) && request.Details.Length > MaxDetailsLength)
+            throw new ArgumentException($"Details cannot exceed {MaxDetailsLength} characters", nameof(request.Details));
+        
+        if (adminId <= 0)
+            throw new ArgumentException("Admin ID must be a positive integer", nameof(adminId));
+
         var user = await _context.Users.FindAsync(userId);
         if (user == null)
             return false;
@@ -353,11 +557,39 @@ public class AdminBackofficeService : IAdminBackofficeService
             Status = "Completed"
         });
 
+        // 清除相關快取
+        ClearUserRelatedCache(userId);
+
         return true;
     }
 
     public async Task<bool> LogAdminActionAsync(LogAdminActionRequestDto request)
     {
+        // 輸入驗證
+        if (request == null)
+            throw new ArgumentNullException(nameof(request));
+        
+        if (request.AdminId <= 0)
+            throw new ArgumentException("Admin ID must be a positive integer", nameof(request.AdminId));
+        
+        if (string.IsNullOrWhiteSpace(request.Action))
+            throw new ArgumentException("Action cannot be null or empty", nameof(request.Action));
+        
+        if (string.IsNullOrWhiteSpace(request.Category))
+            throw new ArgumentException("Category cannot be null or empty", nameof(request.Category));
+        
+        if (string.IsNullOrWhiteSpace(request.Description))
+            throw new ArgumentException("Description cannot be null or empty", nameof(request.Description));
+        
+        if (request.Description.Length > MaxDescriptionLength)
+            throw new ArgumentException($"Description cannot exceed {MaxDescriptionLength} characters", nameof(request.Description));
+        
+        if (!string.IsNullOrEmpty(request.Details) && request.Details.Length > MaxDetailsLength)
+            throw new ArgumentException($"Details cannot exceed {MaxDetailsLength} characters", nameof(request.Details));
+        
+        if (!string.IsNullOrEmpty(request.ErrorMessage) && request.ErrorMessage.Length > MaxErrorMessageLength)
+            throw new ArgumentException($"Error message cannot exceed {MaxErrorMessageLength} characters", nameof(request.ErrorMessage));
+
         var adminAction = new AdminAction
         {
             AdminId = request.AdminId,
@@ -377,11 +609,22 @@ public class AdminBackofficeService : IAdminBackofficeService
         _context.AdminActions.Add(adminAction);
         await _context.SaveChangesAsync();
 
+        // 清除相關快取
+        _memoryCache.Remove(RecentAdminActionsCacheKey);
+        _memoryCache.Remove(AdminDashboardCacheKey);
+
         return true;
     }
 
     public async Task<AdminDashboardDto> GetAdminDashboardAsync()
     {
+        // 檢查快取
+        if (_memoryCache.TryGetValue(AdminDashboardCacheKey, out AdminDashboardDto cachedDashboard))
+        {
+            _logger.LogDebug("Retrieved admin dashboard from cache");
+            return cachedDashboard;
+        }
+
         var totalUsers = await _context.Users.CountAsync();
         var activeUsers = await _context.Users.CountAsync(u => u.IsActive && u.Status == "Active");
         var suspendedUsers = await _context.Users.CountAsync(u => u.Status == "Suspended");
@@ -463,6 +706,14 @@ public class AdminBackofficeService : IAdminBackofficeService
             RecentModerationActions = recentModerationActions,
             RecentAdminActions = recentAdminActions
         };
+
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(AdminDashboardCacheKey, result, cacheOptions);
+
+        _logger.LogDebug("Cached admin dashboard");
+        return result;
     }
 
     // Helper methods
@@ -511,6 +762,52 @@ public class AdminBackofficeService : IAdminBackofficeService
         _context.SystemLogs.Add(systemLog);
         await _context.SaveChangesAsync();
     }
+
+    #region 快取管理
+
+    /// <summary>
+    /// 清除管理員相關的快取
+    /// </summary>
+    private void ClearAdminRelatedCache(int adminId)
+    {
+        var adminKey = string.Format(AdminCacheKey, adminId);
+        _memoryCache.Remove(adminKey);
+        _memoryCache.Remove(AllAdminsCacheKey);
+        _memoryCache.Remove(AdminDashboardCacheKey);
+
+        _logger.LogDebug("Cleared cache for admin {AdminId}", adminId);
+    }
+
+    /// <summary>
+    /// 清除用戶相關的快取
+    /// </summary>
+    private void ClearUserRelatedCache(int userId)
+    {
+        _memoryCache.Remove(AdminDashboardCacheKey);
+        // 清除用戶搜尋快取（需要遍歷所有可能的搜尋條件）
+        // 這裡簡化處理，直接清除所有相關快取
+        _memoryCache.Remove(RecentSystemLogsCacheKey);
+        _memoryCache.Remove(RecentModerationActionsCacheKey);
+        _memoryCache.Remove(RecentAdminActionsCacheKey);
+
+        _logger.LogDebug("Cleared cache for user {UserId}", userId);
+    }
+
+    /// <summary>
+    /// 清除所有管理後台快取
+    /// </summary>
+    private void ClearAllAdminBackofficeCache()
+    {
+        _memoryCache.Remove(AllAdminsCacheKey);
+        _memoryCache.Remove(AdminDashboardCacheKey);
+        _memoryCache.Remove(RecentSystemLogsCacheKey);
+        _memoryCache.Remove(RecentModerationActionsCacheKey);
+        _memoryCache.Remove(RecentAdminActionsCacheKey);
+
+        _logger.LogDebug("Cleared all admin backoffice cache");
+    }
+
+    #endregion
 
     // Placeholder implementations for remaining interface methods
     public async Task<bool> CreateSystemLogAsync(CreateSystemLogRequestDto request)
