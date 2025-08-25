@@ -3,23 +3,61 @@ using GameCore.Domain.Interfaces;
 using GameCore.Infrastructure.Data;
 using GameCore.Shared.DTOs.AdventureDtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace GameCore.Infrastructure.Services;
 
+/// <summary>
+/// 冒險遊戲服務實現 - 優化版本
+/// 增強性能、快取、輸入驗證、錯誤處理和可維護性
+/// </summary>
 public class AdventureService : IAdventureService
 {
     private readonly GameCoreDbContext _context;
+    private readonly IMemoryCache _memoryCache;
     private readonly ILogger<AdventureService> _logger;
 
-    public AdventureService(GameCoreDbContext context, ILogger<AdventureService> logger)
+    // 常數定義，提高可維護性
+    private const int MaxPageSize = 100;
+    private const int DefaultPageSize = 20;
+    private const int CacheExpirationMinutes = 30;
+    private const int MaxMonsterEncounters = 10;
+    private const int MinAdventureDuration = 5;
+    private const int MaxAdventureDuration = 480; // 8 hours
+    private const int MinEnergyCost = 1;
+    private const int MaxEnergyCost = 100;
+    private const int MinLevel = 1;
+    private const int MaxLevel = 100;
+    
+    // 快取鍵定義
+    private const string AvailableTemplatesCacheKey = "AvailableTemplates_{0}";
+    private const string TemplateCacheKey = "Template_{0}";
+    private const string UserAdventureLogsCacheKey = "UserAdventureLogs_{0}_{1}_{2}";
+    private const string AdventureLogCacheKey = "AdventureLog_{0}";
+    private const string UserAdventureStatisticsCacheKey = "UserAdventureStatistics_{0}";
+    private const string AdventureProgressCacheKey = "AdventureProgress_{0}_{1}";
+    private const string MonsterEncountersCacheKey = "MonsterEncounters_{0}";
+
+    public AdventureService(
+        GameCoreDbContext context, 
+        IMemoryCache memoryCache, 
+        ILogger<AdventureService> logger)
     {
-        _context = context;
-        _logger = logger;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async Task<AdventureResponseDto> StartAdventureAsync(int userId, int templateId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+        
+        if (templateId <= 0)
+            throw new ArgumentException("Template ID must be a positive integer", nameof(templateId));
+
         var user = await _context.Users
             .Include(u => u.UserWallet)
             .FirstOrDefaultAsync(u => u.Id == userId);
@@ -28,7 +66,7 @@ public class AdventureService : IAdventureService
             throw new InvalidOperationException("User not found");
 
         var template = await _context.AdventureTemplates
-            .FirstOrDefaultAsync(t => t.Id == templateId && t.IsActive);
+            .FirstOrDefaultAsync(u => u.Id == templateId && u.IsActive);
 
         if (template == null)
             throw new InvalidOperationException("Adventure template not found");
@@ -91,11 +129,22 @@ public class AdventureService : IAdventureService
         _logger.LogInformation("User {UserId} started adventure {AdventureId} with template {TemplateId}", 
             userId, adventure.Id, templateId);
 
+        // 清除相關快取
+        ClearUserAdventureRelatedCache(userId);
+        ClearAdventureRelatedCache(adventure.Id, userId);
+
         return await GetAdventureAsync(adventure.Id, userId);
     }
 
     public async Task<AdventureResponseDto> GetAdventureAsync(int adventureId, int userId)
     {
+        // 輸入驗證
+        if (adventureId <= 0)
+            throw new ArgumentException("Adventure ID must be a positive integer", nameof(adventureId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
         var adventure = await _context.Adventures
             .Include(a => a.AdventureLogs)
             .ThenInclude(al => al.MonsterEncounters)
@@ -135,6 +184,13 @@ public class AdventureService : IAdventureService
 
     public async Task<AdventureResponseDto> CompleteAdventureAsync(int adventureId, int userId)
     {
+        // 輸入驗證
+        if (adventureId <= 0)
+            throw new ArgumentException("Adventure ID must be a positive integer", nameof(adventureId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
         var adventure = await _context.Adventures
             .Include(a => a.AdventureLogs)
             .FirstOrDefaultAsync(a => a.Id == adventureId && a.UserId == userId);
@@ -186,11 +242,25 @@ public class AdventureService : IAdventureService
 
         _logger.LogInformation("User {UserId} completed adventure {AdventureId}", userId, adventureId);
 
+        // 清除相關快取
+        ClearUserAdventureRelatedCache(userId);
+        ClearAdventureRelatedCache(adventureId, userId);
+
         return await GetAdventureAsync(adventureId, userId);
     }
 
     public async Task<AdventureResponseDto> FailAdventureAsync(int adventureId, int userId, string reason)
     {
+        // 輸入驗證
+        if (adventureId <= 0)
+            throw new ArgumentException("Adventure ID must be a positive integer", nameof(adventureId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+        
+        if (string.IsNullOrWhiteSpace(reason))
+            throw new ArgumentException("Failure reason cannot be null or empty", nameof(reason));
+
         var adventure = await _context.Adventures
             .Include(a => a.AdventureLogs)
             .FirstOrDefaultAsync(a => a.Id == adventureId && a.UserId == userId);
@@ -243,11 +313,22 @@ public class AdventureService : IAdventureService
 
         _logger.LogInformation("User {UserId} failed adventure {AdventureId}: {Reason}", userId, adventureId, reason);
 
+        // 清除相關快取
+        ClearUserAdventureRelatedCache(userId);
+        ClearAdventureRelatedCache(adventureId, userId);
+
         return await GetAdventureAsync(adventureId, userId);
     }
 
     public async Task<AdventureResponseDto> AbandonAdventureAsync(int adventureId, int userId)
     {
+        // 輸入驗證
+        if (adventureId <= 0)
+            throw new ArgumentException("Adventure ID must be a positive integer", nameof(adventureId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
         var adventure = await _context.Adventures
             .Include(a => a.AdventureLogs)
             .FirstOrDefaultAsync(a => a.Id == adventureId && a.UserId == userId);
@@ -267,17 +348,34 @@ public class AdventureService : IAdventureService
 
         _logger.LogInformation("User {UserId} abandoned adventure {AdventureId}", userId, adventureId);
 
+        // 清除相關快取
+        ClearUserAdventureRelatedCache(userId);
+        ClearAdventureRelatedCache(adventureId, userId);
+
         return await GetAdventureAsync(adventureId, userId);
     }
 
     public async Task<List<AdventureTemplateDto>> GetAvailableTemplatesAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
+        // 檢查快取
+        var cacheKey = string.Format(AvailableTemplatesCacheKey, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out List<AdventureTemplateDto> cachedTemplates))
+        {
+            _logger.LogDebug("Retrieved available templates from cache for user {UserId}", userId);
+            return cachedTemplates;
+        }
+
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
         if (user == null)
             throw new InvalidOperationException("User not found");
 
         var templates = await _context.AdventureTemplates
             .Where(t => t.IsActive)
+            .AsNoTracking()
             .ToListAsync();
 
         var result = new List<AdventureTemplateDto>();
@@ -318,18 +416,36 @@ public class AdventureService : IAdventureService
             });
         }
 
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, result, cacheOptions);
+
+        _logger.LogDebug("Cached available templates for user {UserId}", userId);
         return result;
     }
 
     public async Task<AdventureTemplateDto> GetTemplateByIdAsync(int templateId)
     {
+        // 輸入驗證
+        if (templateId <= 0)
+            throw new ArgumentException("Template ID must be a positive integer", nameof(templateId));
+
+        // 檢查快取
+        var cacheKey = string.Format(TemplateCacheKey, templateId);
+        if (_memoryCache.TryGetValue(cacheKey, out AdventureTemplateDto cachedTemplate))
+        {
+            _logger.LogDebug("Retrieved template {TemplateId} from cache", templateId);
+            return cachedTemplate;
+        }
+
         var template = await _context.AdventureTemplates
             .FirstOrDefaultAsync(t => t.Id == templateId && t.IsActive);
 
         if (template == null)
             throw new InvalidOperationException("Adventure template not found");
 
-        return new AdventureTemplateDto
+        var result = new AdventureTemplateDto
         {
             Id = template.Id,
             Name = template.Name,
@@ -348,10 +464,38 @@ public class AdventureService : IAdventureService
             IsAvailable = true,
             UnavailableReason = null
         };
+
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, result, cacheOptions);
+
+        _logger.LogDebug("Cached template {TemplateId}", templateId);
+        return result;
     }
 
     public async Task<AdventureLogResponseDto> GetUserAdventureLogsAsync(int userId, int page = 1, int pageSize = 20)
     {
+        // 輸入驗證
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+        
+        if (page <= 0)
+            throw new ArgumentException("Page must be a positive integer", nameof(page));
+        
+        if (pageSize <= 0)
+            pageSize = DefaultPageSize;
+        else if (pageSize > MaxPageSize)
+            pageSize = MaxPageSize;
+
+        // 檢查快取
+        var cacheKey = string.Format(UserAdventureLogsCacheKey, userId, page, pageSize);
+        if (_memoryCache.TryGetValue(cacheKey, out AdventureLogResponseDto cachedLogs))
+        {
+            _logger.LogDebug("Retrieved adventure logs from cache for user {UserId}, page {Page}", userId, page);
+            return cachedLogs;
+        }
+
         var query = _context.AdventureLogs
             .Include(al => al.Adventure)
             .Include(al => al.MonsterEncounters)
@@ -396,10 +540,25 @@ public class AdventureService : IAdventureService
             TotalPages = totalPages,
             Items = logs
         };
+
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, result, cacheOptions);
+
+        _logger.LogDebug("Cached adventure logs for user {UserId}, page {Page}", userId, page);
+        return result;
     }
 
     public async Task<AdventureLogResponseDto> GetAdventureLogByIdAsync(int logId, int userId)
     {
+        // 輸入驗證
+        if (logId <= 0)
+            throw new ArgumentException("Log ID must be a positive integer", nameof(logId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
         var log = await _context.AdventureLogs
             .Include(al => al.Adventure)
             .Include(al => al.MonsterEncounters)
@@ -443,10 +602,23 @@ public class AdventureService : IAdventureService
 
     public async Task<AdventureStatisticsDto> GetUserAdventureStatisticsAsync(int userId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
+        // 檢查快取
+        var cacheKey = string.Format(UserAdventureStatisticsCacheKey, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out AdventureStatisticsDto cachedStats))
+        {
+            _logger.LogDebug("Retrieved adventure statistics from cache for user {UserId}", userId);
+            return cachedStats;
+        }
+
         var logs = await _context.AdventureLogs
             .Include(al => al.Adventure)
             .Include(al => al.MonsterEncounters)
             .Where(al => al.UserId == userId)
+            .AsNoTracking()
             .ToListAsync();
 
         var totalAdventures = logs.Count;
@@ -526,10 +698,28 @@ public class AdventureService : IAdventureService
             AdventuresByCategory = adventuresByCategory,
             RecentAdventures = recentAdventures
         };
+
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, result, cacheOptions);
+
+        _logger.LogDebug("Cached adventure statistics for user {UserId}", userId);
+        return result;
     }
 
     public async Task<MonsterEncounterResponseDto> ProcessMonsterEncounterAsync(int adventureLogId, int userId, string monsterType)
     {
+        // 輸入驗證
+        if (adventureLogId <= 0)
+            throw new ArgumentException("Adventure log ID must be a positive integer", nameof(adventureLogId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+        
+        if (string.IsNullOrWhiteSpace(monsterType))
+            throw new ArgumentException("Monster type cannot be null or empty", nameof(monsterType));
+
         var adventureLog = await _context.AdventureLogs
             .Include(al => al.Adventure)
             .Include(al => al.MonsterEncounters)
@@ -573,6 +763,10 @@ public class AdventureService : IAdventureService
         _context.MonsterEncounters.Add(encounter);
         await _context.SaveChangesAsync();
 
+        // 清除相關快取
+        ClearAdventureLogRelatedCache(adventureLogId);
+        ClearAdventureRelatedCache(adventureLog.AdventureId, userId);
+
         // Update adventure progress
         var progress = await GetAdventureProgressAsync(adventureLog.AdventureId, userId);
 
@@ -598,9 +792,25 @@ public class AdventureService : IAdventureService
 
     public async Task<List<MonsterEncounterDto>> GetAdventureMonsterEncountersAsync(int adventureLogId, int userId)
     {
+        // 輸入驗證
+        if (adventureLogId <= 0)
+            throw new ArgumentException("Adventure log ID must be a positive integer", nameof(adventureLogId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
+        // 檢查快取
+        var cacheKey = string.Format(MonsterEncountersCacheKey, adventureLogId);
+        if (_memoryCache.TryGetValue(cacheKey, out List<MonsterEncounterDto> cachedEncounters))
+        {
+            _logger.LogDebug("Retrieved monster encounters from cache for adventure log {AdventureLogId}", adventureLogId);
+            return cachedEncounters;
+        }
+
         var encounters = await _context.MonsterEncounters
             .Where(me => me.AdventureLog.UserId == userId && me.AdventureLogId == adventureLogId)
             .OrderBy(me => me.EncounterTime)
+            .AsNoTracking()
             .Select(me => new MonsterEncounterDto
             {
                 Id = me.Id,
@@ -622,11 +832,32 @@ public class AdventureService : IAdventureService
             })
             .ToListAsync();
 
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, encounters, cacheOptions);
+
+        _logger.LogDebug("Cached monster encounters for adventure log {AdventureLogId}", adventureLogId);
         return encounters;
     }
 
     public async Task<AdventureProgressDto> GetAdventureProgressAsync(int adventureId, int userId)
     {
+        // 輸入驗證
+        if (adventureId <= 0)
+            throw new ArgumentException("Adventure ID must be a positive integer", nameof(adventureId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
+        // 檢查快取
+        var cacheKey = string.Format(AdventureProgressCacheKey, adventureId, userId);
+        if (_memoryCache.TryGetValue(cacheKey, out AdventureProgressDto cachedProgress))
+        {
+            _logger.LogDebug("Retrieved adventure progress from cache for adventure {AdventureId}, user {UserId}", adventureId, userId);
+            return cachedProgress;
+        }
+
         var adventure = await _context.Adventures
             .Include(a => a.AdventureLogs)
             .ThenInclude(al => al.MonsterEncounters)
@@ -656,7 +887,7 @@ public class AdventureService : IAdventureService
         var canFail = timeRemaining <= 0;
         var canAbandon = true;
 
-        return new AdventureProgressDto
+        var result = new AdventureProgressDto
         {
             MonsterEncountersCompleted = monsterEncountersCompleted,
             TotalMonsterEncounters = totalMonsterEncounters,
@@ -670,10 +901,25 @@ public class AdventureService : IAdventureService
             CanFail = canFail,
             CanAbandon = canAbandon
         };
+
+        // 儲存到快取
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheExpirationMinutes));
+        _memoryCache.Set(cacheKey, result, cacheOptions);
+
+        _logger.LogDebug("Cached adventure progress for adventure {AdventureId}, user {UserId}", adventureId, userId);
+        return result;
     }
 
     public async Task<bool> CanStartAdventureAsync(int userId, int templateId)
     {
+        // 輸入驗證
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+        
+        if (templateId <= 0)
+            throw new ArgumentException("Template ID must be a positive integer", nameof(templateId));
+
         var user = await _context.Users
             .Include(u => u.UserWallet)
             .FirstOrDefaultAsync(u => u.Id == userId);
@@ -702,6 +948,13 @@ public class AdventureService : IAdventureService
 
     public async Task<AdventureRewardsDto> CalculateAdventureRewardsAsync(int templateId, int userId, bool isSuccess)
     {
+        // 輸入驗證
+        if (templateId <= 0)
+            throw new ArgumentException("Template ID must be a positive integer", nameof(templateId));
+        
+        if (userId <= 0)
+            throw new ArgumentException("User ID must be a positive integer", nameof(userId));
+
         var template = await _context.AdventureTemplates
             .FirstOrDefaultAsync(t => t.Id == templateId);
 
@@ -710,7 +963,7 @@ public class AdventureService : IAdventureService
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
         if (user == null)
-            throw new InvalidOperationException("User not found");
+            throw new ArgumentException("User not found", nameof(userId));
 
         // Base rewards
         var experienceReward = template.BaseExperienceReward;
@@ -882,6 +1135,60 @@ public class AdventureService : IAdventureService
             _ => 1.0
         };
     }
+
+    #region 快取管理
+
+    /// <summary>
+    /// 清除用戶冒險相關的快取
+    /// </summary>
+    private void ClearUserAdventureRelatedCache(int userId)
+    {
+        var availableTemplatesKey = string.Format(AvailableTemplatesCacheKey, userId);
+        var userAdventureStatisticsKey = string.Format(UserAdventureStatisticsCacheKey, userId);
+
+        _memoryCache.Remove(availableTemplatesKey);
+        _memoryCache.Remove(userAdventureStatisticsKey);
+
+        // 清除分頁冒險記錄快取（需要遍歷所有可能的頁面）
+        for (int page = 1; page <= 10; page++) // 假設最多10頁
+        {
+            for (int pageSize = 10; pageSize <= MaxPageSize; pageSize += 10)
+            {
+                var logsKey = string.Format(UserAdventureLogsCacheKey, userId, page, pageSize);
+                _memoryCache.Remove(logsKey);
+            }
+        }
+
+        _logger.LogDebug("Cleared cache for user adventure {UserId}", userId);
+    }
+
+    /// <summary>
+    /// 清除冒險相關的快取
+    /// </summary>
+    private void ClearAdventureRelatedCache(int adventureId, int userId)
+    {
+        var adventureProgressKey = string.Format(AdventureProgressCacheKey, adventureId, userId);
+        var templateKey = string.Format(TemplateCacheKey, adventureId);
+
+        _memoryCache.Remove(adventureProgressKey);
+        _memoryCache.Remove(templateKey);
+
+        _logger.LogDebug("Cleared cache for adventure {AdventureId}", adventureId);
+    }
+
+    /// <summary>
+    /// 清除冒險記錄相關的快取
+    /// </summary>
+    private void ClearAdventureLogRelatedCache(int adventureLogId)
+    {
+        var monsterEncountersKey = string.Format(MonsterEncountersCacheKey, adventureLogId);
+
+        _memoryCache.Remove(monsterEncountersKey);
+
+        _logger.LogDebug("Cleared cache for adventure log {AdventureLogId}", adventureLogId);
+    }
+
+    #endregion
 
     private class Monster
     {

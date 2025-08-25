@@ -104,6 +104,9 @@ builder.Services.AddScoped<IDailySignInService, DailySignInService>();
 // 註冊虛擬寵物服務
 builder.Services.AddScoped<IVirtualPetService, VirtualPetService>();
 
+// 註冊冒險遊戲服務
+builder.Services.AddScoped<IAdventureService, AdventureService>();
+
 // 註冊記憶體快取
 builder.Services.AddMemoryCache();
 
