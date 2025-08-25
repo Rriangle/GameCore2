@@ -4,35 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities;
 
 /// <summary>
-/// 使用者錢包表
+/// 使用者銷售資訊表
 /// </summary>
-[Table("User_wallet")]
-public class UserWallet
+[Table("User_Sales_Information")]
+public class UserSalesInformation
 {
     /// <summary>
-    /// 錢包 ID (主鍵)
+    /// 使用者編號 (主鍵，外鍵到 Users)
     /// </summary>
     [Key]
-    public int WalletId { get; set; }
-
-    /// <summary>
-    /// 使用者編號 (外鍵)
-    /// </summary>
-    [Required]
     public int User_Id { get; set; }
 
     /// <summary>
-    /// 使用者點數餘額
+    /// 使用者銷售錢包餘額
     /// </summary>
     [Required]
-    [Column(TypeName = "int")]
-    public int User_Point { get; set; } = 0; // 初始點數 0
-
-    /// <summary>
-    /// 優惠券編號
-    /// </summary>
-    [StringLength(100)]
-    public string? Coupon_Number { get; set; }
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal UserSales_Wallet { get; set; } = 0.00m;
 
     /// <summary>
     /// 建立時間

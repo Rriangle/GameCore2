@@ -4,35 +4,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities;
 
 /// <summary>
-/// 使用者錢包表
+/// 使用者權限表
 /// </summary>
-[Table("User_wallet")]
-public class UserWallet
+[Table("User_Rights")]
+public class UserRights
 {
     /// <summary>
-    /// 錢包 ID (主鍵)
+    /// 使用者編號 (主鍵，外鍵到 Users)
     /// </summary>
     [Key]
-    public int WalletId { get; set; }
-
-    /// <summary>
-    /// 使用者編號 (外鍵)
-    /// </summary>
-    [Required]
     public int User_Id { get; set; }
 
     /// <summary>
-    /// 使用者點數餘額
+    /// 使用者狀態 (是否啟用/停權)
     /// </summary>
-    [Required]
-    [Column(TypeName = "int")]
-    public int User_Point { get; set; } = 0; // 初始點數 0
+    public bool User_Status { get; set; } = true;
 
     /// <summary>
-    /// 優惠券編號
+    /// 購物權限 (是否可於官方商城/自由市場下單)
     /// </summary>
-    [StringLength(100)]
-    public string? Coupon_Number { get; set; }
+    public bool ShoppingPermission { get; set; } = true;
+
+    /// <summary>
+    /// 留言權限 (是否可發表/回覆論壇、聊天室訊息)
+    /// </summary>
+    public bool MessagePermission { get; set; } = true;
+
+    /// <summary>
+    /// 銷售權限 (是否可在自由市場上架)
+    /// </summary>
+    public bool SalesAuthority { get; set; } = false;
 
     /// <summary>
     /// 建立時間
