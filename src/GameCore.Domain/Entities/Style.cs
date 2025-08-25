@@ -4,26 +4,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 管理者角色指派實體
+    /// 樣式池實體
     /// </summary>
-    [Table("ManagerRole")]
-    public class ManagerRole
+    [Table("Styles")]
+    public class Style
     {
-        [Required]
-        public int Manager_Id { get; set; }
-        
-        [Required]
-        public int ManagerRole_Id { get; set; }
+        [Key]
+        public int style_id { get; set; }
         
         [Required]
         [StringLength(100)]
-        public string ManagerRole { get; set; } = string.Empty;
+        public string style_name { get; set; } = string.Empty;
+        
+        [StringLength(500)]
+        public string effect_desc { get; set; } = string.Empty;
         
         [Required]
         public DateTime created_at { get; set; } = DateTime.UtcNow;
+        
+        [Required]
+        public int manager_id { get; set; }
 
         // Navigation properties
         public virtual ManagerData Manager { get; set; } = null!;
-        public virtual ManagerRolePermission RolePermission { get; set; } = null!;
     }
 }

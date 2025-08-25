@@ -49,6 +49,23 @@ public class GameCoreDbContext : DbContext
     public DbSet<Reaction> Reactions { get; set; }
     public DbSet<Bookmark> Bookmarks { get; set; }
 
+    // Stage 4: Social/Notifications/DM/Groups/Blocks 相關 DbSet
+    public DbSet<NotificationSource> NotificationSources { get; set; }
+    public DbSet<NotificationAction> NotificationActions { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<NotificationRecipient> NotificationRecipients { get; set; }
+    public DbSet<ChatMessage> ChatMessages { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<GroupMember> GroupMembers { get; set; }
+    public DbSet<GroupChat> GroupChats { get; set; }
+    public DbSet<GroupBlock> GroupBlocks { get; set; }
+    public DbSet<ManagerData> ManagerData { get; set; }
+    public DbSet<ManagerRolePermission> ManagerRolePermissions { get; set; }
+    public DbSet<ManagerRole> ManagerRoles { get; set; }
+    public DbSet<Admin> Admins { get; set; }
+    public DbSet<Mute> Mutes { get; set; }
+    public DbSet<Style> Styles { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -406,6 +423,7 @@ public class GameCoreDbContext : DbContext
         ConfigureProductEntities(modelBuilder);
         ConfigureOrderEntities(modelBuilder);
         ConfigurePlayerMarketEntities(modelBuilder);
+        ConfigureStage4Entities(modelBuilder);
     }
 
     /// <summary>
@@ -568,6 +586,272 @@ public class GameCoreDbContext : DbContext
                   .WithMany()
                   .HasForeignKey(e => e.SellerId)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+    }
+
+    /// <summary>
+    /// 配置 Stage 4: Social/Notifications/DM/Groups/Blocks 相關實體
+    /// </summary>
+    private void ConfigureStage4Entities(ModelBuilder modelBuilder)
+    {
+        // 通知來源實體配置
+        modelBuilder.Entity<NotificationSource>(entity =>
+        {
+            entity.HasKey(e => e.source_id);
+            entity.Property(e => e.source_name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.created_at).IsRequired();
+        });
+
+        // 通知行為實體配置
+        modelBuilder.Entity<NotificationAction>(entity =>
+        {
+            entity.HasKey(e => e.action_id);
+            entity.Property(e => e.action_name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.created_at).IsRequired();
+        });
+
+        // 通知主表實體配置
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.notification_id);
+            entity.Property(e => e.notification_title).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.notification_message).IsRequired().HasMaxLength(1000);
+            entity.Property(e => e.created_at).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Source)
+                  .WithMany(e => e.Notifications)
+                  .HasForeignKey(e => e.source_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Action)
+                  .WithMany(e => e.Notifications)
+                  .HasForeignKey(e => e.action_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Sender)
+                  .WithMany()
+                  .HasForeignKey(e => e.sender_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.SenderManager)
+                  .WithMany(e => e.Notifications)
+                  .HasForeignKey(e => e.sender_manager_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Group)
+                  .WithMany()
+                  .HasForeignKey(e => e.group_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 通知接收者實體配置
+        modelBuilder.Entity<NotificationRecipient>(entity =>
+        {
+            entity.HasKey(e => e.recipient_id);
+            entity.Property(e => e.is_read).IsRequired();
+            entity.Property(e => e.read_at);
+
+            // 外鍵關係
+            entity.HasOne(e => e.Notification)
+                  .WithMany(e => e.Recipients)
+                  .HasForeignKey(e => e.notification_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.user_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // 聊天訊息實體配置
+        modelBuilder.Entity<ChatMessage>(entity =>
+        {
+            entity.HasKey(e => e.message_id);
+            entity.Property(e => e.chat_content).IsRequired().HasMaxLength(2000);
+            entity.Property(e => e.sent_at).IsRequired();
+            entity.Property(e => e.is_read).IsRequired();
+            entity.Property(e => e.is_sent).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Manager)
+                  .WithMany(e => e.ChatMessages)
+                  .HasForeignKey(e => e.manager_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Sender)
+                  .WithMany()
+                  .HasForeignKey(e => e.sender_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Receiver)
+                  .WithMany()
+                  .HasForeignKey(e => e.receiver_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 群組實體配置
+        modelBuilder.Entity<Group>(entity =>
+        {
+            entity.HasKey(e => e.group_id);
+            entity.Property(e => e.group_name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.created_at).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.CreatedByUser)
+                  .WithMany()
+                  .HasForeignKey(e => e.created_by)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 群組成員實體配置
+        modelBuilder.Entity<GroupMember>(entity =>
+        {
+            entity.HasKey(e => new { e.group_id, e.user_id });
+            entity.Property(e => e.joined_at).IsRequired();
+            entity.Property(e => e.is_admin).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Group)
+                  .WithMany(e => e.Members)
+                  .HasForeignKey(e => e.group_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.user_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // 群組聊天訊息實體配置
+        modelBuilder.Entity<GroupChat>(entity =>
+        {
+            entity.HasKey(e => e.group_chat_id);
+            entity.Property(e => e.group_chat_content).IsRequired().HasMaxLength(2000);
+            entity.Property(e => e.sent_at).IsRequired();
+            entity.Property(e => e.is_sent).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Group)
+                  .WithMany(e => e.ChatMessages)
+                  .HasForeignKey(e => e.group_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Sender)
+                  .WithMany()
+                  .HasForeignKey(e => e.sender_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 群組封鎖實體配置
+        modelBuilder.Entity<GroupBlock>(entity =>
+        {
+            entity.HasKey(e => e.block_id);
+            entity.Property(e => e.created_at).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Group)
+                  .WithMany()
+                  .HasForeignKey(e => e.group_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.BlockedUser)
+                  .WithMany()
+                  .HasForeignKey(e => e.user_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.BlockedByUser)
+                  .WithMany()
+                  .HasForeignKey(e => e.blocked_by)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 管理者資料實體配置
+        modelBuilder.Entity<ManagerData>(entity =>
+        {
+            entity.HasKey(e => e.Manager_Id);
+            entity.Property(e => e.Manager_Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Manager_Account).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Manager_Password).IsRequired().HasMaxLength(255);
+            entity.Property(e => e.Administrator_registration_date).IsRequired();
+
+            // 唯一索引
+            entity.HasIndex(e => e.Manager_Account).IsUnique();
+        });
+
+        // 管理者角色權限實體配置
+        modelBuilder.Entity<ManagerRolePermission>(entity =>
+        {
+            entity.HasKey(e => e.ManagerRole_Id);
+            entity.Property(e => e.role_name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.created_at).IsRequired();
+            entity.Property(e => e.updated_at);
+        });
+
+        // 管理者角色指派實體配置
+        modelBuilder.Entity<ManagerRole>(entity =>
+        {
+            entity.HasKey(e => new { e.Manager_Id, e.ManagerRole_Id });
+            entity.Property(e => e.ManagerRole).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.created_at).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Manager)
+                  .WithMany(e => e.Roles)
+                  .HasForeignKey(e => e.Manager_Id)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.RolePermission)
+                  .WithMany(e => e.ManagerRoles)
+                  .HasForeignKey(e => e.ManagerRole_Id)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 管理員登入追蹤實體配置
+        modelBuilder.Entity<Admin>(entity =>
+        {
+            entity.HasKey(e => e.admin_id);
+            entity.Property(e => e.manager_id).IsRequired();
+            entity.Property(e => e.last_login);
+            entity.Property(e => e.created_at).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Manager)
+                  .WithMany(e => e.AdminLogins)
+                  .HasForeignKey(e => e.manager_id)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // 禁言選項實體配置
+        modelBuilder.Entity<Mute>(entity =>
+        {
+            entity.HasKey(e => e.mute_id);
+            entity.Property(e => e.mute_name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.created_at).IsRequired();
+            entity.Property(e => e.is_active).IsRequired();
+            entity.Property(e => e.manager_id).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Manager)
+                  .WithMany(e => e.Mutes)
+                  .HasForeignKey(e => e.manager_id)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // 樣式實體配置
+        modelBuilder.Entity<Style>(entity =>
+        {
+            entity.HasKey(e => e.style_id);
+            entity.Property(e => e.style_name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.effect_desc).HasMaxLength(500);
+            entity.Property(e => e.created_at).IsRequired();
+            entity.Property(e => e.manager_id).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Manager)
+                  .WithMany(e => e.Styles)
+                  .HasForeignKey(e => e.manager_id)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
     }
 
