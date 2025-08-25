@@ -83,6 +83,12 @@ public class GameCoreDbContext : DbContext
         public DbSet<MonsterEncounter> MonsterEncounters { get; set; }
         public DbSet<AdventureTemplate> AdventureTemplates { get; set; }
 
+        // Stage 8: Admin Backoffice 相關 DbSet
+        public DbSet<AdminAction> AdminActions { get; set; }
+        public DbSet<AdminSession> AdminSessions { get; set; }
+        public DbSet<ModerationAction> ModerationActions { get; set; }
+        public DbSet<SystemLog> SystemLogs { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -444,6 +450,7 @@ public class GameCoreDbContext : DbContext
             ConfigureStage5Entities(modelBuilder);
             ConfigureStage6Entities(modelBuilder);
             ConfigureStage7Entities(modelBuilder);
+            ConfigureStage8Entities(modelBuilder);
     }
 
     /// <summary>
@@ -1207,6 +1214,127 @@ public class GameCoreDbContext : DbContext
             // 索引：冒險日誌ID + 遭遇時間（優化查詢）
             entity.HasIndex(e => new { e.AdventureLogId, e.EncounterTime });
             entity.HasIndex(e => new { e.Outcome, e.EncounterTime });
+        });
+    }
+
+    /// <summary>
+    /// 配置 Stage 8: Admin Backoffice 相關實體
+    /// </summary>
+    private void ConfigureStage8Entities(ModelBuilder modelBuilder)
+    {
+        // 管理員操作實體配置
+        modelBuilder.Entity<AdminAction>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.AdminId).IsRequired();
+            entity.Property(e => e.Action).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Category).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.Details).HasMaxLength(2000);
+            entity.Property(e => e.TargetType).HasMaxLength(50);
+            entity.Property(e => e.TargetId);
+            entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.ErrorMessage).HasMaxLength(1000);
+            entity.Property(e => e.ActionTime).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Admin)
+                  .WithMany()
+                  .HasForeignKey(e => e.AdminId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：管理員ID + 操作時間（優化查詢）
+            entity.HasIndex(e => new { e.AdminId, e.ActionTime });
+            entity.HasIndex(e => new { e.Category, e.Status });
+        });
+
+        // 管理員會話實體配置
+        modelBuilder.Entity<AdminSession>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.AdminId).IsRequired();
+            entity.Property(e => e.SessionToken).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.LoginTime).IsRequired();
+            entity.Property(e => e.LastActivityTime).IsRequired();
+            entity.Property(e => e.LogoutTime);
+            entity.Property(e => e.ExpiresAt).IsRequired();
+            entity.Property(e => e.IpAddress).HasMaxLength(45);
+            entity.Property(e => e.UserAgent).HasMaxLength(500);
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Admin)
+                  .WithMany()
+                  .HasForeignKey(e => e.AdminId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：會話令牌 + 狀態（優化查詢）
+            entity.HasIndex(e => new { e.SessionToken, e.Status });
+            entity.HasIndex(e => new { e.AdminId, e.Status });
+            entity.HasIndex(e => e.ExpiresAt);
+        });
+
+        // 審核操作實體配置
+        modelBuilder.Entity<ModerationAction>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.AdminId).IsRequired();
+            entity.Property(e => e.Action).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.TargetType).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.TargetId).IsRequired();
+            entity.Property(e => e.Reason).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.Details).HasMaxLength(2000);
+            entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.ExpiresAt);
+            entity.Property(e => e.ActionTime).IsRequired();
+            entity.Property(e => e.ReversedAt);
+            entity.Property(e => e.ReversedByAdminId);
+            entity.Property(e => e.ReversalReason).HasMaxLength(500);
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Admin)
+                  .WithMany()
+                  .HasForeignKey(e => e.AdminId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.ReversedByAdmin)
+                  .WithMany()
+                  .HasForeignKey(e => e.ReversedByAdminId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            // 索引：目標類型 + 目標ID + 狀態（優化查詢）
+            entity.HasIndex(e => new { e.TargetType, e.TargetId, e.Status });
+            entity.HasIndex(e => new { e.AdminId, e.ActionTime });
+            entity.HasIndex(e => e.ExpiresAt);
+        });
+
+        // 系統日誌實體配置
+        modelBuilder.Entity<SystemLog>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Level).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Category).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Event).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Message).IsRequired().HasMaxLength(1000);
+            entity.Property(e => e.Details).HasMaxLength(5000);
+            entity.Property(e => e.Source).HasMaxLength(100);
+            entity.Property(e => e.UserId);
+            entity.Property(e => e.AdminId);
+            entity.Property(e => e.IpAddress).HasMaxLength(45);
+            entity.Property(e => e.Timestamp).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 索引：日誌級別 + 類別 + 時間戳（優化查詢）
+            entity.HasIndex(e => new { e.Level, e.Category, e.Timestamp });
+            entity.HasIndex(e => new { e.UserId, e.Timestamp });
+            entity.HasIndex(e => new { e.AdminId, e.Timestamp });
         });
     }
 

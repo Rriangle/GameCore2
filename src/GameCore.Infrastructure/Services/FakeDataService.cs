@@ -80,6 +80,12 @@ namespace GameCore.Infrastructure.Services
             await GenerateAdventuresAsync();
             await GenerateAdventureLogsAsync();
             await GenerateMonsterEncountersAsync();
+
+            // Stage 8: Admin Backoffice 相關假資料
+            await GenerateAdminActionsAsync();
+            await GenerateAdminSessionsAsync();
+            await GenerateModerationActionsAsync();
+            await GenerateSystemLogsAsync();
         }
 
         private async Task GenerateUsersAsync()
@@ -2477,6 +2483,187 @@ namespace GameCore.Infrastructure.Services
             await _context.SaveChangesAsync();
 
             _logger.LogInformation("生成了 {Count} 個怪物遭遇", encounters.Count);
+        }
+
+        // Stage 8: Admin Backoffice 相關假資料生成方法
+        private async Task GenerateAdminActionsAsync()
+        {
+            if (await _context.AdminActions.AnyAsync())
+                return;
+
+            var admins = await _context.Admins.Take(5).ToListAsync();
+            var actions = new[] { "Login", "Logout", "CreateUser", "SuspendUser", "BanUser", "ViewDashboard", "ExportData", "SystemMaintenance" };
+            var categories = new[] { "Security", "UserManagement", "System", "Moderation", "Reporting" };
+            var statuses = new[] { "Completed", "Failed", "InProgress" };
+
+            var adminActions = new List<AdminAction>();
+
+            foreach (var admin in admins)
+            {
+                var actionCount = Random.Shared.Next(10, 30);
+                
+                for (int i = 0; i < actionCount; i++)
+                {
+                    var action = actions[Random.Shared.Next(actions.Length)];
+                    var category = categories[Random.Shared.Next(categories.Length)];
+                    var status = statuses[Random.Shared.Next(statuses.Length)];
+                    var actionTime = DateTime.UtcNow.AddDays(-Random.Shared.Next(1, 90));
+
+                    adminActions.Add(new AdminAction
+                    {
+                        AdminId = admin.Id,
+                        Action = action,
+                        Category = category,
+                        Description = $"{action} 操作",
+                        Details = $"管理員 {admin.Username} 執行了 {action} 操作",
+                        TargetType = action.Contains("User") ? "User" : null,
+                        TargetId = action.Contains("User") ? Random.Shared.Next(1, 100) : null,
+                        Status = status,
+                        ErrorMessage = status == "Failed" ? "操作失敗，請重試" : null,
+                        ActionTime = actionTime,
+                        CreatedAt = actionTime,
+                        UpdatedAt = DateTime.UtcNow
+                    });
+                }
+            }
+
+            _context.AdminActions.AddRange(adminActions);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個管理員操作記錄", adminActions.Count);
+        }
+
+        private async Task GenerateAdminSessionsAsync()
+        {
+            if (await _context.AdminSessions.AnyAsync())
+                return;
+
+            var admins = await _context.Admins.Take(5).ToListAsync();
+            var sessions = new List<AdminSession>();
+
+            foreach (var admin in admins)
+            {
+                var sessionCount = Random.Shared.Next(5, 15);
+                
+                for (int i = 0; i < sessionCount; i++)
+                {
+                    var loginTime = DateTime.UtcNow.AddDays(-Random.Shared.Next(1, 30));
+                    var isActive = Random.Shared.Next(100) < 20; // 20% active sessions
+                    var status = isActive ? "Active" : "Expired";
+
+                    sessions.Add(new AdminSession
+                    {
+                        AdminId = admin.Id,
+                        SessionToken = Guid.NewGuid().ToString("N"),
+                        Status = status,
+                        LoginTime = loginTime,
+                        LastActivityTime = loginTime.AddHours(Random.Shared.Next(1, 8)),
+                        LogoutTime = isActive ? null : loginTime.AddHours(Random.Shared.Next(1, 8)),
+                        ExpiresAt = loginTime.AddHours(24),
+                        IpAddress = $"192.168.1.{Random.Shared.Next(1, 255)}",
+                        UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                        CreatedAt = loginTime,
+                        UpdatedAt = DateTime.UtcNow
+                    });
+                }
+            }
+
+            _context.AdminSessions.AddRange(sessions);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個管理員會話記錄", sessions.Count);
+        }
+
+        private async Task GenerateModerationActionsAsync()
+        {
+            if (await _context.ModerationActions.AnyAsync())
+                return;
+
+            var admins = await _context.Admins.Take(5).ToListAsync();
+            var users = await _context.Users.Take(20).ToListAsync();
+            var actions = new[] { "Warn", "Suspend", "Ban", "Delete", "Hide" };
+            var reasons = new[] { "違反社區準則", "垃圾訊息", "騷擾行為", "不當內容", "重複違規" };
+            var statuses = new[] { "Active", "Expired", "Reversed" };
+
+            var moderationActions = new List<ModerationAction>();
+
+            foreach (var user in users)
+            {
+                if (Random.Shared.Next(100) < 30) // 30% of users have moderation actions
+                {
+                    var action = actions[Random.Shared.Next(actions.Length)];
+                    var reason = reasons[Random.Shared.Next(reasons.Length)];
+                    var status = statuses[Random.Shared.Next(statuses.Length)];
+                    var actionTime = DateTime.UtcNow.AddDays(-Random.Shared.Next(1, 60));
+                    var admin = admins[Random.Shared.Next(admins.Length)];
+
+                    var moderationAction = new ModerationAction
+                    {
+                        AdminId = admin.Id,
+                        Action = action,
+                        TargetType = "User",
+                        TargetId = user.Id,
+                        Reason = reason,
+                        Details = $"用戶 {user.Username} {reason}",
+                        Status = status,
+                        ExpiresAt = action == "Suspend" || action == "Ban" ? actionTime.AddDays(Random.Shared.Next(1, 30)) : null,
+                        ActionTime = actionTime,
+                        ReversedAt = status == "Reversed" ? actionTime.AddDays(Random.Shared.Next(1, 7)) : null,
+                        ReversedByAdminId = status == "Reversed" ? admins[Random.Shared.Next(admins.Length)].Id : null,
+                        ReversalReason = status == "Reversed" ? "重新審查後決定撤銷" : null,
+                        CreatedAt = actionTime,
+                        UpdatedAt = DateTime.UtcNow
+                    };
+
+                    moderationActions.Add(moderationAction);
+                }
+            }
+
+            _context.ModerationActions.AddRange(moderationActions);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個審核操作記錄", moderationActions.Count);
+        }
+
+        private async Task GenerateSystemLogsAsync()
+        {
+            if (await _context.SystemLogs.AnyAsync())
+                return;
+
+            var levels = new[] { "Info", "Warning", "Error", "Critical" };
+            var categories = new[] { "System", "Security", "Database", "API", "User", "Admin" };
+            var events = new[] { "UserLogin", "UserLogout", "DataExport", "SystemBackup", "SecurityAlert", "DatabaseError" };
+
+            var systemLogs = new List<SystemLog>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                var level = levels[Random.Shared.Next(levels.Length)];
+                var category = categories[Random.Shared.Next(categories.Length)];
+                var eventName = events[Random.Shared.Next(events.Length)];
+                var timestamp = DateTime.UtcNow.AddDays(-Random.Shared.Next(1, 90));
+
+                systemLogs.Add(new SystemLog
+                {
+                    Level = level,
+                    Category = category,
+                    Event = eventName,
+                    Message = $"{eventName} 事件發生",
+                    Details = $"詳細的 {eventName} 事件描述",
+                    Source = "System",
+                    UserId = Random.Shared.Next(100) < 30 ? Random.Shared.Next(1, 100) : null,
+                    AdminId = Random.Shared.Next(100) < 20 ? Random.Shared.Next(1, 10) : null,
+                    IpAddress = $"192.168.1.{Random.Shared.Next(1, 255)}",
+                    Timestamp = timestamp,
+                    CreatedAt = timestamp,
+                    UpdatedAt = DateTime.UtcNow
+                });
+            }
+
+            _context.SystemLogs.AddRange(systemLogs);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個系統日誌記錄", systemLogs.Count);
         }
     }
 }
