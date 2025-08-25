@@ -71,11 +71,17 @@ public class GameCoreDbContext : DbContext
     public DbSet<SignInReward> SignInRewards { get; set; }
     public DbSet<UserSignInHistory> UserSignInHistories { get; set; }
 
-    // Stage 6: Virtual Pet (Slime) 相關 DbSet
-    public DbSet<VirtualPet> VirtualPets { get; set; }
-    public DbSet<PetCareLog> PetCareLogs { get; set; }
-    public DbSet<PetAchievement> PetAchievements { get; set; }
-    public DbSet<PetItem> PetItems { get; set; }
+            // Stage 6: Virtual Pet (Slime) 相關 DbSet
+        public DbSet<VirtualPet> VirtualPets { get; set; }
+        public DbSet<PetCareLog> PetCareLogs { get; set; }
+        public DbSet<PetAchievement> PetAchievements { get; set; }
+        public DbSet<PetItem> PetItems { get; set; }
+
+        // Stage 7: Mini-Game (Adventure) 相關 DbSet
+        public DbSet<Adventure> Adventures { get; set; }
+        public DbSet<AdventureLog> AdventureLogs { get; set; }
+        public DbSet<MonsterEncounter> MonsterEncounters { get; set; }
+        public DbSet<AdventureTemplate> AdventureTemplates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -434,9 +440,10 @@ public class GameCoreDbContext : DbContext
         ConfigureProductEntities(modelBuilder);
         ConfigureOrderEntities(modelBuilder);
         ConfigurePlayerMarketEntities(modelBuilder);
-        ConfigureStage4Entities(modelBuilder);
-        ConfigureStage5Entities(modelBuilder);
-        ConfigureStage6Entities(modelBuilder);
+                    ConfigureStage4Entities(modelBuilder);
+            ConfigureStage5Entities(modelBuilder);
+            ConfigureStage6Entities(modelBuilder);
+            ConfigureStage7Entities(modelBuilder);
     }
 
     /// <summary>
@@ -1065,6 +1072,141 @@ public class GameCoreDbContext : DbContext
             // 索引：類型 + 類別（優化查詢）
             entity.HasIndex(e => new { e.Type, e.Category });
             entity.HasIndex(e => e.IsActive);
+        });
+    }
+
+    /// <summary>
+    /// 配置 Stage 7: Mini-Game (Adventure) 相關實體
+    /// </summary>
+    private void ConfigureStage7Entities(ModelBuilder modelBuilder)
+    {
+        // 冒險模板實體配置
+        modelBuilder.Entity<AdventureTemplate>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.Category).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Difficulty).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.MinLevel).IsRequired();
+            entity.Property(e => e.MaxLevel).IsRequired();
+            entity.Property(e => e.EnergyCost).IsRequired();
+            entity.Property(e => e.DurationMinutes).IsRequired();
+            entity.Property(e => e.BaseSuccessRate).IsRequired();
+            entity.Property(e => e.BaseExperienceReward).IsRequired();
+            entity.Property(e => e.BasePointsReward).IsRequired();
+            entity.Property(e => e.BaseGoldReward).IsRequired();
+            entity.Property(e => e.MaxMonsterEncounters).IsRequired();
+            entity.Property(e => e.IsActive).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 索引：難度 + 類別（優化查詢）
+            entity.HasIndex(e => new { e.Difficulty, e.Category });
+            entity.HasIndex(e => e.IsActive);
+        });
+
+        // 冒險實體配置
+        modelBuilder.Entity<Adventure>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.UserId).IsRequired();
+            entity.Property(e => e.Title).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.Difficulty).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.RequiredLevel).IsRequired();
+            entity.Property(e => e.RequiredEnergy).IsRequired();
+            entity.Property(e => e.DurationMinutes).IsRequired();
+            entity.Property(e => e.SuccessRate).IsRequired();
+            entity.Property(e => e.BaseExperienceReward).IsRequired();
+            entity.Property(e => e.BasePointsReward).IsRequired();
+            entity.Property(e => e.BaseGoldReward).IsRequired();
+            entity.Property(e => e.IsActive).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：用戶ID + 狀態（優化查詢）
+            entity.HasIndex(e => new { e.UserId, e.IsActive });
+        });
+
+        // 冒險日誌實體配置
+        modelBuilder.Entity<AdventureLog>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.AdventureId).IsRequired();
+            entity.Property(e => e.UserId).IsRequired();
+            entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.StartedAt).IsRequired();
+            entity.Property(e => e.CompletedAt);
+            entity.Property(e => e.FailedAt);
+            entity.Property(e => e.EnergySpent).IsRequired();
+            entity.Property(e => e.ExperienceGained).IsRequired();
+            entity.Property(e => e.PointsGained).IsRequired();
+            entity.Property(e => e.GoldGained).IsRequired();
+            entity.Property(e => e.HealthChange).IsRequired();
+            entity.Property(e => e.HungerChange).IsRequired();
+            entity.Property(e => e.EnergyChange).IsRequired();
+            entity.Property(e => e.HappinessChange).IsRequired();
+            entity.Property(e => e.CleanlinessChange).IsRequired();
+            entity.Property(e => e.AdventureNotes).HasMaxLength(1000);
+            entity.Property(e => e.FailureReason).HasMaxLength(500);
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.Adventure)
+                  .WithMany(a => a.AdventureLogs)
+                  .HasForeignKey(e => e.AdventureId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：用戶ID + 狀態 + 開始時間（優化查詢）
+            entity.HasIndex(e => new { e.UserId, e.Status, e.StartedAt });
+            entity.HasIndex(e => new { e.AdventureId, e.Status });
+        });
+
+        // 怪物遭遇實體配置
+        modelBuilder.Entity<MonsterEncounter>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.AdventureLogId).IsRequired();
+            entity.Property(e => e.MonsterName).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.MonsterType).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.MonsterLevel).IsRequired();
+            entity.Property(e => e.MonsterHealth).IsRequired();
+            entity.Property(e => e.MonsterMaxHealth).IsRequired();
+            entity.Property(e => e.MonsterAttack).IsRequired();
+            entity.Property(e => e.MonsterDefense).IsRequired();
+            entity.Property(e => e.Outcome).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.DamageDealt).IsRequired();
+            entity.Property(e => e.DamageTaken).IsRequired();
+            entity.Property(e => e.ExperienceGained).IsRequired();
+            entity.Property(e => e.PointsGained).IsRequired();
+            entity.Property(e => e.GoldGained).IsRequired();
+            entity.Property(e => e.BattleNotes).HasMaxLength(500);
+            entity.Property(e => e.EncounterTime).IsRequired();
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.Property(e => e.UpdatedAt).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.AdventureLog)
+                  .WithMany(al => al.MonsterEncounters)
+                  .HasForeignKey(e => e.AdventureLogId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            // 索引：冒險日誌ID + 遭遇時間（優化查詢）
+            entity.HasIndex(e => new { e.AdventureLogId, e.EncounterTime });
+            entity.HasIndex(e => new { e.Outcome, e.EncounterTime });
         });
     }
 

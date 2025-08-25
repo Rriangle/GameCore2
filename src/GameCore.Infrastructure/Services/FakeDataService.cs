@@ -74,6 +74,12 @@ namespace GameCore.Infrastructure.Services
             await GenerateVirtualPetsAsync();
             await GeneratePetCareLogsAsync();
             await GeneratePetAchievementsAsync();
+
+            // Stage 7: Mini-Game (Adventure) 相關假資料
+            await GenerateAdventureTemplatesAsync();
+            await GenerateAdventuresAsync();
+            await GenerateAdventureLogsAsync();
+            await GenerateMonsterEncountersAsync();
         }
 
         private async Task GenerateUsersAsync()
@@ -2220,6 +2226,257 @@ namespace GameCore.Infrastructure.Services
             };
 
             return basePoints + (experienceGained / 10);
+        }
+
+        /// <summary>
+        /// 生成 Stage 7: Mini-Game (Adventure) 相關假資料
+        /// </summary>
+        private async Task GenerateAdventureTemplatesAsync()
+        {
+            if (await _context.AdventureTemplates.AnyAsync())
+                return;
+
+            var templates = new List<AdventureTemplate>();
+
+            // 探索類冒險
+            templates.Add(new AdventureTemplate
+            {
+                Name = "神秘森林探索",
+                Description = "探索充滿神秘生物的古老森林，尋找隱藏的寶藏",
+                Category = "Exploration",
+                Difficulty = "Easy",
+                MinLevel = 1,
+                MaxLevel = 20,
+                EnergyCost = 15,
+                DurationMinutes = 45,
+                BaseSuccessRate = 0.8m,
+                BaseExperienceReward = 60,
+                BasePointsReward = 30,
+                BaseGoldReward = 15.00m,
+                MaxMonsterEncounters = 3,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow.AddDays(-30),
+                UpdatedAt = DateTime.UtcNow.AddDays(-30)
+            });
+
+            templates.Add(new AdventureTemplate
+            {
+                Name = "地下城冒險",
+                Description = "深入危險的地下城，面對強大的怪物和陷阱",
+                Category = "Combat",
+                Difficulty = "Normal",
+                MinLevel = 5,
+                MaxLevel = 30,
+                EnergyCost = 25,
+                DurationMinutes = 60,
+                BaseSuccessRate = 0.7m,
+                BaseExperienceReward = 100,
+                BasePointsReward = 50,
+                BaseGoldReward = 25.00m,
+                MaxMonsterEncounters = 5,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow.AddDays(-30),
+                UpdatedAt = DateTime.UtcNow.AddDays(-30)
+            });
+
+            templates.Add(new AdventureTemplate
+            {
+                Name = "古堡謎題",
+                Description = "解開古堡中的古老謎題，獲得珍貴的知識和獎勵",
+                Category = "Puzzle",
+                Difficulty = "Hard",
+                MinLevel = 15,
+                MaxLevel = 50,
+                EnergyCost = 40,
+                DurationMinutes = 90,
+                BaseSuccessRate = 0.6m,
+                BaseExperienceReward = 150,
+                BasePointsReward = 75,
+                BaseGoldReward = 40.00m,
+                MaxMonsterEncounters = 2,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow.AddDays(-30),
+                UpdatedAt = DateTime.UtcNow.AddDays(-30)
+            });
+
+            templates.Add(new AdventureTemplate
+            {
+                Name = "龍巢挑戰",
+                Description = "挑戰傳說中的巨龍，這是最危險的冒險之一",
+                Category = "Combat",
+                Difficulty = "Extreme",
+                MinLevel = 30,
+                MaxLevel = 100,
+                EnergyCost = 60,
+                DurationMinutes = 120,
+                BaseSuccessRate = 0.4m,
+                BaseExperienceReward = 300,
+                BasePointsReward = 150,
+                BaseGoldReward = 100.00m,
+                MaxMonsterEncounters = 8,
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow.AddDays(-30),
+                UpdatedAt = DateTime.UtcNow.AddDays(-30)
+            });
+
+            _context.AdventureTemplates.AddRange(templates);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個冒險模板", templates.Count);
+        }
+
+        private async Task GenerateAdventuresAsync()
+        {
+            if (await _context.Adventures.AnyAsync())
+                return;
+
+            var users = await _context.Users.Take(10).ToListAsync();
+            var templates = await _context.AdventureTemplates.ToListAsync();
+
+            var adventures = new List<Adventure>();
+
+            foreach (var user in users)
+            {
+                var randomTemplate = templates[Random.Shared.Next(templates.Count)];
+                
+                adventures.Add(new Adventure
+                {
+                    UserId = user.Id,
+                    Title = randomTemplate.Name,
+                    Description = randomTemplate.Description,
+                    Difficulty = randomTemplate.Difficulty,
+                    RequiredLevel = randomTemplate.MinLevel,
+                    RequiredEnergy = randomTemplate.EnergyCost,
+                    DurationMinutes = randomTemplate.DurationMinutes,
+                    SuccessRate = randomTemplate.BaseSuccessRate,
+                    BaseExperienceReward = randomTemplate.BaseExperienceReward,
+                    BasePointsReward = randomTemplate.BasePointsReward,
+                    BaseGoldReward = randomTemplate.BaseGoldReward,
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow.AddDays(-Random.Shared.Next(1, 15)),
+                    UpdatedAt = DateTime.UtcNow.AddDays(-Random.Shared.Next(1, 15))
+                });
+            }
+
+            _context.Adventures.AddRange(adventures);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個冒險", adventures.Count);
+        }
+
+        private async Task GenerateAdventureLogsAsync()
+        {
+            if (await _context.AdventureLogs.AnyAsync())
+                return;
+
+            var adventures = await _context.Adventures.Take(20).ToListAsync();
+            var statuses = new[] { "Completed", "Failed", "Abandoned" };
+
+            var logs = new List<AdventureLog>();
+
+            foreach (var adventure in adventures)
+            {
+                var status = statuses[Random.Shared.Next(statuses.Length)];
+                var startedAt = adventure.CreatedAt;
+                var completedAt = status == "Completed" ? startedAt.AddMinutes(adventure.DurationMinutes) : (DateTime?)null;
+                var failedAt = status == "Failed" ? startedAt.AddMinutes(Random.Shared.Next(10, adventure.DurationMinutes)) : (DateTime?)null;
+
+                var experienceGained = status == "Completed" ? adventure.BaseExperienceReward : (int)(adventure.BaseExperienceReward * 0.5);
+                var pointsGained = status == "Completed" ? adventure.BasePointsReward : (int)(adventure.BasePointsReward * 0.5);
+                var goldGained = status == "Completed" ? adventure.BaseGoldReward : adventure.BaseGoldReward * 0.5m;
+
+                logs.Add(new AdventureLog
+                {
+                    AdventureId = adventure.Id,
+                    UserId = adventure.UserId,
+                    Status = status,
+                    StartedAt = startedAt,
+                    CompletedAt = completedAt,
+                    FailedAt = failedAt,
+                    EnergySpent = adventure.RequiredEnergy,
+                    ExperienceGained = experienceGained,
+                    PointsGained = pointsGained,
+                    GoldGained = goldGained,
+                    HealthChange = status == "Completed" ? 5 : -10,
+                    HungerChange = status == "Completed" ? -15 : -5,
+                    EnergyChange = status == "Completed" ? -20 : -10,
+                    HappinessChange = status == "Completed" ? 15 : -5,
+                    CleanlinessChange = status == "Completed" ? -5 : -10,
+                    AdventureNotes = status == "Completed" ? "冒險成功完成！" : null,
+                    FailureReason = status == "Failed" ? "體力不支，無法繼續" : null,
+                    CreatedAt = startedAt,
+                    UpdatedAt = DateTime.UtcNow
+                });
+            }
+
+            _context.AdventureLogs.AddRange(logs);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個冒險日誌", logs.Count);
+        }
+
+        private async Task GenerateMonsterEncountersAsync()
+        {
+            if (await _context.MonsterEncounters.AnyAsync())
+                return;
+
+            var adventureLogs = await _context.AdventureLogs.Take(30).ToListAsync();
+            var monsterTypes = new[] { "Normal", "Elite", "Boss", "MiniBoss" };
+            var outcomes = new[] { "Victory", "Defeat", "Escaped" };
+
+            var encounters = new List<MonsterEncounter>();
+
+            foreach (var log in adventureLogs)
+            {
+                var encounterCount = Random.Shared.Next(1, 4);
+                
+                for (int i = 0; i < encounterCount; i++)
+                {
+                    var monsterType = monsterTypes[Random.Shared.Next(monsterTypes.Length)];
+                    var outcome = outcomes[Random.Shared.Next(outcomes.Length)];
+                    var monsterLevel = Random.Shared.Next(1, 25);
+                    var monsterHealth = 50 + (monsterLevel * 10);
+                    var monsterAttack = 10 + (monsterLevel * 2);
+                    var monsterDefense = 5 + monsterLevel;
+
+                    var damageDealt = outcome == "Victory" ? Random.Shared.Next(20, 100) : Random.Shared.Next(5, 30);
+                    var damageTaken = outcome == "Victory" ? Random.Shared.Next(5, 30) : Random.Shared.Next(20, 80);
+
+                    var experienceGained = outcome == "Victory" ? monsterLevel * 10 : monsterLevel * 3;
+                    var pointsGained = outcome == "Victory" ? monsterLevel * 5 : monsterLevel * 1;
+                    var goldGained = outcome == "Victory" ? monsterLevel * 2.0m : monsterLevel * 0.5m;
+
+                    var monsterNames = new[] { "Goblin", "Orc", "Troll", "Dragon", "Demon", "Undead", "Beast", "Elemental" };
+                    var monsterName = monsterNames[Random.Shared.Next(monsterNames.Length)];
+
+                    encounters.Add(new MonsterEncounter
+                    {
+                        AdventureLogId = log.Id,
+                        MonsterName = $"{monsterName} Lv.{monsterLevel}",
+                        MonsterType = monsterType,
+                        MonsterLevel = monsterLevel,
+                        MonsterHealth = monsterHealth,
+                        MonsterMaxHealth = monsterHealth,
+                        MonsterAttack = monsterAttack,
+                        MonsterDefense = monsterDefense,
+                        Outcome = outcome,
+                        DamageDealt = damageDealt,
+                        DamageTaken = damageTaken,
+                        ExperienceGained = experienceGained,
+                        PointsGained = pointsGained,
+                        GoldGained = goldGained,
+                        BattleNotes = outcome == "Victory" ? $"成功擊敗了 {monsterName}" : $"與 {monsterName} 的戰鬥失敗了",
+                        EncounterTime = log.StartedAt.AddMinutes(Random.Shared.Next(5, 30)),
+                        CreatedAt = log.StartedAt.AddMinutes(Random.Shared.Next(5, 30)),
+                        UpdatedAt = DateTime.UtcNow
+                });
+                }
+            }
+
+            _context.MonsterEncounters.AddRange(encounters);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("生成了 {Count} 個怪物遭遇", encounters.Count);
         }
     }
 }
