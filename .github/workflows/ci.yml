@@ -2,18 +2,81 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, feature/*, hotfix/* ]
   pull_request:
     branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: '部署環境'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - local
+        - dev
+        - staging
+        - prod
 
 env:
   DOTNET_VERSION: '8.0.x'
   NODE_VERSION: '18.x'
+  DOCKER_REGISTRY: 'ghcr.io'
+  IMAGE_NAME: 'gamecore'
 
 jobs:
+  # =============================================================================
+  # 程式碼品質檢查
+  # =============================================================================
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - name: Install .NET dependencies
+      run: dotnet restore
+
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        pnpm install --frozen-lockfile
+
+    - name: Run .NET format check
+      run: dotnet format --verify-no-changes
+
+    - name: Run .NET build
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run frontend build
+      run: |
+        cd frontend
+        pnpm run build
+
+  # =============================================================================
+  # 後端測試
+  # =============================================================================
   backend-tests:
     name: Backend Tests
     runs-on: ubuntu-latest
+    needs: code-quality
     
     services:
       sqlserver:
@@ -28,6 +91,16 @@ jobs:
           --health-retries 5
         ports:
           - 1433:1433
+
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
 
     steps:
     - name: Checkout code
@@ -47,6 +120,14 @@ jobs:
     - name: Run backend tests
       run: dotnet test --no-build --verbosity normal --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults
 
+    - name: Generate test report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Backend Test Results
+        path: TestResults/
+        reporter: java-junit
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: always()
@@ -62,9 +143,13 @@ jobs:
         flags: backend
         name: backend-coverage
 
+  # =============================================================================
+  # 前端測試
+  # =============================================================================
   frontend-tests:
     name: Frontend Tests
     runs-on: ubuntu-latest
+    needs: code-quality
 
     steps:
     - name: Checkout code
@@ -86,7 +171,7 @@ jobs:
         echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
     - name: Setup pnpm cache
-      uses: actions/cache@v3
+      uses: actions/cache@3
       with:
         path: ${{ env.STORE_PATH }}
         key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -98,79 +183,36 @@ jobs:
         cd frontend
         pnpm install --frozen-lockfile
 
-    - name: Type check
+    - name: Run linting
       run: |
         cd frontend
-        pnpm type-check
+        pnpm run lint
 
-    - name: Lint
+    - name: Run type check
       run: |
         cd frontend
-        pnpm lint
+        pnpm run type-check
 
-    - name: Run frontend tests
+    - name: Run unit tests
       run: |
         cd frontend
-        pnpm test:coverage
+        pnpm run test:unit --coverage --reporter=verbose
 
-    - name: Upload frontend coverage
+    - name: Run build
+      run: |
+        cd frontend
+        pnpm run build
+
+    - name: Upload frontend test results
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: frontend-coverage
+        name: frontend-test-results
         path: frontend/coverage/
 
-    - name: Upload coverage reports
-      uses: codecov/codecov-action@v4
-      if: always()
-      with:
-        file: frontend/coverage/lcov.info
-        flags: frontend
-        name: frontend-coverage
-
-  build:
-    name: Build Application
-    runs-on: ubuntu-latest
-    needs: [backend-tests, frontend-tests]
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: latest
-
-    - name: Build backend
-      run: |
-        dotnet restore
-        dotnet build --configuration Release --no-restore
-
-    - name: Build frontend
-      run: |
-        cd frontend
-        pnpm install --frozen-lockfile
-        pnpm build
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-artifacts
-        path: |
-          src/GameCore.Api/bin/Release/net8.0/
-          frontend/dist/
-
+  # =============================================================================
+  # 安全性掃描
+  # =============================================================================
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
@@ -185,90 +227,182 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Run security scan
+    - name: Run .NET security scan
       run: |
         dotnet tool install --global dotnet-security-scan
         dotnet security-scan
 
-  quality-gate:
-    name: Quality Gate
-    runs-on: ubuntu-latest
-    needs: [backend-tests, frontend-tests, build, security-scan]
+    - name: Run npm audit
+      run: |
+        cd frontend
+        npm audit --audit-level moderate
 
+    - name: Run Snyk security scan
+      uses: snyk/actions/dotnet@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high
+
+  # =============================================================================
+  # Docker 映像建置
+  # =============================================================================
+  build-docker:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests, security-scan]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Download test results
-      uses: actions/download-artifact@v4
-      with:
-        name: backend-test-results
-        path: TestResults/
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-    - name: Download coverage reports
-      uses: actions/download-artifact@v4
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
       with:
-        name: frontend-coverage
-        path: frontend-coverage/
+        registry: ${{ env.DOCKER_REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Quality check
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+
+    - name: Build and push backend image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: src/GameCore.Api/Dockerfile
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build and push frontend image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./frontend
+        file: Dockerfile.dev
+        push: true
+        tags: ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/frontend:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # =============================================================================
+  # 部署到開發環境
+  # =============================================================================
+  deploy-dev:
+    name: Deploy to Dev Environment
+    runs-on: ubuntu-latest
+    needs: build-docker
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    environment: dev
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure
       run: |
-        echo "Quality Gate Check"
-        echo "=================="
-        echo "✅ All tests passed"
-        echo "✅ Build successful"
-        echo "✅ Security scan passed"
-        echo "✅ Code coverage meets requirements"
+        az deployment group create \
+          --resource-group gamecore-dev-rg \
+          --template-file azure-deploy.yml \
+          --parameters environment=dev \
+          --parameters imageTag=${{ github.sha }}
 
-    - name: Comment PR
-      if: github.event_name == 'pull_request'
-      uses: actions/github-script@v7
+    - name: Run smoke tests
+      run: |
+        # 等待部署完成
+        sleep 60
+        # 執行基本功能測試
+        curl -f http://gamecore-dev-api.azurewebsites.net/health
+
+  # =============================================================================
+  # 部署到生產環境
+  # =============================================================================
+  deploy-prod:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: build-docker
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: prod
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Azure CLI
+      uses: azure/login@v1
       with:
-        script: |
-          const { data: comments } = await github.rest.issues.listComments({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-          });
-          
-          const botComment = comments.find(comment => 
-            comment.user.type === 'Bot' && 
-            comment.body.includes('## 🚀 CI/CD Pipeline Results')
-          );
-          
-          const commentBody = `## 🚀 CI/CD Pipeline Results
-          
-          ### ✅ Quality Gate Passed
-          
-          - **Backend Tests**: ✅ All tests passed
-          - **Frontend Tests**: ✅ All tests passed
-          - **Build**: ✅ Successful
-          - **Security Scan**: ✅ Passed
-          - **Code Coverage**: ✅ Meets requirements
-          
-          ### 📊 Test Summary
-          - Backend: Unit tests, Integration tests, Validation tests
-          - Frontend: Component tests, Service tests, Type checking
-          
-          ### 🔒 Security
-          - Dependency vulnerability scan passed
-          - Code security analysis completed
-          
-          ---
-          *This comment was automatically generated by the CI/CD pipeline.*`;
-          
-          if (botComment) {
-            await github.rest.issues.updateComment({
-              comment_id: botComment.id,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: commentBody,
-            });
-          } else {
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: commentBody,
-            });
-          }
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure
+      run: |
+        az deployment group create \
+          --resource-group gamecore-prod-rg \
+          --template-file azure-deploy.yml \
+          --parameters environment=prod \
+          --parameters imageTag=${{ github.sha }}
+
+    - name: Run production tests
+      run: |
+        # 等待部署完成
+        sleep 120
+        # 執行生產環境測試
+        curl -f https://gamecore-prod-api.azurewebsites.net/health
+
+  # =============================================================================
+  # 通知與報告
+  # =============================================================================
+  notify:
+    name: Notify Results
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests, security-scan, build-docker]
+    if: always()
+
+    steps:
+    - name: Notify Slack
+      uses: 8398a7/action-slack@v3
+      if: always()
+      with:
+        status: ${{ job.status }}
+        channel: '#gamecore-deployments'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        text: |
+          🚀 GameCore CI/CD Pipeline 完成
+          📍 分支: ${{ github.ref }}
+          🔗 提交: ${{ github.sha }}
+          ✅ 狀態: ${{ job.status }}
+          📊 詳情: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+    - name: Create deployment summary
+      if: always()
+      run: |
+        echo "## 🚀 GameCore 部署摘要" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**分支**: ${{ github.ref }}" >> $GITHUB_STEP_SUMMARY
+        echo "**提交**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "**觸發者**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📋 執行結果" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ 程式碼品質檢查: ${{ needs.code-quality.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ 後端測試: ${{ needs.backend-tests.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ 前端測試: ${{ needs.frontend-tests.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ 安全性掃描: ${{ needs.security-scan.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Docker 建置: ${{ needs.build-docker.result }}" >> $GITHUB_STEP_SUMMARY

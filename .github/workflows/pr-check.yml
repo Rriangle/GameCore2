@@ -1,0 +1,452 @@
+name: Pull Request Check
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  NODE_VERSION: '18.x'
+
+jobs:
+  # =============================================================================
+  # PR 標題和描述檢查
+  # =============================================================================
+  pr-title-check:
+    name: PR Title & Description Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check PR title format
+      uses: amannn/action-semantic-pull-request@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        types: |
+          feat
+          fix
+          docs
+          style
+          refactor
+          test
+          chore
+        requireScope: false
+        requireBody: true
+        requireFooter: false
+
+    - name: Check PR description
+      run: |
+        if [ -z "${{ github.event.pull_request.body }}" ]; then
+          echo "❌ PR 描述不能為空"
+          exit 1
+        fi
+        
+        if [ ${#github.event.pull_request.body} -lt 50 ]; then
+          echo "❌ PR 描述至少需要 50 字元"
+          exit 1
+        fi
+        
+        echo "✅ PR 描述檢查通過"
+
+  # =============================================================================
+  # 程式碼品質檢查
+  # =============================================================================
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - name: Install .NET dependencies
+      run: dotnet restore
+
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        pnpm install --frozen-lockfile
+
+    - name: Check .NET formatting
+      run: dotnet format --verify-no-changes
+
+    - name: Check .NET build
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Check frontend build
+      run: |
+        cd frontend
+        pnpm run build
+
+    - name: Run .NET analyzers
+      run: dotnet build --no-restore --configuration Release --verbosity quiet
+
+    - name: Run frontend linting
+      run: |
+        cd frontend
+        pnpm run lint
+
+    - name: Run frontend type check
+      run: |
+        cd frontend
+        pnpm run type-check
+
+  # =============================================================================
+  # 程式碼覆蓋率檢查
+  # =============================================================================
+  code-coverage:
+    name: Code Coverage Check
+    runs-on: ubuntu-latest
+    needs: code-quality
+    
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: "YourStrong@Passw0rd"
+          ACCEPT_EULA: "Y"
+        options: >-
+          --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q 'SELECT 1'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 1433:1433
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - name: Install dependencies
+      run: |
+        dotnet restore
+        cd frontend && pnpm install --frozen-lockfile
+
+    - name: Run backend tests with coverage
+      run: |
+        dotnet test --no-build --verbosity normal --configuration Release \
+          --collect:"XPlat Code Coverage" \
+          --results-directory ./TestResults \
+          --logger "trx;LogFileName=backend-test-results.trx"
+
+    - name: Run frontend tests with coverage
+      run: |
+        cd frontend
+        pnpm run test:unit --coverage --reporter=verbose
+
+    - name: Check backend coverage threshold
+      run: |
+        # 檢查後端測試覆蓋率是否達到 80%
+        coverage_file=$(find TestResults -name "coverage.cobertura.xml" | head -1)
+        if [ -z "$coverage_file" ]; then
+          echo "❌ 找不到覆蓋率報告"
+          exit 1
+        fi
+        
+        echo "✅ 後端測試覆蓋率報告生成成功"
+
+    - name: Check frontend coverage threshold
+      run: |
+        cd frontend
+        if [ ! -f "coverage/lcov.info" ]; then
+          echo "❌ 找不到前端覆蓋率報告"
+          exit 1
+        fi
+        
+        echo "✅ 前端測試覆蓋率報告生成成功"
+
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-reports
+        path: |
+          TestResults/
+          frontend/coverage/
+
+  # =============================================================================
+  # 安全性檢查
+  # =============================================================================
+  security-check:
+    name: Security Check
+    runs-on: ubuntu-latest
+    needs: code-quality
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - name: Install dependencies
+      run: |
+        dotnet restore
+        cd frontend && pnpm install --frozen-lockfile
+
+    - name: Run .NET security scan
+      run: |
+        dotnet tool install --global dotnet-security-scan
+        dotnet security-scan
+
+    - name: Run npm audit
+      run: |
+        cd frontend
+        npm audit --audit-level moderate
+
+    - name: Check for secrets in code
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: ${{ github.event.pull_request.base.sha }}
+        head: ${{ github.event.pull_request.head.sha }}
+
+    - name: Check for dependency vulnerabilities
+      run: |
+        cd frontend
+        if npm audit --audit-level high; then
+          echo "✅ 前端依賴安全性檢查通過"
+        else
+          echo "⚠️ 發現高風險依賴漏洞，請更新相關套件"
+          exit 1
+        fi
+
+  # =============================================================================
+  # 檔案大小檢查
+  # =============================================================================
+  file-size-check:
+    name: File Size Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check for large files
+      run: |
+        echo "檢查大檔案..."
+        
+        # 檢查是否有超過 50MB 的檔案
+        large_files=$(find . -type f -size +50M -not -path "./.git/*" -not -path "./node_modules/*" -not -path "./bin/*" -not -path "./obj/*")
+        
+        if [ -n "$large_files" ]; then
+          echo "❌ 發現大檔案，請檢查是否需要加入 .gitignore："
+          echo "$large_files"
+          exit 1
+        fi
+        
+        echo "✅ 檔案大小檢查通過"
+
+    - name: Check build artifacts size
+      run: |
+        echo "檢查建置產物大小..."
+        
+        # 模擬建置並檢查產物大小
+        dotnet build --configuration Release --no-restore --verbosity quiet
+        
+        # 檢查 .NET 建置產物
+        dotnet_size=$(du -sh src/*/bin/Release/net8.0/ 2>/dev/null | awk '{sum+=$1} END {print sum}')
+        echo "後端建置產物大小: $dotnet_size"
+        
+        # 檢查前端建置產物
+        cd frontend
+        pnpm run build --silent
+        frontend_size=$(du -sh dist/ 2>/dev/null | awk '{print $1}')
+        echo "前端建置產物大小: $frontend_size"
+
+  # =============================================================================
+  # 依賴檢查
+  # =============================================================================
+  dependency-check:
+    name: Dependency Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - name: Check .NET dependencies
+      run: |
+        echo "檢查 .NET 依賴..."
+        dotnet list package --outdated
+        
+        # 檢查是否有過時的依賴
+        outdated_count=$(dotnet list package --outdated | grep -c ">" || true)
+        if [ "$outdated_count" -gt 0 ]; then
+          echo "⚠️ 發現 $outdated_count 個過時的依賴套件"
+        else
+          echo "✅ .NET 依賴檢查通過"
+        fi
+
+    - name: Check frontend dependencies
+      run: |
+        cd frontend
+        echo "檢查前端依賴..."
+        
+        # 檢查是否有過時的依賴
+        pnpm outdated || echo "✅ 前端依賴檢查通過"
+
+    - name: Check for known vulnerabilities
+      run: |
+        cd frontend
+        echo "檢查已知漏洞..."
+        
+        # 使用 npm audit 檢查漏洞
+        if npm audit --audit-level moderate; then
+          echo "✅ 前端依賴安全性檢查通過"
+        else
+          echo "⚠️ 發現依賴漏洞，請檢查並更新"
+        fi
+
+  # =============================================================================
+  # PR 狀態報告
+  # =============================================================================
+  pr-report:
+    name: PR Status Report
+    runs-on: ubuntu-latest
+    needs: [pr-title-check, code-quality, code-coverage, security-check, file-size-check, dependency-check]
+    if: always()
+    
+    steps:
+    - name: Generate PR report
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: comments } = await github.rest.issues.listComments({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('## 🔍 PR 檢查報告')
+          );
+          
+          const results = {
+            'PR 標題檢查': '${{ needs.pr-title-check.result }}',
+            '程式碼品質': '${{ needs.code-quality.result }}',
+            '程式碼覆蓋率': '${{ needs.code-coverage.result }}',
+            '安全性檢查': '${{ needs.security-check.result }}',
+            '檔案大小檢查': '${{ needs.file-size-check.result }}',
+            '依賴檢查': '${{ needs.dependency-check.result }}'
+          };
+          
+          const allPassed = Object.values(results).every(result => result === 'success');
+          const status = allPassed ? '✅ 通過' : '❌ 失敗';
+          
+          const commentBody = `## 🔍 PR 檢查報告
+          
+          **整體狀態**: ${status}
+          
+          ### 📋 檢查結果
+          ${Object.entries(results).map(([name, result]) => {
+            const icon = result === 'success' ? '✅' : result === 'failure' ? '❌' : '⚠️';
+            return `- ${icon} **${name}**: ${result === 'success' ? '通過' : result === 'failure' ? '失敗' : '跳過'}`;
+          }).join('\n')}
+          
+          ### 📊 詳細資訊
+          - **分支**: \`${{ github.head_ref }}\` → \`${{ github.base_ref }}\`
+          - **提交**: \`${{ github.sha }}\`
+          - **觸發者**: ${{ github.actor }}
+          
+          ### 🔧 下一步
+          ${allPassed 
+            ? '🎉 所有檢查都通過了！可以進行程式碼審查。' 
+            : '⚠️ 請修復失敗的檢查項目後重新提交。'
+          }
+          
+          ---
+          *此報告由 PR 檢查工作流程自動生成*`;
+          
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              comment_id: botComment.id,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody,
+            });
+          } else {
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody,
+            });
+          }
+
+    - name: Set PR status
+      if: always()
+      run: |
+        # 檢查所有工作是否成功
+        if [ "${{ needs.pr-title-check.result }}" = "success" ] && \
+           [ "${{ needs.code-quality.result }}" = "success" ] && \
+           [ "${{ needs.code-coverage.result }}" = "success" ] && \
+           [ "${{ needs.security-check.result }}" = "success" ] && \
+           [ "${{ needs.file-size-check.result }}" = "success" ] && \
+           [ "${{ needs.dependency-check.result }}" = "success" ]; then
+          echo "✅ 所有 PR 檢查都通過了"
+          exit 0
+        else
+          echo "❌ 部分 PR 檢查失敗"
+          exit 1
+        fi
