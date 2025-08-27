@@ -54,13 +54,13 @@ public class AuthServiceTests
             .ReturnsAsync((UserWallet wallet) => wallet);
 
         // Act
-        var result = await _authService.RegisterAsync(request);
+        var result = await _authService.RegisterAsync(request.Username, request.Email, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeTrue();
         result.Token.Should().NotBeNullOrEmpty();
-        result.Message.Should().Be("註冊成功");
+        result.ErrorMessage.Should().BeNull();
         result.User.Should().NotBeNull();
         result.User!.Username.Should().Be(request.Username);
         result.User.Email.Should().Be(request.Email);
@@ -77,12 +77,12 @@ public class AuthServiceTests
             .ReturnsAsync(true);
 
         // Act
-        var result = await _authService.RegisterAsync(request);
+        var result = await _authService.RegisterAsync(request.Username, request.Email, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
-        result.Message.Should().Be("用戶名已存在");
+        result.ErrorMessage.Should().Be("用戶名已存在");
         result.Token.Should().BeNull();
         result.User.Should().BeNull();
     }
@@ -99,12 +99,12 @@ public class AuthServiceTests
             .ReturnsAsync(true);
 
         // Act
-        var result = await _authService.RegisterAsync(request);
+        var result = await _authService.RegisterAsync(request.Username, request.Email, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
-        result.Message.Should().Be("郵箱已被註冊");
+        result.ErrorMessage.Should().Be("郵箱已被註冊");
         result.Token.Should().BeNull();
         result.User.Should().BeNull();
     }
@@ -132,7 +132,7 @@ public class AuthServiceTests
             .ReturnsAsync((UserWallet wallet) => wallet);
 
         // Act
-        var result = await _authService.RegisterAsync(request);
+        var result = await _authService.RegisterAsync(request.Username, request.Email, request.Password);
 
         // Assert
         result.Should().NotBeNull();
@@ -157,13 +157,13 @@ public class AuthServiceTests
             .ReturnsAsync(100.00m);
 
         // Act
-        var result = await _authService.LoginAsync(request);
+        var result = await _authService.LoginAsync(request.Username, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeTrue();
         result.Token.Should().NotBeNullOrEmpty();
-        result.Message.Should().Be("登入成功");
+        result.ErrorMessage.Should().BeNull();
         result.User.Should().NotBeNull();
         result.User!.Username.Should().Be(user.Username);
         result.User.Email.Should().Be(user.Email);
@@ -176,17 +176,19 @@ public class AuthServiceTests
         var request = TestDataFactory.CreateValidLoginRequest();
         var user = TestDataFactory.CreateTestUser();
         user.Username = request.Username;
+        // 設定錯誤的密碼雜湊，讓密碼驗證失敗
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword("WrongPassword123!");
 
         _userRepositoryMock.Setup(x => x.GetByUsernameAsync(request.Username))
             .ReturnsAsync(user);
 
         // Act
-        var result = await _authService.LoginAsync(request);
+        var result = await _authService.LoginAsync(request.Username, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
-        result.Message.Should().Be("用戶名或密碼錯誤");
+        result.ErrorMessage.Should().Be("用戶名或密碼錯誤");
         result.Token.Should().BeNull();
         result.User.Should().BeNull();
     }
@@ -201,12 +203,12 @@ public class AuthServiceTests
             .ReturnsAsync((User?)null);
 
         // Act
-        var result = await _authService.LoginAsync(request);
+        var result = await _authService.LoginAsync(request.Username, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
-        result.Message.Should().Be("用戶名或密碼錯誤");
+        result.ErrorMessage.Should().Be("用戶名或密碼錯誤");
         result.Token.Should().BeNull();
         result.User.Should().BeNull();
     }
@@ -224,12 +226,12 @@ public class AuthServiceTests
             .ReturnsAsync(user);
 
         // Act
-        var result = await _authService.LoginAsync(request);
+        var result = await _authService.LoginAsync(request.Username, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
-        result.Message.Should().Be("帳戶已被停用");
+        result.ErrorMessage.Should().Be("帳戶已被停用");
         result.Token.Should().BeNull();
         result.User.Should().BeNull();
     }
@@ -284,12 +286,12 @@ public class AuthServiceTests
             .ThrowsAsync(new Exception("Database connection failed"));
 
         // Act
-        var result = await _authService.RegisterAsync(request);
+        var result = await _authService.RegisterAsync(request.Username, request.Email, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
-        result.Message.Should().Be("註冊失敗，請稍後再試");
+        result.ErrorMessage.Should().Be("註冊失敗，請稍後再試");
         result.Token.Should().BeNull();
         result.User.Should().BeNull();
     }
@@ -304,12 +306,12 @@ public class AuthServiceTests
             .ThrowsAsync(new Exception("Database connection failed"));
 
         // Act
-        var result = await _authService.LoginAsync(request);
+        var result = await _authService.LoginAsync(request.Username, request.Password);
 
         // Assert
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
-        result.Message.Should().Be("登入失敗，請稍後再試");
+        result.ErrorMessage.Should().Be("登入失敗，請稍後再試");
         result.Token.Should().BeNull();
         result.User.Should().BeNull();
     }

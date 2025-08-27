@@ -1,0 +1,847 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="94e78183-5a61-471b-95c3-f5098cb9a8d8" name="@cursor 2025-08-24 06:51:52" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-08-24T06:51:52.8768726+00:00" queuing="2025-08-24T06:51:52.8768726+00:00" start="2025-08-24T06:51:51.0430316+00:00" finish="2025-08-24T06:51:55.6006832+00:00" />
+  <TestSettings name="default" id="508299eb-bfcd-416e-8f67-d169e5d3c31a">
+    <Deployment runDeploymentRoot="_cursor_2025-08-24_06_51_52" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1f026874-8506-4f7f-bc6a-5cbe4ecbb10f" testId="4c27644c-48f1-f09a-1337-384f47157b44" testName="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess" computerName="cursor" duration="00:00:00.1661816" startTime="2025-08-24T06:51:52.9188519+00:00" endTime="2025-08-24T06:51:52.9188520+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f026874-8506-4f7f-bc6a-5cbe4ecbb10f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: OK
+Actual:   Unauthorized</Message>
+          <StackTrace>   at GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess() in /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs:line 180
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="52e932b4-53a9-400d-b091-e48651bfbdf3" testId="6c835d96-e8d3-e38e-985c-e51291a72f8f" testName="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithoutToken_ShouldReturnUnauthorized" computerName="cursor" duration="00:00:00.0205820" startTime="2025-08-24T06:51:52.7516856+00:00" endTime="2025-08-24T06:51:52.7516858+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="52e932b4-53a9-400d-b091-e48651bfbdf3" />
+    <UnitTestResult executionId="ae47d07d-1503-4e45-a7f8-77aaab17b24b" testId="bfce84ac-37a6-e6a7-f7e8-8906db4b1e18" testName="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithInvalidCredentials_ShouldReturnError" computerName="cursor" duration="00:00:00.0304656" startTime="2025-08-24T06:51:55.2556820+00:00" endTime="2025-08-24T06:51:55.2556823+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae47d07d-1503-4e45-a7f8-77aaab17b24b" />
+    <UnitTestResult executionId="3f236f29-f84a-4a35-8b1d-b1cb3227defd" testId="1a493d7c-ac7e-6e68-a712-03b016a4aa3e" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithRateLimit_ShouldBeLimited" computerName="cursor" duration="00:00:02.3066469" startTime="2025-08-24T06:51:55.2251614+00:00" endTime="2025-08-24T06:51:55.2251618+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3f236f29-f84a-4a35-8b1d-b1cb3227defd" />
+    <UnitTestResult executionId="ef41337b-3a9d-4a53-ae23-4bf5e15ad658" testId="e3943727-24b6-9320-2a5c-8009ea67d763" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError" computerName="cursor" duration="00:00:00.2836303" startTime="2025-08-24T06:51:55.5404420+00:00" endTime="2025-08-24T06:51:55.5404424+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef41337b-3a9d-4a53-ae23-4bf5e15ad658">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: BadRequest
+Actual:   OK</Message>
+          <StackTrace>   at GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError() in /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs:line 123
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e0cde394-4536-4136-a064-3ee3501c3800" testId="0ee0d27d-2b8a-bc99-50f4-aab527a27499" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithInvalidPassword_ShouldReturnValidationError" computerName="cursor" duration="00:00:00.0722102" startTime="2025-08-24T06:51:52.5020608+00:00" endTime="2025-08-24T06:51:52.5020610+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e0cde394-4536-4136-a064-3ee3501c3800" />
+    <UnitTestResult executionId="f09d34f5-e430-40cb-9a2d-055290b0b43a" testId="f41a6822-8072-f975-f175-97334281e291" testName="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile" computerName="cursor" duration="00:00:00.2231844" startTime="2025-08-24T06:51:52.7341786+00:00" endTime="2025-08-24T06:51:52.7341787+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f09d34f5-e430-40cb-9a2d-055290b0b43a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: OK
+Actual:   NotFound</Message>
+          <StackTrace>   at GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile() in /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs:line 242
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ad0dd62a-848f-47c6-aca4-073413f9750f" testId="491e1565-4907-6194-1273-8057bd08ab86" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithValidData_ShouldReturnSuccess" computerName="cursor" duration="00:00:00.9175444" startTime="2025-08-24T06:51:52.4295782+00:00" endTime="2025-08-24T06:51:52.4295910+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad0dd62a-848f-47c6-aca4-073413f9750f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithoutToken_ShouldReturnUnauthorized" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6c835d96-e8d3-e38e-985c-e51291a72f8f">
+      <Execution id="52e932b4-53a9-400d-b091-e48651bfbdf3" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="GetProfile_WithoutToken_ShouldReturnUnauthorized" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="e3943727-24b6-9320-2a5c-8009ea67d763">
+      <Execution id="ef41337b-3a9d-4a53-ae23-4bf5e15ad658" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithExistingUsername_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithRateLimit_ShouldBeLimited" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="1a493d7c-ac7e-6e68-a712-03b016a4aa3e">
+      <Execution id="3f236f29-f84a-4a35-8b1d-b1cb3227defd" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithRateLimit_ShouldBeLimited" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="4c27644c-48f1-f09a-1337-384f47157b44">
+      <Execution id="1f026874-8506-4f7f-bc6a-5cbe4ecbb10f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Login_WithValidCredentials_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="f41a6822-8072-f975-f175-97334281e291">
+      <Execution id="f09d34f5-e430-40cb-9a2d-055290b0b43a" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="GetProfile_WithValidToken_ShouldReturnUserProfile" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithInvalidPassword_ShouldReturnValidationError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0ee0d27d-2b8a-bc99-50f4-aab527a27499">
+      <Execution id="e0cde394-4536-4136-a064-3ee3501c3800" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithInvalidPassword_ShouldReturnValidationError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithInvalidCredentials_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="bfce84ac-37a6-e6a7-f7e8-8906db4b1e18">
+      <Execution id="ae47d07d-1503-4e45-a7f8-77aaab17b24b" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Login_WithInvalidCredentials_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithValidData_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="491e1565-4907-6194-1273-8057bd08ab86">
+      <Execution id="ad0dd62a-848f-47c6-aca4-073413f9750f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithValidData_ShouldReturnSuccess" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4c27644c-48f1-f09a-1337-384f47157b44" executionId="1f026874-8506-4f7f-bc6a-5cbe4ecbb10f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c835d96-e8d3-e38e-985c-e51291a72f8f" executionId="52e932b4-53a9-400d-b091-e48651bfbdf3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bfce84ac-37a6-e6a7-f7e8-8906db4b1e18" executionId="ae47d07d-1503-4e45-a7f8-77aaab17b24b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a493d7c-ac7e-6e68-a712-03b016a4aa3e" executionId="3f236f29-f84a-4a35-8b1d-b1cb3227defd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3943727-24b6-9320-2a5c-8009ea67d763" executionId="ef41337b-3a9d-4a53-ae23-4bf5e15ad658" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0ee0d27d-2b8a-bc99-50f4-aab527a27499" executionId="e0cde394-4536-4136-a064-3ee3501c3800" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f41a6822-8072-f975-f175-97334281e291" executionId="f09d34f5-e430-40cb-9a2d-055290b0b43a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="491e1565-4907-6194-1273-8057bd08ab86" executionId="ad0dd62a-848f-47c6-aca4-073413f9750f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="5" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.5.4.1+b9eacec401 (64-bit .NET 8.0.19)
+[xUnit.net 00:00:00.06]   Discovering: GameCore.Tests
+[xUnit.net 00:00:00.09]   Discovered:  GameCore.Tests
+[xUnit.net 00:00:00.10]   Starting:    GameCore.Tests
+[06:51:51 INF] GameCore API 啟動完成
+[06:51:52 WRN] Failed to determine the https port for redirect.
+[06:51:52 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 6bb9960c-6bc7-4cc1-be4c-c3ae1204b7a9
+[06:51:52 INF] 開始處理請求: POST /api/auth/register
+[06:51:52 INF] 收到註冊請求: 0HNF2RAQC4VKL
+[06:51:52 INF] 開始處理用戶註冊請求: testuser
+[06:51:52 INF] 建立新用戶: Username = testuser, Email = test@example.com
+[06:51:52 INF] 用戶建立成功: UserId = 1
+[06:51:52 INF] 用戶註冊成功: 1 testuser
+[06:51:52 INF] 註冊成功: 0HNF2RAQC4VKL, Username: testuser
+[06:51:52 INF] 請求完成: POST /api/auth/register - 200 (397.8778ms)
+[06:51:52 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 6bb9960c-6bc7-4cc1-be4c-c3ae1204b7a9
+[06:51:52 INF] GameCore API 啟動完成
+[06:51:52 WRN] Failed to determine the https port for redirect.
+[06:51:52 INF] Request started: POST /api/auth/register from unknown with CorrelationId: dc68498a-60b0-4444-a86d-d3fa0698e3b5
+[06:51:52 INF] 開始處理請求: POST /api/auth/register
+[06:51:52 INF] 請求完成: POST /api/auth/register - 400 (16.4374ms)
+[06:51:52 INF] Request completed: POST /api/auth/register with status 400 and CorrelationId: dc68498a-60b0-4444-a86d-d3fa0698e3b5
+[06:51:52 INF] GameCore API 啟動完成
+[06:51:52 WRN] Failed to determine the https port for redirect.
+[06:51:52 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 8f0dfa5d-d48e-4ed4-a9bf-49222ae590e7
+[06:51:52 INF] 開始處理請求: POST /api/auth/register
+[06:51:52 INF] 收到註冊請求: 0HNF2RAQC4VKN
+[06:51:52 INF] 開始處理用戶註冊請求: profileuser
+[06:51:52 INF] 建立新用戶: Username = profileuser, Email = profile@example.com
+[06:51:52 INF] 用戶建立成功: UserId = 1
+[06:51:52 INF] 用戶註冊成功: 1 profileuser
+[06:51:52 INF] 註冊成功: 0HNF2RAQC4VKN, Username: profileuser
+[06:51:52 INF] 請求完成: POST /api/auth/register - 200 (131.3102ms)
+[06:51:52 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 8f0dfa5d-d48e-4ed4-a9bf-49222ae590e7
+[06:51:52 INF] Request started: GET /api/auth/profile from unknown with CorrelationId: 1303c6c0-3f81-4107-a608-0ae70b46a950
+[06:51:52 INF] 開始處理請求: GET /api/auth/profile
+[06:51:52 INF] 收到獲取個人資料請求: 0HNF2RAQC4VKO
+[06:51:52 WRN] 用戶不存在: 1
+[06:51:52 WRN] 用戶不存在: 0HNF2RAQC4VKO, UserId: 1
+[06:51:52 INF] 請求完成: GET /api/auth/profile - 404 (63.4615ms)
+[06:51:52 INF] Request completed: GET /api/auth/profile with status 404 and CorrelationId: 1303c6c0-3f81-4107-a608-0ae70b46a950
+[xUnit.net 00:00:01.35]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.35]       Expected: OK
+[xUnit.net 00:00:01.35]       Actual:   NotFound
+[xUnit.net 00:00:01.35]       Stack Trace:
+[xUnit.net 00:00:01.35]         /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs(242,0): at GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile()
+[xUnit.net 00:00:01.35]         --- End of stack trace from previous location ---
+[06:51:52 INF] GameCore API 啟動完成
+[06:51:52 WRN] Failed to determine the https port for redirect.
+[06:51:52 INF] Request started: GET /api/auth/profile from unknown with CorrelationId: ad097a8c-75d9-4955-a537-9afae84991d3
+[06:51:52 INF] 開始處理請求: GET /api/auth/profile
+[06:51:52 INF] 請求完成: GET /api/auth/profile - 401 (2.6626ms)
+[06:51:52 INF] Request completed: GET /api/auth/profile with status 401 and CorrelationId: ad097a8c-75d9-4955-a537-9afae84991d3
+[06:51:52 INF] GameCore API 啟動完成
+[06:51:52 WRN] Failed to determine the https port for redirect.
+[06:51:52 INF] Request started: POST /api/auth/register from unknown with CorrelationId: dcacb5ee-2d10-4d95-9752-208fab8d7281
+[06:51:52 INF] 開始處理請求: POST /api/auth/register
+[06:51:52 INF] 收到註冊請求: 0HNF2RAQC4VKQ
+[06:51:52 INF] 開始處理用戶註冊請求: loginuser
+[06:51:52 INF] 建立新用戶: Username = loginuser, Email = login@example.com
+[06:51:52 INF] 用戶建立成功: UserId = 1
+[06:51:52 INF] 用戶註冊成功: 1 loginuser
+[06:51:52 INF] 註冊成功: 0HNF2RAQC4VKQ, Username: loginuser
+[06:51:52 INF] 請求完成: POST /api/auth/register - 200 (128.7364ms)
+[06:51:52 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: dcacb5ee-2d10-4d95-9752-208fab8d7281
+[06:51:52 INF] Request started: POST /api/auth/login from unknown with CorrelationId: 2572197f-5c9a-4626-b796-daa656077d2a
+[06:51:52 INF] 開始處理請求: POST /api/auth/login
+[06:51:52 INF] 收到登入請求: 0HNF2RAQC4VKR
+[06:51:52 INF] 開始處理用戶登入請求: loginuser
+[06:51:52 WRN] 登入失敗：用戶不存在: loginuser
+[06:51:52 WRN] 登入失敗: 0HNF2RAQC4VKR, Username: loginuser, Message: 用戶名或密碼錯誤
+[06:51:52 INF] 請求完成: POST /api/auth/login - 401 (14.3643ms)
+[06:51:52 INF] Request completed: POST /api/auth/login with status 401 and CorrelationId: 2572197f-5c9a-4626-b796-daa656077d2a
+[xUnit.net 00:00:01.54]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.54]       Expected: OK
+[xUnit.net 00:00:01.54]       Actual:   Unauthorized
+[xUnit.net 00:00:01.54]       Stack Trace:
+[xUnit.net 00:00:01.54]         /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs(180,0): at GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess()
+[xUnit.net 00:00:01.54]         --- End of stack trace from previous location ---
+[06:51:52 INF] GameCore API 啟動完成
+[06:51:52 WRN] Failed to determine the https port for redirect.
+[06:51:52 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 45873e97-2250-4fcf-bcf8-d409de29fc2e
+[06:51:52 INF] 開始處理請求: POST /api/auth/register
+[06:51:52 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 2ae6e478-1e47-4621-be13-a5b8e107205d
+[06:51:52 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f15a8b96-4f5f-49ac-9864-1a97220e1c46
+[06:51:52 INF] 開始處理請求: POST /api/auth/register
+[06:51:52 INF] 開始處理請求: POST /api/auth/register
+[06:51:52 INF] 收到註冊請求: 0HNF2RAQC4VKS
+[06:51:52 INF] 開始處理用戶註冊請求: ratelimituser0
+[06:51:52 INF] 收到註冊請求: 0HNF2RAQC4VKU
+[06:51:52 INF] 收到註冊請求: 0HNF2RAQC4VKT
+[06:51:52 INF] 開始處理用戶註冊請求: ratelimituser2
+[06:51:52 INF] 開始處理用戶註冊請求: ratelimituser1
+[06:51:53 INF] 建立新用戶: Username = ratelimituser0, Email = ratelimit0@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser0
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VKS, Username: ratelimituser0
+[06:51:53 INF] 建立新用戶: Username = ratelimituser2, Email = ratelimit2@example.com
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (129.3285ms)
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 45873e97-2250-4fcf-bcf8-d409de29fc2e
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser2
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VKU, Username: ratelimituser2
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (128.4757ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 2ae6e478-1e47-4621-be13-a5b8e107205d
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 9f29ccb9-1eea-43d8-96d0-9ca62cc2828a
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 06c1fba7-8244-4aa8-a643-a8daed31482b
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VKV
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser3
+[06:51:53 INF] 建立新用戶: Username = ratelimituser1, Email = ratelimit1@example.com
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL0
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser4
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser1
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VKT, Username: ratelimituser1
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (130.9221ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f15a8b96-4f5f-49ac-9864-1a97220e1c46
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 7ca26fcf-9b7e-42b0-a12b-dee1500a942b
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL1
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser5
+[06:51:53 INF] 建立新用戶: Username = ratelimituser3, Email = ratelimit3@example.com
+[06:51:53 INF] 建立新用戶: Username = ratelimituser4, Email = ratelimit4@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser3
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VKV, Username: ratelimituser3
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (124.9912ms)
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser4
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 9f29ccb9-1eea-43d8-96d0-9ca62cc2828a
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL0, Username: ratelimituser4
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 02afe3b3-1b51-447d-81f6-45a18289744d
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (124.9376ms)
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 06c1fba7-8244-4aa8-a643-a8daed31482b
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 15c94946-9c26-40ab-aa8c-c00e37c576ef
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL2
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser6
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL3
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser7
+[06:51:53 INF] 建立新用戶: Username = ratelimituser5, Email = ratelimit5@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser5
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL1, Username: ratelimituser5
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (124.9108ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 7ca26fcf-9b7e-42b0-a12b-dee1500a942b
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a9eec2f7-15b7-46bc-aa04-75e227685340
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL4
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser8
+[06:51:53 INF] 建立新用戶: Username = ratelimituser6, Email = ratelimit6@example.com
+[06:51:53 INF] 建立新用戶: Username = ratelimituser7, Email = ratelimit7@example.com
+[06:51:53 INF] 建立新用戶: Username = ratelimituser8, Email = ratelimit8@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser6
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser7
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL2, Username: ratelimituser6
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL3, Username: ratelimituser7
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser8
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (130.6205ms)
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (130.4426ms)
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL4, Username: ratelimituser8
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 02afe3b3-1b51-447d-81f6-45a18289744d
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 15c94946-9c26-40ab-aa8c-c00e37c576ef
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 2b978e09-5116-4ab2-a650-8d8aede5dc0e
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (129.1361ms)
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f1879879-5457-4cad-9442-ef63afe47a89
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a9eec2f7-15b7-46bc-aa04-75e227685340
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: d46c5c1d-ed79-4dc7-97e8-5161d8735b28
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: dbc03ed9-a48a-4507-b8fe-6d76fd3da4e2
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL7
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser11
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL6
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser10
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL8
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser12
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL5
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser9
+[06:51:53 INF] 建立新用戶: Username = ratelimituser11, Email = ratelimit11@example.com
+[06:51:53 INF] 建立新用戶: Username = ratelimituser10, Email = ratelimit10@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser11
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser10
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL6, Username: ratelimituser10
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL7, Username: ratelimituser11
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (126.3033ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f1879879-5457-4cad-9442-ef63afe47a89
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (126.5041ms)
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b5d14593-dff6-4c52-9cda-c2f7ef7af726
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: d46c5c1d-ed79-4dc7-97e8-5161d8735b28
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 82a118c4-1661-4866-925b-bff9fdfa1de2
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VL9
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser13
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLA
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser14
+[06:51:53 INF] 建立新用戶: Username = ratelimituser9, Email = ratelimit9@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser9
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL5, Username: ratelimituser9
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (158.6692ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 2b978e09-5116-4ab2-a650-8d8aede5dc0e
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 8dd51885-105b-43e1-9a26-b51fa3721cdc
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLB
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser15
+[06:51:53 INF] 建立新用戶: Username = ratelimituser12, Email = ratelimit12@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser12
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL8, Username: ratelimituser12
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (181.5062ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: dbc03ed9-a48a-4507-b8fe-6d76fd3da4e2
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 10496b0c-7a78-4223-bec6-f71f10b90408
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLC
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser16
+[06:51:53 INF] 建立新用戶: Username = ratelimituser15, Email = ratelimit15@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser15
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLB, Username: ratelimituser15
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (125.4211ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 8dd51885-105b-43e1-9a26-b51fa3721cdc
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 192e6337-1aa7-4fa0-a58d-3dca0503ad12
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLD
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser17
+[06:51:53 INF] 建立新用戶: Username = ratelimituser16, Email = ratelimit16@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser16
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLC, Username: ratelimituser16
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (126.5306ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 10496b0c-7a78-4223-bec6-f71f10b90408
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: d6c30b56-2ce6-4e71-b379-3b1f5b10f366
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLE
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser18
+[06:51:53 INF] 建立新用戶: Username = ratelimituser13, Email = ratelimit13@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser13
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VL9, Username: ratelimituser13
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (220.9854ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b5d14593-dff6-4c52-9cda-c2f7ef7af726
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: e7d4fdc2-4d1f-48cd-b728-e3a585c31c48
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLF
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser19
+[06:51:53 INF] 建立新用戶: Username = ratelimituser14, Email = ratelimit14@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser14
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLA, Username: ratelimituser14
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (223.1032ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 82a118c4-1661-4866-925b-bff9fdfa1de2
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a44b1fa7-21f0-4952-bb7a-965ab708f0e4
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLG
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser20
+[06:51:53 INF] 建立新用戶: Username = ratelimituser17, Email = ratelimit17@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser17
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLD, Username: ratelimituser17
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (131.0169ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 192e6337-1aa7-4fa0-a58d-3dca0503ad12
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 74ffb591-9f4e-4393-ac36-6285d1141af2
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLH
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser21
+[06:51:53 INF] 建立新用戶: Username = ratelimituser18, Email = ratelimit18@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser18
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLE, Username: ratelimituser18
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (150.3996ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: d6c30b56-2ce6-4e71-b379-3b1f5b10f366
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: e9f2b0e4-3c56-4b80-bffb-dda59013b113
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLI
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser22
+[06:51:53 INF] 建立新用戶: Username = ratelimituser19, Email = ratelimit19@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser19
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLF, Username: ratelimituser19
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (127.2836ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: e7d4fdc2-4d1f-48cd-b728-e3a585c31c48
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 949bda54-3907-4838-a6e9-cfd03803674c
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLJ
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser23
+[06:51:53 INF] 建立新用戶: Username = ratelimituser20, Email = ratelimit20@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser20
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLG, Username: ratelimituser20
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (155.678ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a44b1fa7-21f0-4952-bb7a-965ab708f0e4
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 736ad582-dfe6-43c5-9bca-752d821ffb9d
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLK
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser24
+[06:51:53 INF] 建立新用戶: Username = ratelimituser21, Email = ratelimit21@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser21
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLH, Username: ratelimituser21
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (125.541ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 74ffb591-9f4e-4393-ac36-6285d1141af2
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 73d1fcce-0356-41c0-bc69-e5a35e3f3736
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLL
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser25
+[06:51:53 INF] 建立新用戶: Username = ratelimituser22, Email = ratelimit22@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser22
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLI, Username: ratelimituser22
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (124.745ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: e9f2b0e4-3c56-4b80-bffb-dda59013b113
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 26786b46-a3f8-4a94-bb17-a54abd5f1167
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLM
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser26
+[06:51:53 INF] 建立新用戶: Username = ratelimituser23, Email = ratelimit23@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser23
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLJ, Username: ratelimituser23
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (127.8812ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 949bda54-3907-4838-a6e9-cfd03803674c
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b9367f46-6977-4f2c-a59f-5c0d1741633d
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLN
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser27
+[06:51:53 INF] 建立新用戶: Username = ratelimituser25, Email = ratelimit25@example.com
+[06:51:53 INF] 用戶建立成功: UserId = 1
+[06:51:53 INF] 用戶註冊成功: 1 ratelimituser25
+[06:51:53 INF] 註冊成功: 0HNF2RAQC4VLL, Username: ratelimituser25
+[06:51:53 INF] 請求完成: POST /api/auth/register - 200 (128.9159ms)
+[06:51:53 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 73d1fcce-0356-41c0-bc69-e5a35e3f3736
+[06:51:53 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 93e0574a-4f33-42c7-a9c3-24fd560c0173
+[06:51:53 INF] 開始處理請求: POST /api/auth/register
+[06:51:53 INF] 收到註冊請求: 0HNF2RAQC4VLO
+[06:51:53 INF] 開始處理用戶註冊請求: ratelimituser28
+[06:51:54 INF] 建立新用戶: Username = ratelimituser26, Email = ratelimit26@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser26
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLM, Username: ratelimituser26
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (126.6736ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 26786b46-a3f8-4a94-bb17-a54abd5f1167
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: e6a8ce7d-1e17-4c4b-b334-5bc888b79927
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VLP
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser29
+[06:51:54 INF] 建立新用戶: Username = ratelimituser24, Email = ratelimit24@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser24
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLK, Username: ratelimituser24
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (208.0656ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 736ad582-dfe6-43c5-9bca-752d821ffb9d
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 6024b82d-9a60-4e30-adc5-2f6dbc6b936b
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VLQ
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser30
+[06:51:54 INF] 建立新用戶: Username = ratelimituser27, Email = ratelimit27@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser27
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLN, Username: ratelimituser27
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (147.4316ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b9367f46-6977-4f2c-a59f-5c0d1741633d
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a6bab32e-a8b0-4458-9dff-cf13349fa7cc
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VLR
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser31
+[06:51:54 INF] 建立新用戶: Username = ratelimituser28, Email = ratelimit28@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser28
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLO, Username: ratelimituser28
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (156.0824ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 93e0574a-4f33-42c7-a9c3-24fd560c0173
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f275a072-6bc8-4835-8211-86127b8f9565
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VLS
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser32
+[06:51:54 INF] 建立新用戶: Username = ratelimituser29, Email = ratelimit29@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser29
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLP, Username: ratelimituser29
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (125.2252ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: e6a8ce7d-1e17-4c4b-b334-5bc888b79927
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f86e5063-61b9-43fe-928e-74a3409a217c
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VLT
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser33
+[06:51:54 INF] 建立新用戶: Username = ratelimituser30, Email = ratelimit30@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser30
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLQ, Username: ratelimituser30
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (131.8485ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 6024b82d-9a60-4e30-adc5-2f6dbc6b936b
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: c92dc59a-d641-492c-aa00-3424f07f857a
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VLU
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser34
+[06:51:54 INF] 建立新用戶: Username = ratelimituser31, Email = ratelimit31@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser31
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLR, Username: ratelimituser31
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (124.791ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a6bab32e-a8b0-4458-9dff-cf13349fa7cc
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 80f6a9e2-6afa-4e3a-9dbf-ee1329ae6b84
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VLV
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser35
+[06:51:54 INF] 建立新用戶: Username = ratelimituser32, Email = ratelimit32@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser32
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLS, Username: ratelimituser32
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (128.7089ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f275a072-6bc8-4835-8211-86127b8f9565
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 07e404d2-0e70-4b9a-adbe-d74a688214d8
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM0
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser36
+[06:51:54 INF] 建立新用戶: Username = ratelimituser33, Email = ratelimit33@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser33
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLT, Username: ratelimituser33
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (124.9727ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f86e5063-61b9-43fe-928e-74a3409a217c
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 866927ba-f448-4a40-aa39-b21d2abdd3b1
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM1
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser37
+[06:51:54 INF] 建立新用戶: Username = ratelimituser34, Email = ratelimit34@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser34
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLU, Username: ratelimituser34
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (128.1216ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: c92dc59a-d641-492c-aa00-3424f07f857a
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a1365ee4-ddef-4b67-b075-3d9730ffa1da
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM2
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser38
+[06:51:54 INF] 建立新用戶: Username = ratelimituser35, Email = ratelimit35@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser35
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VLV, Username: ratelimituser35
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (124.9149ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 80f6a9e2-6afa-4e3a-9dbf-ee1329ae6b84
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b973ed71-93ca-407c-a703-b48dadd9fb2e
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM3
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser39
+[06:51:54 INF] 建立新用戶: Username = ratelimituser37, Email = ratelimit37@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser37
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM1, Username: ratelimituser37
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (125.0366ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 866927ba-f448-4a40-aa39-b21d2abdd3b1
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 918ca5f1-74ea-48b7-95f3-2c4c520e33bd
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM4
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser40
+[06:51:54 INF] 建立新用戶: Username = ratelimituser38, Email = ratelimit38@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser38
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM2, Username: ratelimituser38
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (127.1892ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a1365ee4-ddef-4b67-b075-3d9730ffa1da
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ee09e2b3-6b5e-4498-b48d-fa8bf5e1fb5d
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM5
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser41
+[06:51:54 INF] 建立新用戶: Username = ratelimituser36, Email = ratelimit36@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser36
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM0, Username: ratelimituser36
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (158.1555ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 07e404d2-0e70-4b9a-adbe-d74a688214d8
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 4e2b993b-7b9e-4ba7-aaed-920e871c2cd7
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM6
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser42
+[06:51:54 INF] 建立新用戶: Username = ratelimituser39, Email = ratelimit39@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser39
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM3, Username: ratelimituser39
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (125.2309ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b973ed71-93ca-407c-a703-b48dadd9fb2e
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b4184609-94df-4ff3-9415-4fc466faa3f6
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM7
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser43
+[06:51:54 INF] 建立新用戶: Username = ratelimituser40, Email = ratelimit40@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser40
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM4, Username: ratelimituser40
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (124.9311ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 918ca5f1-74ea-48b7-95f3-2c4c520e33bd
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 44f6a578-3888-47a7-b83f-35e61379027b
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM8
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser44
+[06:51:54 INF] 建立新用戶: Username = ratelimituser41, Email = ratelimit41@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser41
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM5, Username: ratelimituser41
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (127.8171ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: ee09e2b3-6b5e-4498-b48d-fa8bf5e1fb5d
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: efc29495-61d3-44be-b0dd-48913bcd6128
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VM9
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser45
+[06:51:54 INF] 建立新用戶: Username = ratelimituser42, Email = ratelimit42@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser42
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM6, Username: ratelimituser42
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (124.7755ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 4e2b993b-7b9e-4ba7-aaed-920e871c2cd7
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: be4fcb26-8585-45b5-b201-7424fece007d
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMA
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser46
+[06:51:54 INF] 建立新用戶: Username = ratelimituser43, Email = ratelimit43@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser43
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM7, Username: ratelimituser43
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (129.009ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b4184609-94df-4ff3-9415-4fc466faa3f6
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 5512e87d-4201-46ce-aae8-6097e54951fb
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMB
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser47
+[06:51:54 INF] 建立新用戶: Username = ratelimituser44, Email = ratelimit44@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser44
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM8, Username: ratelimituser44
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (128.8948ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 44f6a578-3888-47a7-b83f-35e61379027b
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: c0efc1ac-46e1-49e7-a951-966bc9cbd4fe
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMC
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser48
+[06:51:54 INF] 建立新用戶: Username = ratelimituser45, Email = ratelimit45@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser45
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VM9, Username: ratelimituser45
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (131.8828ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: efc29495-61d3-44be-b0dd-48913bcd6128
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: c850ed9b-f3f9-4bfe-ada4-d4ca5ac25f35
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMD
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser49
+[06:51:54 INF] 建立新用戶: Username = ratelimituser47, Email = ratelimit47@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser47
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VMB, Username: ratelimituser47
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (131.4545ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 5512e87d-4201-46ce-aae8-6097e54951fb
+[06:51:54 INF] 建立新用戶: Username = ratelimituser46, Email = ratelimit46@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser46
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VMA, Username: ratelimituser46
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (155.2042ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: be4fcb26-8585-45b5-b201-7424fece007d
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: dbcafb0e-e6d9-4cef-a096-baadf6c9ae20
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VME
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser50
+[06:51:54 INF] 建立新用戶: Username = ratelimituser48, Email = ratelimit48@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser48
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VMC, Username: ratelimituser48
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (125.8086ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: c0efc1ac-46e1-49e7-a951-966bc9cbd4fe
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 0f7ddfab-8514-486b-9f25-8f3aa9e6505b
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMF
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser51
+[06:51:54 INF] 建立新用戶: Username = ratelimituser49, Email = ratelimit49@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser49
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VMD, Username: ratelimituser49
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (127.11ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: c850ed9b-f3f9-4bfe-ada4-d4ca5ac25f35
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 4778d65a-b227-4b52-bbbf-f14e1ab7fe56
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMG
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser52
+[06:51:54 INF] 建立新用戶: Username = ratelimituser50, Email = ratelimit50@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser50
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VME, Username: ratelimituser50
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (124.5517ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: dbcafb0e-e6d9-4cef-a096-baadf6c9ae20
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a6beceab-6f4b-4062-b858-d3d70c650b01
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMH
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser53
+[06:51:54 INF] 建立新用戶: Username = ratelimituser51, Email = ratelimit51@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser51
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VMF, Username: ratelimituser51
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (125.0021ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 0f7ddfab-8514-486b-9f25-8f3aa9e6505b
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a076e11b-b6ba-42b1-a8af-60e916b655d6
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMI
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser54
+[06:51:54 INF] 建立新用戶: Username = ratelimituser52, Email = ratelimit52@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser52
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VMG, Username: ratelimituser52
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (125.0527ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 4778d65a-b227-4b52-bbbf-f14e1ab7fe56
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ca1bb6bd-5979-4cc7-bb4b-7a228c529b5a
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMJ
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser55
+[06:51:54 INF] 建立新用戶: Username = ratelimituser53, Email = ratelimit53@example.com
+[06:51:54 INF] 用戶建立成功: UserId = 1
+[06:51:54 INF] 用戶註冊成功: 1 ratelimituser53
+[06:51:54 INF] 註冊成功: 0HNF2RAQC4VMH, Username: ratelimituser53
+[06:51:54 INF] 請求完成: POST /api/auth/register - 200 (129.4028ms)
+[06:51:54 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a6beceab-6f4b-4062-b858-d3d70c650b01
+[06:51:54 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 6cb7b490-d4df-44df-83c3-2f8d8ab4fa32
+[06:51:54 INF] 開始處理請求: POST /api/auth/register
+[06:51:54 INF] 收到註冊請求: 0HNF2RAQC4VMK
+[06:51:54 INF] 開始處理用戶註冊請求: ratelimituser56
+[06:51:55 INF] 建立新用戶: Username = ratelimituser54, Email = ratelimit54@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 ratelimituser54
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VMI, Username: ratelimituser54
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (125.0791ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a076e11b-b6ba-42b1-a8af-60e916b655d6
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a20677a2-a151-4688-b49a-b931e4d40b55
+[06:51:55 INF] 開始處理請求: POST /api/auth/register
+[06:51:55 INF] 收到註冊請求: 0HNF2RAQC4VML
+[06:51:55 INF] 開始處理用戶註冊請求: ratelimituser57
+[06:51:55 INF] 建立新用戶: Username = ratelimituser55, Email = ratelimit55@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 ratelimituser55
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VMJ, Username: ratelimituser55
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (125.0938ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: ca1bb6bd-5979-4cc7-bb4b-7a228c529b5a
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ced9e376-b622-4a90-982c-4b5e34fdc164
+[06:51:55 INF] 開始處理請求: POST /api/auth/register
+[06:51:55 INF] 收到註冊請求: 0HNF2RAQC4VMM
+[06:51:55 INF] 開始處理用戶註冊請求: ratelimituser58
+[06:51:55 INF] 建立新用戶: Username = ratelimituser56, Email = ratelimit56@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 ratelimituser56
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VMK, Username: ratelimituser56
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (125.04ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 6cb7b490-d4df-44df-83c3-2f8d8ab4fa32
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 0d668d66-d3f9-4007-943e-ed497976022f
+[06:51:55 INF] 開始處理請求: POST /api/auth/register
+[06:51:55 INF] 收到註冊請求: 0HNF2RAQC4VMN
+[06:51:55 INF] 開始處理用戶註冊請求: ratelimituser59
+[06:51:55 INF] 建立新用戶: Username = ratelimituser57, Email = ratelimit57@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 ratelimituser57
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VML, Username: ratelimituser57
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (124.462ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a20677a2-a151-4688-b49a-b931e4d40b55
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: c4918ea9-f46d-43da-b504-3bb2c4ff1115
+[06:51:55 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[06:51:55 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: c4918ea9-f46d-43da-b504-3bb2c4ff1115
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 2cc9cf81-b8d5-4387-b920-dc2df7f71b62
+[06:51:55 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[06:51:55 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: 2cc9cf81-b8d5-4387-b920-dc2df7f71b62
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 5b895dbd-1ccc-4824-9d69-530d2625289f
+[06:51:55 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[06:51:55 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: 5b895dbd-1ccc-4824-9d69-530d2625289f
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 0494a81c-4dd1-45aa-b506-aa7bfc5760fd
+[06:51:55 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[06:51:55 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: 0494a81c-4dd1-45aa-b506-aa7bfc5760fd
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 21f7b35c-d413-4b7f-aaed-baf5a95d429c
+[06:51:55 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[06:51:55 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: 21f7b35c-d413-4b7f-aaed-baf5a95d429c
+[06:51:55 INF] 建立新用戶: Username = ratelimituser58, Email = ratelimit58@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 ratelimituser58
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VMM, Username: ratelimituser58
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (124.662ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: ced9e376-b622-4a90-982c-4b5e34fdc164
+[06:51:55 INF] 建立新用戶: Username = ratelimituser59, Email = ratelimit59@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 ratelimituser59
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VMN, Username: ratelimituser59
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (125.3851ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 0d668d66-d3f9-4007-943e-ed497976022f
+[06:51:55 INF] GameCore API 啟動完成
+[06:51:55 WRN] Failed to determine the https port for redirect.
+[06:51:55 INF] Request started: POST /api/auth/login from unknown with CorrelationId: c454577c-09ff-4240-81d6-c84b0cfdcf88
+[06:51:55 INF] 開始處理請求: POST /api/auth/login
+[06:51:55 INF] 收到登入請求: 0HNF2RAQC4VMT
+[06:51:55 INF] 開始處理用戶登入請求: nonexistentuser
+[06:51:55 WRN] 登入失敗：用戶不存在: nonexistentuser
+[06:51:55 WRN] 登入失敗: 0HNF2RAQC4VMT, Username: nonexistentuser, Message: 用戶名或密碼錯誤
+[06:51:55 INF] 請求完成: POST /api/auth/login - 401 (4.9911ms)
+[06:51:55 INF] Request completed: POST /api/auth/login with status 401 and CorrelationId: c454577c-09ff-4240-81d6-c84b0cfdcf88
+[06:51:55 INF] GameCore API 啟動完成
+[06:51:55 WRN] Failed to determine the https port for redirect.
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 5c12b9ab-47c7-49d7-9a5e-10eb8f79e023
+[06:51:55 INF] 開始處理請求: POST /api/auth/register
+[06:51:55 INF] 收到註冊請求: 0HNF2RAQC4VMU
+[06:51:55 INF] 開始處理用戶註冊請求: existinguser
+[06:51:55 INF] 建立新用戶: Username = existinguser, Email = user1@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 existinguser
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VMU, Username: existinguser
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (129.2704ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 5c12b9ab-47c7-49d7-9a5e-10eb8f79e023
+[06:51:55 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 7899dc58-fe88-4208-86d1-52beac8ec3e9
+[06:51:55 INF] 開始處理請求: POST /api/auth/register
+[06:51:55 INF] 收到註冊請求: 0HNF2RAQC4VMV
+[06:51:55 INF] 開始處理用戶註冊請求: existinguser
+[06:51:55 INF] 建立新用戶: Username = existinguser, Email = user2@example.com
+[06:51:55 INF] 用戶建立成功: UserId = 1
+[06:51:55 INF] 用戶註冊成功: 1 existinguser
+[06:51:55 INF] 註冊成功: 0HNF2RAQC4VMV, Username: existinguser
+[06:51:55 INF] 請求完成: POST /api/auth/register - 200 (126.6416ms)
+[06:51:55 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 7899dc58-fe88-4208-86d1-52beac8ec3e9
+[xUnit.net 00:00:04.16]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:04.16]       Expected: BadRequest
+[xUnit.net 00:00:04.16]       Actual:   OK
+[xUnit.net 00:00:04.16]       Stack Trace:
+[xUnit.net 00:00:04.16]         /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs(123,0): at GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError()
+[xUnit.net 00:00:04.16]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.17]   Finished:    GameCore.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T06:51:52.7334109+00:00">
+        <Text>[xUnit.net 00:00:01.35]     GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T06:51:52.9189321+00:00">
+        <Text>[xUnit.net 00:00:01.54]     GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T06:51:55.5406064+00:00">
+        <Text>[xUnit.net 00:00:04.16]     GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

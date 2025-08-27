@@ -1,5 +1,6 @@
 using GameCore.Api.Middleware;
 using GameCore.Api.Services;
+using GameCore.Api.Extensions;
 using GameCore.Domain.Interfaces;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Repositories;
@@ -80,7 +81,9 @@ builder.Services.AddAuthorization();
 // 註冊服務
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<JwtService>();
 
 // CORS 設定
@@ -136,3 +139,6 @@ using (var scope = app.Services.CreateScope())
 
 Log.Information("GameCore API 啟動完成");
 app.Run();
+
+// 為了測試可見性，將 Program 設為 public
+public partial class Program { }

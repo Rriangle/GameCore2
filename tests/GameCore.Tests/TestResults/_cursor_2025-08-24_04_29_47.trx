@@ -1,0 +1,1549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1f821ba3-388a-4a83-8101-f73f78f5d8bf" name="@cursor 2025-08-24 04:29:47" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-08-24T04:29:47.8235709+00:00" queuing="2025-08-24T04:29:47.8235709+00:00" start="2025-08-24T04:29:46.7475865+00:00" finish="2025-08-24T04:29:52.2335358+00:00" />
+  <TestSettings name="default" id="6879ac74-af94-49a1-8ae5-a4ecb6d13538">
+    <Deployment runDeploymentRoot="_cursor_2025-08-24_04_29_47" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="07d57daa-0c7c-415c-9cc2-e35b436c1d26" testId="c664dc6a-96b6-b78b-f8c0-7d0c36e4d355" testName="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithInvalidUserId_ShouldReturnNull" computerName="cursor" duration="00:00:00.1230453" startTime="2025-08-24T04:29:47.8340122+00:00" endTime="2025-08-24T04:29:47.8340123+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07d57daa-0c7c-415c-9cc2-e35b436c1d26" />
+    <UnitTestResult executionId="ba8909ad-4425-425c-b2dc-945be9cebefc" testId="45103ee8-3c40-893f-346c-03554d4a9d99" testName="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithEmptyToken_ShouldReturnNull" computerName="cursor" duration="00:00:00.0016920" startTime="2025-08-24T04:29:47.8679279+00:00" endTime="2025-08-24T04:29:47.8679280+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba8909ad-4425-425c-b2dc-945be9cebefc" />
+    <UnitTestResult executionId="b0b5f3d0-7ed8-45b0-bcc3-f4bd70fb8534" testId="a409adb9-df40-0bc3-ea0a-9e48ad0db4f8" testName="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithValidData_ShouldPassValidation" computerName="cursor" duration="00:00:00.0010314" startTime="2025-08-24T04:29:47.9030358+00:00" endTime="2025-08-24T04:29:47.9030358+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b0b5f3d0-7ed8-45b0-bcc3-f4bd70fb8534" />
+    <UnitTestResult executionId="e8b5f6a6-8116-4f19-9c2e-9af005473af6" testId="74d27b05-580b-b7c2-026b-5d1861d3268e" testName="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithValidToken_ShouldReturnValidPrincipal" computerName="cursor" duration="00:00:00.0180671" startTime="2025-08-24T04:29:47.9166541+00:00" endTime="2025-08-24T04:29:47.9166542+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e8b5f6a6-8116-4f19-9c2e-9af005473af6" />
+    <UnitTestResult executionId="e3f2557c-b662-4141-a3b0-b65ee662323b" testId="491e1565-4907-6194-1273-8057bd08ab86" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithValidData_ShouldReturnSuccess" computerName="cursor" duration="00:00:01.0822905" startTime="2025-08-24T04:29:48.7963146+00:00" endTime="2025-08-24T04:29:48.7963149+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3f2557c-b662-4141-a3b0-b65ee662323b" />
+    <UnitTestResult executionId="f5f8997d-7529-4edd-8af8-20ad23987412" testId="2f08ef87-e494-2c48-818c-fdf2ad28459d" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;Strong@Password1&quot;)" computerName="cursor" duration="00:00:00.0000194" startTime="2025-08-24T04:29:47.9046907+00:00" endTime="2025-08-24T04:29:47.9046908+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f5f8997d-7529-4edd-8af8-20ad23987412" />
+    <UnitTestResult executionId="90504b81-fcf6-4d73-b0ca-54edc4db8896" testId="af3a2316-e0a9-62cc-59af-b68f9fe2d1e7" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;   &quot;)" computerName="cursor" duration="00:00:00.0007001" startTime="2025-08-24T04:29:47.8989576+00:00" endTime="2025-08-24T04:29:47.8989576+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90504b81-fcf6-4d73-b0ca-54edc4db8896">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected result!.ErrorMessage to be "密碼不能為空" with a length of 6, but "密碼長度至少需要 8 個字元" has a length of 14, differs near "長度至" (index 2).</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+   at FluentAssertions.Primitives.StringValidator.Validate()
+   at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+   at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 38
+   at InvokeStub_ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="02793129-6a92-4e71-b246-964648d0851d" testId="43cab480-0fbf-6fd0-7b50-75d6aec1fb49" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user.name&quot;)" computerName="cursor" duration="00:00:00.0000871" startTime="2025-08-24T04:29:47.8013536+00:00" endTime="2025-08-24T04:29:47.8013537+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="02793129-6a92-4e71-b246-964648d0851d" />
+    <UnitTestResult executionId="79a24c89-1294-4dc8-a2aa-fc8e8a05a0a7" testId="341b2a6e-6019-ebeb-56a5-bbce6e3af3f4" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name&quot;)" computerName="cursor" duration="00:00:00.0001110" startTime="2025-08-24T04:29:47.8765580+00:00" endTime="2025-08-24T04:29:47.8765581+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79a24c89-1294-4dc8-a2aa-fc8e8a05a0a7" />
+    <UnitTestResult executionId="4d99b2bd-7595-4fa3-a708-b7fe568780bf" testId="1d6b7c9d-c615-1273-4fd0-31bef0d75a3b" testName="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithInvalidData_ShouldFailValidation" computerName="cursor" duration="00:00:00.0059725" startTime="2025-08-24T04:29:47.9076786+00:00" endTime="2025-08-24T04:29:47.9076787+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d99b2bd-7595-4fa3-a708-b7fe568780bf" />
+    <UnitTestResult executionId="c0673b12-7a17-4d41-8b2b-9dfa73dbc8d9" testId="0ee0d27d-2b8a-bc99-50f4-aab527a27499" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithInvalidPassword_ShouldReturnValidationError" computerName="cursor" duration="00:00:00.0943739" startTime="2025-08-24T04:29:48.8899380+00:00" endTime="2025-08-24T04:29:48.8899382+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0673b12-7a17-4d41-8b2b-9dfa73dbc8d9" />
+    <UnitTestResult executionId="63bad40f-2120-4783-83dc-8c6379db155e" testId="07be573a-a557-30bf-aaae-fd9ead2faaa0" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;password123!&quot;)" computerName="cursor" duration="00:00:00.0000153" startTime="2025-08-24T04:29:47.8797204+00:00" endTime="2025-08-24T04:29:47.8797205+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63bad40f-2120-4783-83dc-8c6379db155e" />
+    <UnitTestResult executionId="62d2ea97-0840-49ea-9d7c-ee13108cf0e5" testId="22ed998b-90d5-1ec2-5085-7e56be746fab" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;verylonguser123456789&quot;)" computerName="cursor" duration="00:00:00.0968074" startTime="2025-08-24T04:29:47.8752018+00:00" endTime="2025-08-24T04:29:47.8752019+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="62d2ea97-0840-49ea-9d7c-ee13108cf0e5">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected result to be &lt;null&gt;, but found 用戶名長度必須在 3-20 個字元之間.</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+   at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(String username) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 210
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5c52065d-f413-4f2c-a93f-c8f790b8c35c" testId="3bb08c13-f2c6-79a6-8a0f-d704f631f4f3" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidUsername_ShouldPass" computerName="cursor" duration="00:00:00.0001047" startTime="2025-08-24T04:29:47.9061834+00:00" endTime="2025-08-24T04:29:47.9061835+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c52065d-f413-4f2c-a93f-c8f790b8c35c" />
+    <UnitTestResult executionId="b55818fa-2195-4ffc-8133-254f0ad19949" testId="b2ecca88-1bb5-dcaa-5b71-8e726b9c82b3" testName="GameCore.Tests.Services.JwtServiceTests.Token_ShouldHaveCorrectIssuerAndAudience" computerName="cursor" duration="00:00:00.1532216" startTime="2025-08-24T04:29:47.8637115+00:00" endTime="2025-08-24T04:29:47.8637116+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b55818fa-2195-4ffc-8133-254f0ad19949" />
+    <UnitTestResult executionId="38598787-4b03-4aac-856a-9349daf69175" testId="fe2aea58-6092-be73-8363-549c28ecbc4c" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;PASSWORD123!&quot;)" computerName="cursor" duration="00:00:00.0002160" startTime="2025-08-24T04:29:47.8793822+00:00" endTime="2025-08-24T04:29:47.8793823+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="38598787-4b03-4aac-856a-9349daf69175" />
+    <UnitTestResult executionId="4db27498-3e59-40d7-bfb4-c7f36b3574e4" testId="7b810cd7-ece0-9860-936c-24bc7f99d385" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WhenRepositoryThrowsException_ShouldReturnError" computerName="cursor" duration="00:00:00.0018107" startTime="2025-08-24T04:29:48.4629980+00:00" endTime="2025-08-24T04:29:48.4629981+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4db27498-3e59-40d7-bfb4-c7f36b3574e4" />
+    <UnitTestResult executionId="c3cb996a-2617-4613-9183-1c05753fe2af" testId="d9a2033c-60a2-1ae5-7552-62b589386f4a" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;   &quot;)" computerName="cursor" duration="00:00:00.0046847" startTime="2025-08-24T04:29:47.8894481+00:00" endTime="2025-08-24T04:29:47.8894482+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3cb996a-2617-4613-9183-1c05753fe2af">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected result!.ErrorMessage to be "用戶名不能為空" with a length of 7, but "用戶名只能包含字母、數字、底線和連字號" has a length of 19, differs near "只能包" (index 3).</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+   at FluentAssertions.Primitives.StringValidator.Validate()
+   at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+   at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 121
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d6c2a1c6-b4f0-4493-a044-acb6737ef5bf" testId="6b4f4ef3-cda3-02f5-b478-f29bdbd8704c" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user#name&quot;)" computerName="cursor" duration="00:00:00.0000244" startTime="2025-08-24T04:29:47.8034242+00:00" endTime="2025-08-24T04:29:47.8034242+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6c2a1c6-b4f0-4493-a044-acb6737ef5bf" />
+    <UnitTestResult executionId="1972d97b-ef2b-4523-ba78-d3d3b6fe4ff0" testId="61c8962a-f5e5-0ded-c8ee-6b4b2729d611" testName="GameCore.Tests.HealthControllerTests.Get_ShouldReturnOkResult" computerName="cursor" duration="00:00:00.0088514" startTime="2025-08-24T04:29:47.9215718+00:00" endTime="2025-08-24T04:29:47.9215719+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1972d97b-ef2b-4523-ba78-d3d3b6fe4ff0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(object)
+Actual:   typeof(&lt;&gt;f__AnonymousType0&lt;string, DateTime, string, string&gt;)</Message>
+          <StackTrace>   at GameCore.Tests.HealthControllerTests.Get_ShouldReturnOkResult() in /workspace/tests/GameCore.Tests/HealthControllerTests.cs:line 28
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fe26fb4f-eb0f-4bc7-9a70-06a01634bcc3" testId="6d7ff98b-95a6-9761-cc62-91c3df64dd57" testName="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithNullToken_ShouldReturnNull" computerName="cursor" duration="00:00:00.0004913" startTime="2025-08-24T04:29:47.8684713+00:00" endTime="2025-08-24T04:29:47.8684714+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe26fb4f-eb0f-4bc7-9a70-06a01634bcc3" />
+    <UnitTestResult executionId="95f32cb7-ee4a-4ee3-9dab-c9a35b47bb9e" testId="70f66a03-7e2c-20c1-bb39-7274b7ea3522" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: null)" computerName="cursor" duration="00:00:00.0001597" startTime="2025-08-24T04:29:47.8936102+00:00" endTime="2025-08-24T04:29:47.8936103+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95f32cb7-ee4a-4ee3-9dab-c9a35b47bb9e">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentNullException : Value cannot be null. (Parameter 'instance')</Message>
+          <StackTrace>   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+   at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 117
+   at InvokeStub_ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e7444d01-aff2-43a8-aa20-44233f27a286" testId="b6be0c65-8acc-3c8d-928b-baa49b09360d" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;C0mpl3x!Pass&quot;)" computerName="cursor" duration="00:00:00.0001038" startTime="2025-08-24T04:29:47.9040369+00:00" endTime="2025-08-24T04:29:47.9040369+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e7444d01-aff2-43a8-aa20-44233f27a286" />
+    <UnitTestResult executionId="4a662609-a9f2-484e-95c7-031df74663f8" testId="00a45e5f-b068-e3e8-757f-c334a21032cf" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;verylongusername123456789&quot;)" computerName="cursor" duration="00:00:00.0009043" startTime="2025-08-24T04:29:47.9017065+00:00" endTime="2025-08-24T04:29:47.9017066+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a662609-a9f2-484e-95c7-031df74663f8" />
+    <UnitTestResult executionId="fc20b1fc-d2ae-4fe8-8f8d-de1740345e03" testId="6115a19d-212f-c9aa-a15f-b5ec2d046f58" testName="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithValidData_ShouldReturnValidToken" computerName="cursor" duration="00:00:00.0016137" startTime="2025-08-24T04:29:47.8654569+00:00" endTime="2025-08-24T04:29:47.8654569+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc20b1fc-d2ae-4fe8-8f8d-de1740345e03" />
+    <UnitTestResult executionId="5b761248-d2b0-4c84-91cb-c74b43a53023" testId="354e5b13-b350-c1c0-a41f-f66b4544fb0a" testName="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithBoundaryValues_ShouldHandleCorrectly" computerName="cursor" duration="00:00:00.0006910" startTime="2025-08-24T04:29:47.9173885+00:00" endTime="2025-08-24T04:29:47.9173886+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b761248-d2b0-4c84-91cb-c74b43a53023" />
+    <UnitTestResult executionId="f0aa5a7d-a914-4346-bcae-7ae4b4d29992" testId="bf027054-a7d1-27fc-23af-869fb1036092" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user@name&quot;)" computerName="cursor" duration="00:00:00.0000068" startTime="2025-08-24T04:29:47.8018412+00:00" endTime="2025-08-24T04:29:47.8018412+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0aa5a7d-a914-4346-bcae-7ae4b4d29992" />
+    <UnitTestResult executionId="ef9e7d3b-4e6f-4b63-8f9b-9fcc2a78154a" testId="3e30010c-e97d-bf57-6c78-a27766485673" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WhenRepositoryThrowsException_ShouldReturnError" computerName="cursor" duration="00:00:00.0364159" startTime="2025-08-24T04:29:47.8840436+00:00" endTime="2025-08-24T04:29:47.8840437+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef9e7d3b-4e6f-4b63-8f9b-9fcc2a78154a" />
+    <UnitTestResult executionId="0314acc3-09bd-4112-8be3-9d12a72b5f50" testId="a07dbbd7-a0fc-8d85-1bfd-3bb5e71c2272" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user$name&quot;)" computerName="cursor" duration="00:00:00.0000065" startTime="2025-08-24T04:29:47.8030940+00:00" endTime="2025-08-24T04:29:47.8030941+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0314acc3-09bd-4112-8be3-9d12a72b5f50" />
+    <UnitTestResult executionId="182258a9-d8c8-4ec9-97d6-46f982be92ab" testId="8391b3c7-946f-c189-55c2-8d82e05f7c3b" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username-&quot;)" computerName="cursor" duration="00:00:00.0000174" startTime="2025-08-24T04:29:47.7766389+00:00" endTime="2025-08-24T04:29:47.7766390+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="182258a9-d8c8-4ec9-97d6-46f982be92ab" />
+    <UnitTestResult executionId="836da81c-63d9-47af-9f68-490cabb0f396" testId="b257d2c1-0495-4008-f0c6-2de3c97234f2" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;1234567&quot;)" computerName="cursor" duration="00:00:00.0001942" startTime="2025-08-24T04:29:47.7746559+00:00" endTime="2025-08-24T04:29:47.7746561+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="836da81c-63d9-47af-9f68-490cabb0f396" />
+    <UnitTestResult executionId="6d845043-b940-49ce-a89b-4a79bb38e751" testId="ce7de259-8a99-2996-1815-5642eb925eee" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;a&quot;)" computerName="cursor" duration="00:00:00.0000081" startTime="2025-08-24T04:29:47.9024641+00:00" endTime="2025-08-24T04:29:47.9024642+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d845043-b940-49ce-a89b-4a79bb38e751" />
+    <UnitTestResult executionId="8275d6df-c864-4c33-9222-f2cfd69da261" testId="b90d7195-753f-2ce4-e656-dddcc146d416" testName="GameCore.Tests.Services.JwtServiceTests.Token_ShouldHaveCorrectExpiration" computerName="cursor" duration="00:00:00.0011166" startTime="2025-08-24T04:29:47.9191713+00:00" endTime="2025-08-24T04:29:47.9191713+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8275d6df-c864-4c33-9222-f2cfd69da261" />
+    <UnitTestResult executionId="c0e1e46d-7c0f-458d-8320-4c02e080318f" testId="16f99dd8-b488-58a9-21a5-33fefdc57255" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user_name&quot;)" computerName="cursor" duration="00:00:00.0000039" startTime="2025-08-24T04:29:47.8781970+00:00" endTime="2025-08-24T04:29:47.8781971+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0e1e46d-7c0f-458d-8320-4c02e080318f" />
+    <UnitTestResult executionId="f22b70cf-8301-4e09-ac0b-4ffdac68dbbd" testId="8be56c6c-bc64-85c6-8d13-9e8a08107a80" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user name&quot;)" computerName="cursor" duration="00:00:00.0001310" startTime="2025-08-24T04:29:47.8003842+00:00" endTime="2025-08-24T04:29:47.8003842+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f22b70cf-8301-4e09-ac0b-4ffdac68dbbd" />
+    <UnitTestResult executionId="b66bdbb0-d515-482a-b415-0e6fa9bb4cce" testId="083fd8ed-7b87-d220-13f0-66d32da8ad15" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingEmail_ShouldReturnFailure" computerName="cursor" duration="00:00:00.0019194" startTime="2025-08-24T04:29:48.9233907+00:00" endTime="2025-08-24T04:29:48.9233908+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b66bdbb0-d515-482a-b415-0e6fa9bb4cce" />
+    <UnitTestResult executionId="c5b46bd8-d356-4602-b9b8-62102d322c1c" testId="4e4b4a9b-efaa-c157-019a-11293dddde7f" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure" computerName="cursor" duration="00:00:00.3758798" startTime="2025-08-24T04:29:48.4590735+00:00" endTime="2025-08-24T04:29:48.4590736+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c5b46bd8-d356-4602-b9b8-62102d322c1c">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected result.Success to be false, but found True.</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)
+   at FluentAssertions.Primitives.BooleanAssertions`1.BeFalse(String because, Object[] becauseArgs)
+   at GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure() in /workspace/tests/GameCore.Tests/AuthServiceTests.cs:line 188
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c8b1e48b-5376-4cfc-bdd0-3a8a57245211" testId="a2fa2569-276a-920e-f4d4-a15231129cc9" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password!&quot;)" computerName="cursor" duration="00:00:00.0000048" startTime="2025-08-24T04:29:47.8800510+00:00" endTime="2025-08-24T04:29:47.8800511+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8b1e48b-5376-4cfc-bdd0-3a8a57245211" />
+    <UnitTestResult executionId="e232b1ec-cfad-442d-84f3-0c7a6b0589bd" testId="ecef2e1d-6c65-22e3-9bed-bf27a82ff8a2" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123&quot;)" computerName="cursor" duration="00:00:00.0000110" startTime="2025-08-24T04:29:47.8784849+00:00" endTime="2025-08-24T04:29:47.8784849+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e232b1ec-cfad-442d-84f3-0c7a6b0589bd" />
+    <UnitTestResult executionId="c2d3f3bc-f248-45ab-9b2d-759ff853257f" testId="615893cd-8786-88e8-cb83-303c375381b3" testName="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithValidUserId_ShouldReturnProfile" computerName="cursor" duration="00:00:00.2114477" startTime="2025-08-24T04:29:48.0825024+00:00" endTime="2025-08-24T04:29:48.0825025+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2d3f3bc-f248-45ab-9b2d-759ff853257f" />
+    <UnitTestResult executionId="61b839a5-ed0b-4cb6-a314-774c8f4d2434" testId="f41a6822-8072-f975-f175-97334281e291" testName="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile" computerName="cursor" duration="00:00:00.2241867" startTime="2025-08-24T04:29:49.1154285+00:00" endTime="2025-08-24T04:29:49.1154286+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61b839a5-ed0b-4cb6-a314-774c8f4d2434">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: OK
+Actual:   NotFound</Message>
+          <StackTrace>   at GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile() in /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs:line 229
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="22d21240-95ce-415d-ab9a-3c9e93567c7b" testId="afa77271-6ab7-2201-966d-ddbb834151b7" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;ValidPass123!&quot;)" computerName="cursor" duration="00:00:00.0000044" startTime="2025-08-24T04:29:47.9050086+00:00" endTime="2025-08-24T04:29:47.9050086+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="22d21240-95ce-415d-ab9a-3c9e93567c7b" />
+    <UnitTestResult executionId="61b16e0c-b92a-493a-b304-4f9736d69d35" testId="e3943727-24b6-9320-2a5c-8009ea67d763" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError" computerName="cursor" duration="00:00:00.2860158" startTime="2025-08-24T04:29:51.9075459+00:00" endTime="2025-08-24T04:29:51.9075461+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61b16e0c-b92a-493a-b304-4f9736d69d35">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: BadRequest
+Actual:   OK</Message>
+          <StackTrace>   at GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError() in /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs:line 110
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="935954f7-c156-4209-8432-8f231ede38e7" testId="f0e6e01d-21db-4b2a-ff5b-8f7e6a0d0f3b" testName="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithInvalidData_ShouldFailValidation" computerName="cursor" duration="00:00:00.0150320" startTime="2025-08-24T04:29:47.8949357+00:00" endTime="2025-08-24T04:29:47.8949358+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="935954f7-c156-4209-8432-8f231ede38e7" />
+    <UnitTestResult executionId="2ce3573a-5ba6-457e-b649-1d270ea0a9df" testId="0ad5c7f1-5d59-e47e-9278-1bc14b25e679" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithValidPassword_ShouldPass" computerName="cursor" duration="00:00:00.0001058" startTime="2025-08-24T04:29:47.9037102+00:00" endTime="2025-08-24T04:29:47.9037102+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ce3573a-5ba6-457e-b649-1d270ea0a9df" />
+    <UnitTestResult executionId="f4188db8-998f-495c-88f4-33b0149598ab" testId="6c835d96-e8d3-e38e-985c-e51291a72f8f" testName="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithoutToken_ShouldReturnUnauthorized" computerName="cursor" duration="00:00:00.0229264" startTime="2025-08-24T04:29:49.1383425+00:00" endTime="2025-08-24T04:29:49.1383426+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4188db8-998f-495c-88f4-33b0149598ab" />
+    <UnitTestResult executionId="04470e82-5558-461e-96f9-3e6b0f5d86ee" testId="b7316041-e04d-dfc4-993d-55f4d9d26b38" testName="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithValidData_ShouldPassValidation" computerName="cursor" duration="00:00:00.0019894" startTime="2025-08-24T04:29:47.9053024+00:00" endTime="2025-08-24T04:29:47.9053025+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04470e82-5558-461e-96f9-3e6b0f5d86ee" />
+    <UnitTestResult executionId="b5622437-206f-4f3f-8c21-577c36901882" testId="17ea328b-a53a-3c7d-5d5e-063b9d32adc1" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithBoundaryValues_ShouldHandleCorrectly" computerName="cursor" duration="00:00:00.1317260" startTime="2025-08-24T04:29:48.9197393+00:00" endTime="2025-08-24T04:29:48.9197398+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5622437-206f-4f3f-8c21-577c36901882" />
+    <UnitTestResult executionId="e275bb61-a929-493c-88a6-391b7c755efb" testId="db80152a-79f0-af04-9cf0-c605e74496b9" testName="GameCore.Tests.Services.JwtServiceTests.Token_ShouldContainRequiredClaims" computerName="cursor" duration="00:00:00.0256339" startTime="2025-08-24T04:29:47.9027420+00:00" endTime="2025-08-24T04:29:47.9027421+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e275bb61-a929-493c-88a6-391b7c755efb" />
+    <UnitTestResult executionId="be5eca54-4b3e-44fc-9199-1a6b3c01232d" testId="e85d8944-a904-0b9b-79c7-8c1974d558df" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;_username&quot;)" computerName="cursor" duration="00:00:00.0012457" startTime="2025-08-24T04:29:47.7757228+00:00" endTime="2025-08-24T04:29:47.7757230+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be5eca54-4b3e-44fc-9199-1a6b3c01232d" />
+    <UnitTestResult executionId="8e4eb03c-fc1b-4f2f-a503-871829f03d8d" testId="eff3b31d-664e-4aef-a825-9901658fbfb9" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password123&quot;)" computerName="cursor" duration="00:00:00.0002716" startTime="2025-08-24T04:29:47.8787588+00:00" endTime="2025-08-24T04:29:47.8787589+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e4eb03c-fc1b-4f2f-a503-871829f03d8d" />
+    <UnitTestResult executionId="d356d353-1a8e-4433-ad19-27c82e00661c" testId="4069911f-b06f-dd13-e1ba-5ae6c3955415" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name_123&quot;)" computerName="cursor" duration="00:00:00.0000742" startTime="2025-08-24T04:29:47.8773530+00:00" endTime="2025-08-24T04:29:47.8773530+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d356d353-1a8e-4433-ad19-27c82e00661c" />
+    <UnitTestResult executionId="e4e6108f-b67a-44d9-ba40-def4d96c9947" testId="4c27644c-48f1-f09a-1337-384f47157b44" testName="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess" computerName="cursor" duration="00:00:00.1715903" startTime="2025-08-24T04:29:49.3105217+00:00" endTime="2025-08-24T04:29:49.3105218+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4e6108f-b67a-44d9-ba40-def4d96c9947">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: OK
+Actual:   Unauthorized</Message>
+          <StackTrace>   at GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess() in /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs:line 167
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e36d5757-13af-46d8-84c8-9387d2a69b3d" testId="d3fa0e5b-5f42-a484-3712-20a38029346b" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: null)" computerName="cursor" duration="00:00:00.0002568" startTime="2025-08-24T04:29:47.8974893+00:00" endTime="2025-08-24T04:29:47.8974893+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e36d5757-13af-46d8-84c8-9387d2a69b3d">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentNullException : Value cannot be null. (Parameter 'instance')</Message>
+          <StackTrace>   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+   at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 34
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f2567a71-70a9-4bfa-8968-4346794b2213" testId="0e9bde1f-460e-60fc-f880-0077aeba0f37" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithInactiveUser_ShouldReturnFailure" computerName="cursor" duration="00:00:00.2513564" startTime="2025-08-24T04:29:49.3040076+00:00" endTime="2025-08-24T04:29:49.3040078+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2567a71-70a9-4bfa-8968-4346794b2213" />
+    <UnitTestResult executionId="9d1d3af5-fab3-4d7f-9d07-9cb7b4efc658" testId="fb9c0096-05a0-38bf-a182-6f6a4f2c4095" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;validuser&quot;)" computerName="cursor" duration="00:00:00.0000018" startTime="2025-08-24T04:29:47.8779172+00:00" endTime="2025-08-24T04:29:47.8779172+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d1d3af5-fab3-4d7f-9d07-9cb7b4efc658" />
+    <UnitTestResult executionId="783f30a4-1b03-438e-a7b0-c3e6f3b93666" testId="5571e2af-2da0-29d9-0b91-caa9e66a9d16" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithValidData_ShouldReturnSuccess" computerName="cursor" duration="00:00:00.1289963" startTime="2025-08-24T04:29:49.0525592+00:00" endTime="2025-08-24T04:29:49.0525597+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="783f30a4-1b03-438e-a7b0-c3e6f3b93666" />
+    <UnitTestResult executionId="72ea9ab5-670a-46f7-858d-893cab696fc5" testId="0dc940d1-c6f5-eecc-f257-64f50d93436d" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithValidCredentials_ShouldReturnSuccess" computerName="cursor" duration="00:00:00.3242970" startTime="2025-08-24T04:29:48.7872522+00:00" endTime="2025-08-24T04:29:48.7872527+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72ea9ab5-670a-46f7-858d-893cab696fc5" />
+    <UnitTestResult executionId="33d5567c-b38b-468b-aa4e-d1550e582f66" testId="0f6510ad-508e-8bdd-f284-74b7193b660e" testName="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithDifferentUsers_ShouldGenerateDifferentTokens" computerName="cursor" duration="00:00:00.0005865" startTime="2025-08-24T04:29:47.8846981+00:00" endTime="2025-08-24T04:29:47.8846982+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33d5567c-b38b-468b-aa4e-d1550e582f66" />
+    <UnitTestResult executionId="5f9f1624-a276-450a-a08b-0b21338b1d2a" testId="9d72ba03-dba3-09c0-69c8-e2cfe231b66d" testName="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingUsername_ShouldReturnFailure" computerName="cursor" duration="00:00:00.0024589" startTime="2025-08-24T04:29:48.4611273+00:00" endTime="2025-08-24T04:29:48.4611274+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f9f1624-a276-450a-a08b-0b21338b1d2a" />
+    <UnitTestResult executionId="6d434b5f-f236-459d-ace5-ee0b0a7d9d91" testId="64bc4b94-0742-b2f3-992b-36a3c16e5c83" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;&quot;)" computerName="cursor" duration="00:00:00.0009220" startTime="2025-08-24T04:29:47.8916127+00:00" endTime="2025-08-24T04:29:47.8916128+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d434b5f-f236-459d-ace5-ee0b0a7d9d91">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected result!.ErrorMessage to be "用戶名不能為空" with a length of 7, but "用戶名長度必須在 3-20 個字元之間" has a length of 19, differs near "長度必" (index 3).</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+   at FluentAssertions.Primitives.StringValidator.Validate()
+   at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+   at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 121
+   at InvokeStub_ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7d0dd9b6-e053-455d-99b1-e2d21e5b9bd5" testId="76d59455-75f4-20fa-ef19-4f1835f23152" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;&quot;)" computerName="cursor" duration="00:00:00.0005854" startTime="2025-08-24T04:29:47.9012973+00:00" endTime="2025-08-24T04:29:47.9012974+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d0dd9b6-e053-455d-99b1-e2d21e5b9bd5">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected result!.ErrorMessage to be "密碼不能為空" with a length of 6, but "密碼長度至少需要 8 個字元" has a length of 14, differs near "長度至" (index 2).</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+   at FluentAssertions.Primitives.StringValidator.Validate()
+   at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+   at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 38
+   at InvokeStub_ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4771d560-58fc-441e-aebe-8703389e686f" testId="bfce84ac-37a6-e6a7-f7e8-8906db4b1e18" testName="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithInvalidCredentials_ShouldReturnError" computerName="cursor" duration="00:00:00.0318847" startTime="2025-08-24T04:29:51.6205787+00:00" endTime="2025-08-24T04:29:51.6205788+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4771d560-58fc-441e-aebe-8703389e686f" />
+    <UnitTestResult executionId="f255af8d-645c-4e1f-8edd-c0655283cdc9" testId="1611baeb-3a2f-16e9-f322-0d001ff2275a" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123_name&quot;)" computerName="cursor" duration="00:00:00.0000072" startTime="2025-08-24T04:29:47.8776397+00:00" endTime="2025-08-24T04:29:47.8776398+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f255af8d-645c-4e1f-8edd-c0655283cdc9" />
+    <UnitTestResult executionId="182c4fe8-ae50-4a22-93f5-2fbd6966363d" testId="2c1c16e5-94a6-6ec0-2bfc-19d5384fdaf6" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;MyP@ssw0rd&quot;)" computerName="cursor" duration="00:00:00.0001976" startTime="2025-08-24T04:29:47.9043773+00:00" endTime="2025-08-24T04:29:47.9043774+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="182c4fe8-ae50-4a22-93f5-2fbd6966363d" />
+    <UnitTestResult executionId="739d3860-a0e3-4a9f-bdae-99b171a69727" testId="906a965e-f9a1-6742-55d1-97693166996d" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username_&quot;)" computerName="cursor" duration="00:00:00.0001813" startTime="2025-08-24T04:29:47.7762891+00:00" endTime="2025-08-24T04:29:47.7762892+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="739d3860-a0e3-4a9f-bdae-99b171a69727" />
+    <UnitTestResult executionId="a8ae85ee-e778-4b82-a2c9-0c8009987a1b" testId="cb01c3d4-616a-ff7e-4f1e-15942e468eae" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;short&quot;)" computerName="cursor" duration="00:00:00.0372595" startTime="2025-08-24T04:29:47.7659445+00:00" endTime="2025-08-24T04:29:47.7659613+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8ae85ee-e778-4b82-a2c9-0c8009987a1b" />
+    <UnitTestResult executionId="29b6a8d0-b105-4584-9cf8-dddb738bc110" testId="8a70f39e-70f0-1650-cec2-48be198d912c" testName="GameCore.Tests.AuthServiceTests.LoginAsync_WithNonExistentUser_ShouldReturnFailure" computerName="cursor" duration="00:00:00.0015153" startTime="2025-08-24T04:29:48.9214699+00:00" endTime="2025-08-24T04:29:48.9214700+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="29b6a8d0-b105-4584-9cf8-dddb738bc110" />
+    <UnitTestResult executionId="ee2f397c-1c45-417e-a3a7-1809ea6f3df6" testId="1a493d7c-ac7e-6e68-a712-03b016a4aa3e" testName="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithRateLimit_ShouldBeLimited" computerName="cursor" duration="00:00:02.2782731" startTime="2025-08-24T04:29:51.5885186+00:00" endTime="2025-08-24T04:29:51.5885187+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee2f397c-1c45-417e-a3a7-1809ea6f3df6" />
+    <UnitTestResult executionId="a211becf-774c-444c-9010-ab1f7ee39c90" testId="63252dae-de46-59fd-ac18-e6969d9e6d2f" testName="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithSameUser_ShouldGenerateDifferentTokens" computerName="cursor" duration="00:00:00.0006304" startTime="2025-08-24T04:29:47.8661114+00:00" endTime="2025-08-24T04:29:47.8661114+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a211becf-774c-444c-9010-ab1f7ee39c90" />
+    <UnitTestResult executionId="23997447-f1a8-4294-bc26-fc8ea33786ae" testId="b35c8c49-28d5-5e44-630b-d8f7425cfc1c" testName="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithInvalidToken_ShouldReturnNull" computerName="cursor" duration="00:00:00.0036403" startTime="2025-08-24T04:29:47.8843944+00:00" endTime="2025-08-24T04:29:47.8843945+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23997447-f1a8-4294-bc26-fc8ea33786ae" />
+    <UnitTestResult executionId="a4fa3681-8765-4cf9-a7cb-9fcec97c8e71" testId="e226f534-eb20-a82b-fcac-cf2630cedca4" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;-username&quot;)" computerName="cursor" duration="00:00:00.0000068" startTime="2025-08-24T04:29:47.7769525+00:00" endTime="2025-08-24T04:29:47.7769525+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4fa3681-8765-4cf9-a7cb-9fcec97c8e71" />
+    <UnitTestResult executionId="4880a94c-f187-4b2d-91f7-720112517f71" testId="49074dae-3b07-243d-cd6a-11349a2e11d9" testName="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithSpecialCharacters_ShouldHandleCorrectly" computerName="cursor" duration="00:00:00.0005354" startTime="2025-08-24T04:29:47.9179790+00:00" endTime="2025-08-24T04:29:47.9179791+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4880a94c-f187-4b2d-91f7-720112517f71" />
+    <UnitTestResult executionId="882d64e4-e4a7-4744-8dbb-8e81faef1b8e" testId="bd63f83e-7ecd-b67d-ba48-6d5b0560efbc" testName="GameCore.Tests.HealthControllerTests.GetDetailed_ShouldReturnOkResult" computerName="cursor" duration="00:00:00.0020895" startTime="2025-08-24T04:29:47.9248379+00:00" endTime="2025-08-24T04:29:47.9248380+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="882d64e4-e4a7-4744-8dbb-8e81faef1b8e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type
+Expected: typeof(object)
+Actual:   typeof(&lt;&gt;f__AnonymousType1&lt;string, DateTime, string, string, &lt;&gt;f__AnonymousType2&lt;string, string, string&gt;, &lt;&gt;f__AnonymousType3&lt;long, long, int&gt;&gt;)</Message>
+          <StackTrace>   at GameCore.Tests.HealthControllerTests.GetDetailed_ShouldReturnOkResult() in /workspace/tests/GameCore.Tests/HealthControllerTests.cs:line 43
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="12ee4356-a6b1-45f4-8226-37c44d59689f" testId="6dca0a0c-9c07-f918-f84f-9027d2b905b2" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;ab&quot;)" computerName="cursor" duration="00:00:00.0001890" startTime="2025-08-24T04:29:47.9021461+00:00" endTime="2025-08-24T04:29:47.9021462+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="12ee4356-a6b1-45f4-8226-37c44d59689f" />
+    <UnitTestResult executionId="65505066-4dcf-4f3d-aaf2-7000c0d92685" testId="b88a5084-38b5-a8aa-36a8-cbc5a37123cd" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;validuser123&quot;)" computerName="cursor" duration="00:00:00.0001193" startTime="2025-08-24T04:29:47.8758596+00:00" endTime="2025-08-24T04:29:47.8758596+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65505066-4dcf-4f3d-aaf2-7000c0d92685" />
+    <UnitTestResult executionId="b0d1a904-138e-4eb7-9452-295a19ae0072" testId="d8251a4f-2024-2f56-cc31-a05415fded0d" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;abc&quot;)" computerName="cursor" duration="00:00:00.0000044" startTime="2025-08-24T04:29:47.8762257+00:00" endTime="2025-08-24T04:29:47.8762257+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b0d1a904-138e-4eb7-9452-295a19ae0072" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidUsername_ShouldPass" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="3bb08c13-f2c6-79a6-8a0f-d704f631f4f3">
+      <Execution id="5c52065d-f413-4f2c-a93f-c8f790b8c35c" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidUsername_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithInvalidCredentials_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="bfce84ac-37a6-e6a7-f7e8-8906db4b1e18">
+      <Execution id="4771d560-58fc-441e-aebe-8703389e686f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Login_WithInvalidCredentials_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user_name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="16f99dd8-b488-58a9-21a5-33fefdc57255">
+      <Execution id="c0e1e46d-7c0f-458d-8320-4c02e080318f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: null)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="70f66a03-7e2c-20c1-bb39-7274b7ea3522">
+      <Execution id="95f32cb7-ee4a-4ee3-9dab-c9a35b47bb9e" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;ab&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6dca0a0c-9c07-f918-f84f-9027d2b905b2">
+      <Execution id="12ee4356-a6b1-45f4-8226-37c44d59689f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidLength_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithValidData_ShouldPassValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b7316041-e04d-dfc4-993d-55f4d9d26b38">
+      <Execution id="04470e82-5558-461e-96f9-3e6b0f5d86ee" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="RegisterRequestDto_WithValidData_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithInactiveUser_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0e9bde1f-460e-60fc-f880-0077aeba0f37">
+      <Execution id="f2567a71-70a9-4bfa-8968-4346794b2213" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithInactiveUser_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="4c27644c-48f1-f09a-1337-384f47157b44">
+      <Execution id="e4e6108f-b67a-44d9-ba40-def4d96c9947" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Login_WithValidCredentials_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithInvalidToken_ShouldReturnNull" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b35c8c49-28d5-5e44-630b-d8f7425cfc1c">
+      <Execution id="23997447-f1a8-4294-bc26-fc8ea33786ae" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="ValidateToken_WithInvalidToken_ShouldReturnNull" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;_username&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="e85d8944-a904-0b9b-79c7-8c1974d558df">
+      <Execution id="be5eca54-4b3e-44fc-9199-1a6b3c01232d" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.Token_ShouldContainRequiredClaims" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="db80152a-79f0-af04-9cf0-c605e74496b9">
+      <Execution id="e275bb61-a929-493c-88a6-391b7c755efb" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="Token_ShouldContainRequiredClaims" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="eff3b31d-664e-4aef-a825-9901658fbfb9">
+      <Execution id="8e4eb03c-fc1b-4f2f-a503-871829f03d8d" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithInvalidPassword_ShouldReturnValidationError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0ee0d27d-2b8a-bc99-50f4-aab527a27499">
+      <Execution id="c0673b12-7a17-4d41-8b2b-9dfa73dbc8d9" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithInvalidPassword_ShouldReturnValidationError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;verylongusername123456789&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="00a45e5f-b068-e3e8-757f-c334a21032cf">
+      <Execution id="4a662609-a9f2-484e-95c7-031df74663f8" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidLength_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithValidCredentials_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0dc940d1-c6f5-eecc-f257-64f50d93436d">
+      <Execution id="72ea9ab5-670a-46f7-858d-893cab696fc5" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithValidCredentials_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="f41a6822-8072-f975-f175-97334281e291">
+      <Execution id="61b839a5-ed0b-4cb6-a314-774c8f4d2434" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="GetProfile_WithValidToken_ShouldReturnUserProfile" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;short&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="cb01c3d4-616a-ff7e-4f1e-15942e468eae">
+      <Execution id="a8ae85ee-e778-4b82-a2c9-0c8009987a1b" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithTooShortPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;   &quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="af3a2316-e0a9-62cc-59af-b68f9fe2d1e7">
+      <Execution id="90504b81-fcf6-4d73-b0ca-54edc4db8896" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithValidData_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="491e1565-4907-6194-1273-8057bd08ab86">
+      <Execution id="e3f2557c-b662-4141-a3b0-b65ee662323b" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithValidData_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="64bc4b94-0742-b2f3-992b-36a3c16e5c83">
+      <Execution id="6d434b5f-f236-459d-ace5-ee0b0a7d9d91" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;validuser&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="fb9c0096-05a0-38bf-a182-6f6a4f2c4095">
+      <Execution id="9d1d3af5-fab3-4d7f-9d07-9cb7b4efc658" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WhenRepositoryThrowsException_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="7b810cd7-ece0-9860-936c-24bc7f99d385">
+      <Execution id="4db27498-3e59-40d7-bfb4-c7f36b3574e4" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WhenRepositoryThrowsException_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithNonExistentUser_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="8a70f39e-70f0-1650-cec2-48be198d912c">
+      <Execution id="29b6a8d0-b105-4584-9cf8-dddb738bc110" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithNonExistentUser_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user.name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="43cab480-0fbf-6fd0-7b50-75d6aec1fb49">
+      <Execution id="02793129-6a92-4e71-b246-964648d0851d" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;PASSWORD123!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="fe2aea58-6092-be73-8363-549c28ecbc4c">
+      <Execution id="38598787-4b03-4aac-856a-9349daf69175" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithBoundaryValues_ShouldHandleCorrectly" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="17ea328b-a53a-3c7d-5d5e-063b9d32adc1">
+      <Execution id="b5622437-206f-4f3f-8c21-577c36901882" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithBoundaryValues_ShouldHandleCorrectly" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="e3943727-24b6-9320-2a5c-8009ea67d763">
+      <Execution id="61b16e0c-b92a-493a-b304-4f9736d69d35" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithExistingUsername_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithSpecialCharacters_ShouldHandleCorrectly" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="49074dae-3b07-243d-cd6a-11349a2e11d9">
+      <Execution id="4880a94c-f187-4b2d-91f7-720112517f71" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="GenerateToken_WithSpecialCharacters_ShouldHandleCorrectly" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="8be56c6c-bc64-85c6-8d13-9e8a08107a80">
+      <Execution id="f22b70cf-8301-4e09-ac0b-4ffdac68dbbd" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;password123!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="07be573a-a557-30bf-aaae-fd9ead2faaa0">
+      <Execution id="63bad40f-2120-4783-83dc-8c6379db155e" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.Token_ShouldHaveCorrectExpiration" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b90d7195-753f-2ce4-e656-dddcc146d416">
+      <Execution id="8275d6df-c864-4c33-9222-f2cfd69da261" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="Token_ShouldHaveCorrectExpiration" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithEmptyToken_ShouldReturnNull" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="45103ee8-3c40-893f-346c-03554d4a9d99">
+      <Execution id="ba8909ad-4425-425c-b2dc-945be9cebefc" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="ValidateToken_WithEmptyToken_ShouldReturnNull" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user$name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="a07dbbd7-a0fc-8d85-1bfd-3bb5e71c2272">
+      <Execution id="0314acc3-09bd-4112-8be3-9d12a72b5f50" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user@name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="bf027054-a7d1-27fc-23af-869fb1036092">
+      <Execution id="f0aa5a7d-a914-4346-bcae-7ae4b4d29992" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username_&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="906a965e-f9a1-6742-55d1-97693166996d">
+      <Execution id="739d3860-a0e3-4a9f-bdae-99b171a69727" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: null)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="d3fa0e5b-5f42-a484-3712-20a38029346b">
+      <Execution id="e36d5757-13af-46d8-84c8-9387d2a69b3d" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;Strong@Password1&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="2f08ef87-e494-2c48-818c-fdf2ad28459d">
+      <Execution id="f5f8997d-7529-4edd-8af8-20ad23987412" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithInvalidData_ShouldFailValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="1d6b7c9d-c615-1273-4fd0-31bef0d75a3b">
+      <Execution id="4d99b2bd-7595-4fa3-a708-b7fe568780bf" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="RegisterRequestDto_WithInvalidData_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithValidData_ShouldReturnValidToken" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6115a19d-212f-c9aa-a15f-b5ec2d046f58">
+      <Execution id="fc20b1fc-d2ae-4fe8-8f8d-de1740345e03" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="GenerateToken_WithValidData_ShouldReturnValidToken" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithValidData_ShouldReturnSuccess" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="5571e2af-2da0-29d9-0b91-caa9e66a9d16">
+      <Execution id="783f30a4-1b03-438e-a7b0-c3e6f3b93666" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithValidData_ShouldReturnSuccess" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="a2fa2569-276a-920e-f4d4-a15231129cc9">
+      <Execution id="c8b1e48b-5376-4cfc-bdd0-3a8a57245211" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="341b2a6e-6019-ebeb-56a5-bbce6e3af3f4">
+      <Execution id="79a24c89-1294-4dc8-a2aa-fc8e8a05a0a7" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;ValidPass123!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="afa77271-6ab7-2201-966d-ddbb834151b7">
+      <Execution id="22d21240-95ce-415d-ab9a-3c9e93567c7b" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;MyP@ssw0rd&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="2c1c16e5-94a6-6ec0-2bfc-19d5384fdaf6">
+      <Execution id="182c4fe8-ae50-4a22-93f5-2fbd6966363d" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingEmail_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="083fd8ed-7b87-d220-13f0-66d32da8ad15">
+      <Execution id="b66bdbb0-d515-482a-b415-0e6fa9bb4cce" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithExistingEmail_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithSameUser_ShouldGenerateDifferentTokens" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="63252dae-de46-59fd-ac18-e6969d9e6d2f">
+      <Execution id="a211becf-774c-444c-9010-ab1f7ee39c90" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="GenerateToken_WithSameUser_ShouldGenerateDifferentTokens" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;verylonguser123456789&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="22ed998b-90d5-1ec2-5085-7e56be746fab">
+      <Execution id="62d2ea97-0840-49ea-9d7c-ee13108cf0e5" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidLength_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user#name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6b4f4ef3-cda3-02f5-b478-f29bdbd8704c">
+      <Execution id="d6c2a1c6-b4f0-4493-a044-acb6737ef5bf" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithValidData_ShouldPassValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="a409adb9-df40-0bc3-ea0a-9e48ad0db4f8">
+      <Execution id="b0b5f3d0-7ed8-45b0-bcc3-f4bd70fb8534" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="LoginRequestDto_WithValidData_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithBoundaryValues_ShouldHandleCorrectly" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="354e5b13-b350-c1c0-a41f-f66b4544fb0a">
+      <Execution id="5b761248-d2b0-4c84-91cb-c74b43a53023" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="GenerateToken_WithBoundaryValues_ShouldHandleCorrectly" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.RegisterAsync_WithExistingUsername_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="9d72ba03-dba3-09c0-69c8-e2cfe231b66d">
+      <Execution id="5f9f1624-a276-450a-a08b-0b21338b1d2a" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="RegisterAsync_WithExistingUsername_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithValidPassword_ShouldPass" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0ad5c7f1-5d59-e47e-9278-1bc14b25e679">
+      <Execution id="2ce3573a-5ba6-457e-b649-1d270ea0a9df" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithValidPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithNullToken_ShouldReturnNull" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6d7ff98b-95a6-9761-cc62-91c3df64dd57">
+      <Execution id="fe26fb4f-eb0f-4bc7-9a70-06a01634bcc3" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="ValidateToken_WithNullToken_ShouldReturnNull" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;validuser123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b88a5084-38b5-a8aa-36a8-cbc5a37123cd">
+      <Execution id="65505066-4dcf-4f3d-aaf2-7000c0d92685" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidLength_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;C0mpl3x!Pass&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b6be0c65-8acc-3c8d-928b-baa49b09360d">
+      <Execution id="e7444d01-aff2-43a8-aa20-44233f27a286" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithValidUserId_ShouldReturnProfile" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="615893cd-8786-88e8-cb83-303c375381b3">
+      <Execution id="c2d3f3bc-f248-45ab-9b2d-759ff853257f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="GetUserProfileAsync_WithValidUserId_ShouldReturnProfile" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithoutToken_ShouldReturnUnauthorized" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6c835d96-e8d3-e38e-985c-e51291a72f8f">
+      <Execution id="f4188db8-998f-495c-88f4-33b0149598ab" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="GetProfile_WithoutToken_ShouldReturnUnauthorized" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WhenRepositoryThrowsException_ShouldReturnError" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="3e30010c-e97d-bf57-6c78-a27766485673">
+      <Execution id="ef9e7d3b-4e6f-4b63-8f9b-9fcc2a78154a" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WhenRepositoryThrowsException_ShouldReturnError" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username-&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="8391b3c7-946f-c189-55c2-8d82e05f7c3b">
+      <Execution id="182258a9-d8c8-4ec9-97d6-46f982be92ab" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;   &quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="d9a2033c-60a2-1ae5-7552-62b589386f4a">
+      <Execution id="c3cb996a-2617-4613-9183-1c05753fe2af" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="4e4b4a9b-efaa-c157-019a-11293dddde7f">
+      <Execution id="c5b46bd8-d356-4602-b9b8-62102d322c1c" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="LoginAsync_WithInvalidCredentials_ShouldReturnFailure" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;1234567&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b257d2c1-0495-4008-f0c6-2de3c97234f2">
+      <Execution id="836da81c-63d9-47af-9f68-490cabb0f396" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithTooShortPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.GenerateToken_WithDifferentUsers_ShouldGenerateDifferentTokens" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0f6510ad-508e-8bdd-f284-74b7193b660e">
+      <Execution id="33d5567c-b38b-468b-aa4e-d1550e582f66" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="GenerateToken_WithDifferentUsers_ShouldGenerateDifferentTokens" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.HealthControllerTests.GetDetailed_ShouldReturnOkResult" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="bd63f83e-7ecd-b67d-ba48-6d5b0560efbc">
+      <Execution id="882d64e4-e4a7-4744-8dbb-8e81faef1b8e" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.HealthControllerTests" name="GetDetailed_ShouldReturnOkResult" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="76d59455-75f4-20fa-ef19-4f1835f23152">
+      <Execution id="7d0dd9b6-e053-455d-99b1-e2d21e5b9bd5" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123_name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="1611baeb-3a2f-16e9-f322-0d001ff2275a">
+      <Execution id="f255af8d-645c-4e1f-8edd-c0655283cdc9" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;abc&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="d8251a4f-2024-2f56-cc31-a05415fded0d">
+      <Execution id="b0d1a904-138e-4eb7-9452-295a19ae0072" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidLength_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.Token_ShouldHaveCorrectIssuerAndAudience" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b2ecca88-1bb5-dcaa-5b71-8e726b9c82b3">
+      <Execution id="b55818fa-2195-4ffc-8133-254f0ad19949" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="Token_ShouldHaveCorrectIssuerAndAudience" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.AuthServiceTests.GetUserProfileAsync_WithInvalidUserId_ShouldReturnNull" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="c664dc6a-96b6-b78b-f8c0-7d0c36e4d355">
+      <Execution id="07d57daa-0c7c-415c-9cc2-e35b436c1d26" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.AuthServiceTests" name="GetUserProfileAsync_WithInvalidUserId_ShouldReturnNull" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.HealthControllerTests.Get_ShouldReturnOkResult" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="61c8962a-f5e5-0ded-c8ee-6b4b2729d611">
+      <Execution id="1972d97b-ef2b-4523-ba78-d3d3b6fe4ff0" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.HealthControllerTests" name="Get_ShouldReturnOkResult" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;a&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="ce7de259-8a99-2996-1815-5642eb925eee">
+      <Execution id="6d845043-b940-49ce-a89b-4a79bb38e751" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidLength_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;-username&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="e226f534-eb20-a82b-fcac-cf2630cedca4">
+      <Execution id="a4fa3681-8765-4cf9-a7cb-9fcec97c8e71" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="ecef2e1d-6c65-22e3-9bed-bf27a82ff8a2">
+      <Execution id="e232b1ec-cfad-442d-84f3-0c7a6b0589bd" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithInvalidData_ShouldFailValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="f0e6e01d-21db-4b2a-ff5b-8f7e6a0d0f3b">
+      <Execution id="935954f7-c156-4209-8432-8f231ede38e7" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="LoginRequestDto_WithInvalidData_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Integration.AuthIntegrationTests.Register_WithRateLimit_ShouldBeLimited" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="1a493d7c-ac7e-6e68-a712-03b016a4aa3e">
+      <Execution id="ee2f397c-1c45-417e-a3a7-1809ea6f3df6" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Integration.AuthIntegrationTests" name="Register_WithRateLimit_ShouldBeLimited" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name_123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="4069911f-b06f-dd13-e1ba-5ae6c3955415">
+      <Execution id="d356d353-1a8e-4433-ad19-27c82e00661c" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Services.JwtServiceTests.ValidateToken_WithValidToken_ShouldReturnValidPrincipal" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="74d27b05-580b-b7c2-026b-5d1861d3268e">
+      <Execution id="e8b5f6a6-8116-4f19-9c2e-9af005473af6" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Services.JwtServiceTests" name="ValidateToken_WithValidToken_ShouldReturnValidPrincipal" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c664dc6a-96b6-b78b-f8c0-7d0c36e4d355" executionId="07d57daa-0c7c-415c-9cc2-e35b436c1d26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45103ee8-3c40-893f-346c-03554d4a9d99" executionId="ba8909ad-4425-425c-b2dc-945be9cebefc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a409adb9-df40-0bc3-ea0a-9e48ad0db4f8" executionId="b0b5f3d0-7ed8-45b0-bcc3-f4bd70fb8534" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74d27b05-580b-b7c2-026b-5d1861d3268e" executionId="e8b5f6a6-8116-4f19-9c2e-9af005473af6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="491e1565-4907-6194-1273-8057bd08ab86" executionId="e3f2557c-b662-4141-a3b0-b65ee662323b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2f08ef87-e494-2c48-818c-fdf2ad28459d" executionId="f5f8997d-7529-4edd-8af8-20ad23987412" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af3a2316-e0a9-62cc-59af-b68f9fe2d1e7" executionId="90504b81-fcf6-4d73-b0ca-54edc4db8896" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="43cab480-0fbf-6fd0-7b50-75d6aec1fb49" executionId="02793129-6a92-4e71-b246-964648d0851d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="341b2a6e-6019-ebeb-56a5-bbce6e3af3f4" executionId="79a24c89-1294-4dc8-a2aa-fc8e8a05a0a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d6b7c9d-c615-1273-4fd0-31bef0d75a3b" executionId="4d99b2bd-7595-4fa3-a708-b7fe568780bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0ee0d27d-2b8a-bc99-50f4-aab527a27499" executionId="c0673b12-7a17-4d41-8b2b-9dfa73dbc8d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07be573a-a557-30bf-aaae-fd9ead2faaa0" executionId="63bad40f-2120-4783-83dc-8c6379db155e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22ed998b-90d5-1ec2-5085-7e56be746fab" executionId="62d2ea97-0840-49ea-9d7c-ee13108cf0e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bb08c13-f2c6-79a6-8a0f-d704f631f4f3" executionId="5c52065d-f413-4f2c-a93f-c8f790b8c35c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2ecca88-1bb5-dcaa-5b71-8e726b9c82b3" executionId="b55818fa-2195-4ffc-8133-254f0ad19949" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe2aea58-6092-be73-8363-549c28ecbc4c" executionId="38598787-4b03-4aac-856a-9349daf69175" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b810cd7-ece0-9860-936c-24bc7f99d385" executionId="4db27498-3e59-40d7-bfb4-c7f36b3574e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9a2033c-60a2-1ae5-7552-62b589386f4a" executionId="c3cb996a-2617-4613-9183-1c05753fe2af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6b4f4ef3-cda3-02f5-b478-f29bdbd8704c" executionId="d6c2a1c6-b4f0-4493-a044-acb6737ef5bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="61c8962a-f5e5-0ded-c8ee-6b4b2729d611" executionId="1972d97b-ef2b-4523-ba78-d3d3b6fe4ff0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d7ff98b-95a6-9761-cc62-91c3df64dd57" executionId="fe26fb4f-eb0f-4bc7-9a70-06a01634bcc3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70f66a03-7e2c-20c1-bb39-7274b7ea3522" executionId="95f32cb7-ee4a-4ee3-9dab-c9a35b47bb9e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6be0c65-8acc-3c8d-928b-baa49b09360d" executionId="e7444d01-aff2-43a8-aa20-44233f27a286" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00a45e5f-b068-e3e8-757f-c334a21032cf" executionId="4a662609-a9f2-484e-95c7-031df74663f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6115a19d-212f-c9aa-a15f-b5ec2d046f58" executionId="fc20b1fc-d2ae-4fe8-8f8d-de1740345e03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="354e5b13-b350-c1c0-a41f-f66b4544fb0a" executionId="5b761248-d2b0-4c84-91cb-c74b43a53023" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf027054-a7d1-27fc-23af-869fb1036092" executionId="f0aa5a7d-a914-4346-bcae-7ae4b4d29992" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e30010c-e97d-bf57-6c78-a27766485673" executionId="ef9e7d3b-4e6f-4b63-8f9b-9fcc2a78154a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a07dbbd7-a0fc-8d85-1bfd-3bb5e71c2272" executionId="0314acc3-09bd-4112-8be3-9d12a72b5f50" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8391b3c7-946f-c189-55c2-8d82e05f7c3b" executionId="182258a9-d8c8-4ec9-97d6-46f982be92ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b257d2c1-0495-4008-f0c6-2de3c97234f2" executionId="836da81c-63d9-47af-9f68-490cabb0f396" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce7de259-8a99-2996-1815-5642eb925eee" executionId="6d845043-b940-49ce-a89b-4a79bb38e751" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b90d7195-753f-2ce4-e656-dddcc146d416" executionId="8275d6df-c864-4c33-9222-f2cfd69da261" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="16f99dd8-b488-58a9-21a5-33fefdc57255" executionId="c0e1e46d-7c0f-458d-8320-4c02e080318f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8be56c6c-bc64-85c6-8d13-9e8a08107a80" executionId="f22b70cf-8301-4e09-ac0b-4ffdac68dbbd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="083fd8ed-7b87-d220-13f0-66d32da8ad15" executionId="b66bdbb0-d515-482a-b415-0e6fa9bb4cce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e4b4a9b-efaa-c157-019a-11293dddde7f" executionId="c5b46bd8-d356-4602-b9b8-62102d322c1c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a2fa2569-276a-920e-f4d4-a15231129cc9" executionId="c8b1e48b-5376-4cfc-bdd0-3a8a57245211" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecef2e1d-6c65-22e3-9bed-bf27a82ff8a2" executionId="e232b1ec-cfad-442d-84f3-0c7a6b0589bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="615893cd-8786-88e8-cb83-303c375381b3" executionId="c2d3f3bc-f248-45ab-9b2d-759ff853257f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f41a6822-8072-f975-f175-97334281e291" executionId="61b839a5-ed0b-4cb6-a314-774c8f4d2434" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afa77271-6ab7-2201-966d-ddbb834151b7" executionId="22d21240-95ce-415d-ab9a-3c9e93567c7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3943727-24b6-9320-2a5c-8009ea67d763" executionId="61b16e0c-b92a-493a-b304-4f9736d69d35" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0e6e01d-21db-4b2a-ff5b-8f7e6a0d0f3b" executionId="935954f7-c156-4209-8432-8f231ede38e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0ad5c7f1-5d59-e47e-9278-1bc14b25e679" executionId="2ce3573a-5ba6-457e-b649-1d270ea0a9df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c835d96-e8d3-e38e-985c-e51291a72f8f" executionId="f4188db8-998f-495c-88f4-33b0149598ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7316041-e04d-dfc4-993d-55f4d9d26b38" executionId="04470e82-5558-461e-96f9-3e6b0f5d86ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17ea328b-a53a-3c7d-5d5e-063b9d32adc1" executionId="b5622437-206f-4f3f-8c21-577c36901882" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db80152a-79f0-af04-9cf0-c605e74496b9" executionId="e275bb61-a929-493c-88a6-391b7c755efb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e85d8944-a904-0b9b-79c7-8c1974d558df" executionId="be5eca54-4b3e-44fc-9199-1a6b3c01232d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eff3b31d-664e-4aef-a825-9901658fbfb9" executionId="8e4eb03c-fc1b-4f2f-a503-871829f03d8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4069911f-b06f-dd13-e1ba-5ae6c3955415" executionId="d356d353-1a8e-4433-ad19-27c82e00661c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c27644c-48f1-f09a-1337-384f47157b44" executionId="e4e6108f-b67a-44d9-ba40-def4d96c9947" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3fa0e5b-5f42-a484-3712-20a38029346b" executionId="e36d5757-13af-46d8-84c8-9387d2a69b3d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e9bde1f-460e-60fc-f880-0077aeba0f37" executionId="f2567a71-70a9-4bfa-8968-4346794b2213" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb9c0096-05a0-38bf-a182-6f6a4f2c4095" executionId="9d1d3af5-fab3-4d7f-9d07-9cb7b4efc658" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5571e2af-2da0-29d9-0b91-caa9e66a9d16" executionId="783f30a4-1b03-438e-a7b0-c3e6f3b93666" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0dc940d1-c6f5-eecc-f257-64f50d93436d" executionId="72ea9ab5-670a-46f7-858d-893cab696fc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f6510ad-508e-8bdd-f284-74b7193b660e" executionId="33d5567c-b38b-468b-aa4e-d1550e582f66" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d72ba03-dba3-09c0-69c8-e2cfe231b66d" executionId="5f9f1624-a276-450a-a08b-0b21338b1d2a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64bc4b94-0742-b2f3-992b-36a3c16e5c83" executionId="6d434b5f-f236-459d-ace5-ee0b0a7d9d91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="76d59455-75f4-20fa-ef19-4f1835f23152" executionId="7d0dd9b6-e053-455d-99b1-e2d21e5b9bd5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bfce84ac-37a6-e6a7-f7e8-8906db4b1e18" executionId="4771d560-58fc-441e-aebe-8703389e686f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1611baeb-3a2f-16e9-f322-0d001ff2275a" executionId="f255af8d-645c-4e1f-8edd-c0655283cdc9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c1c16e5-94a6-6ec0-2bfc-19d5384fdaf6" executionId="182c4fe8-ae50-4a22-93f5-2fbd6966363d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="906a965e-f9a1-6742-55d1-97693166996d" executionId="739d3860-a0e3-4a9f-bdae-99b171a69727" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb01c3d4-616a-ff7e-4f1e-15942e468eae" executionId="a8ae85ee-e778-4b82-a2c9-0c8009987a1b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a70f39e-70f0-1650-cec2-48be198d912c" executionId="29b6a8d0-b105-4584-9cf8-dddb738bc110" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a493d7c-ac7e-6e68-a712-03b016a4aa3e" executionId="ee2f397c-1c45-417e-a3a7-1809ea6f3df6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="63252dae-de46-59fd-ac18-e6969d9e6d2f" executionId="a211becf-774c-444c-9010-ab1f7ee39c90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b35c8c49-28d5-5e44-630b-d8f7425cfc1c" executionId="23997447-f1a8-4294-bc26-fc8ea33786ae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e226f534-eb20-a82b-fcac-cf2630cedca4" executionId="a4fa3681-8765-4cf9-a7cb-9fcec97c8e71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49074dae-3b07-243d-cd6a-11349a2e11d9" executionId="4880a94c-f187-4b2d-91f7-720112517f71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd63f83e-7ecd-b67d-ba48-6d5b0560efbc" executionId="882d64e4-e4a7-4744-8dbb-8e81faef1b8e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6dca0a0c-9c07-f918-f84f-9027d2b905b2" executionId="12ee4356-a6b1-45f4-8226-37c44d59689f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b88a5084-38b5-a8aa-36a8-cbc5a37123cd" executionId="65505066-4dcf-4f3d-aaf2-7000c0d92685" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8251a4f-2024-2f56-cc31-a05415fded0d" executionId="b0d1a904-138e-4eb7-9452-295a19ae0072" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="77" executed="77" passed="64" failed="13" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.5.4.1+b9eacec401 (64-bit .NET 8.0.19)
+[xUnit.net 00:00:00.07]   Discovering: GameCore.Tests
+[xUnit.net 00:00:00.11]   Discovered:  GameCore.Tests
+[xUnit.net 00:00:00.11]   Starting:    GameCore.Tests
+[xUnit.net 00:00:00.33]       Expected result to be &lt;null&gt;, but found 用戶名長度必須在 3-20 個字元之間.
+[xUnit.net 00:00:00.33]       Stack Trace:
+[xUnit.net 00:00:00.34]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:00.34]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:00.34]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:00.34]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.34]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.34]            at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)
+[xUnit.net 00:00:00.34]            at FluentAssertions.Primitives.ObjectAssertions`2.Be(TSubject expected, String because, Object[] becauseArgs)
+[xUnit.net 00:00:00.34]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(210,0): at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(String username)
+[xUnit.net 00:00:00.34]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+[xUnit.net 00:00:00.34]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.35]       Expected result!.ErrorMessage to be "用戶名不能為空" with a length of 7, but "用戶名只能包含字母、數字、底線和連字號" has a length of 19, differs near "只能包" (index 3).
+[xUnit.net 00:00:00.35]       Stack Trace:
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+[xUnit.net 00:00:00.35]            at FluentAssertions.Primitives.StringValidator.Validate()
+[xUnit.net 00:00:00.35]            at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+[xUnit.net 00:00:00.35]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(121,0): at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username)
+[xUnit.net 00:00:00.35]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+[xUnit.net 00:00:00.35]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.35]       Expected result!.ErrorMessage to be "用戶名不能為空" with a length of 7, but "用戶名長度必須在 3-20 個字元之間" has a length of 19, differs near "長度必" (index 3).
+[xUnit.net 00:00:00.35]       Stack Trace:
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.35]            at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+[xUnit.net 00:00:00.35]            at FluentAssertions.Primitives.StringValidator.Validate()
+[xUnit.net 00:00:00.35]            at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+[xUnit.net 00:00:00.35]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(121,0): at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username)
+[xUnit.net 00:00:00.35]            at InvokeStub_ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+[xUnit.net 00:00:00.35]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.35]       System.ArgumentNullException : Value cannot be null. (Parameter 'instance')
+[xUnit.net 00:00:00.35]       Stack Trace:
+[xUnit.net 00:00:00.35]            at System.ArgumentNullException.Throw(String paramName)
+[xUnit.net 00:00:00.35]            at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+[xUnit.net 00:00:00.35]            at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+[xUnit.net 00:00:00.35]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(117,0): at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username)
+[xUnit.net 00:00:00.35]            at InvokeStub_ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+[xUnit.net 00:00:00.35]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.36]       System.ArgumentNullException : Value cannot be null. (Parameter 'instance')
+[xUnit.net 00:00:00.36]       Stack Trace:
+[xUnit.net 00:00:00.36]            at System.ArgumentNullException.Throw(String paramName)
+[xUnit.net 00:00:00.36]            at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+[xUnit.net 00:00:00.36]            at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+[xUnit.net 00:00:00.36]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(34,0): at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password)
+[xUnit.net 00:00:00.36]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+[xUnit.net 00:00:00.36]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.36]       Expected result!.ErrorMessage to be "密碼不能為空" with a length of 6, but "密碼長度至少需要 8 個字元" has a length of 14, differs near "長度至" (index 2).
+[xUnit.net 00:00:00.36]       Stack Trace:
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+[xUnit.net 00:00:00.36]            at FluentAssertions.Primitives.StringValidator.Validate()
+[xUnit.net 00:00:00.36]            at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+[xUnit.net 00:00:00.36]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(38,0): at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password)
+[xUnit.net 00:00:00.36]            at InvokeStub_ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+[xUnit.net 00:00:00.36]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.36]       Expected result!.ErrorMessage to be "密碼不能為空" with a length of 6, but "密碼長度至少需要 8 個字元" has a length of 14, differs near "長度至" (index 2).
+[xUnit.net 00:00:00.36]       Stack Trace:
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.36]            at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+[xUnit.net 00:00:00.36]            at FluentAssertions.Primitives.StringValidator.Validate()
+[xUnit.net 00:00:00.36]            at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+[xUnit.net 00:00:00.36]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(38,0): at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password)
+[xUnit.net 00:00:00.36]            at InvokeStub_ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+[xUnit.net 00:00:00.36]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.38]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:00:00.38]       Expected: typeof(object)
+[xUnit.net 00:00:00.38]       Actual:   typeof(&lt;&gt;f__AnonymousType0&lt;string, DateTime, string, string&gt;)
+[xUnit.net 00:00:00.38]       Stack Trace:
+[xUnit.net 00:00:00.38]         /workspace/tests/GameCore.Tests/HealthControllerTests.cs(28,0): at GameCore.Tests.HealthControllerTests.Get_ShouldReturnOkResult()
+[xUnit.net 00:00:00.38]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+[xUnit.net 00:00:00.38]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.39]       Assert.IsType() Failure: Value is not the exact type
+[xUnit.net 00:00:00.39]       Expected: typeof(object)
+[xUnit.net 00:00:00.39]       Actual:   typeof(&lt;&gt;f__AnonymousType1&lt;string, DateTime, string, string, &lt;&gt;f__AnonymousType2&lt;string, string, string&gt;, &lt;&gt;f__AnonymousType3&lt;long, long, int&gt;&gt;)
+[xUnit.net 00:00:00.39]       Stack Trace:
+[xUnit.net 00:00:00.39]         /workspace/tests/GameCore.Tests/HealthControllerTests.cs(43,0): at GameCore.Tests.HealthControllerTests.GetDetailed_ShouldReturnOkResult()
+[xUnit.net 00:00:00.39]         --- End of stack trace from previous location ---
+[04:29:48 INF] GameCore API 啟動完成
+[04:29:48 WRN] No XML encryptor configured. Key {6277ceb7-be95-4f3e-877a-e5535a6ba879} may be persisted to storage in unencrypted form.
+[04:29:48 WRN] Failed to determine the https port for redirect.
+[04:29:48 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 37c72d6a-b2a5-42a7-bd8b-b458a78b6e8d
+[04:29:48 INF] 開始處理請求: POST /api/auth/register
+[04:29:48 INF] 收到註冊請求: 0HNF2ORE4COAU
+[04:29:48 INF] 開始處理用戶註冊請求: testuser
+[xUnit.net 00:00:00.92]       Expected result.Success to be false, but found True.
+[xUnit.net 00:00:00.92]       Stack Trace:
+[xUnit.net 00:00:00.92]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+[xUnit.net 00:00:00.92]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+[xUnit.net 00:00:00.92]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+[xUnit.net 00:00:00.92]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.92]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+[xUnit.net 00:00:00.92]            at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)
+[xUnit.net 00:00:00.92]            at FluentAssertions.Primitives.BooleanAssertions`1.BeFalse(String because, Object[] becauseArgs)
+[xUnit.net 00:00:00.92]         /workspace/tests/GameCore.Tests/AuthServiceTests.cs(188,0): at GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure()
+[xUnit.net 00:00:00.92]         --- End of stack trace from previous location ---
+[04:29:48 INF] 建立新用戶: Username = testuser, Email = test@example.com
+[04:29:48 INF] 用戶建立成功: UserId = 1
+[04:29:48 INF] 用戶註冊成功: 1 testuser
+[04:29:48 INF] 註冊成功: 0HNF2ORE4COAU, Username: testuser
+[04:29:48 INF] 請求完成: POST /api/auth/register - 200 (406.1711ms)
+[04:29:48 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 37c72d6a-b2a5-42a7-bd8b-b458a78b6e8d
+[04:29:48 INF] GameCore API 啟動完成
+[04:29:48 WRN] Failed to determine the https port for redirect.
+[04:29:48 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ee7fa01e-eca8-48e7-a6cf-16d617f92047
+[04:29:48 INF] 開始處理請求: POST /api/auth/register
+[04:29:48 INF] 請求完成: POST /api/auth/register - 400 (18.6906ms)
+[04:29:48 INF] Request completed: POST /api/auth/register with status 400 and CorrelationId: ee7fa01e-eca8-48e7-a6cf-16d617f92047
+[04:29:48 INF] GameCore API 啟動完成
+[04:29:48 WRN] Failed to determine the https port for redirect.
+[04:29:48 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 82a01e74-b454-4e4a-80fb-9bf0993e07a8
+[04:29:48 INF] 開始處理請求: POST /api/auth/register
+[04:29:48 INF] 收到註冊請求: 0HNF2ORE4COB0
+[04:29:48 INF] 開始處理用戶註冊請求: profileuser
+[04:29:49 INF] 建立新用戶: Username = profileuser, Email = profile@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 profileuser
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COB0, Username: profileuser
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (133.3612ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 82a01e74-b454-4e4a-80fb-9bf0993e07a8
+[04:29:49 INF] Request started: GET /api/auth/profile from unknown with CorrelationId: c13e1825-34a5-4c00-a303-602e7cbe1bea
+[04:29:49 INF] 開始處理請求: GET /api/auth/profile
+[04:29:49 INF] 收到獲取個人資料請求: 0HNF2ORE4COB1
+[04:29:49 WRN] 用戶不存在: 1
+[04:29:49 WRN] 用戶不存在: 0HNF2ORE4COB1, UserId: 1
+[04:29:49 INF] 請求完成: GET /api/auth/profile - 404 (62.528ms)
+[04:29:49 INF] Request completed: GET /api/auth/profile with status 404 and CorrelationId: c13e1825-34a5-4c00-a303-602e7cbe1bea
+[xUnit.net 00:00:01.58]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.58]       Expected: OK
+[xUnit.net 00:00:01.58]       Actual:   NotFound
+[xUnit.net 00:00:01.58]       Stack Trace:
+[xUnit.net 00:00:01.58]         /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs(229,0): at GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile()
+[xUnit.net 00:00:01.58]         --- End of stack trace from previous location ---
+[04:29:49 INF] GameCore API 啟動完成
+[04:29:49 WRN] Failed to determine the https port for redirect.
+[04:29:49 INF] Request started: GET /api/auth/profile from unknown with CorrelationId: f7d04ef9-379a-4570-8ddf-d97412bd45f5
+[04:29:49 INF] 開始處理請求: GET /api/auth/profile
+[04:29:49 INF] 請求完成: GET /api/auth/profile - 401 (2.7213ms)
+[04:29:49 INF] Request completed: GET /api/auth/profile with status 401 and CorrelationId: f7d04ef9-379a-4570-8ddf-d97412bd45f5
+[04:29:49 INF] GameCore API 啟動完成
+[04:29:49 WRN] Failed to determine the https port for redirect.
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 657106df-58c5-4fd4-a9ef-ec6bb5a2fbcd
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COB3
+[04:29:49 INF] 開始處理用戶註冊請求: loginuser
+[04:29:49 INF] 建立新用戶: Username = loginuser, Email = login@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 loginuser
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COB3, Username: loginuser
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (131.2756ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 657106df-58c5-4fd4-a9ef-ec6bb5a2fbcd
+[04:29:49 INF] Request started: POST /api/auth/login from unknown with CorrelationId: 25462942-2622-4e8d-a7ae-da6db8bdcfd3
+[04:29:49 INF] 開始處理請求: POST /api/auth/login
+[04:29:49 INF] 收到登入請求: 0HNF2ORE4COB4
+[04:29:49 INF] 開始處理用戶登入請求: loginuser
+[04:29:49 WRN] 登入失敗：用戶不存在: loginuser
+[04:29:49 WRN] 登入失敗: 0HNF2ORE4COB4, Username: loginuser, Message: 用戶名或密碼錯誤
+[04:29:49 INF] 請求完成: POST /api/auth/login - 401 (15.2802ms)
+[04:29:49 INF] Request completed: POST /api/auth/login with status 401 and CorrelationId: 25462942-2622-4e8d-a7ae-da6db8bdcfd3
+[xUnit.net 00:00:01.77]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:01.77]       Expected: OK
+[xUnit.net 00:00:01.77]       Actual:   Unauthorized
+[xUnit.net 00:00:01.77]       Stack Trace:
+[xUnit.net 00:00:01.77]         /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs(167,0): at GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess()
+[xUnit.net 00:00:01.77]         --- End of stack trace from previous location ---
+[04:29:49 INF] GameCore API 啟動完成
+[04:29:49 WRN] Failed to determine the https port for redirect.
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 20c2a774-a0e0-4313-b3de-0e110193d05d
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f8ac03da-9833-4b84-823c-b325cef242ed
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: d68f6f28-5ffe-4097-929d-c2cf7d6f5e62
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COB6
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser1
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COB7
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser2
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COB5
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser0
+[04:29:49 INF] 建立新用戶: Username = ratelimituser1, Email = ratelimit1@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser1
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COB6, Username: ratelimituser1
+[04:29:49 INF] 建立新用戶: Username = ratelimituser0, Email = ratelimit0@example.com
+[04:29:49 INF] 建立新用戶: Username = ratelimituser2, Email = ratelimit2@example.com
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (129.3507ms)
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f8ac03da-9833-4b84-823c-b325cef242ed
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 50a99c46-0aad-42e9-9a15-69a86ef0ee3c
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser0
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COB5, Username: ratelimituser0
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser2
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COB8
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser3
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COB7, Username: ratelimituser2
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (130.8563ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: d68f6f28-5ffe-4097-929d-c2cf7d6f5e62
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (131.4384ms)
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a5aa9d1b-0a3b-4319-a7bc-5bda5da1ba9f
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 20c2a774-a0e0-4313-b3de-0e110193d05d
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COB9
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser4
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 33d0aadb-de48-4021-9d56-4df111caf620
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBA
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser5
+[04:29:49 INF] 建立新用戶: Username = ratelimituser3, Email = ratelimit3@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser3
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COB8, Username: ratelimituser3
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (126.2342ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 50a99c46-0aad-42e9-9a15-69a86ef0ee3c
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 90755afa-7967-4812-bc47-11828fb9c1fe
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBB
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser6
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 29e083ca-ac40-4f83-a536-c4246cc30f40
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBC
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser7
+[04:29:49 INF] 建立新用戶: Username = ratelimituser4, Email = ratelimit4@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser4
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COB9, Username: ratelimituser4
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (131.0951ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a5aa9d1b-0a3b-4319-a7bc-5bda5da1ba9f
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b1b88053-a4a3-4773-892f-6bfe32bfbf45
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBD
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser8
+[04:29:49 INF] 建立新用戶: Username = ratelimituser5, Email = ratelimit5@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser5
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBA, Username: ratelimituser5
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (139.9216ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 33d0aadb-de48-4021-9d56-4df111caf620
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 93e9b26c-ddd6-43a9-bc8d-be95ee855664
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBE
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser9
+[04:29:49 INF] 建立新用戶: Username = ratelimituser6, Email = ratelimit6@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser6
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBB, Username: ratelimituser6
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (129.5611ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 90755afa-7967-4812-bc47-11828fb9c1fe
+[04:29:49 INF] 建立新用戶: Username = ratelimituser7, Email = ratelimit7@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser7
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBC, Username: ratelimituser7
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (126.6946ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 29e083ca-ac40-4f83-a536-c4246cc30f40
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a63bc216-4f78-4500-8a28-21811fc3cbab
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 68097394-da4a-4feb-b73b-89423c7615c4
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBF
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser10
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBG
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser11
+[04:29:49 INF] 建立新用戶: Username = ratelimituser8, Email = ratelimit8@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser8
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBD, Username: ratelimituser8
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (129.7721ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b1b88053-a4a3-4773-892f-6bfe32bfbf45
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: fb40a151-c068-4252-acc0-5ad13de52f59
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBH
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser12
+[04:29:49 INF] 建立新用戶: Username = ratelimituser9, Email = ratelimit9@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser9
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBE, Username: ratelimituser9
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (180.0936ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 93e9b26c-ddd6-43a9-bc8d-be95ee855664
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 9d9e2444-d096-4a68-8cff-5640d61e41a6
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBI
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser13
+[04:29:49 INF] 建立新用戶: Username = ratelimituser10, Email = ratelimit10@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser10
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBF, Username: ratelimituser10
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (125.5184ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a63bc216-4f78-4500-8a28-21811fc3cbab
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 82fb8a3b-055f-49f8-9485-0c3a4dc4f2cb
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBJ
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser14
+[04:29:49 INF] 建立新用戶: Username = ratelimituser12, Email = ratelimit12@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser12
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBH, Username: ratelimituser12
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (127.6735ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: fb40a151-c068-4252-acc0-5ad13de52f59
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ae7e629c-c381-4d8d-be4c-0a9b765b0ea2
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBK
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser15
+[04:29:49 INF] 建立新用戶: Username = ratelimituser11, Email = ratelimit11@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser11
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBG, Username: ratelimituser11
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (150.5205ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 68097394-da4a-4feb-b73b-89423c7615c4
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 69a2831e-9d21-4c22-a1d4-b485d62a1bea
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBL
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser16
+[04:29:49 INF] 建立新用戶: Username = ratelimituser13, Email = ratelimit13@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser13
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBI, Username: ratelimituser13
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (133.161ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 9d9e2444-d096-4a68-8cff-5640d61e41a6
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ba41ece0-2814-4400-a2d9-a4b4fbe70c5c
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBM
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser17
+[04:29:49 INF] 建立新用戶: Username = ratelimituser14, Email = ratelimit14@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser14
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBJ, Username: ratelimituser14
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (131.1587ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 82fb8a3b-055f-49f8-9485-0c3a4dc4f2cb
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 0062deba-5639-4baa-ab85-f25ecf3a5e0c
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBN
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser18
+[04:29:49 INF] 建立新用戶: Username = ratelimituser15, Email = ratelimit15@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser15
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBK, Username: ratelimituser15
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (132.838ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: ae7e629c-c381-4d8d-be4c-0a9b765b0ea2
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 5a0be115-cd4b-4b28-9b27-9d8d02c5304f
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBO
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser19
+[04:29:49 INF] 建立新用戶: Username = ratelimituser16, Email = ratelimit16@example.com
+[04:29:49 INF] 用戶建立成功: UserId = 1
+[04:29:49 INF] 用戶註冊成功: 1 ratelimituser16
+[04:29:49 INF] 註冊成功: 0HNF2ORE4COBL, Username: ratelimituser16
+[04:29:49 INF] 請求完成: POST /api/auth/register - 200 (130.8576ms)
+[04:29:49 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 69a2831e-9d21-4c22-a1d4-b485d62a1bea
+[04:29:49 INF] Request started: POST /api/auth/register from unknown with CorrelationId: efba21fb-993f-4e3e-a3f8-8903dc0493c0
+[04:29:49 INF] 開始處理請求: POST /api/auth/register
+[04:29:49 INF] 收到註冊請求: 0HNF2ORE4COBP
+[04:29:49 INF] 開始處理用戶註冊請求: ratelimituser20
+[04:29:50 INF] 建立新用戶: Username = ratelimituser17, Email = ratelimit17@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser17
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBM, Username: ratelimituser17
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (126.4613ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: ba41ece0-2814-4400-a2d9-a4b4fbe70c5c
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: fa26868c-fd07-47f6-bfd1-456a92a95eff
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COBQ
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser21
+[04:29:50 INF] 建立新用戶: Username = ratelimituser19, Email = ratelimit19@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser19
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBO, Username: ratelimituser19
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (127.8525ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 5a0be115-cd4b-4b28-9b27-9d8d02c5304f
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 74ad3e12-f715-436d-9287-ed862735b3e5
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COBR
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser22
+[04:29:50 INF] 建立新用戶: Username = ratelimituser20, Email = ratelimit20@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser20
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBP, Username: ratelimituser20
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (129.1998ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: efba21fb-993f-4e3e-a3f8-8903dc0493c0
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 416e8e78-cf4c-44ff-9db7-846f44e0fd8d
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COBS
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser23
+[04:29:50 INF] 建立新用戶: Username = ratelimituser18, Email = ratelimit18@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser18
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBN, Username: ratelimituser18
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (173.7543ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 0062deba-5639-4baa-ab85-f25ecf3a5e0c
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: cbc33ab4-8a0a-4177-bf63-3e964a22ee02
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COBT
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser24
+[04:29:50 INF] 建立新用戶: Username = ratelimituser21, Email = ratelimit21@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser21
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBQ, Username: ratelimituser21
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (124.9436ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: fa26868c-fd07-47f6-bfd1-456a92a95eff
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f9204c4d-97a2-4502-90e0-d3d9a7bd4155
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COBU
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser25
+[04:29:50 INF] 建立新用戶: Username = ratelimituser22, Email = ratelimit22@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser22
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBR, Username: ratelimituser22
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (127.6534ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 74ad3e12-f715-436d-9287-ed862735b3e5
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 340f9986-8b86-491a-bc48-20a0df0fe542
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COBV
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser26
+[04:29:50 INF] 建立新用戶: Username = ratelimituser23, Email = ratelimit23@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser23
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBS, Username: ratelimituser23
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (137.4718ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 416e8e78-cf4c-44ff-9db7-846f44e0fd8d
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 3c27727d-2b44-4b06-b808-bfcfdd513898
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC0
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser27
+[04:29:50 INF] 建立新用戶: Username = ratelimituser24, Email = ratelimit24@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser24
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBT, Username: ratelimituser24
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (147.1662ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: cbc33ab4-8a0a-4177-bf63-3e964a22ee02
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b56d6ef9-08b4-4967-8bb1-a5af12be7ea2
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC1
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser28
+[04:29:50 INF] 建立新用戶: Username = ratelimituser25, Email = ratelimit25@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser25
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBU, Username: ratelimituser25
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (138.74ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f9204c4d-97a2-4502-90e0-d3d9a7bd4155
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f67e0c75-6a43-449e-8183-66988efdd2cf
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC2
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser29
+[04:29:50 INF] 建立新用戶: Username = ratelimituser26, Email = ratelimit26@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser26
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COBV, Username: ratelimituser26
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (136.1103ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 340f9986-8b86-491a-bc48-20a0df0fe542
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: c02225bb-9a52-4bbf-88c9-fbabafe6376c
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC3
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser30
+[04:29:50 INF] 建立新用戶: Username = ratelimituser27, Email = ratelimit27@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser27
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC0, Username: ratelimituser27
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (144.7094ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 3c27727d-2b44-4b06-b808-bfcfdd513898
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: d21bb717-ce6b-4f49-a4ea-a6af638fdb2b
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC4
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser31
+[04:29:50 INF] 建立新用戶: Username = ratelimituser28, Email = ratelimit28@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 建立新用戶: Username = ratelimituser29, Email = ratelimit29@example.com
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser28
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC1, Username: ratelimituser28
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (140.0318ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b56d6ef9-08b4-4967-8bb1-a5af12be7ea2
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 9c9c4ae6-ad7f-49b3-988c-df34a56e4258
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser29
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC2, Username: ratelimituser29
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (129.6168ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f67e0c75-6a43-449e-8183-66988efdd2cf
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC5
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser32
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 668fbe8e-5996-42e7-b9bb-3ec563ff21c3
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC6
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser33
+[04:29:50 INF] 建立新用戶: Username = ratelimituser30, Email = ratelimit30@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser30
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC3, Username: ratelimituser30
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (128.8811ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: c02225bb-9a52-4bbf-88c9-fbabafe6376c
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: cb1c2451-1eaa-4e91-8090-679bca163a7d
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC7
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser34
+[04:29:50 INF] 建立新用戶: Username = ratelimituser31, Email = ratelimit31@example.com
+[04:29:50 INF] 建立新用戶: Username = ratelimituser33, Email = ratelimit33@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser33
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC6, Username: ratelimituser33
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (126.0023ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 668fbe8e-5996-42e7-b9bb-3ec563ff21c3
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 0882d3ee-8d8e-4704-b618-4ec1c7397782
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC8
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser35
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser31
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC4, Username: ratelimituser31
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (152.5787ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: d21bb717-ce6b-4f49-a4ea-a6af638fdb2b
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 9976286d-9012-43ac-a937-5841a5962692
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COC9
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser36
+[04:29:50 INF] 建立新用戶: Username = ratelimituser32, Email = ratelimit32@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser32
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC5, Username: ratelimituser32
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (157.6293ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 9c9c4ae6-ad7f-49b3-988c-df34a56e4258
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 80970084-a07c-4aa0-a794-a5a326146764
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCA
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser37
+[04:29:50 INF] 建立新用戶: Username = ratelimituser34, Email = ratelimit34@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser34
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC7, Username: ratelimituser34
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (124.9914ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: cb1c2451-1eaa-4e91-8090-679bca163a7d
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ce37c7e5-4eb8-4187-aabd-4bc6e14ae0cb
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCB
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser38
+[04:29:50 INF] 建立新用戶: Username = ratelimituser35, Email = ratelimit35@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser35
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC8, Username: ratelimituser35
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (128.9502ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 0882d3ee-8d8e-4704-b618-4ec1c7397782
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 1ab60280-4d79-4744-994b-a6eacf6e28e7
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCC
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser39
+[04:29:50 INF] 建立新用戶: Username = ratelimituser36, Email = ratelimit36@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser36
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COC9, Username: ratelimituser36
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (134.6206ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 9976286d-9012-43ac-a937-5841a5962692
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: bf985d00-9fec-47ff-bdfb-7954171daa45
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCD
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser40
+[04:29:50 INF] 建立新用戶: Username = ratelimituser37, Email = ratelimit37@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser37
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCA, Username: ratelimituser37
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (128.111ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 80970084-a07c-4aa0-a794-a5a326146764
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: c9c4f19e-dad4-407b-8286-2968cde8fb18
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCE
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser41
+[04:29:50 INF] 建立新用戶: Username = ratelimituser38, Email = ratelimit38@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser38
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCB, Username: ratelimituser38
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (127.1803ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: ce37c7e5-4eb8-4187-aabd-4bc6e14ae0cb
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: d49bef7e-bfc7-4f77-a73c-54367de880ff
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCF
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser42
+[04:29:50 INF] 建立新用戶: Username = ratelimituser39, Email = ratelimit39@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser39
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCC, Username: ratelimituser39
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (124.9626ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 1ab60280-4d79-4744-994b-a6eacf6e28e7
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 33415da3-e11f-4b17-8a11-aeeb14fd8693
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCG
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser43
+[04:29:50 INF] 建立新用戶: Username = ratelimituser40, Email = ratelimit40@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser40
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCD, Username: ratelimituser40
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (127.2338ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: bf985d00-9fec-47ff-bdfb-7954171daa45
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 2bff62d4-cacd-443f-a77a-b06d12a9b682
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCH
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser44
+[04:29:50 INF] 建立新用戶: Username = ratelimituser42, Email = ratelimit42@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser42
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCF, Username: ratelimituser42
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (125.5695ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: d49bef7e-bfc7-4f77-a73c-54367de880ff
+[04:29:50 INF] 建立新用戶: Username = ratelimituser41, Email = ratelimit41@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser41
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCE, Username: ratelimituser41
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (167.9801ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: c9c4f19e-dad4-407b-8286-2968cde8fb18
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 6afea088-37c5-4274-bc0b-ce85d75c8540
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCI
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser45
+[04:29:50 INF] 建立新用戶: Username = ratelimituser43, Email = ratelimit43@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser43
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCG, Username: ratelimituser43
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (125.3555ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 33415da3-e11f-4b17-8a11-aeeb14fd8693
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 5ec2a41f-5dc2-4429-833b-a2dacd2d7acc
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCJ
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser46
+[04:29:50 INF] 建立新用戶: Username = ratelimituser44, Email = ratelimit44@example.com
+[04:29:50 INF] 用戶建立成功: UserId = 1
+[04:29:50 INF] 用戶註冊成功: 1 ratelimituser44
+[04:29:50 INF] 註冊成功: 0HNF2ORE4COCH, Username: ratelimituser44
+[04:29:50 INF] 請求完成: POST /api/auth/register - 200 (125.9463ms)
+[04:29:50 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 2bff62d4-cacd-443f-a77a-b06d12a9b682
+[04:29:50 INF] Request started: POST /api/auth/register from unknown with CorrelationId: e9d7876c-aa85-4f8f-8de9-f50cfd778fa1
+[04:29:50 INF] 開始處理請求: POST /api/auth/register
+[04:29:50 INF] 收到註冊請求: 0HNF2ORE4COCK
+[04:29:50 INF] 開始處理用戶註冊請求: ratelimituser47
+[04:29:51 INF] 建立新用戶: Username = ratelimituser45, Email = ratelimit45@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser45
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCI, Username: ratelimituser45
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.1042ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 6afea088-37c5-4274-bc0b-ce85d75c8540
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f5760e8f-ca71-47f6-bb67-ee80cad9c8b6
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCL
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser48
+[04:29:51 INF] 建立新用戶: Username = ratelimituser46, Email = ratelimit46@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser46
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCJ, Username: ratelimituser46
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.2614ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 5ec2a41f-5dc2-4429-833b-a2dacd2d7acc
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 53998f8c-69b8-4cbd-adf4-13ba9142fba0
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCM
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser49
+[04:29:51 INF] 建立新用戶: Username = ratelimituser47, Email = ratelimit47@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser47
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCK, Username: ratelimituser47
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.5039ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: e9d7876c-aa85-4f8f-8de9-f50cfd778fa1
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 8c65a60c-050e-4b33-862c-ef6cfb694d16
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCN
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser50
+[04:29:51 INF] 建立新用戶: Username = ratelimituser48, Email = ratelimit48@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser48
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCL, Username: ratelimituser48
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.2009ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: f5760e8f-ca71-47f6-bb67-ee80cad9c8b6
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b5add41f-4b3e-4aa7-96c3-396ff455a38b
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCO
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser51
+[04:29:51 INF] 建立新用戶: Username = ratelimituser49, Email = ratelimit49@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser49
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCM, Username: ratelimituser49
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.364ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 53998f8c-69b8-4cbd-adf4-13ba9142fba0
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: fbe0927c-f1e8-4c11-9e26-2b5d97048e93
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCP
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser52
+[04:29:51 INF] 建立新用戶: Username = ratelimituser50, Email = ratelimit50@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser50
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCN, Username: ratelimituser50
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.9943ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 8c65a60c-050e-4b33-862c-ef6cfb694d16
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b11b215c-3a9d-4fe8-a4e8-9d450da213bc
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCQ
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser53
+[04:29:51 INF] 建立新用戶: Username = ratelimituser51, Email = ratelimit51@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser51
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCO, Username: ratelimituser51
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.5884ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b5add41f-4b3e-4aa7-96c3-396ff455a38b
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 0680267b-a9e2-4c16-b420-58052ba5a0bc
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCR
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser54
+[04:29:51 INF] 建立新用戶: Username = ratelimituser52, Email = ratelimit52@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser52
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCP, Username: ratelimituser52
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (126.9939ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: fbe0927c-f1e8-4c11-9e26-2b5d97048e93
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 1547eeb0-4f71-4cfc-bc69-f0f2fa60e4b1
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCS
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser55
+[04:29:51 INF] 建立新用戶: Username = ratelimituser53, Email = ratelimit53@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser53
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCQ, Username: ratelimituser53
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (127.412ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b11b215c-3a9d-4fe8-a4e8-9d450da213bc
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: a56d4aae-69a5-4ec7-a0b5-17053e03e2ae
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCT
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser56
+[04:29:51 INF] 建立新用戶: Username = ratelimituser54, Email = ratelimit54@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser54
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCR, Username: ratelimituser54
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (126.7439ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 0680267b-a9e2-4c16-b420-58052ba5a0bc
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 25283ac8-59d2-4475-9d9d-4838d8197e7f
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCU
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser57
+[04:29:51 INF] 建立新用戶: Username = ratelimituser55, Email = ratelimit55@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser55
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCS, Username: ratelimituser55
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (129.0049ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 1547eeb0-4f71-4cfc-bc69-f0f2fa60e4b1
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: ffd1780c-7345-47f8-996a-b7197f51cc88
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COCV
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser58
+[04:29:51 INF] 建立新用戶: Username = ratelimituser56, Email = ratelimit56@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser56
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCT, Username: ratelimituser56
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (128.0574ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: a56d4aae-69a5-4ec7-a0b5-17053e03e2ae
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 32b37e8d-b796-4987-b5b8-c0242585f4ff
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COD0
+[04:29:51 INF] 開始處理用戶註冊請求: ratelimituser59
+[04:29:51 INF] 建立新用戶: Username = ratelimituser57, Email = ratelimit57@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser57
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCU, Username: ratelimituser57
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (127.9305ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 25283ac8-59d2-4475-9d9d-4838d8197e7f
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f5f04881-696e-408f-a85d-15f9a91d9f52
+[04:29:51 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[04:29:51 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: f5f04881-696e-408f-a85d-15f9a91d9f52
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: c23fff68-a8d2-4e22-ba7b-6d5c79dd78a4
+[04:29:51 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[04:29:51 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: c23fff68-a8d2-4e22-ba7b-6d5c79dd78a4
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 0e10a0ec-ede4-4f4d-8fe3-82e3ce1d087b
+[04:29:51 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[04:29:51 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: 0e10a0ec-ede4-4f4d-8fe3-82e3ce1d087b
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 30aa18a1-4780-45ca-9c54-163bb618e1ec
+[04:29:51 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[04:29:51 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: 30aa18a1-4780-45ca-9c54-163bb618e1ec
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: f5a45785-bdf1-402f-a316-5b1082de97ee
+[04:29:51 WRN] Rate limit exceeded for IP: unknown on endpoint: /api/auth/register
+[04:29:51 INF] Request completed: POST /api/auth/register with status 429 and CorrelationId: f5a45785-bdf1-402f-a316-5b1082de97ee
+[04:29:51 INF] 建立新用戶: Username = ratelimituser58, Email = ratelimit58@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser58
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COCV, Username: ratelimituser58
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (124.6787ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: ffd1780c-7345-47f8-996a-b7197f51cc88
+[04:29:51 INF] 建立新用戶: Username = ratelimituser59, Email = ratelimit59@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 ratelimituser59
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COD0, Username: ratelimituser59
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.7705ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 32b37e8d-b796-4987-b5b8-c0242585f4ff
+[04:29:51 INF] GameCore API 啟動完成
+[04:29:51 WRN] Failed to determine the https port for redirect.
+[04:29:51 INF] Request started: POST /api/auth/login from unknown with CorrelationId: 38f2dea2-f91f-4e46-b80c-322b8bb53895
+[04:29:51 INF] 開始處理請求: POST /api/auth/login
+[04:29:51 INF] 收到登入請求: 0HNF2ORE4COD6
+[04:29:51 INF] 開始處理用戶登入請求: nonexistentuser
+[04:29:51 WRN] 登入失敗：用戶不存在: nonexistentuser
+[04:29:51 WRN] 登入失敗: 0HNF2ORE4COD6, Username: nonexistentuser, Message: 用戶名或密碼錯誤
+[04:29:51 INF] 請求完成: POST /api/auth/login - 401 (5.0568ms)
+[04:29:51 INF] Request completed: POST /api/auth/login with status 401 and CorrelationId: 38f2dea2-f91f-4e46-b80c-322b8bb53895
+[04:29:51 INF] GameCore API 啟動完成
+[04:29:51 WRN] Failed to determine the https port for redirect.
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: b78797a1-fd96-48b7-b55f-06eb24a2338e
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COD7
+[04:29:51 INF] 開始處理用戶註冊請求: existinguser
+[04:29:51 INF] 建立新用戶: Username = existinguser, Email = user1@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 existinguser
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COD7, Username: existinguser
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (134.4525ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: b78797a1-fd96-48b7-b55f-06eb24a2338e
+[04:29:51 INF] Request started: POST /api/auth/register from unknown with CorrelationId: 6b3b3af6-0840-44de-bfe3-e77a726d071c
+[04:29:51 INF] 開始處理請求: POST /api/auth/register
+[04:29:51 INF] 收到註冊請求: 0HNF2ORE4COD8
+[04:29:51 INF] 開始處理用戶註冊請求: existinguser
+[04:29:51 INF] 建立新用戶: Username = existinguser, Email = user2@example.com
+[04:29:51 INF] 用戶建立成功: UserId = 1
+[04:29:51 INF] 用戶註冊成功: 1 existinguser
+[04:29:51 INF] 註冊成功: 0HNF2ORE4COD8, Username: existinguser
+[04:29:51 INF] 請求完成: POST /api/auth/register - 200 (125.2294ms)
+[04:29:51 INF] Request completed: POST /api/auth/register with status 200 and CorrelationId: 6b3b3af6-0840-44de-bfe3-e77a726d071c
+[xUnit.net 00:00:04.37]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:04.37]       Expected: BadRequest
+[xUnit.net 00:00:04.37]       Actual:   OK
+[xUnit.net 00:00:04.37]       Stack Trace:
+[xUnit.net 00:00:04.37]         /workspace/tests/GameCore.Tests/Integration/AuthIntegrationTests.cs(110,0): at GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError()
+[xUnit.net 00:00:04.37]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.37]   Finished:    GameCore.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.8714299+00:00">
+        <Text>[xUnit.net 00:00:00.33]     GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: "verylonguser123456789") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.8884537+00:00">
+        <Text>[xUnit.net 00:00:00.35]     GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: "   ") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.8901731+00:00">
+        <Text>[xUnit.net 00:00:00.35]     GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: "") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.8937979+00:00">
+        <Text>[xUnit.net 00:00:00.35]     GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: null) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.8970574+00:00">
+        <Text>[xUnit.net 00:00:00.36]     GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: null) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.8980714+00:00">
+        <Text>[xUnit.net 00:00:00.36]     GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: "   ") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.8995533+00:00">
+        <Text>[xUnit.net 00:00:00.36]     GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: "") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.9211382+00:00">
+        <Text>[xUnit.net 00:00:00.38]     GameCore.Tests.HealthControllerTests.Get_ShouldReturnOkResult [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:47.9242402+00:00">
+        <Text>[xUnit.net 00:00:00.38]     GameCore.Tests.HealthControllerTests.GetDetailed_ShouldReturnOkResult [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:48.4593686+00:00">
+        <Text>[xUnit.net 00:00:00.92]     GameCore.Tests.AuthServiceTests.LoginAsync_WithInvalidCredentials_ShouldReturnFailure [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:49.1157026+00:00">
+        <Text>[xUnit.net 00:00:01.58]     GameCore.Tests.Integration.AuthIntegrationTests.GetProfile_WithValidToken_ShouldReturnUserProfile [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:49.3107051+00:00">
+        <Text>[xUnit.net 00:00:01.77]     GameCore.Tests.Integration.AuthIntegrationTests.Login_WithValidCredentials_ShouldReturnSuccess [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T04:29:51.9075669+00:00">
+        <Text>[xUnit.net 00:00:04.37]     GameCore.Tests.Integration.AuthIntegrationTests.Register_WithExistingUsername_ShouldReturnError [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+    <CollectorDataEntries>
+      <Collector agentName="cursor" uri="datacollector://microsoft/CoverletCodeCoverage/1.0" collectorDisplayName="XPlat code coverage">
+        <UriAttachments>
+          <UriAttachment>
+            <A href="cursor/coverage.cobertura.xml"></A>
+          </UriAttachment>
+        </UriAttachments>
+      </Collector>
+    </CollectorDataEntries>
+  </ResultSummary>
+</TestRun>

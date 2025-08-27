@@ -1,4 +1,5 @@
 using GameCore.Domain.Entities;
+using GameCore.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameCore.Infrastructure.Data;
@@ -12,6 +13,7 @@ public class GameCoreDbContext : DbContext
     // DbSet 屬性
     public DbSet<User> Users { get; set; }
     public DbSet<UserWallet> UserWallets { get; set; }
+    public DbSet<Game> Games { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,6 +45,18 @@ public class GameCoreDbContext : DbContext
                   .WithOne(e => e.Wallet)
                   .HasForeignKey<UserWallet>(e => e.UserId)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // 遊戲實體配置
+        modelBuilder.Entity<Game>(entity =>
+        {
+            entity.HasKey(e => e.GameId);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(1000);
+            entity.Property(e => e.Category).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
         });
     }
 

@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ad879e0f-e0a1-4866-82f8-1cb6464efb5e" name="@cursor 2025-08-24 06:48:18" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-08-24T06:48:18.9455554+00:00" queuing="2025-08-24T06:48:18.9455554+00:00" start="2025-08-24T06:48:18.3407797+00:00" finish="2025-08-24T06:48:18.9962802+00:00" />
+  <TestSettings name="default" id="5d8664de-f3b1-4841-84c0-0faea32a43bd">
+    <Deployment runDeploymentRoot="_cursor_2025-08-24_06_48_18" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c8674ce0-efb9-4669-9f67-fe3ac1ab2a43" testId="1d6b7c9d-c615-1273-4fd0-31bef0d75a3b" testName="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithInvalidData_ShouldFailValidation" computerName="cursor" duration="00:00:00.0012310" startTime="2025-08-24T06:48:18.9464442+00:00" endTime="2025-08-24T06:48:18.9464442+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8674ce0-efb9-4669-9f67-fe3ac1ab2a43" />
+    <UnitTestResult executionId="fb18e6f1-0b25-4d4f-80bf-02d6d2aa3b15" testId="16f99dd8-b488-58a9-21a5-33fefdc57255" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user_name&quot;)" computerName="cursor" duration="00:00:00.0000013" startTime="2025-08-24T06:48:18.9327542+00:00" endTime="2025-08-24T06:48:18.9327542+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb18e6f1-0b25-4d4f-80bf-02d6d2aa3b15" />
+    <UnitTestResult executionId="d2a80137-0077-4eb5-8c01-3bf48f5d5cf4" testId="76d59455-75f4-20fa-ef19-4f1835f23152" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;&quot;)" computerName="cursor" duration="00:00:00.0000217" startTime="2025-08-24T06:48:18.9459098+00:00" endTime="2025-08-24T06:48:18.9459098+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d2a80137-0077-4eb5-8c01-3bf48f5d5cf4" />
+    <UnitTestResult executionId="a488db58-2b73-4a09-a918-d1c010f7b9b8" testId="341b2a6e-6019-ebeb-56a5-bbce6e3af3f4" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name&quot;)" computerName="cursor" duration="00:00:00.0001926" startTime="2025-08-24T06:48:18.9326742+00:00" endTime="2025-08-24T06:48:18.9326743+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a488db58-2b73-4a09-a918-d1c010f7b9b8" />
+    <UnitTestResult executionId="9b2a0895-1841-472f-bb77-2007d7526ef4" testId="bf027054-a7d1-27fc-23af-869fb1036092" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user@name&quot;)" computerName="cursor" duration="00:00:00.0000072" startTime="2025-08-24T06:48:18.9324616+00:00" endTime="2025-08-24T06:48:18.9324617+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b2a0895-1841-472f-bb77-2007d7526ef4" />
+    <UnitTestResult executionId="707a85fa-c157-468e-b957-8b3d718c5061" testId="8be56c6c-bc64-85c6-8d13-9e8a08107a80" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user name&quot;)" computerName="cursor" duration="00:00:00.0001215" startTime="2025-08-24T06:48:18.8934661+00:00" endTime="2025-08-24T06:48:18.8934662+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="707a85fa-c157-468e-b957-8b3d718c5061" />
+    <UnitTestResult executionId="16b00a4e-4e4d-44e2-80e1-dba7f8d12b75" testId="b88a5084-38b5-a8aa-36a8-cbc5a37123cd" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;validuser123&quot;)" computerName="cursor" duration="00:00:00.0001379" startTime="2025-08-24T06:48:18.9419373+00:00" endTime="2025-08-24T06:48:18.9419374+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16b00a4e-4e4d-44e2-80e1-dba7f8d12b75" />
+    <UnitTestResult executionId="dd6aa7c2-98ed-4cee-800f-69e84d95b00a" testId="afa77271-6ab7-2201-966d-ddbb834151b7" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;ValidPass123!&quot;)" computerName="cursor" duration="00:00:00.0000048" startTime="2025-08-24T06:48:18.9463921+00:00" endTime="2025-08-24T06:48:18.9463921+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dd6aa7c2-98ed-4cee-800f-69e84d95b00a" />
+    <UnitTestResult executionId="25fc2d32-8daf-4c66-8eab-8b5eb56396a7" testId="d8251a4f-2024-2f56-cc31-a05415fded0d" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;abc&quot;)" computerName="cursor" duration="00:00:00.0000054" startTime="2025-08-24T06:48:18.9419777+00:00" endTime="2025-08-24T06:48:18.9419777+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25fc2d32-8daf-4c66-8eab-8b5eb56396a7" />
+    <UnitTestResult executionId="c2426e8a-9aeb-4076-b4e7-894ae7f40065" testId="cb01c3d4-616a-ff7e-4f1e-15942e468eae" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;short&quot;)" computerName="cursor" duration="00:00:00.0132256" startTime="2025-08-24T06:48:18.8907231+00:00" endTime="2025-08-24T06:48:18.8907372+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2426e8a-9aeb-4076-b4e7-894ae7f40065" />
+    <UnitTestResult executionId="4b12acbf-2ea3-406e-aa89-c09364fcd618" testId="b6be0c65-8acc-3c8d-928b-baa49b09360d" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;C0mpl3x!Pass&quot;)" computerName="cursor" duration="00:00:00.0000591" startTime="2025-08-24T06:48:18.9463460+00:00" endTime="2025-08-24T06:48:18.9463460+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b12acbf-2ea3-406e-aa89-c09364fcd618" />
+    <UnitTestResult executionId="30bcb11f-4af3-49c9-be92-33e75d190a3f" testId="a2fa2569-276a-920e-f4d4-a15231129cc9" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password!&quot;)" computerName="cursor" duration="00:00:00.0000040" startTime="2025-08-24T06:48:18.9420506+00:00" endTime="2025-08-24T06:48:18.9420507+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="30bcb11f-4af3-49c9-be92-33e75d190a3f" />
+    <UnitTestResult executionId="9c9f5df6-55d3-4cb8-b09c-430ad8463cf8" testId="3bb08c13-f2c6-79a6-8a0f-d704f631f4f3" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidUsername_ShouldPass" computerName="cursor" duration="00:00:00.0001056" startTime="2025-08-24T06:48:18.9464285+00:00" endTime="2025-08-24T06:48:18.9464286+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c9f5df6-55d3-4cb8-b09c-430ad8463cf8" />
+    <UnitTestResult executionId="f339aa1b-c4fa-4c45-a972-c9972d98767a" testId="906a965e-f9a1-6742-55d1-97693166996d" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username_&quot;)" computerName="cursor" duration="00:00:00.0001672" startTime="2025-08-24T06:48:18.8933893+00:00" endTime="2025-08-24T06:48:18.8933894+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f339aa1b-c4fa-4c45-a972-c9972d98767a" />
+    <UnitTestResult executionId="d201cb71-da12-468a-8d42-42358f0060e6" testId="fe2aea58-6092-be73-8363-549c28ecbc4c" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;PASSWORD123!&quot;)" computerName="cursor" duration="00:00:00.0001063" startTime="2025-08-24T06:48:18.9420097+00:00" endTime="2025-08-24T06:48:18.9420098+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d201cb71-da12-468a-8d42-42358f0060e6" />
+    <UnitTestResult executionId="f9635c85-73f8-41f4-837b-aa2123d8296b" testId="d3fa0e5b-5f42-a484-3712-20a38029346b" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: null)" computerName="cursor" duration="00:00:00.0002681" startTime="2025-08-24T06:48:18.9458396+00:00" endTime="2025-08-24T06:48:18.9458397+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f9635c85-73f8-41f4-837b-aa2123d8296b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentNullException : Value cannot be null. (Parameter 'instance')</Message>
+          <StackTrace>   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+   at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 34
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="695966e8-c74b-4b44-995a-96ef6f14f8f4" testId="b257d2c1-0495-4008-f0c6-2de3c97234f2" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;1234567&quot;)" computerName="cursor" duration="00:00:00.0002108" startTime="2025-08-24T06:48:18.8931255+00:00" endTime="2025-08-24T06:48:18.8931256+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="695966e8-c74b-4b44-995a-96ef6f14f8f4" />
+    <UnitTestResult executionId="79305207-083c-475d-b04d-546d029ed903" testId="ce7de259-8a99-2996-1815-5642eb925eee" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;a&quot;)" computerName="cursor" duration="00:00:00.0000081" startTime="2025-08-24T06:48:18.9459565+00:00" endTime="2025-08-24T06:48:18.9459565+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79305207-083c-475d-b04d-546d029ed903" />
+    <UnitTestResult executionId="30a6afae-758e-4de1-9a6b-80742fd09dab" testId="1611baeb-3a2f-16e9-f322-0d001ff2275a" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123_name&quot;)" computerName="cursor" duration="00:00:00.0000062" startTime="2025-08-24T06:48:18.9327198+00:00" endTime="2025-08-24T06:48:18.9327198+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="30a6afae-758e-4de1-9a6b-80742fd09dab" />
+    <UnitTestResult executionId="90c189cc-ef47-4bc2-aed5-632419cb1739" testId="ecef2e1d-6c65-22e3-9bed-bf27a82ff8a2" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123&quot;)" computerName="cursor" duration="00:00:00.0000043" startTime="2025-08-24T06:48:18.9327676+00:00" endTime="2025-08-24T06:48:18.9327677+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90c189cc-ef47-4bc2-aed5-632419cb1739" />
+    <UnitTestResult executionId="cb4f69d6-a4e0-449b-b97f-2cdea6b52ec3" testId="a07dbbd7-a0fc-8d85-1bfd-3bb5e71c2272" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user$name&quot;)" computerName="cursor" duration="00:00:00.0000065" startTime="2025-08-24T06:48:18.9326348+00:00" endTime="2025-08-24T06:48:18.9326349+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb4f69d6-a4e0-449b-b97f-2cdea6b52ec3" />
+    <UnitTestResult executionId="266fe787-3b98-48e2-a399-3b84281bbfcb" testId="e226f534-eb20-a82b-fcac-cf2630cedca4" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;-username&quot;)" computerName="cursor" duration="00:00:00.0000063" startTime="2025-08-24T06:48:18.8934260+00:00" endTime="2025-08-24T06:48:18.8934261+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="266fe787-3b98-48e2-a399-3b84281bbfcb" />
+    <UnitTestResult executionId="0e29cf7d-e7e5-4a01-8345-9e6b95b039bd" testId="b7316041-e04d-dfc4-993d-55f4d9d26b38" testName="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithValidData_ShouldPassValidation" computerName="cursor" duration="00:00:00.0010762" startTime="2025-08-24T06:48:18.9464126+00:00" endTime="2025-08-24T06:48:18.9464127+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e29cf7d-e7e5-4a01-8345-9e6b95b039bd" />
+    <UnitTestResult executionId="445bf5c7-50a5-46c5-8655-e4da85fda934" testId="af3a2316-e0a9-62cc-59af-b68f9fe2d1e7" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;   &quot;)" computerName="cursor" duration="00:00:00.0001608" startTime="2025-08-24T06:48:18.9458842+00:00" endTime="2025-08-24T06:48:18.9458842+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="445bf5c7-50a5-46c5-8655-e4da85fda934" />
+    <UnitTestResult executionId="157dd894-19b0-42df-99ae-de6114f0c5c0" testId="fb9c0096-05a0-38bf-a182-6f6a4f2c4095" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;validuser&quot;)" computerName="cursor" duration="00:00:00.0000047" startTime="2025-08-24T06:48:18.9327379+00:00" endTime="2025-08-24T06:48:18.9327379+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="157dd894-19b0-42df-99ae-de6114f0c5c0" />
+    <UnitTestResult executionId="29e99bbd-97c5-4c31-8378-e0b46a2f8d97" testId="a409adb9-df40-0bc3-ea0a-9e48ad0db4f8" testName="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithValidData_ShouldPassValidation" computerName="cursor" duration="00:00:00.0007521" startTime="2025-08-24T06:48:18.9459886+00:00" endTime="2025-08-24T06:48:18.9459886+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="29e99bbd-97c5-4c31-8378-e0b46a2f8d97" />
+    <UnitTestResult executionId="462ca852-ebab-404d-945a-9b60aca0edbb" testId="4069911f-b06f-dd13-e1ba-5ae6c3955415" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name_123&quot;)" computerName="cursor" duration="00:00:00.0001596" startTime="2025-08-24T06:48:18.9326887+00:00" endTime="2025-08-24T06:48:18.9326888+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="462ca852-ebab-404d-945a-9b60aca0edbb" />
+    <UnitTestResult executionId="174dd98e-f53c-43f0-b857-c280013a9dc0" testId="e85d8944-a904-0b9b-79c7-8c1974d558df" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;_username&quot;)" computerName="cursor" duration="00:00:00.0005496" startTime="2025-08-24T06:48:18.8933689+00:00" endTime="2025-08-24T06:48:18.8933690+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="174dd98e-f53c-43f0-b857-c280013a9dc0" />
+    <UnitTestResult executionId="792250e3-b7fa-4bad-a2d7-ef6d7b22190e" testId="07be573a-a557-30bf-aaae-fd9ead2faaa0" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;password123!&quot;)" computerName="cursor" duration="00:00:00.0000215" startTime="2025-08-24T06:48:18.9420331+00:00" endTime="2025-08-24T06:48:18.9420331+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="792250e3-b7fa-4bad-a2d7-ef6d7b22190e" />
+    <UnitTestResult executionId="abde9397-3f67-4dae-8317-1d949df39351" testId="61c8962a-f5e5-0ded-c8ee-6b4b2729d611" testName="GameCore.Tests.HealthControllerTests.Get_ShouldReturnOkResult" computerName="cursor" duration="00:00:00.0598462" startTime="2025-08-24T06:48:18.9464966+00:00" endTime="2025-08-24T06:48:18.9464967+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="abde9397-3f67-4dae-8317-1d949df39351" />
+    <UnitTestResult executionId="0d3c680c-2562-49f1-888c-d78074dbb0a6" testId="43cab480-0fbf-6fd0-7b50-75d6aec1fb49" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user.name&quot;)" computerName="cursor" duration="00:00:00.0001153" startTime="2025-08-24T06:48:18.8934869+00:00" endTime="2025-08-24T06:48:18.8934869+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0d3c680c-2562-49f1-888c-d78074dbb0a6" />
+    <UnitTestResult executionId="8a6ce3d3-1a6a-4704-b14c-6176e7cda2f0" testId="31147afe-7013-4c93-d06a-a25a0d87531f" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;verylonguser12345678&quot;)" computerName="cursor" duration="00:00:00.0001308" startTime="2025-08-24T06:48:18.9419626+00:00" endTime="2025-08-24T06:48:18.9419627+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8a6ce3d3-1a6a-4704-b14c-6176e7cda2f0" />
+    <UnitTestResult executionId="8b817aa9-1fe9-4e81-babb-50ab00bbbd9f" testId="f0e6e01d-21db-4b2a-ff5b-8f7e6a0d0f3b" testName="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithInvalidData_ShouldFailValidation" computerName="cursor" duration="00:00:00.0059054" startTime="2025-08-24T06:48:18.9454771+00:00" endTime="2025-08-24T06:48:18.9454772+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8b817aa9-1fe9-4e81-babb-50ab00bbbd9f" />
+    <UnitTestResult executionId="d1f57e25-4bfc-4b5d-986b-dea05a6d98ca" testId="eff3b31d-664e-4aef-a825-9901658fbfb9" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password123&quot;)" computerName="cursor" duration="00:00:00.0003394" startTime="2025-08-24T06:48:18.9419957+00:00" endTime="2025-08-24T06:48:18.9419958+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d1f57e25-4bfc-4b5d-986b-dea05a6d98ca" />
+    <UnitTestResult executionId="fb2df52a-b79e-4980-83f3-d244ab2d590b" testId="2c1c16e5-94a6-6ec0-2bfc-19d5384fdaf6" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;MyP@ssw0rd&quot;)" computerName="cursor" duration="00:00:00.0000976" startTime="2025-08-24T06:48:18.9463599+00:00" endTime="2025-08-24T06:48:18.9463600+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb2df52a-b79e-4980-83f3-d244ab2d590b" />
+    <UnitTestResult executionId="902801c1-be1e-41b0-b55d-89c12b5485fe" testId="6dca0a0c-9c07-f918-f84f-9027d2b905b2" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;ab&quot;)" computerName="cursor" duration="00:00:00.0001036" startTime="2025-08-24T06:48:18.9459434+00:00" endTime="2025-08-24T06:48:18.9459435+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="902801c1-be1e-41b0-b55d-89c12b5485fe" />
+    <UnitTestResult executionId="a5327412-3296-4b87-8a8d-469ae2306f2e" testId="d9a2033c-60a2-1ae5-7552-62b589386f4a" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;   &quot;)" computerName="cursor" duration="00:00:00.0001087" startTime="2025-08-24T06:48:18.9420677+00:00" endTime="2025-08-24T06:48:18.9420677+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5327412-3296-4b87-8a8d-469ae2306f2e" />
+    <UnitTestResult executionId="3f461389-9759-4b9d-8af5-43a972ba26b1" testId="0ad5c7f1-5d59-e47e-9278-1bc14b25e679" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithValidPassword_ShouldPass" computerName="cursor" duration="00:00:00.0000831" startTime="2025-08-24T06:48:18.9463260+00:00" endTime="2025-08-24T06:48:18.9463261+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3f461389-9759-4b9d-8af5-43a972ba26b1" />
+    <UnitTestResult executionId="b22e422f-2036-4ee0-ab2e-50d178e80180" testId="2f08ef87-e494-2c48-818c-fdf2ad28459d" testName="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;Strong@Password1&quot;)" computerName="cursor" duration="00:00:00.0000037" startTime="2025-08-24T06:48:18.9463729+00:00" endTime="2025-08-24T06:48:18.9463729+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b22e422f-2036-4ee0-ab2e-50d178e80180" />
+    <UnitTestResult executionId="2f00dd19-0977-4511-b07a-2f966c2930d8" testId="00a45e5f-b068-e3e8-757f-c334a21032cf" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;verylongusername123456789&quot;)" computerName="cursor" duration="00:00:00.0001897" startTime="2025-08-24T06:48:18.9459289+00:00" endTime="2025-08-24T06:48:18.9459290+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f00dd19-0977-4511-b07a-2f966c2930d8" />
+    <UnitTestResult executionId="659a0b3b-6860-4c09-a25b-c1d22dcdfa7e" testId="70f66a03-7e2c-20c1-bb39-7274b7ea3522" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: null)" computerName="cursor" duration="00:00:00.0004434" startTime="2025-08-24T06:48:18.9453571+00:00" endTime="2025-08-24T06:48:18.9453572+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="659a0b3b-6860-4c09-a25b-c1d22dcdfa7e">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentNullException : Value cannot be null. (Parameter 'instance')</Message>
+          <StackTrace>   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+   at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username) in /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs:line 117
+   at InvokeStub_ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bc4b5c35-d4c3-41b6-9221-f49d791d8799" testId="bd63f83e-7ecd-b67d-ba48-6d5b0560efbc" testName="GameCore.Tests.HealthControllerTests.GetDetailed_ShouldReturnOkResult" computerName="cursor" duration="00:00:00.0014171" startTime="2025-08-24T06:48:18.9467589+00:00" endTime="2025-08-24T06:48:18.9467589+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc4b5c35-d4c3-41b6-9221-f49d791d8799" />
+    <UnitTestResult executionId="c2108812-70f8-4a7b-9207-b3420edf0bd1" testId="64bc4b94-0742-b2f3-992b-36a3c16e5c83" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;&quot;)" computerName="cursor" duration="00:00:00.0000776" startTime="2025-08-24T06:48:18.9420814+00:00" endTime="2025-08-24T06:48:18.9420815+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2108812-70f8-4a7b-9207-b3420edf0bd1" />
+    <UnitTestResult executionId="69be7748-86b1-45da-86ed-c4e94052a8ee" testId="6b4f4ef3-cda3-02f5-b478-f29bdbd8704c" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user#name&quot;)" computerName="cursor" duration="00:00:00.0000302" startTime="2025-08-24T06:48:18.9326550+00:00" endTime="2025-08-24T06:48:18.9326551+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="69be7748-86b1-45da-86ed-c4e94052a8ee" />
+    <UnitTestResult executionId="6321a400-bea5-4e6c-809f-99b4338a9975" testId="8391b3c7-946f-c189-55c2-8d82e05f7c3b" testName="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username-&quot;)" computerName="cursor" duration="00:00:00.0000087" startTime="2025-08-24T06:48:18.8934042+00:00" endTime="2025-08-24T06:48:18.8934042+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6321a400-bea5-4e6c-809f-99b4338a9975" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="341b2a6e-6019-ebeb-56a5-bbce6e3af3f4">
+      <Execution id="a488db58-2b73-4a09-a918-d1c010f7b9b8" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithInvalidData_ShouldFailValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="f0e6e01d-21db-4b2a-ff5b-8f7e6a0d0f3b">
+      <Execution id="8b817aa9-1fe9-4e81-babb-50ab00bbbd9f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="LoginRequestDto_WithInvalidData_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;a&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="ce7de259-8a99-2996-1815-5642eb925eee">
+      <Execution id="79305207-083c-475d-b04d-546d029ed903" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidLength_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.HealthControllerTests.GetDetailed_ShouldReturnOkResult" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="bd63f83e-7ecd-b67d-ba48-6d5b0560efbc">
+      <Execution id="bc4b5c35-d4c3-41b6-9221-f49d791d8799" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.HealthControllerTests" name="GetDetailed_ShouldReturnOkResult" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user#name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6b4f4ef3-cda3-02f5-b478-f29bdbd8704c">
+      <Execution id="69be7748-86b1-45da-86ed-c4e94052a8ee" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;ab&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="6dca0a0c-9c07-f918-f84f-9027d2b905b2">
+      <Execution id="902801c1-be1e-41b0-b55d-89c12b5485fe" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidLength_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;Strong@Password1&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="2f08ef87-e494-2c48-818c-fdf2ad28459d">
+      <Execution id="b22e422f-2036-4ee0-ab2e-50d178e80180" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123_name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="1611baeb-3a2f-16e9-f322-0d001ff2275a">
+      <Execution id="30a6afae-758e-4de1-9a6b-80742fd09dab" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.HealthControllerTests.Get_ShouldReturnOkResult" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="61c8962a-f5e5-0ded-c8ee-6b4b2729d611">
+      <Execution id="abde9397-3f67-4dae-8317-1d949df39351" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.HealthControllerTests" name="Get_ShouldReturnOkResult" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidUsername_ShouldPass" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="3bb08c13-f2c6-79a6-8a0f-d704f631f4f3">
+      <Execution id="9c9f5df6-55d3-4cb8-b09c-430ad8463cf8" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidUsername_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;short&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="cb01c3d4-616a-ff7e-4f1e-15942e468eae">
+      <Execution id="c2426e8a-9aeb-4076-b4e7-894ae7f40065" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithTooShortPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="eff3b31d-664e-4aef-a825-9901658fbfb9">
+      <Execution id="d1f57e25-4bfc-4b5d-986b-dea05a6d98ca" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="8be56c6c-bc64-85c6-8d13-9e8a08107a80">
+      <Execution id="707a85fa-c157-468e-b957-8b3d718c5061" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;   &quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="d9a2033c-60a2-1ae5-7552-62b589386f4a">
+      <Execution id="a5327412-3296-4b87-8a8d-469ae2306f2e" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;password123!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="07be573a-a557-30bf-aaae-fd9ead2faaa0">
+      <Execution id="792250e3-b7fa-4bad-a2d7-ef6d7b22190e" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;validuser&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="fb9c0096-05a0-38bf-a182-6f6a4f2c4095">
+      <Execution id="157dd894-19b0-42df-99ae-de6114f0c5c0" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: null)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="70f66a03-7e2c-20c1-bb39-7274b7ea3522">
+      <Execution id="659a0b3b-6860-4c09-a25b-c1d22dcdfa7e" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;MyP@ssw0rd&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="2c1c16e5-94a6-6ec0-2bfc-19d5384fdaf6">
+      <Execution id="fb2df52a-b79e-4980-83f3-d244ab2d590b" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;   &quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="af3a2316-e0a9-62cc-59af-b68f9fe2d1e7">
+      <Execution id="445bf5c7-50a5-46c5-8655-e4da85fda934" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="ecef2e1d-6c65-22e3-9bed-bf27a82ff8a2">
+      <Execution id="90c189cc-ef47-4bc2-aed5-632419cb1739" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user@name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="bf027054-a7d1-27fc-23af-869fb1036092">
+      <Execution id="9b2a0895-1841-472f-bb77-2007d7526ef4" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username-&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="8391b3c7-946f-c189-55c2-8d82e05f7c3b">
+      <Execution id="6321a400-bea5-4e6c-809f-99b4338a9975" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithValidPassword_ShouldPass" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="0ad5c7f1-5d59-e47e-9278-1bc14b25e679">
+      <Execution id="3f461389-9759-4b9d-8af5-43a972ba26b1" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithValidPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithTooShortPassword_ShouldFail(password: &quot;1234567&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b257d2c1-0495-4008-f0c6-2de3c97234f2">
+      <Execution id="695966e8-c74b-4b44-995a-96ef6f14f8f4" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithTooShortPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithValidData_ShouldPassValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b7316041-e04d-dfc4-993d-55f4d9d26b38">
+      <Execution id="0e29cf7d-e7e5-4a01-8345-9e6b95b039bd" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="RegisterRequestDto_WithValidData_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: &quot;&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="76d59455-75f4-20fa-ef19-4f1835f23152">
+      <Execution id="d2a80137-0077-4eb5-8c01-3bf48f5d5cf4" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;C0mpl3x!Pass&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b6be0c65-8acc-3c8d-928b-baa49b09360d">
+      <Execution id="4b12acbf-2ea3-406e-aa89-c09364fcd618" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: null)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="d3fa0e5b-5f42-a484-3712-20a38029346b">
+      <Execution id="f9635c85-73f8-41f4-837b-aa2123d8296b" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;PASSWORD123!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="fe2aea58-6092-be73-8363-549c28ecbc4c">
+      <Execution id="d201cb71-da12-468a-8d42-42358f0060e6" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.LoginRequestDto_WithValidData_ShouldPassValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="a409adb9-df40-0bc3-ea0a-9e48ad0db4f8">
+      <Execution id="29e99bbd-97c5-4c31-8378-e0b46a2f8d97" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="LoginRequestDto_WithValidData_ShouldPassValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidLength_ShouldFail(username: &quot;verylongusername123456789&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="00a45e5f-b068-e3e8-757f-c334a21032cf">
+      <Execution id="2f00dd19-0977-4511-b07a-2f966c2930d8" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidLength_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;username_&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="906a965e-f9a1-6742-55d1-97693166996d">
+      <Execution id="f339aa1b-c4fa-4c45-a972-c9972d98767a" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user.name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="43cab480-0fbf-6fd0-7b50-75d6aec1fb49">
+      <Execution id="0d3c680c-2562-49f1-888c-d78074dbb0a6" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;abc&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="d8251a4f-2024-2f56-cc31-a05415fded0d">
+      <Execution id="25fc2d32-8daf-4c66-8eab-8b5eb56396a7" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidLength_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.RegisterRequestDto_WithInvalidData_ShouldFailValidation" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="1d6b7c9d-c615-1273-4fd0-31bef0d75a3b">
+      <Execution id="c8674ce0-efb9-4669-9f67-fe3ac1ab2a43" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="RegisterRequestDto_WithInvalidData_ShouldFailValidation" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;_username&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="e85d8944-a904-0b9b-79c7-8c1974d558df">
+      <Execution id="174dd98e-f53c-43f0-b857-c280013a9dc0" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithStrongPassword_ShouldPass(password: &quot;ValidPass123!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="afa77271-6ab7-2201-966d-ddbb834151b7">
+      <Execution id="dd6aa7c2-98ed-4cee-800f-69e84d95b00a" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithStrongPassword_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: &quot;&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="64bc4b94-0742-b2f3-992b-36a3c16e5c83">
+      <Execution id="c2108812-70f8-4a7b-9207-b3420edf0bd1" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithNullOrEmpty_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user-name_123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="4069911f-b06f-dd13-e1ba-5ae6c3955415">
+      <Execution id="462ca852-ebab-404d-945a-9b60aca0edbb" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail(username: &quot;-username&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="e226f534-eb20-a82b-fcac-cf2630cedca4">
+      <Execution id="266fe787-3b98-48e2-a399-3b84281bbfcb" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidStartOrEnd_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithInvalidCharacters_ShouldFail(username: &quot;user$name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="a07dbbd7-a0fc-8d85-1bfd-3bb5e71c2272">
+      <Execution id="cb4f69d6-a4e0-449b-b97f-2cdea6b52ec3" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithInvalidCharacters_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;verylonguser12345678&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="31147afe-7013-4c93-d06a-a25a0d87531f">
+      <Execution id="8a6ce3d3-1a6a-4704-b14c-6176e7cda2f0" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidLength_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidCharacters_ShouldPass(username: &quot;user_name&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="16f99dd8-b488-58a9-21a5-33fefdc57255">
+      <Execution id="fb18e6f1-0b25-4d4f-80bf-02d6d2aa3b15" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidCharacters_ShouldPass" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithWeakPassword_ShouldFail(password: &quot;Password!&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="a2fa2569-276a-920e-f4d4-a15231129cc9">
+      <Execution id="30bcb11f-4af3-49c9-be92-33e75d190a3f" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="PasswordValidationAttribute_WithWeakPassword_ShouldFail" />
+    </UnitTest>
+    <UnitTest name="GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithValidLength_ShouldPass(username: &quot;validuser123&quot;)" storage="/workspace/tests/gamecore.tests/bin/debug/net8.0/gamecore.tests.dll" id="b88a5084-38b5-a8aa-36a8-cbc5a37123cd">
+      <Execution id="16b00a4e-4e4d-44e2-80e1-dba7f8d12b75" />
+      <TestMethod codeBase="/workspace/tests/GameCore.Tests/bin/Debug/net8.0/GameCore.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GameCore.Tests.Validation.ValidationAttributeTests" name="UsernameValidationAttribute_WithValidLength_ShouldPass" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1d6b7c9d-c615-1273-4fd0-31bef0d75a3b" executionId="c8674ce0-efb9-4669-9f67-fe3ac1ab2a43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="16f99dd8-b488-58a9-21a5-33fefdc57255" executionId="fb18e6f1-0b25-4d4f-80bf-02d6d2aa3b15" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="76d59455-75f4-20fa-ef19-4f1835f23152" executionId="d2a80137-0077-4eb5-8c01-3bf48f5d5cf4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="341b2a6e-6019-ebeb-56a5-bbce6e3af3f4" executionId="a488db58-2b73-4a09-a918-d1c010f7b9b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf027054-a7d1-27fc-23af-869fb1036092" executionId="9b2a0895-1841-472f-bb77-2007d7526ef4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8be56c6c-bc64-85c6-8d13-9e8a08107a80" executionId="707a85fa-c157-468e-b957-8b3d718c5061" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b88a5084-38b5-a8aa-36a8-cbc5a37123cd" executionId="16b00a4e-4e4d-44e2-80e1-dba7f8d12b75" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afa77271-6ab7-2201-966d-ddbb834151b7" executionId="dd6aa7c2-98ed-4cee-800f-69e84d95b00a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8251a4f-2024-2f56-cc31-a05415fded0d" executionId="25fc2d32-8daf-4c66-8eab-8b5eb56396a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb01c3d4-616a-ff7e-4f1e-15942e468eae" executionId="c2426e8a-9aeb-4076-b4e7-894ae7f40065" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6be0c65-8acc-3c8d-928b-baa49b09360d" executionId="4b12acbf-2ea3-406e-aa89-c09364fcd618" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a2fa2569-276a-920e-f4d4-a15231129cc9" executionId="30bcb11f-4af3-49c9-be92-33e75d190a3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bb08c13-f2c6-79a6-8a0f-d704f631f4f3" executionId="9c9f5df6-55d3-4cb8-b09c-430ad8463cf8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="906a965e-f9a1-6742-55d1-97693166996d" executionId="f339aa1b-c4fa-4c45-a972-c9972d98767a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe2aea58-6092-be73-8363-549c28ecbc4c" executionId="d201cb71-da12-468a-8d42-42358f0060e6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3fa0e5b-5f42-a484-3712-20a38029346b" executionId="f9635c85-73f8-41f4-837b-aa2123d8296b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b257d2c1-0495-4008-f0c6-2de3c97234f2" executionId="695966e8-c74b-4b44-995a-96ef6f14f8f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce7de259-8a99-2996-1815-5642eb925eee" executionId="79305207-083c-475d-b04d-546d029ed903" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1611baeb-3a2f-16e9-f322-0d001ff2275a" executionId="30a6afae-758e-4de1-9a6b-80742fd09dab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecef2e1d-6c65-22e3-9bed-bf27a82ff8a2" executionId="90c189cc-ef47-4bc2-aed5-632419cb1739" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a07dbbd7-a0fc-8d85-1bfd-3bb5e71c2272" executionId="cb4f69d6-a4e0-449b-b97f-2cdea6b52ec3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e226f534-eb20-a82b-fcac-cf2630cedca4" executionId="266fe787-3b98-48e2-a399-3b84281bbfcb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7316041-e04d-dfc4-993d-55f4d9d26b38" executionId="0e29cf7d-e7e5-4a01-8345-9e6b95b039bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af3a2316-e0a9-62cc-59af-b68f9fe2d1e7" executionId="445bf5c7-50a5-46c5-8655-e4da85fda934" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb9c0096-05a0-38bf-a182-6f6a4f2c4095" executionId="157dd894-19b0-42df-99ae-de6114f0c5c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a409adb9-df40-0bc3-ea0a-9e48ad0db4f8" executionId="29e99bbd-97c5-4c31-8378-e0b46a2f8d97" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4069911f-b06f-dd13-e1ba-5ae6c3955415" executionId="462ca852-ebab-404d-945a-9b60aca0edbb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e85d8944-a904-0b9b-79c7-8c1974d558df" executionId="174dd98e-f53c-43f0-b857-c280013a9dc0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07be573a-a557-30bf-aaae-fd9ead2faaa0" executionId="792250e3-b7fa-4bad-a2d7-ef6d7b22190e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="61c8962a-f5e5-0ded-c8ee-6b4b2729d611" executionId="abde9397-3f67-4dae-8317-1d949df39351" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="43cab480-0fbf-6fd0-7b50-75d6aec1fb49" executionId="0d3c680c-2562-49f1-888c-d78074dbb0a6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="31147afe-7013-4c93-d06a-a25a0d87531f" executionId="8a6ce3d3-1a6a-4704-b14c-6176e7cda2f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0e6e01d-21db-4b2a-ff5b-8f7e6a0d0f3b" executionId="8b817aa9-1fe9-4e81-babb-50ab00bbbd9f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eff3b31d-664e-4aef-a825-9901658fbfb9" executionId="d1f57e25-4bfc-4b5d-986b-dea05a6d98ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c1c16e5-94a6-6ec0-2bfc-19d5384fdaf6" executionId="fb2df52a-b79e-4980-83f3-d244ab2d590b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6dca0a0c-9c07-f918-f84f-9027d2b905b2" executionId="902801c1-be1e-41b0-b55d-89c12b5485fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9a2033c-60a2-1ae5-7552-62b589386f4a" executionId="a5327412-3296-4b87-8a8d-469ae2306f2e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0ad5c7f1-5d59-e47e-9278-1bc14b25e679" executionId="3f461389-9759-4b9d-8af5-43a972ba26b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2f08ef87-e494-2c48-818c-fdf2ad28459d" executionId="b22e422f-2036-4ee0-ab2e-50d178e80180" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00a45e5f-b068-e3e8-757f-c334a21032cf" executionId="2f00dd19-0977-4511-b07a-2f966c2930d8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70f66a03-7e2c-20c1-bb39-7274b7ea3522" executionId="659a0b3b-6860-4c09-a25b-c1d22dcdfa7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd63f83e-7ecd-b67d-ba48-6d5b0560efbc" executionId="bc4b5c35-d4c3-41b6-9221-f49d791d8799" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64bc4b94-0742-b2f3-992b-36a3c16e5c83" executionId="c2108812-70f8-4a7b-9207-b3420edf0bd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6b4f4ef3-cda3-02f5-b478-f29bdbd8704c" executionId="69be7748-86b1-45da-86ed-c4e94052a8ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8391b3c7-946f-c189-55c2-8d82e05f7c3b" executionId="6321a400-bea5-4e6c-809f-99b4338a9975" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="45" executed="45" passed="43" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.5.4.1+b9eacec401 (64-bit .NET 8.0.19)
+[xUnit.net 00:00:00.07]   Discovering: GameCore.Tests
+[xUnit.net 00:00:00.11]   Discovered:  GameCore.Tests
+[xUnit.net 00:00:00.12]   Starting:    GameCore.Tests
+[xUnit.net 00:00:00.22]       System.ArgumentNullException : Value cannot be null. (Parameter 'instance')
+[xUnit.net 00:00:00.22]       Stack Trace:
+[xUnit.net 00:00:00.23]            at System.ArgumentNullException.Throw(String paramName)
+[xUnit.net 00:00:00.23]            at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+[xUnit.net 00:00:00.23]            at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+[xUnit.net 00:00:00.23]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(117,0): at GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(String username)
+[xUnit.net 00:00:00.23]            at InvokeStub_ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(Object, Span`1)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.23]       System.ArgumentNullException : Value cannot be null. (Parameter 'instance')
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.23]            at System.ArgumentNullException.Throw(String paramName)
+[xUnit.net 00:00:00.23]            at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+[xUnit.net 00:00:00.23]            at System.ComponentModel.DataAnnotations.ValidationContext..ctor(Object instance, IServiceProvider serviceProvider, IDictionary`2 items)
+[xUnit.net 00:00:00.23]         /workspace/tests/GameCore.Tests/Validation/ValidationAttributeTests.cs(34,0): at GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(String password)
+[xUnit.net 00:00:00.23]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.23]   Finished:    GameCore.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T06:48:18.9564862+00:00">
+        <Text>[xUnit.net 00:00:00.22]     GameCore.Tests.Validation.ValidationAttributeTests.UsernameValidationAttribute_WithNullOrEmpty_ShouldFail(username: null) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="cursor" outcome="Error" timestamp="2025-08-24T06:48:18.9581400+00:00">
+        <Text>[xUnit.net 00:00:00.23]     GameCore.Tests.Validation.ValidationAttributeTests.PasswordValidationAttribute_WithNullOrEmpty_ShouldFail(password: null) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
