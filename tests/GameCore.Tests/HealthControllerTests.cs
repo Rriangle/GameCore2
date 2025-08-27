@@ -1,4 +1,5 @@
 using GameCore.Api.Controllers;
+using GameCore.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -25,11 +26,11 @@ public class HealthControllerTests
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var response = Assert.IsType<dynamic>(okResult.Value);
+        var response = Assert.IsType<HealthResponse>(okResult.Value);
 
-        Assert.Equal("healthy", response.status);
-        Assert.NotNull(response.timestamp);
-        Assert.Equal("1.0.0", response.version);
+        Assert.Equal("healthy", response.Status);
+        Assert.NotEqual(default(DateTime), response.Timestamp);
+        Assert.Equal("1.0.0", response.Version);
     }
 
     [Fact]
@@ -40,12 +41,12 @@ public class HealthControllerTests
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        var response = Assert.IsType<dynamic>(okResult.Value);
+        var response = Assert.IsType<DetailedHealthResponse>(okResult.Value);
 
-        Assert.Equal("healthy", response.status);
-        Assert.NotNull(response.timestamp);
-        Assert.Equal("1.0.0", response.version);
-        Assert.NotNull(response.services);
-        Assert.NotNull(response.system);
+        Assert.Equal("healthy", response.Status);
+        Assert.NotEqual(default(DateTime), response.Timestamp);
+        Assert.Equal("1.0.0", response.Version);
+        Assert.NotNull(response.Services);
+        Assert.NotNull(response.System);
     }
 }

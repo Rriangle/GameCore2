@@ -52,6 +52,7 @@ builder.Services.AddCors(options =>
         builder.Services.AddScoped<IWalletService, WalletService>();
         builder.Services.AddScoped<IMarketService, MarketService>();
         builder.Services.AddScoped<IJwtService, JwtService>();
+        builder.Services.AddScoped<IValidationService, ValidationService>();
 
         // 註冊 Repository
         builder.Services.AddScoped<IUserRepository, GameCore.Infrastructure.Repositories.UserRepository>();
@@ -71,6 +72,7 @@ if (app.Environment.IsDevelopment())
         // 使用自定義中間件
         app.UseErrorHandling();
         app.UseRateLimiting();
+        app.UseMiddleware<ResponseWrapperMiddleware>();
 
 app.UseHttpsRedirection();
         app.UseCors("AllowAll");

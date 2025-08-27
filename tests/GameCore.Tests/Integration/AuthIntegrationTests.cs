@@ -107,7 +107,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<GameCore
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         Assert.NotNull(result);
         Assert.False(result.Success);
-        Assert.Equal("用戶名已存在", result.Message);
+        Assert.Equal("用戶名或郵箱已存在", result.Message);
     }
 
     [Fact]
@@ -127,7 +127,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<GameCore
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        Assert.Contains("密碼長度至少需要 8 個字元", content);
+        Assert.Contains("密碼長度至少 8 個字符", content);
     }
 
     [Fact]

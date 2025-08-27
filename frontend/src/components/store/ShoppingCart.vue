@@ -54,7 +54,7 @@
               >
                 <img :src="item.product.imageUrl" :alt="item.product.name" class="item-image" @error="handleImageError" />
                 <div class="item-details">
-                  <h4 class="item-name">{{ item.name }}</h4>
+                  <h4 class="item-name">{{ item.product.name }}</h4>
                   <p class="item-price">NT$ {{ formatPrice(item.price) }}</p>
                   <div class="quantity-controls">
                     <button
@@ -239,7 +239,7 @@ const checkout = async () => {
       isOpen.value = false
       
       // 跳轉到訂單詳情頁
-      router.push(`/orders/${response.data.orderId}`)
+      router.push(`/orders/${response.data?.orderId}`)
     } else
     {
       alert('結帳失敗: ' + response.message)
