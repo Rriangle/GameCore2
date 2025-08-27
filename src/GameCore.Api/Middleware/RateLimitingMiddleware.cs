@@ -1,149 +1,98 @@
-using System.Collections.Concurrent;
+using Microsoft.Extensions.Caching.Memory;
 using System.Net;
 
-namespace GameCore.Api.Middleware;
-
-/// <summary>
-/// Rate Limiting 中介軟體，防止暴力破解攻擊
-/// </summary>
-public class RateLimitingMiddleware
+namespace GameCore.Api.Middleware
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<RateLimitingMiddleware> _logger;
-    private readonly ConcurrentDictionary<string, RateLimitInfo> _rateLimitStore;
-    private readonly int _maxRequestsPerMinute;
-    private readonly int _maxRequestsPerHour;
-
-    public RateLimitingMiddleware(
-        RequestDelegate next, 
-        ILogger<RateLimitingMiddleware> logger,
-        int maxRequestsPerMinute = 60,
-        int maxRequestsPerHour = 1000)
+    public class RateLimitingMiddleware
     {
-        _next = next;
-        _logger = logger;
-        _rateLimitStore = new ConcurrentDictionary<string, RateLimitInfo>();
-        _maxRequestsPerMinute = maxRequestsPerMinute;
-        _maxRequestsPerHour = maxRequestsPerHour;
-    }
+        private readonly RequestDelegate _next;
+        private readonly IMemoryCache _cache;
+        private readonly ILogger<RateLimitingMiddleware> _logger;
 
-    public async Task InvokeAsync(HttpContext context)
-    {
-        var clientIp = GetClientIpAddress(context);
-        var endpoint = context.Request.Path.Value;
-
-        // 只對認證端點進行 Rate Limiting
-        if (IsAuthEndpoint(endpoint))
+        public RateLimitingMiddleware(
+            RequestDelegate next,
+            IMemoryCache cache,
+            ILogger<RateLimitingMiddleware> logger)
         {
-            if (!IsRateLimitAllowed(clientIp, endpoint))
+            _next = next;
+            _cache = cache;
+            _logger = logger;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            var clientId = GetClientId(context);
+            var endpoint = context.Request.Path.Value;
+
+            // 檢查速率限制
+            if (!await CheckRateLimitAsync(clientId, endpoint))
             {
-                _logger.LogWarning("Rate limit exceeded for IP: {ClientIp} on endpoint: {Endpoint}", clientIp, endpoint);
-                
+                _logger.LogWarning("速率限制觸發: {ClientId}, {Endpoint}", clientId, endpoint);
+
                 context.Response.StatusCode = (int)HttpStatusCode.TooManyRequests;
                 context.Response.ContentType = "application/json";
-                
+
                 var response = new
                 {
-                    success = false,
-                    message = "請求過於頻繁，請稍後再試",
-                    retryAfter = GetRetryAfterSeconds(clientIp, endpoint)
+                    error = "請求過於頻繁，請稍後再試",
+                    retryAfter = 60
                 };
 
                 await context.Response.WriteAsJsonAsync(response);
                 return;
             }
+
+            await _next(context);
         }
 
-        await _next(context);
-    }
-
-    private string GetClientIpAddress(HttpContext context)
-    {
-        // 檢查 X-Forwarded-For 標頭（用於代理伺服器）
-        var forwardedFor = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-        if (!string.IsNullOrEmpty(forwardedFor))
+        private string GetClientId(HttpContext context)
         {
-            return forwardedFor.Split(',')[0].Trim();
+            // 優先使用用戶 ID（如果已認證）
+            var userId = context.User?.FindFirst("sub")?.Value;
+            if (!string.IsNullOrEmpty(userId))
+                return $"user_{userId}";
+
+            // 否則使用 IP 地址
+            var ipAddress = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            return $"ip_{ipAddress}";
         }
 
-        // 檢查 X-Real-IP 標頭
-        var realIp = context.Request.Headers["X-Real-IP"].FirstOrDefault();
-        if (!string.IsNullOrEmpty(realIp))
+        private async Task<bool> CheckRateLimitAsync(string clientId, string? endpoint)
         {
-            return realIp;
-        }
+            var cacheKey = $"rate_limit_{clientId}_{endpoint}";
+            var limit = GetRateLimit(endpoint);
+            var window = TimeSpan.FromMinutes(1);
 
-        // 使用遠端 IP 地址
-        return context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-    }
-
-    private bool IsAuthEndpoint(string? endpoint)
-    {
-        return endpoint != null && (
-            endpoint.StartsWith("/api/auth/login", StringComparison.OrdinalIgnoreCase) ||
-            endpoint.StartsWith("/api/auth/register", StringComparison.OrdinalIgnoreCase)
-        );
-    }
-
-    private bool IsRateLimitAllowed(string clientIp, string endpoint)
-    {
-        var key = $"{clientIp}:{endpoint}";
-        var now = DateTime.UtcNow;
-
-        var rateLimitInfo = _rateLimitStore.GetOrAdd(key, _ => new RateLimitInfo());
-
-        // 清理過期的請求記錄
-        rateLimitInfo.CleanupExpiredRequests(now);
-
-        // 檢查分鐘限制
-        if (rateLimitInfo.RequestsPerMinute.Count >= _maxRequestsPerMinute)
-        {
-            return false;
-        }
-
-        // 檢查小時限制
-        if (rateLimitInfo.RequestsPerHour.Count >= _maxRequestsPerHour)
-        {
-            return false;
-        }
-
-        // 記錄新請求
-        rateLimitInfo.RequestsPerMinute.Add(now);
-        rateLimitInfo.RequestsPerHour.Add(now);
-
-        return true;
-    }
-
-    private int GetRetryAfterSeconds(string clientIp, string endpoint)
-    {
-        var key = $"{clientIp}:{endpoint}";
-        if (_rateLimitStore.TryGetValue(key, out var rateLimitInfo))
-        {
-            var oldestMinuteRequest = rateLimitInfo.RequestsPerMinute.FirstOrDefault();
-            if (oldestMinuteRequest != default)
+            var requestCount = await _cache.GetOrCreateAsync(cacheKey, entry =>
             {
-                var secondsUntilReset = 60 - (int)(DateTime.UtcNow - oldestMinuteRequest).TotalSeconds;
-                return Math.Max(1, secondsUntilReset);
-            }
+                entry.AbsoluteExpirationRelativeToNow = window;
+                return Task.FromResult(0);
+            });
+
+            if (requestCount >= limit)
+                return false;
+
+            _cache.Set(cacheKey, requestCount + 1, window);
+            return true;
         }
-        return 60; // 預設 1 分鐘
+
+        private int GetRateLimit(string? endpoint)
+        {
+            // 根據端點類型設定不同的速率限制
+            if (endpoint?.StartsWith("/api/auth/") == true)
+                return 10; // 認證端點：每分鐘 10 次
+            else if (endpoint?.StartsWith("/api/") == true)
+                return 100; // 一般 API：每分鐘 100 次
+            else
+                return 1000; // 其他端點：每分鐘 1000 次
+        }
     }
-}
 
-/// <summary>
-/// Rate Limit 資訊
-/// </summary>
-public class RateLimitInfo
-{
-    public List<DateTime> RequestsPerMinute { get; set; } = new();
-    public List<DateTime> RequestsPerHour { get; set; } = new();
-
-    public void CleanupExpiredRequests(DateTime now)
+    public static class RateLimitingMiddlewareExtensions
     {
-        // 清理超過 1 分鐘的請求
-        RequestsPerMinute.RemoveAll(time => (now - time).TotalMinutes >= 1);
-        
-        // 清理超過 1 小時的請求
-        RequestsPerHour.RemoveAll(time => (now - time).TotalHours >= 1);
+        public static IApplicationBuilder UseRateLimiting(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<RateLimitingMiddleware>();
+        }
     }
 }

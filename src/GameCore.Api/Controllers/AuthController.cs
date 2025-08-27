@@ -1,5 +1,6 @@
-using GameCore.Api.DTOs;
-using GameCore.Domain.Interfaces;
+using GameCore.Shared.DTOs;
+using GameCore.Shared.Interfaces;
+using GameCore.Api.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -44,7 +45,7 @@ public class AuthController : ControllerBase
                 .ToList();
 
             _logger.LogWarning("註冊請求驗證失敗: {CorrelationId}, Errors: {Errors}", correlationId, string.Join(", ", errors));
-            
+
             return BadRequest(ApiResponse<object>.ErrorResult("請求資料無效", errors));
         }
 
@@ -72,9 +73,9 @@ public class AuthController : ControllerBase
             return Ok(response);
         }
 
-        _logger.LogWarning("註冊失敗: {CorrelationId}, Username: {Username}, Message: {Message}", 
-            correlationId, request.Username, result.ErrorMessage);
-        return BadRequest(new AuthResponseDto { Success = false, Message = result.ErrorMessage });
+        _logger.LogWarning("註冊失敗: {CorrelationId}, Username: {Username}, Message: {Message}",
+            correlationId, request.Username, result.Message);
+        return BadRequest(new AuthResponseDto { Success = false, Message = result.Message });
     }
 
     /// <summary>
@@ -100,7 +101,7 @@ public class AuthController : ControllerBase
                 .ToList();
 
             _logger.LogWarning("登入請求驗證失敗: {CorrelationId}, Errors: {Errors}", correlationId, string.Join(", ", errors));
-            
+
             return BadRequest(ApiResponse<object>.ErrorResult("請求資料無效", errors));
         }
 
@@ -128,9 +129,9 @@ public class AuthController : ControllerBase
             return Ok(response);
         }
 
-        _logger.LogWarning("登入失敗: {CorrelationId}, Username: {Username}, Message: {Message}", 
-            correlationId, request.Username, result.ErrorMessage);
-        return Unauthorized(new AuthResponseDto { Success = false, Message = result.ErrorMessage });
+        _logger.LogWarning("登入失敗: {CorrelationId}, Username: {Username}, Message: {Message}",
+            correlationId, request.Username, result.Message);
+        return Unauthorized(new AuthResponseDto { Success = false, Message = result.Message });
     }
 
     /// <summary>
@@ -155,22 +156,15 @@ public class AuthController : ControllerBase
             return Unauthorized(ApiResponse<object>.ErrorResult("無效的認證資訊"));
         }
 
-        var profile = await _authService.GetUserProfileAsync(userId);
-        if (profile == null)
+        var result = await _authService.GetUserProfileAsync(userId);
+        if (!result.Success)
         {
-            _logger.LogWarning("用戶不存在: {CorrelationId}, UserId: {UserId}", correlationId, userId);
-            return NotFound(ApiResponse<object>.ErrorResult("用戶不存在"));
+            _logger.LogWarning("獲取用戶資料失敗: {CorrelationId}, UserId: {UserId}, Message: {Message}",
+                correlationId, userId, result.Message);
+            return NotFound(ApiResponse<object>.ErrorResult(result.Message));
         }
 
-        var profileDto = new UserProfileDto
-        {
-            UserId = profile.UserId,
-            Username = profile.Username,
-            Email = profile.Email,
-            Balance = profile.Balance,
-            CreatedAt = profile.CreatedAt,
-            LastLoginAt = profile.LastLoginAt
-        };
+        var profileDto = result.User!;
 
         _logger.LogInformation("成功獲取個人資料: {CorrelationId}, UserId: {UserId}", correlationId, userId);
         return Ok(ApiResponse<UserProfileDto>.SuccessResult(profileDto));

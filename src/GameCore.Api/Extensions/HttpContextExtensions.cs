@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace GameCore.Api.Extensions;
 
 /// <summary>
@@ -10,8 +12,8 @@ public static class HttpContextExtensions
     /// </summary>
     /// <param name="context">HttpContext</param>
     /// <returns>CorrelationId</returns>
-    public static string? GetCorrelationId(this HttpContext context)
+    public static string GetCorrelationId(this HttpContext context)
     {
-        return context.Items["CorrelationId"]?.ToString();
+        return context.TraceIdentifier ?? Guid.NewGuid().ToString();
     }
 }

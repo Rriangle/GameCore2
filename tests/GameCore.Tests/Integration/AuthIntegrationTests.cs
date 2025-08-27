@@ -1,4 +1,4 @@
-using GameCore.Api.DTOs;
+using GameCore.Shared.DTOs;
 using GameCore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -6,18 +6,19 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Xunit;
 
 namespace GameCore.Tests.Integration;
 
 /// <summary>
 /// 認證功能整合測試
 /// </summary>
-public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
+public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<GameCore.Api.Program>>
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly WebApplicationFactory<GameCore.Api.Program> _factory;
     private readonly HttpClient _client;
 
-    public AuthIntegrationTests(WebApplicationFactory<Program> factory)
+    public AuthIntegrationTests(WebApplicationFactory<GameCore.Api.Program> factory)
     {
         _factory = factory.WithWebHostBuilder(builder =>
         {
@@ -50,8 +51,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         {
             Username = "testuser",
             Email = "test@example.com",
-            Password = "Password123!",
-            ConfirmPassword = "Password123!"
+            Password = "Password123!"
         };
 
         // Act
@@ -82,16 +82,14 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         {
             Username = "existinguser",
             Email = "user1@example.com",
-            Password = "Password123!",
-            ConfirmPassword = "Password123!"
+            Password = "Password123!"
         };
 
         var request2 = new RegisterRequestDto
         {
             Username = "existinguser",
             Email = "user2@example.com",
-            Password = "Password123!",
-            ConfirmPassword = "Password123!"
+            Password = "Password123!"
         };
 
         // Act - 第一次註冊
@@ -120,8 +118,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         {
             Username = "testuser",
             Email = "test@example.com",
-            Password = "weak",
-            ConfirmPassword = "weak"
+            Password = "weak"
         };
 
         // Act
@@ -141,8 +138,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         {
             Username = "loginuser",
             Email = "login@example.com",
-            Password = "Password123!",
-            ConfirmPassword = "Password123!"
+            Password = "Password123!"
         };
 
         var loginRequest = new LoginRequestDto
@@ -205,15 +201,14 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         {
             Username = "profileuser",
             Email = "profile@example.com",
-            Password = "Password123!",
-            ConfirmPassword = "Password123!"
+            Password = "Password123!"
         };
 
         // 註冊並登入
         var registerResponse = await _client.PostAsJsonAsync("/api/auth/register", registerRequest);
         var registerResult = await registerResponse.Content.ReadFromJsonAsync<AuthResponseDto>();
 
-        _client.DefaultRequestHeaders.Authorization = 
+        _client.DefaultRequestHeaders.Authorization =
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", registerResult!.Token);
 
         // Act
@@ -251,8 +246,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
         {
             Username = "ratelimituser",
             Email = "ratelimit@example.com",
-            Password = "Password123!",
-            ConfirmPassword = "Password123!"
+            Password = "Password123!"
         };
 
         // Act - 發送多個請求
@@ -263,8 +257,7 @@ public class AuthIntegrationTests : IClassFixture<WebApplicationFactory<Program>
             {
                 Username = $"ratelimituser{i}",
                 Email = $"ratelimit{i}@example.com",
-                Password = "Password123!",
-                ConfirmPassword = "Password123!"
+                Password = "Password123!"
             };
             tasks.Add(_client.PostAsJsonAsync("/api/auth/register", modifiedRequest));
         }

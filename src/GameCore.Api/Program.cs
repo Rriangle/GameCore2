@@ -1,138 +1,100 @@
 using GameCore.Api.Middleware;
-using GameCore.Api.Services;
 using GameCore.Domain.Interfaces;
-using GameCore.Infrastructure.Data;
-using GameCore.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using GameCore.Api.Services;
+using GameCore.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using GameCore.Infrastructure.Data;
 using Serilog;
-using System.Text;
 
+namespace GameCore.Api;
+
+public partial class Program
+{
+    public static void Main(string[] args)
+    {
 var builder = WebApplication.CreateBuilder(args);
 
-// 設定 Serilog
+        // 配置 Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
     .WriteTo.Console()
-    .WriteTo.File("logs/gamecore-api-.txt", rollingInterval: RollingInterval.Day)
+            .WriteTo.File("logs/gamecore-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 builder.Host.UseSerilog();
 
-// 加入服務到容器
+        // 添加服務到容器
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "GameCore API", Version = "v1" });
+        builder.Services.AddSwaggerGen();
     
-    // 加入 JWT 認證支援
-    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-        Name = "Authorization",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-
-    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-    {
-        {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-            {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
-                {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
-});
-
-// 資料庫連線
+        // 配置資料庫
 builder.Services.AddDbContext<GameCoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// JWT 認證配置
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!)),
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero
-        };
-    });
+        // 配置記憶體快取
+        builder.Services.AddMemoryCache();
 
-builder.Services.AddAuthorization();
-
-// 註冊服務
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<JwtService>();
-
-// CORS 設定
+        // 配置 CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+            options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "https://localhost:3000")
-              .AllowAnyHeader()
+                policy.AllowAnyOrigin()
               .AllowAnyMethod()
-              .AllowCredentials();
+                      .AllowAnyHeader();
     });
 });
 
-// 健康檢查
-builder.Services.AddHealthChecks()
-    .AddDbContextCheck<GameCoreDbContext>();
+        // 註冊服務
+        builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddScoped<IWalletService, WalletService>();
+        builder.Services.AddScoped<IMarketService, MarketService>();
+        builder.Services.AddScoped<IJwtService, JwtService>();
+
+        // 註冊 Repository
+        builder.Services.AddScoped<IUserRepository, GameCore.Infrastructure.Repositories.UserRepository>();
+        builder.Services.AddScoped<IUserWalletRepository, GameCore.Infrastructure.Repositories.UserWalletRepository>();
+        builder.Services.AddScoped<IMarketRepository, GameCore.Infrastructure.Repositories.MarketRepository>();
+        builder.Services.AddScoped<IProductRepository, GameCore.Infrastructure.Repositories.ProductRepository>();
 
 var app = builder.Build();
 
-// 設定 HTTP 請求管道
+        // 配置 HTTP 請求管道
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "GameCore API v1");
-        c.RoutePrefix = "api-docs";
-    });
-}
+            app.UseSwaggerUI();
+        }
+
+        // 使用自定義中間件
+        app.UseErrorHandling();
+        app.UseRateLimiting();
 
 app.UseHttpsRedirection();
-app.UseCors("AllowFrontend");
-
-// 自定義中介軟體
-app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseMiddleware<RateLimitingMiddleware>();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseMiddleware<RequestLoggingMiddleware>();
+        app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHealthChecks("/health");
 
-// 確保資料庫已建立
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<GameCoreDbContext>();
-    context.Database.EnsureCreated();
-}
+        // 健康檢查端點
+        app.MapGet("/health", () => Results.Ok(new { Status = "Healthy", Timestamp = DateTime.UtcNow }));
 
-Log.Information("GameCore API 啟動完成");
+        try
+        {
+            Log.Information("啟動 GameCore API...");
 app.Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "應用程式啟動失敗");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
+}

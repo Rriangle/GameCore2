@@ -1,8 +1,9 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios from 'axios';
+import type { AxiosInstance, AxiosResponse } from 'axios';
 import type { ApiResponse } from '@/types/auth';
 
 class ApiService {
-    private api: AxiosInstance;
+    public api: AxiosInstance;
 
     constructor() {
         this.api = axios.create({
@@ -65,3 +66,4 @@ class ApiService {
 }
 
 export const apiService = new ApiService();
+export const apiClient = apiService.api;

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GameCore.Domain.Enums;
 
 namespace GameCore.Domain.Entities;
 
@@ -34,6 +35,14 @@ public class User
     public bool IsActive { get; set; } = true;
 
     public bool IsEmailVerified { get; set; } = false;
+
+    public decimal Balance { get; set; } = 0;
+
+    public UserRole Role { get; set; } = UserRole.User;
+
+    public string? RefreshToken { get; set; }
+
+    public DateTime? RefreshTokenExpiry { get; set; }
 
     // 導航屬性
     public virtual UserWallet? Wallet { get; set; }

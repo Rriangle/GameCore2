@@ -41,4 +41,30 @@ public class UserWalletRepository : IUserWalletRepository
             .FirstOrDefaultAsync(w => w.UserId == userId);
         return wallet?.Balance ?? 0m;
     }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AddTransactionAsync(WalletTransaction transaction)
+    {
+        await Task.Run(() => _context.WalletTransactions.Add(transaction));
+    }
+
+    public async Task<List<WalletTransaction>> GetTransactionsByUserIdAsync(int userId, int page = 1, int pageSize = 20)
+    {
+        return await _context.WalletTransactions
+            .Where(t => t.UserId == userId)
+            .OrderByDescending(t => t.CreatedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetTransactionCountByUserIdAsync(int userId)
+    {
+        return await _context.WalletTransactions
+            .CountAsync(t => t.UserId == userId);
+    }
 }

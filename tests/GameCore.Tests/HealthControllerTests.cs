@@ -1,4 +1,5 @@
 using GameCore.Api.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
@@ -25,22 +26,22 @@ public class HealthControllerTests
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         var response = Assert.IsType<dynamic>(okResult.Value);
-        
+
         Assert.Equal("healthy", response.status);
         Assert.NotNull(response.timestamp);
         Assert.Equal("1.0.0", response.version);
     }
 
     [Fact]
-    public async Task GetDetailed_ShouldReturnOkResult()
+    public void GetDetailed_ShouldReturnOkResult()
     {
         // Act
-        var result = await _controller.GetDetailed();
+        var result = _controller.GetDetailed();
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         var response = Assert.IsType<dynamic>(okResult.Value);
-        
+
         Assert.Equal("healthy", response.status);
         Assert.NotNull(response.timestamp);
         Assert.Equal("1.0.0", response.version);

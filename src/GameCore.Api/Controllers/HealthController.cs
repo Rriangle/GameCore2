@@ -17,7 +17,7 @@ public class HealthController : ControllerBase
     public IActionResult Get()
     {
         _logger.LogInformation("健康檢查請求");
-        
+
         return Ok(new
         {
             status = "healthy",
@@ -28,7 +28,7 @@ public class HealthController : ControllerBase
     }
 
     [HttpGet("detailed")]
-    public async Task<IActionResult> GetDetailed()
+    public IActionResult GetDetailed()
     {
         var healthStatus = new
         {

@@ -1,12 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using GameCore.Domain.Entities;
+using GameCore.Shared.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GameCore.Api.Services;
 
-public class JwtService
+public class JwtService : IJwtService
 {
     private readonly IConfiguration _configuration;
 
@@ -15,8 +17,12 @@ public class JwtService
         _configuration = configuration;
     }
 
-    public string GenerateToken(int userId, string username, string email)
+    public string GenerateToken(object userObj)
     {
+        var user = (User)userObj;
+        var userId = user.UserId;
+        var username = user.Username;
+        var email = user.Email;
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]!));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -39,7 +45,18 @@ public class JwtService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public ClaimsPrincipal? ValidateToken(string token)
+    public string GenerateRefreshToken()
+    {
+        return Guid.NewGuid().ToString();
+    }
+
+    public bool ValidateToken(string token)
+    {
+        var principal = ValidateTokenInternal(token);
+        return principal != null;
+    }
+
+    private ClaimsPrincipal? ValidateTokenInternal(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]!);

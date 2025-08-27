@@ -12,6 +12,10 @@ public class GameCoreDbContext : DbContext
     // DbSet 屬性
     public DbSet<User> Users { get; set; }
     public DbSet<UserWallet> UserWallets { get; set; }
+    public DbSet<WalletTransaction> WalletTransactions { get; set; }
+    public DbSet<MarketItem> MarketItems { get; set; }
+    public DbSet<MarketTransaction> MarketTransactions { get; set; }
+    public DbSet<Product> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,6 +47,35 @@ public class GameCoreDbContext : DbContext
                   .WithOne(e => e.Wallet)
                   .HasForeignKey<UserWallet>(e => e.UserId)
                   .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // 錢包交易實體配置
+        modelBuilder.Entity<WalletTransaction>(entity =>
+        {
+            entity.HasKey(e => e.TransactionId);
+            entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+            entity.Property(e => e.Description).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Type).IsRequired();
+            entity.Property(e => e.Status).IsRequired();
+
+            // 外鍵關係
+            entity.HasOne(e => e.User)
+                  .WithMany()
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // 商品實體配置
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.HasKey(e => e.ProductId);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
+            entity.Property(e => e.ImageUrl).HasMaxLength(200);
+            entity.Property(e => e.Category).IsRequired();
+            entity.Property(e => e.IsActive).IsRequired().HasDefaultValue(true);
+            entity.Property(e => e.CreatedAt).IsRequired();
         });
     }
 

@@ -16,7 +16,7 @@ public class JwtServiceTests
     public JwtServiceTests()
     {
         _configurationMock = new Mock<IConfiguration>();
-        
+
         // 設定 JWT 配置
         _configurationMock.Setup(x => x["Jwt:SecretKey"]).Returns("your-super-secret-key-with-at-least-32-characters");
         _configurationMock.Setup(x => x["Jwt:Issuer"]).Returns("GameCore");
@@ -30,12 +30,10 @@ public class JwtServiceTests
     public void GenerateToken_WithValidData_ShouldReturnValidToken()
     {
         // Arrange
-        var userId = 1;
-        var username = "testuser";
-        var email = "test@example.com";
+        var user = TestDataFactory.CreateTestUser(1);
 
         // Act
-        var token = _jwtService.GenerateToken(userId, username, email);
+        var token = _jwtService.GenerateToken(user);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
@@ -47,12 +45,12 @@ public class JwtServiceTests
     public void GenerateToken_WithDifferentUsers_ShouldGenerateDifferentTokens()
     {
         // Arrange
-        var user1 = (1, "user1", "user1@example.com");
-        var user2 = (2, "user2", "user2@example.com");
+        var user1 = TestDataFactory.CreateTestUser(1);
+        var user2 = TestDataFactory.CreateTestUser(2);
 
         // Act
-        var token1 = _jwtService.GenerateToken(user1.Item1, user1.Item2, user1.Item3);
-        var token2 = _jwtService.GenerateToken(user2.Item1, user2.Item2, user2.Item3);
+        var token1 = _jwtService.GenerateToken(user1);
+        var token2 = _jwtService.GenerateToken(user2);
 
         // Assert
         token1.Should().NotBe(token2);
@@ -62,132 +60,132 @@ public class JwtServiceTests
     public void GenerateToken_WithSameUser_ShouldGenerateDifferentTokens()
     {
         // Arrange
-        var userId = 1;
-        var username = "testuser";
-        var email = "test@example.com";
+        var user = TestDataFactory.CreateTestUser(1);
 
         // Act
-        var token1 = _jwtService.GenerateToken(userId, username, email);
-        var token2 = _jwtService.GenerateToken(userId, username, email);
+        var token1 = _jwtService.GenerateToken(user);
+        var token2 = _jwtService.GenerateToken(user);
 
         // Assert
         token1.Should().NotBe(token2); // 因為包含時間戳，每次都會不同
     }
 
     [Fact]
-    public void ValidateToken_WithValidToken_ShouldReturnValidPrincipal()
+    public void ValidateToken_WithValidToken_ShouldReturnTrue()
     {
         // Arrange
-        var userId = 1;
-        var username = "testuser";
-        var email = "test@example.com";
-        var token = _jwtService.GenerateToken(userId, username, email);
+        var user = TestDataFactory.CreateTestUser(1);
+        var token = _jwtService.GenerateToken(user);
 
         // Act
-        var principal = _jwtService.ValidateToken(token);
+        var isValid = _jwtService.ValidateToken(token);
 
         // Assert
-        principal.Should().NotBeNull();
-        principal!.Identity!.Name.Should().Be(username);
-        principal.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value.Should().Be(userId.ToString());
-        principal.FindFirst(System.Security.Claims.ClaimTypes.Email)!.Value.Should().Be(email);
+        isValid.Should().BeTrue();
     }
 
     [Fact]
-    public void ValidateToken_WithInvalidToken_ShouldReturnNull()
+    public void ValidateToken_WithInvalidToken_ShouldReturnFalse()
     {
         // Arrange
         var invalidToken = "invalid.token.here";
 
         // Act
-        var principal = _jwtService.ValidateToken(invalidToken);
+        var isValid = _jwtService.ValidateToken(invalidToken);
 
         // Assert
-        principal.Should().BeNull();
+        isValid.Should().BeFalse();
     }
 
     [Fact]
-    public void ValidateToken_WithEmptyToken_ShouldReturnNull()
+    public void ValidateToken_WithEmptyToken_ShouldReturnFalse()
     {
         // Arrange
         var emptyToken = "";
 
         // Act
-        var principal = _jwtService.ValidateToken(emptyToken);
+        var isValid = _jwtService.ValidateToken(emptyToken);
 
         // Assert
-        principal.Should().BeNull();
+        isValid.Should().BeFalse();
     }
 
     [Fact]
-    public void ValidateToken_WithNullToken_ShouldReturnNull()
+    public void ValidateToken_WithNullToken_ShouldReturnFalse()
     {
         // Arrange
         string? nullToken = null;
 
         // Act
-        var principal = _jwtService.ValidateToken(nullToken);
+        var isValid = _jwtService.ValidateToken(nullToken!);
 
         // Assert
-        principal.Should().BeNull();
+        isValid.Should().BeFalse();
     }
 
     [Fact]
     public void GenerateToken_WithBoundaryValues_ShouldHandleCorrectly()
     {
         // Arrange
-        var maxUserId = int.MaxValue;
-        var maxUsername = new string('a', 50);
-        var maxEmail = new string('a', 90) + "@test.com";
+        var user = new GameCore.Domain.Entities.User
+        {
+            UserId = int.MaxValue,
+            Username = new string('a', 50),
+            Email = new string('a', 90) + "@test.com",
+            PasswordHash = "hash",
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true,
+            IsEmailVerified = true
+        };
 
         // Act
-        var token = _jwtService.GenerateToken(maxUserId, maxUsername, maxEmail);
+        var token = _jwtService.GenerateToken(user);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
-        var principal = _jwtService.ValidateToken(token);
-        principal.Should().NotBeNull();
-        principal!.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value.Should().Be(maxUserId.ToString());
-        principal.FindFirst(System.Security.Claims.ClaimTypes.Name)!.Value.Should().Be(maxUsername);
-        principal.FindFirst(System.Security.Claims.ClaimTypes.Email)!.Value.Should().Be(maxEmail);
+        var isValid = _jwtService.ValidateToken(token);
+        isValid.Should().BeTrue();
     }
 
     [Fact]
     public void GenerateToken_WithSpecialCharacters_ShouldHandleCorrectly()
     {
         // Arrange
-        var userId = 1;
-        var username = "user@123!";
-        var email = "user+tag@example.com";
+        var user = new GameCore.Domain.Entities.User
+        {
+            UserId = 1,
+            Username = "user@123!",
+            Email = "user+tag@example.com",
+            PasswordHash = "hash",
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true,
+            IsEmailVerified = true
+        };
 
         // Act
-        var token = _jwtService.GenerateToken(userId, username, email);
+        var token = _jwtService.GenerateToken(user);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
-        var principal = _jwtService.ValidateToken(token);
-        principal.Should().NotBeNull();
-        principal!.FindFirst(System.Security.Claims.ClaimTypes.Name)!.Value.Should().Be(username);
-        principal.FindFirst(System.Security.Claims.ClaimTypes.Email)!.Value.Should().Be(email);
+        var isValid = _jwtService.ValidateToken(token);
+        isValid.Should().BeTrue();
     }
 
     [Fact]
     public void Token_ShouldContainRequiredClaims()
     {
         // Arrange
-        var userId = 1;
-        var username = "testuser";
-        var email = "test@example.com";
+        var user = TestDataFactory.CreateTestUser(1);
 
         // Act
-        var token = _jwtService.GenerateToken(userId, username, email);
+        var token = _jwtService.GenerateToken(user);
         var handler = new JwtSecurityTokenHandler();
         var jsonToken = handler.ReadJwtToken(token);
 
         // Assert
-        jsonToken.Claims.Should().Contain(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier && c.Value == userId.ToString());
-        jsonToken.Claims.Should().Contain(c => c.Type == System.Security.Claims.ClaimTypes.Name && c.Value == username);
-        jsonToken.Claims.Should().Contain(c => c.Type == System.Security.Claims.ClaimTypes.Email && c.Value == email);
+        jsonToken.Claims.Should().Contain(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier && c.Value == user.UserId.ToString());
+        jsonToken.Claims.Should().Contain(c => c.Type == System.Security.Claims.ClaimTypes.Name && c.Value == user.Username);
+        jsonToken.Claims.Should().Contain(c => c.Type == System.Security.Claims.ClaimTypes.Email && c.Value == user.Email);
         jsonToken.Claims.Should().Contain(c => c.Type == JwtRegisteredClaimNames.Jti);
     }
 
@@ -195,12 +193,10 @@ public class JwtServiceTests
     public void Token_ShouldHaveCorrectExpiration()
     {
         // Arrange
-        var userId = 1;
-        var username = "testuser";
-        var email = "test@example.com";
+        var user = TestDataFactory.CreateTestUser(1);
 
         // Act
-        var token = _jwtService.GenerateToken(userId, username, email);
+        var token = _jwtService.GenerateToken(user);
         var handler = new JwtSecurityTokenHandler();
         var jsonToken = handler.ReadJwtToken(token);
 
@@ -214,12 +210,19 @@ public class JwtServiceTests
     public void Token_ShouldHaveCorrectIssuerAndAudience()
     {
         // Arrange
-        var userId = 1;
-        var username = "testuser";
-        var email = "test@example.com";
+        var user = new GameCore.Domain.Entities.User
+        {
+            UserId = 1,
+            Username = "testuser",
+            Email = "test@example.com",
+            PasswordHash = "hash",
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true,
+            IsEmailVerified = true
+        };
 
         // Act
-        var token = _jwtService.GenerateToken(userId, username, email);
+        var token = _jwtService.GenerateToken(user);
         var handler = new JwtSecurityTokenHandler();
         var jsonToken = handler.ReadJwtToken(token);
 

@@ -18,10 +18,10 @@ public class CorrelationIdMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var correlationId = GetOrCreateCorrelationId(context);
-        
+
         // 設定 CorrelationId 到 HttpContext 項目中
         context.Items["CorrelationId"] = correlationId;
-        
+
         // 設定 CorrelationId 到回應標頭中
         context.Response.Headers[CorrelationIdHeader] = correlationId;
 

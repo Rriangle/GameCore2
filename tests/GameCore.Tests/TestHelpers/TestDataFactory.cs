@@ -1,5 +1,5 @@
 using AutoFixture;
-using GameCore.Api.DTOs;
+using GameCore.Shared.DTOs;
 using GameCore.Domain.Entities;
 
 namespace GameCore.Tests.TestHelpers;
@@ -28,8 +28,7 @@ public static class TestDataFactory
         {
             Username = _fixture.Create<string>().Substring(0, Math.Min(10, _fixture.Create<string>().Length)),
             Email = _fixture.Create<System.Net.Mail.MailAddress>().Address,
-            Password = "ValidPass123!",
-            ConfirmPassword = "ValidPass123!"
+            Password = "ValidPass123!"
         };
     }
 
@@ -42,8 +41,7 @@ public static class TestDataFactory
         {
             Username = "a", // 太短
             Email = "invalid-email",
-            Password = "weak",
-            ConfirmPassword = "different"
+            Password = "weak"
         };
     }
 
@@ -130,8 +128,7 @@ public static class TestDataFactory
             Success = true,
             Token = _fixture.Create<string>(),
             Message = "操作成功",
-            User = CreateTestUserProfile(),
-            Timestamp = DateTime.UtcNow
+            User = CreateTestUserProfile()
         };
     }
 
@@ -143,8 +140,7 @@ public static class TestDataFactory
         return new AuthResponseDto
         {
             Success = false,
-            Message = message,
-            Timestamp = DateTime.UtcNow
+            Message = message
         };
     }
 
