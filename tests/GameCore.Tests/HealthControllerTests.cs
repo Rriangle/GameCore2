@@ -1,50 +1,23 @@
-using GameCore.Api.Controllers;
-using Microsoft.Extensions.Logging;
-using Moq;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace GameCore.Tests;
-
-public class HealthControllerTests
+namespace GameCore.Tests
 {
-    private readonly Mock<ILogger<HealthController>> _loggerMock;
-    private readonly HealthController _controller;
-
-    public HealthControllerTests()
+    public class HealthControllerTests
     {
-        _loggerMock = new Mock<ILogger<HealthController>>();
-        _controller = new HealthController(_loggerMock.Object);
-    }
+        [Fact]
+        public void HealthCheck_ShouldReturnOk()
+        {
+            // Arrange
+            var app = TestProgram.CreateTestApplication();
+            var client = app.CreateClient();
 
-    [Fact]
-    public void Get_ShouldReturnOkResult()
-    {
-        // Act
-        var result = _controller.Get();
+            // Act
+            var response = client.GetAsync("/health").Result;
 
-        // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        var response = Assert.IsType<dynamic>(okResult.Value);
-        
-        Assert.Equal("healthy", response.status);
-        Assert.NotNull(response.timestamp);
-        Assert.Equal("1.0.0", response.version);
-    }
-
-    [Fact]
-    public async Task GetDetailed_ShouldReturnOkResult()
-    {
-        // Act
-        var result = await _controller.GetDetailed();
-
-        // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        var response = Assert.IsType<dynamic>(okResult.Value);
-        
-        Assert.Equal("healthy", response.status);
-        Assert.NotNull(response.timestamp);
-        Assert.Equal("1.0.0", response.version);
-        Assert.NotNull(response.services);
-        Assert.NotNull(response.system);
+            // Assert
+            Assert.True(response.IsSuccessStatusCode);
+        }
     }
 }

@@ -1,55 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
-namespace GameCore.Api.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class HealthController : ControllerBase
+namespace GameCore.Api.Controllers
 {
-    private readonly ILogger<HealthController> _logger;
-
-    public HealthController(ILogger<HealthController> logger)
+    [ApiController]
+    [Route("[controller]")]
+    public class HealthController : ControllerBase
     {
-        _logger = logger;
-    }
+        private readonly ILogger<HealthController> _logger;
 
-    [HttpGet]
-    public IActionResult Get()
-    {
-        _logger.LogInformation("健康檢查請求");
-        
-        return Ok(new
+        public HealthController(ILogger<HealthController> logger)
         {
-            status = "healthy",
-            timestamp = DateTime.UtcNow,
-            version = "1.0.0",
-            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development"
-        });
-    }
+            _logger = logger;
+        }
 
-    [HttpGet("detailed")]
-    public async Task<IActionResult> GetDetailed()
-    {
-        var healthStatus = new
+        [HttpGet]
+        public IActionResult Get()
         {
-            status = "healthy",
-            timestamp = DateTime.UtcNow,
-            version = "1.0.0",
-            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development",
-            services = new
+            _logger.LogInformation("Health check requested");
+            
+            return Ok(new
             {
-                database = "connected",
-                cache = "available",
-                external_apis = "reachable"
-            },
-            system = new
-            {
-                memory_usage = GC.GetTotalMemory(false),
-                uptime = Environment.TickCount64,
-                processor_count = Environment.ProcessorCount
-            }
-        };
-
-        return Ok(healthStatus);
+                status = "healthy",
+                timestamp = DateTime.UtcNow,
+                version = "1.0.0"
+            });
+        }
     }
 }

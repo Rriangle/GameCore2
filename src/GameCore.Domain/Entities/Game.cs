@@ -4,40 +4,43 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶錢包表
+    /// 遊戲表
     /// </summary>
-    [Table("user_wallet")]
-    public class UserWallet
+    [Table("games")]
+    public class Game
     {
         /// <summary>
-        /// 錢包ID（主鍵，自動遞增）
+        /// 遊戲ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int wallet_id { get; set; }
+        public int game_id { get; set; }
 
         /// <summary>
-        /// 用戶ID（外鍵參考 users.user_id）
+        /// 遊戲名稱
         /// </summary>
         [Required]
-        public int user_id { get; set; }
+        [StringLength(100)]
+        public string name { get; set; } = string.Empty;
 
         /// <summary>
-        /// 帳戶餘額
+        /// 遊戲描述
+        /// </summary>
+        [StringLength(500)]
+        public string? description { get; set; }
+
+        /// <summary>
+        /// 遊戲類型
+        /// </summary>
+        [StringLength(50)]
+        public string? category { get; set; }
+
+        /// <summary>
+        /// 遊戲狀態（active/inactive/maintenance）
         /// </summary>
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal balance { get; set; } = 0.00m;
-
-        /// <summary>
-        /// 積分餘額
-        /// </summary>
-        public int points_balance { get; set; } = 0;
-
-        /// <summary>
-        /// 最後交易時間
-        /// </summary>
-        public DateTime? last_transaction_at { get; set; }
+        [StringLength(20)]
+        public string status { get; set; } = "active";
 
         /// <summary>
         /// 建立時間
@@ -51,9 +54,8 @@ namespace GameCore.Domain.Entities
 
         // 導航屬性
         /// <summary>
-        /// 用戶
+        /// 排行榜快照
         /// </summary>
-        [ForeignKey("user_id")]
-        public virtual User User { get; set; } = null!;
+        public virtual ICollection<LeaderboardSnapshot> LeaderboardSnapshots { get; set; } = new List<LeaderboardSnapshot>();
     }
 }

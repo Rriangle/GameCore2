@@ -4,53 +4,44 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶表
+    /// 指標來源表
     /// </summary>
-    [Table("users")]
-    public class User
+    [Table("metric_sources")]
+    public class MetricSource
     {
         /// <summary>
-        /// 用戶ID（主鍵，自動遞增）
+        /// 來源ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int user_id { get; set; }
+        public int source_id { get; set; }
 
         /// <summary>
-        /// 用戶名
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string username { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 電子郵件
+        /// 來源名稱
         /// </summary>
         [Required]
         [StringLength(100)]
-        [EmailAddress]
-        public string email { get; set; } = string.Empty;
+        public string source_name { get; set; } = string.Empty;
 
         /// <summary>
-        /// 密碼雜湊
+        /// 來源描述
+        /// </summary>
+        [StringLength(500)]
+        public string? description { get; set; }
+
+        /// <summary>
+        /// 來源類型（api/database/file等）
         /// </summary>
         [Required]
-        [StringLength(255)]
-        public string password_hash { get; set; } = string.Empty;
+        [StringLength(50)]
+        public string source_type { get; set; } = string.Empty;
 
         /// <summary>
-        /// 用戶狀態（active/inactive/banned）
+        /// 來源狀態（active/inactive）
         /// </summary>
         [Required]
         [StringLength(20)]
         public string status { get; set; } = "active";
-
-        /// <summary>
-        /// 用戶角色（user/moderator/admin）
-        /// </summary>
-        [Required]
-        [StringLength(20)]
-        public string role { get; set; } = "user";
 
         /// <summary>
         /// 建立時間
@@ -64,8 +55,8 @@ namespace GameCore.Domain.Entities
 
         // 導航屬性
         /// <summary>
-        /// 貼文
+        /// 遊戲來源對應
         /// </summary>
-        public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+        public virtual ICollection<GameSourceMap> GameSourceMaps { get; set; } = new List<GameSourceMap>();
     }
 }

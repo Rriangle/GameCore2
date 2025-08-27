@@ -4,53 +4,49 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶表
+    /// 論壇表
     /// </summary>
-    [Table("users")]
-    public class User
+    [Table("forums")]
+    public class Forum
     {
         /// <summary>
-        /// 用戶ID（主鍵，自動遞增）
+        /// 論壇ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int user_id { get; set; }
+        public int forum_id { get; set; }
 
         /// <summary>
-        /// 用戶名
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string username { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 電子郵件
+        /// 論壇名稱
         /// </summary>
         [Required]
         [StringLength(100)]
-        [EmailAddress]
-        public string email { get; set; } = string.Empty;
+        public string name { get; set; } = string.Empty;
 
         /// <summary>
-        /// 密碼雜湊
+        /// 論壇描述
+        /// </summary>
+        [StringLength(500)]
+        public string? description { get; set; }
+
+        /// <summary>
+        /// 論壇類型（general/game-specific）
         /// </summary>
         [Required]
-        [StringLength(255)]
-        public string password_hash { get; set; } = string.Empty;
+        [StringLength(50)]
+        public string type { get; set; } = "general";
 
         /// <summary>
-        /// 用戶狀態（active/inactive/banned）
+        /// 遊戲ID（外鍵參考 games.game_id，遊戲專用論壇）
+        /// </summary>
+        public int? game_id { get; set; }
+
+        /// <summary>
+        /// 論壇狀態（active/inactive/archived）
         /// </summary>
         [Required]
         [StringLength(20)]
         public string status { get; set; } = "active";
-
-        /// <summary>
-        /// 用戶角色（user/moderator/admin）
-        /// </summary>
-        [Required]
-        [StringLength(20)]
-        public string role { get; set; } = "user";
 
         /// <summary>
         /// 建立時間
@@ -63,6 +59,12 @@ namespace GameCore.Domain.Entities
         public DateTime? updated_at { get; set; }
 
         // 導航屬性
+        /// <summary>
+        /// 遊戲（遊戲專用論壇）
+        /// </summary>
+        [ForeignKey("game_id")]
+        public virtual Game? Game { get; set; }
+
         /// <summary>
         /// 貼文
         /// </summary>

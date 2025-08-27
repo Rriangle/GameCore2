@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶錢包表
+    /// 用戶介紹表
     /// </summary>
-    [Table("user_wallet")]
-    public class UserWallet
+    [Table("user_introduce")]
+    public class UserIntroduce
     {
         /// <summary>
-        /// 錢包ID（主鍵，自動遞增）
+        /// 介紹ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int wallet_id { get; set; }
+        public int introduce_id { get; set; }
 
         /// <summary>
         /// 用戶ID（外鍵參考 users.user_id）
@@ -23,21 +23,39 @@ namespace GameCore.Domain.Entities
         public int user_id { get; set; }
 
         /// <summary>
-        /// 帳戶餘額
+        /// 用戶暱稱
         /// </summary>
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal balance { get; set; } = 0.00m;
+        [StringLength(100)]
+        public string? nickname { get; set; }
 
         /// <summary>
-        /// 積分餘額
+        /// 用戶頭像URL
         /// </summary>
-        public int points_balance { get; set; } = 0;
+        [StringLength(500)]
+        public string? avatar_url { get; set; }
 
         /// <summary>
-        /// 最後交易時間
+        /// 用戶簡介
         /// </summary>
-        public DateTime? last_transaction_at { get; set; }
+        [StringLength(1000)]
+        public string? bio { get; set; }
+
+        /// <summary>
+        /// 用戶生日
+        /// </summary>
+        public DateTime? birth_date { get; set; }
+
+        /// <summary>
+        /// 用戶性別（male/female/other）
+        /// </summary>
+        [StringLength(20)]
+        public string? gender { get; set; }
+
+        /// <summary>
+        /// 用戶所在地
+        /// </summary>
+        [StringLength(200)]
+        public string? location { get; set; }
 
         /// <summary>
         /// 建立時間

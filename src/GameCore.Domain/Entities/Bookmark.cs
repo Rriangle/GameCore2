@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶錢包表
+    /// 收藏表
     /// </summary>
-    [Table("user_wallet")]
-    public class UserWallet
+    [Table("bookmarks")]
+    public class Bookmark
     {
         /// <summary>
-        /// 錢包ID（主鍵，自動遞增）
+        /// 收藏ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int wallet_id { get; set; }
+        public long bookmark_id { get; set; }
 
         /// <summary>
         /// 用戶ID（外鍵參考 users.user_id）
@@ -23,31 +23,28 @@ namespace GameCore.Domain.Entities
         public int user_id { get; set; }
 
         /// <summary>
-        /// 帳戶餘額
+        /// 收藏類型（post/thread/product）
         /// </summary>
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal balance { get; set; } = 0.00m;
+        [StringLength(20)]
+        public string bookmark_type { get; set; } = string.Empty;
 
         /// <summary>
-        /// 積分餘額
+        /// 收藏項目ID
         /// </summary>
-        public int points_balance { get; set; } = 0;
+        [Required]
+        public long item_id { get; set; }
 
         /// <summary>
-        /// 最後交易時間
+        /// 收藏備註
         /// </summary>
-        public DateTime? last_transaction_at { get; set; }
+        [StringLength(500)]
+        public string? notes { get; set; }
 
         /// <summary>
         /// 建立時間
         /// </summary>
         public DateTime created_at { get; set; } = DateTime.UtcNow;
-
-        /// <summary>
-        /// 更新時間
-        /// </summary>
-        public DateTime? updated_at { get; set; }
 
         // 導航屬性
         /// <summary>

@@ -4,17 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GameCore.Domain.Entities
 {
     /// <summary>
-    /// 用戶錢包表
+    /// 群組成員表
     /// </summary>
-    [Table("user_wallet")]
-    public class UserWallet
+    [Table("group_members")]
+    public class GroupMember
     {
         /// <summary>
-        /// 錢包ID（主鍵，自動遞增）
+        /// 成員記錄ID（主鍵，自動遞增）
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int wallet_id { get; set; }
+        public long member_record_id { get; set; }
+
+        /// <summary>
+        /// 群組ID（外鍵參考 groups.group_id）
+        /// </summary>
+        [Required]
+        public int group_id { get; set; }
 
         /// <summary>
         /// 用戶ID（外鍵參考 users.user_id）
@@ -23,21 +29,23 @@ namespace GameCore.Domain.Entities
         public int user_id { get; set; }
 
         /// <summary>
-        /// 帳戶餘額
+        /// 成員角色（member/moderator/admin）
         /// </summary>
         [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal balance { get; set; } = 0.00m;
+        [StringLength(20)]
+        public string member_role { get; set; } = "member";
 
         /// <summary>
-        /// 積分餘額
+        /// 成員狀態（active/inactive/banned）
         /// </summary>
-        public int points_balance { get; set; } = 0;
+        [Required]
+        [StringLength(20)]
+        public string member_status { get; set; } = "active";
 
         /// <summary>
-        /// 最後交易時間
+        /// 加入時間
         /// </summary>
-        public DateTime? last_transaction_at { get; set; }
+        public DateTime joined_at { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// 建立時間
@@ -50,6 +58,12 @@ namespace GameCore.Domain.Entities
         public DateTime? updated_at { get; set; }
 
         // 導航屬性
+        /// <summary>
+        /// 群組
+        /// </summary>
+        [ForeignKey("group_id")]
+        public virtual Group Group { get; set; } = null!;
+
         /// <summary>
         /// 用戶
         /// </summary>
