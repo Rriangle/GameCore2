@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using GameCore.Api.Models;
 
 namespace GameCore.Api.Controllers;
 
@@ -18,38 +19,40 @@ public class HealthController : ControllerBase
     {
         _logger.LogInformation("健康檢查請求");
 
-        return Ok(new
+        var response = new HealthResponse
         {
-            status = "healthy",
-            timestamp = DateTime.UtcNow,
-            version = "1.0.0",
-            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development"
-        });
+            Status = "healthy",
+            Timestamp = DateTime.UtcNow,
+            Version = "1.0.0",
+            Environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development"
+        };
+
+        return Ok(response);
     }
 
     [HttpGet("detailed")]
     public IActionResult GetDetailed()
     {
-        var healthStatus = new
+        var response = new DetailedHealthResponse
         {
-            status = "healthy",
-            timestamp = DateTime.UtcNow,
-            version = "1.0.0",
-            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development",
-            services = new
+            Status = "healthy",
+            Timestamp = DateTime.UtcNow,
+            Version = "1.0.0",
+            Environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development",
+            Services = new HealthServices
             {
-                database = "connected",
-                cache = "available",
-                external_apis = "reachable"
+                Database = "connected",
+                Cache = "available",
+                ExternalApis = "reachable"
             },
-            system = new
+            System = new SystemInfo
             {
-                memory_usage = GC.GetTotalMemory(false),
-                uptime = Environment.TickCount64,
-                processor_count = Environment.ProcessorCount
+                MemoryUsage = GC.GetTotalMemory(false),
+                Uptime = Environment.TickCount64,
+                ProcessorCount = Environment.ProcessorCount
             }
         };
 
-        return Ok(healthStatus);
+        return Ok(response);
     }
 }

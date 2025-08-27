@@ -12,17 +12,23 @@ namespace GameCore.Api.Services
         private readonly IMarketRepository _marketRepository;
         private readonly IUserWalletRepository _walletRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IValidationService _validationService;
         private readonly ILogger<MarketService> _logger;
 
         public MarketService(
             IMarketRepository marketRepository,
             IUserWalletRepository walletRepository,
             IProductRepository productRepository,
+            IUserRepository userRepository,
+            IValidationService validationService,
             ILogger<MarketService> logger)
         {
             _marketRepository = marketRepository ?? throw new ArgumentNullException(nameof(marketRepository));
             _walletRepository = walletRepository ?? throw new ArgumentNullException(nameof(walletRepository));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _validationService = validationService ?? throw new ArgumentNullException(nameof(validationService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -32,23 +38,26 @@ namespace GameCore.Api.Services
             try
             {
                 // 輸入驗證
-                if (request.Quantity <= 0 || request.Quantity > 999)
+                var quantityValidation = _validationService.ValidateQuantity(request.Quantity);
+                if (!quantityValidation.IsValid)
                 {
-                    return MarketResult.Failure("商品數量必須在 1-999 之間");
+                    return MarketResult.Failure(quantityValidation.ErrorMessage);
                 }
 
-                if (request.Price <= 0 || request.Price > 999999.99m)
+                var priceValidation = _validationService.ValidatePrice(request.Price);
+                if (!priceValidation.IsValid)
                 {
-                    return MarketResult.Failure("商品價格必須在 0.01-999,999.99 之間");
+                    return MarketResult.Failure(priceValidation.ErrorMessage);
                 }
 
-                if (string.IsNullOrWhiteSpace(request.Description) || request.Description.Length > 500)
+                var descriptionValidation = _validationService.ValidateDescription(request.Description);
+                if (!descriptionValidation.IsValid)
                 {
-                    return MarketResult.Failure("商品描述不能為空且不能超過 500 字符");
+                    return MarketResult.Failure(descriptionValidation.ErrorMessage);
                 }
 
                 // 防止惡意輸入
-                if (ContainsSqlInjection(request.Description) || ContainsXss(request.Description))
+                if (_validationService.ContainsSqlInjection(request.Description) || _validationService.ContainsXss(request.Description))
                 {
                     _logger.LogWarning("檢測到惡意輸入嘗試: {SellerId}, {Description}", request.SellerId, request.Description);
                     return MarketResult.Failure("無效的輸入格式");
@@ -450,9 +459,13 @@ namespace GameCore.Api.Services
             var fee = Math.Max(baseFee, 10m);
             fee = Math.Min(fee, 500m);
 
-            // TODO: 檢查用戶是否為 VIP，如果是則手續費減半
-            // var isVip = await _userRepository.IsVipUserAsync(userId);
-            // if (isVip) fee *= 0.5m;
+            // 檢查用戶是否為 VIP，如果是則手續費減半
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user != null && user.Role == GameCore.Domain.Enums.UserRole.VIP)
+            {
+                fee *= 0.5m;
+                _logger.LogInformation("VIP用戶 {UserId} 享受手續費減半優惠", userId);
+            }
 
             return fee;
         }
@@ -475,25 +488,7 @@ namespace GameCore.Api.Services
         }
 
         // 新增安全驗證方法
-        private bool ContainsSqlInjection(string input)
-        {
-            if (string.IsNullOrEmpty(input)) return false;
 
-            var sqlKeywords = new[] { "SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "CREATE", "ALTER", "EXEC", "EXECUTE", "UNION", "OR", "AND" };
-            var upperInput = input.ToUpperInvariant();
-
-            return sqlKeywords.Any(keyword => upperInput.Contains(keyword));
-        }
-
-        private bool ContainsXss(string input)
-        {
-            if (string.IsNullOrEmpty(input)) return false;
-
-            var xssPatterns = new[] { "<script", "javascript:", "onload=", "onerror=", "onclick=" };
-            var lowerInput = input.ToLowerInvariant();
-
-            return xssPatterns.Any(pattern => lowerInput.Contains(pattern));
-        }
 
         // 新增上架頻率限制方法
         private Task<int> GetRecentListingsAsync(string cacheKey)

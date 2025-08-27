@@ -14,6 +14,7 @@ namespace GameCore.Api.Services
         private readonly IUserRepository _userRepository;
         private readonly IJwtService _jwtService;
         private readonly IMemoryCache _cache;
+        private readonly IValidationService _validationService;
         private readonly ILogger<AuthService> _logger;
         private readonly SemaphoreSlim _loginSemaphore = new SemaphoreSlim(1, 1);
 
@@ -21,11 +22,13 @@ namespace GameCore.Api.Services
             IUserRepository userRepository,
             IJwtService jwtService,
             IMemoryCache cache,
+            IValidationService validationService,
             ILogger<AuthService> logger)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _jwtService = jwtService ?? throw new ArgumentNullException(nameof(jwtService));
             _cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            _validationService = validationService ?? throw new ArgumentNullException(nameof(validationService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -34,24 +37,32 @@ namespace GameCore.Api.Services
             try
             {
                 // 輸入驗證
-                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                var usernameValidation = _validationService.ValidateUsername(username);
+                if (!usernameValidation.IsValid)
                 {
-                    return AuthResult.Failure("所有欄位都是必填的");
+                    return AuthResult.Failure(usernameValidation.ErrorMessage);
                 }
 
-                if (ContainsSqlInjection(username) || ContainsSqlInjection(email))
+                var emailValidation = _validationService.ValidateEmail(email);
+                if (!emailValidation.IsValid)
+                {
+                    return AuthResult.Failure(emailValidation.ErrorMessage);
+                }
+
+                var passwordValidation = _validationService.ValidatePassword(password);
+                if (!passwordValidation.IsValid)
+                {
+                    return AuthResult.Failure(passwordValidation.ErrorMessage);
+                }
+
+                if (_validationService.ContainsSqlInjection(username) || _validationService.ContainsSqlInjection(email))
                 {
                     return AuthResult.Failure("輸入包含無效字符");
                 }
 
-                if (ContainsXss(username) || ContainsXss(email))
+                if (_validationService.ContainsXss(username) || _validationService.ContainsXss(email))
                 {
                     return AuthResult.Failure("輸入包含無效字符");
-                }
-
-                if (!IsValidPassword(password))
-                {
-                    return AuthResult.Failure("密碼不符合安全要求");
                 }
 
                 // 檢查用戶名和郵箱唯一性
@@ -349,45 +360,7 @@ namespace GameCore.Api.Services
             return Task.CompletedTask;
         }
 
-        private bool IsValidPassword(string password)
-        {
-            // 密碼驗證邏輯：
-            // 1. 至少 8 個字符
-            // 2. 至少包含一個大寫字母
-            // 3. 至少包含一個小寫字母
-            // 4. 至少包含一個數字
-            // 5. 至少包含一個特殊字符
-            if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
-                return false;
 
-            var hasUpperCase = password.Any(char.IsUpper);
-            var hasLowerCase = password.Any(char.IsLower);
-            var hasDigit = password.Any(char.IsDigit);
-            var hasSpecialChar = password.Any(c => !char.IsLetterOrDigit(c));
-
-            return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
-        }
-
-        // 新增安全驗證方法
-        private bool ContainsSqlInjection(string input)
-        {
-            if (string.IsNullOrEmpty(input)) return false;
-
-            var sqlKeywords = new[] { "SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "CREATE", "ALTER", "EXEC", "EXECUTE", "UNION", "OR", "AND" };
-            var upperInput = input.ToUpperInvariant();
-
-            return sqlKeywords.Any(keyword => upperInput.Contains(keyword));
-        }
-
-        private bool ContainsXss(string input)
-        {
-            if (string.IsNullOrEmpty(input)) return false;
-
-            var xssPatterns = new[] { "<script", "javascript:", "onload=", "onerror=", "onclick=" };
-            var lowerInput = input.ToLowerInvariant();
-
-            return xssPatterns.Any(pattern => lowerInput.Contains(pattern));
-        }
 
         public async Task<AuthResult> GetUserProfileAsync(int userId)
         {
