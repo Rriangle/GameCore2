@@ -1,66 +1,36 @@
-import type { UserProfile, RegisterRequest, LoginRequest, AuthResponse } from '@/types/auth';
+import type { UserProfile, AuthResponse } from '@/types/auth'
 
-export const createMockUserProfile = (overrides: Partial<UserProfile> = {}): UserProfile => ({
+export const mockUserProfile: UserProfile = {
     userId: 1,
     username: 'testuser',
     email: 'test@example.com',
     balance: 100.00,
-    createdAt: new Date('2024-01-01T00:00:00Z'),
-    lastLoginAt: new Date('2024-01-01T12:00:00Z'),
-    ...overrides
-});
+    createdAt: '2024-01-01T00:00:00Z',
+    lastLoginAt: '2024-01-01T12:00:00Z'
+}
 
-export const createMockRegisterRequest = (overrides: Partial<RegisterRequest> = {}): RegisterRequest => ({
-    username: 'testuser',
-    email: 'test@example.com',
-    password: 'ValidPass123!',
-    confirmPassword: 'ValidPass123!',
-    ...overrides
-});
-
-export const createMockLoginRequest = (overrides: Partial<LoginRequest> = {}): LoginRequest => ({
-    username: 'testuser',
-    password: 'ValidPass123!',
-    ...overrides
-});
-
-export const createMockAuthResponse = (overrides: Partial<AuthResponse> = {}): AuthResponse => ({
+export const mockAuthResponse: AuthResponse = {
     success: true,
+    message: 'Login successful',
     token: 'mock-jwt-token',
-    message: '操作成功',
-    user: createMockUserProfile(),
-    ...overrides
-});
+    user: mockUserProfile
+}
 
-export const createMockErrorResponse = (message: string = '操作失敗'): AuthResponse => ({
+export const mockAuthResponseFailure: AuthResponse = {
     success: false,
-    message,
-    token: null,
-    user: null
-});
+    message: 'Invalid credentials',
+    token: undefined,
+    user: undefined
+}
 
-export const mockApiError = {
-    response: {
-        status: 400,
-        data: {
-            success: false,
-            message: '請求資料無效',
-            errors: ['用戶名為必填項目']
-        }
-    }
-};
+export const mockLoginCredentials = {
+    username: 'testuser',
+    password: 'password123'
+}
 
-export const mockNetworkError = {
-    message: 'Network Error',
-    request: {}
-};
-
-export const mockServerError = {
-    response: {
-        status: 500,
-        data: {
-            success: false,
-            message: '伺服器發生錯誤'
-        }
-    }
-};
+export const mockRegisterData = {
+    username: 'newuser',
+    email: 'newuser@example.com',
+    password: 'password123',
+    confirmPassword: 'password123'
+}

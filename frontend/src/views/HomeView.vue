@@ -9,6 +9,18 @@
       </p>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" @click="navigateTo('/store')">
+          <div class="text-3xl mb-2">🛒</div>
+          <h3 class="text-lg font-semibold mb-2">官方商城</h3>
+          <p class="text-gray-600">官方遊戲商品與配件</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer" @click="navigateTo('/player-market')">
+          <div class="text-3xl mb-2">🏪</div>
+          <h3 class="text-lg font-semibold mb-2">玩家市場</h3>
+          <p class="text-gray-600">玩家之間的二手交易</p>
+        </div>
+        
         <div class="bg-white p-6 rounded-lg shadow-md">
           <div class="text-3xl mb-2">📊</div>
           <h3 class="text-lg font-semibold mb-2">遊戲熱度</h3>
@@ -20,28 +32,32 @@
           <h3 class="text-lg font-semibold mb-2">論壇社群</h3>
           <p class="text-gray-600">遊戲討論與社群互動</p>
         </div>
-        
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="text-3xl mb-2">🛒</div>
-          <h3 class="text-lg font-semibold mb-2">商城市集</h3>
-          <p class="text-gray-600">官方商城與玩家交易</p>
-        </div>
-        
-        <div class="bg-white p-6 rounded-lg shadow-md">
-          <div class="text-3xl mb-2">🐾</div>
-          <h3 class="text-lg font-semibold mb-2">寵物養成</h3>
-          <p class="text-gray-600">可愛史萊姆寵物系統</p>
-        </div>
       </div>
       
       <div class="space-x-4">
-        <button class="btn-primary">開始探索</button>
-        <button class="btn-secondary">了解更多</button>
+        <button @click="navigateTo('/store')" class="btn-primary">瀏覽商城</button>
+        <button @click="navigateTo('/player-market')" class="btn-secondary">玩家市場</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// 首頁視圖元件
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const navigateTo = (path: string) => {
+  router.push(path)
+}
 </script>
+
+<style scoped>
+.btn-primary {
+  @apply bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-gray-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors;
+}
+</style>

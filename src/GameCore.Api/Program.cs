@@ -3,6 +3,7 @@ using GameCore.Api.Services;
 using GameCore.Domain.Interfaces;
 using GameCore.Infrastructure.Data;
 using GameCore.Infrastructure.Repositories;
+using GameCore.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -82,6 +83,35 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
+
+// 註冊產品相關服務
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IPlayerMarketService, PlayerMarketService>();
+builder.Services.AddScoped<IPopularityService, PopularityService>();
+builder.Services.AddScoped<IInsightService, InsightService>();
+builder.Services.AddScoped<IForumService, ForumService>();
+builder.Services.AddScoped<IInteractionService, InteractionService>();
+
+// 註冊社交相關服務
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
+
+// 註冊每日簽到服務
+builder.Services.AddScoped<IDailySignInService, DailySignInService>();
+
+// 註冊虛擬寵物服務
+builder.Services.AddScoped<IVirtualPetService, VirtualPetService>();
+
+// 註冊冒險遊戲服務
+builder.Services.AddScoped<IAdventureService, AdventureService>();
+
+// 註冊管理員後台服務
+builder.Services.AddScoped<IAdminBackofficeService, AdminBackofficeService>();
+
+// 註冊記憶體快取
+builder.Services.AddMemoryCache();
 
 // CORS 設定
 builder.Services.AddCors(options =>

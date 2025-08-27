@@ -48,33 +48,17 @@ public class AuthController : ControllerBase
             return BadRequest(ApiResponse<object>.ErrorResult("請求資料無效", errors));
         }
 
-        var result = await _authService.RegisterAsync(request.Username, request.Email, request.Password);
+        var result = await _authService.RegisterAsync(request);
 
         if (result.Success)
         {
-            var response = new AuthResponseDto
-            {
-                Success = true,
-                Token = result.Token,
-                Message = "註冊成功",
-                User = new UserProfileDto
-                {
-                    UserId = result.User!.UserId,
-                    Username = result.User.Username,
-                    Email = result.User.Email,
-                    Balance = result.User.Balance,
-                    CreatedAt = result.User.CreatedAt,
-                    LastLoginAt = result.User.LastLoginAt
-                }
-            };
-
-            _logger.LogInformation("註冊成功: {CorrelationId}, Username: {Username}", correlationId, request.Username);
-            return Ok(response);
+            _logger.LogInformation("註冊成功: {CorrelationId}, UserAccount: {UserAccount}", correlationId, request.User_Account);
+            return Ok(result);
         }
 
-        _logger.LogWarning("註冊失敗: {CorrelationId}, Username: {Username}, Message: {Message}", 
-            correlationId, request.Username, result.ErrorMessage);
-        return BadRequest(new AuthResponseDto { Success = false, Message = result.ErrorMessage });
+        _logger.LogWarning("註冊失敗: {CorrelationId}, UserAccount: {UserAccount}, Message: {Message}", 
+            correlationId, request.User_Account, result.Message);
+        return BadRequest(result);
     }
 
     /// <summary>
@@ -104,33 +88,17 @@ public class AuthController : ControllerBase
             return BadRequest(ApiResponse<object>.ErrorResult("請求資料無效", errors));
         }
 
-        var result = await _authService.LoginAsync(request.Username, request.Password);
+        var result = await _authService.LoginAsync(request);
 
         if (result.Success)
         {
-            var response = new AuthResponseDto
-            {
-                Success = true,
-                Token = result.Token,
-                Message = "登入成功",
-                User = new UserProfileDto
-                {
-                    UserId = result.User!.UserId,
-                    Username = result.User.Username,
-                    Email = result.User.Email,
-                    Balance = result.User.Balance,
-                    CreatedAt = result.User.CreatedAt,
-                    LastLoginAt = result.User.LastLoginAt
-                }
-            };
-
-            _logger.LogInformation("登入成功: {CorrelationId}, Username: {Username}", correlationId, request.Username);
-            return Ok(response);
+            _logger.LogInformation("登入成功: {CorrelationId}, UserAccount: {UserAccount}", correlationId, request.User_Account);
+            return Ok(result);
         }
 
-        _logger.LogWarning("登入失敗: {CorrelationId}, Username: {Username}, Message: {Message}", 
-            correlationId, request.Username, result.ErrorMessage);
-        return Unauthorized(new AuthResponseDto { Success = false, Message = result.ErrorMessage });
+        _logger.LogWarning("登入失敗: {CorrelationId}, UserAccount: {UserAccount}, Message: {Message}", 
+            correlationId, request.User_Account, result.Message);
+        return Unauthorized(result);
     }
 
     /// <summary>
@@ -162,17 +130,76 @@ public class AuthController : ControllerBase
             return NotFound(ApiResponse<object>.ErrorResult("用戶不存在"));
         }
 
-        var profileDto = new UserProfileDto
-        {
-            UserId = profile.UserId,
-            Username = profile.Username,
-            Email = profile.Email,
-            Balance = profile.Balance,
-            CreatedAt = profile.CreatedAt,
-            LastLoginAt = profile.LastLoginAt
-        };
-
         _logger.LogInformation("成功獲取個人資料: {CorrelationId}, UserId: {UserId}", correlationId, userId);
-        return Ok(ApiResponse<UserProfileDto>.SuccessResult(profileDto));
+        return Ok(ApiResponse<UserProfileDto>.SuccessResult(profile));
+    }
+
+    /// <summary>
+    /// 獲取完整用戶資料
+    /// </summary>
+    /// <returns>完整用戶資料</returns>
+    [Authorize]
+    [HttpGet("profile/complete")]
+    [ProducesResponseType(typeof(ApiResponse<CompleteUserProfileDto>), 200)]
+    [ProducesResponseType(typeof(ApiResponse<object>), 401)]
+    [ProducesResponseType(typeof(ApiResponse<object>), 404)]
+    [ProducesResponseType(typeof(ApiResponse<object>), 500)]
+    public async Task<IActionResult> GetCompleteProfile()
+    {
+        var correlationId = HttpContext.GetCorrelationId();
+        _logger.LogInformation("收到獲取完整個人資料請求: {CorrelationId}", correlationId);
+
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+        {
+            _logger.LogWarning("無效的認證資訊: {CorrelationId}", correlationId);
+            return Unauthorized(ApiResponse<object>.ErrorResult("無效的認證資訊"));
+        }
+
+        var profile = await _authService.GetCompleteUserProfileAsync(userId);
+        if (profile == null)
+        {
+            _logger.LogWarning("用戶不存在: {CorrelationId}, UserId: {UserId}", correlationId, userId);
+            return NotFound(ApiResponse<object>.ErrorResult("用戶不存在"));
+        }
+
+        _logger.LogInformation("成功獲取完整個人資料: {CorrelationId}, UserId: {UserId}", correlationId, userId);
+        return Ok(ApiResponse<CompleteUserProfileDto>.SuccessResult(profile));
+    }
+
+    /// <summary>
+    /// 驗證 JWT Token
+    /// </summary>
+    /// <param name="token">JWT Token</param>
+    /// <returns>驗證結果</returns>
+    [HttpPost("validate")]
+    [ProducesResponseType(typeof(ApiResponse<bool>), 200)]
+    [ProducesResponseType(typeof(ApiResponse<object>), 400)]
+    [ProducesResponseType(typeof(ApiResponse<object>), 500)]
+    public async Task<IActionResult> ValidateToken([FromBody] string token)
+    {
+        var correlationId = HttpContext.GetCorrelationId();
+        _logger.LogInformation("收到 Token 驗證請求: {CorrelationId}", correlationId);
+
+        try
+        {
+            var isValid = await _authService.ValidateTokenAsync(token);
+            var userId = await _authService.GetUserIdFromTokenAsync(token);
+
+            var response = new
+            {
+                IsValid = isValid,
+                UserId = userId
+            };
+
+            _logger.LogInformation("Token 驗證完成: {CorrelationId}, IsValid: {IsValid}, UserId: {UserId}", 
+                correlationId, isValid, userId);
+            return Ok(ApiResponse<object>.SuccessResult(response));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Token 驗證時發生錯誤: {CorrelationId}", correlationId);
+            return BadRequest(ApiResponse<object>.ErrorResult("Token 驗證失敗"));
+        }
     }
 }
