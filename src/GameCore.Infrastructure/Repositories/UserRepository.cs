@@ -22,83 +22,105 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> GetByIdAsync(int userId)
     {
-        _logger.LogDebug("查詢用戶資料: UserId = {UserId}", userId);
+        _logger.LogDebug("查詢用戶資料: User_ID = {UserId}", userId);
         
         return await _context.Users
-            .Include(u => u.Wallet)
+            .Include(u => u.UserWallet)
+            .Include(u => u.UserIntroduce)
+            .Include(u => u.UserRights)
             .AsNoTracking() // 改善效能，避免不必要的變更追蹤
-            .FirstOrDefaultAsync(u => u.UserId == userId);
+            .FirstOrDefaultAsync(u => u.User_ID == userId);
     }
 
     public async Task<User?> GetByUsernameAsync(string username)
     {
-        _logger.LogDebug("查詢用戶資料: Username = {Username}", username);
+        _logger.LogDebug("查詢用戶資料: User_name = {Username}", username);
         
         return await _context.Users
-            .Include(u => u.Wallet)
+            .Include(u => u.UserWallet)
+            .Include(u => u.UserIntroduce)
+            .Include(u => u.UserRights)
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Username == username);
+            .FirstOrDefaultAsync(u => u.User_name == username);
     }
 
-    public async Task<User?> GetByEmailAsync(string email)
+    public async Task<User?> GetByAccountAsync(string account)
     {
-        _logger.LogDebug("查詢用戶資料: Email = {Email}", email);
+        _logger.LogDebug("查詢用戶資料: User_Account = {Account}", account);
         
         return await _context.Users
-            .Include(u => u.Wallet)
+            .Include(u => u.UserWallet)
+            .Include(u => u.UserIntroduce)
+            .Include(u => u.UserRights)
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Email == email);
+            .FirstOrDefaultAsync(u => u.User_Account == account);
+    }
+
+    public async Task<bool> IsUsernameUniqueAsync(string username, int? excludeUserId = null)
+    {
+        var query = _context.Users.AsQueryable();
+        
+        if (excludeUserId.HasValue)
+        {
+            query = query.Where(u => u.User_ID != excludeUserId.Value);
+        }
+        
+        return !await query.AnyAsync(u => u.User_name == username);
+    }
+
+    public async Task<bool> IsAccountUniqueAsync(string account, int? excludeUserId = null)
+    {
+        var query = _context.Users.AsQueryable();
+        
+        if (excludeUserId.HasValue)
+        {
+            query = query.Where(u => u.User_ID != excludeUserId.Value);
+        }
+        
+        return !await query.AnyAsync(u => u.User_Account == account);
     }
 
     public async Task<User> CreateAsync(User user)
     {
-        _logger.LogInformation("建立新用戶: Username = {Username}, Email = {Email}", user.Username, user.Email);
+        _logger.LogDebug("創建新用戶: User_name = {Username}", user.User_name);
         
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
-        
-        _logger.LogInformation("用戶建立成功: UserId = {UserId}", user.UserId);
         return user;
     }
 
     public async Task<User> UpdateAsync(User user)
     {
-        _logger.LogInformation("更新用戶資料: UserId = {UserId}", user.UserId);
+        _logger.LogDebug("更新用戶資料: User_ID = {UserId}", user.User_ID);
         
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
-        
-        _logger.LogInformation("用戶資料更新成功: UserId = {UserId}", user.UserId);
         return user;
     }
 
-    public async Task<bool> ExistsByUsernameAsync(string username)
+    public async Task<bool> DeleteAsync(int userId)
     {
-        _logger.LogDebug("檢查用戶名是否存在: {Username}", username);
+        _logger.LogDebug("刪除用戶: User_ID = {UserId}", userId);
         
-        return await _context.Users
-            .AsNoTracking()
-            .AnyAsync(u => u.Username == username);
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return false;
+        }
+        
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task<bool> ExistsByEmailAsync(string email)
+    public async Task<User?> ValidateCredentialsAsync(string account, string passwordHash)
     {
-        _logger.LogDebug("檢查郵箱是否存在: {Email}", email);
+        _logger.LogDebug("驗證用戶憑證: User_Account = {Account}", account);
         
         return await _context.Users
-            .AsNoTracking()
-            .AnyAsync(u => u.Email == email);
-    }
-
-    /// <summary>
-    /// 根據用戶名查詢用戶（不包含錢包資料，用於登入驗證）
-    /// </summary>
-    public async Task<User?> GetByUsernameForLoginAsync(string username)
-    {
-        _logger.LogDebug("查詢用戶資料（登入用）: Username = {Username}", username);
-        
-        return await _context.Users
-            .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Username == username);
+            .Include(u => u.UserWallet)
+            .Include(u => u.UserIntroduce)
+            .Include(u => u.UserRights)
+            .FirstOrDefaultAsync(u => u.User_Account == account && u.User_Password == passwordHash);
     }
 }
