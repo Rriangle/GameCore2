@@ -77,9 +77,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// 註冊服務
+// 註冊服務 - 使用者相關
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserIntroduceRepository, UserIntroduceRepository>();
+builder.Services.AddScoped<IUserRightsRepository, UserRightsRepository>();
 builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
+builder.Services.AddScoped<IMemberSalesProfileRepository, MemberSalesProfileRepository>();
+builder.Services.AddScoped<IUserSalesInformationRepository, UserSalesInformationRepository>();
+
+// 業務服務
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
 
@@ -127,11 +133,17 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health");
 
-// 確保資料庫已建立
+// 確保資料庫已建立並初始化種子資料
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GameCoreDbContext>();
     context.Database.EnsureCreated();
+    
+    // 初始化種子資料（僅在開發環境）
+    if (app.Environment.IsDevelopment())
+    {
+        await GameCore.Infrastructure.Data.SeedData.InitializeAsync(context);
+    }
 }
 
 Log.Information("GameCore API 啟動完成");

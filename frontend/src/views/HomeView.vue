@@ -34,14 +34,38 @@
         </div>
       </div>
       
-      <div class="space-x-4">
-        <button class="btn-primary">開始探索</button>
-        <button class="btn-secondary">了解更多</button>
+      <div v-if="!userStore.isAuthenticated" class="space-x-4">
+        <router-link 
+          to="/register" 
+          class="bg-indigo-600 text-white hover:bg-indigo-700 px-8 py-3 rounded-lg text-lg font-semibold inline-block transition-colors"
+        >
+          立即註冊
+        </router-link>
+        <router-link 
+          to="/login" 
+          class="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white px-8 py-3 rounded-lg text-lg font-semibold inline-block transition-colors"
+        >
+          會員登入
+        </router-link>
+      </div>
+      
+      <div v-else class="space-x-4">
+        <router-link 
+          to="/profile" 
+          class="bg-indigo-600 text-white hover:bg-indigo-700 px-8 py-3 rounded-lg text-lg font-semibold inline-block transition-colors"
+        >
+          查看個人資料
+        </router-link>
+        <div class="mt-4 text-gray-600">
+          歡迎回來，{{ userStore.userName }}！您有 {{ userStore.userPoints }} 點數
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// 首頁視圖元件
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 </script>
