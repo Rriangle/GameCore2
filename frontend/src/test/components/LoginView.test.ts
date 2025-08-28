@@ -18,8 +18,9 @@ const router = createRouter({
 const mockAuthStore = {
     login: vi.fn(),
     loading: false,
-    error: null,
-    isAuthenticated: false
+    error: null as string | null,
+    isAuthenticated: false,
+    clearError: vi.fn()
 };
 
 vi.mock('@/stores/auth', () => ({
@@ -169,6 +170,6 @@ describe('LoginView', () => {
         // 開始輸入時應該清除錯誤
         await wrapper.find('input[name="username"]').setValue('test');
 
-        expect(mockAuthStore.error).toBeNull();
+        expect(mockAuthStore.clearError).toHaveBeenCalled();
     });
 });

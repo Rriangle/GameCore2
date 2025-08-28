@@ -1,5 +1,5 @@
 import { apiClient } from './api';
-import type { Product, CartItem, Order } from '@/types/store';
+import type { Product, CartItem, Order, ApiResponse } from '@/types/store';
 
 export const storeService = {
   // 產品相關
@@ -43,9 +43,21 @@ export const storeService = {
   },
 
   // 訂單相關
-  async createOrder(): Promise<Order> {
-    const response = await apiClient.post('/api/orders');
-    return response.data;
+  async createOrder(orderData?: any): Promise<ApiResponse<{ orderId: string }>> {
+    try {
+      const response = await apiClient.post('/api/orders', orderData);
+      return {
+        success: true,
+        data: response.data,
+        message: '訂單創建成功'
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.response?.data?.message || '訂單創建失敗',
+        error: error.message
+      };
+    }
   },
 
   async getOrders(): Promise<Order[]> {
