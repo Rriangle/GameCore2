@@ -34,9 +34,40 @@ namespace GameCore.Api.Services
             try
             {
                 // 輸入驗證
-                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                if (string.IsNullOrWhiteSpace(username))
                 {
-                    return AuthResult.Failure("所有欄位都是必填的");
+                    return AuthResult.Failure("用戶名不能為空");
+                }
+
+                if (username.Length < 3 || username.Length > 20)
+                {
+                    return AuthResult.Failure("用戶名長度必須在 3-20 個字符之間");
+                }
+
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return AuthResult.Failure("郵箱不能為空");
+                }
+
+                if (!IsValidEmail(email))
+                {
+                    return AuthResult.Failure("郵箱格式不正確");
+                }
+
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    return AuthResult.Failure("密碼不能為空");
+                }
+
+                if (password.Length < 8)
+                {
+                    return AuthResult.Failure("密碼長度至少 8 個字符");
+                }
+
+                var passwordValidation = ValidatePasswordComplexity(password);
+                if (!passwordValidation.IsValid)
+                {
+                    return AuthResult.Failure(passwordValidation.ErrorMessage);
                 }
 
                 if (ContainsSqlInjection(username) || ContainsSqlInjection(email))
@@ -47,11 +78,6 @@ namespace GameCore.Api.Services
                 if (ContainsXss(username) || ContainsXss(email))
                 {
                     return AuthResult.Failure("輸入包含無效字符");
-                }
-
-                if (!IsValidPassword(password))
-                {
-                    return AuthResult.Failure("密碼不符合安全要求");
                 }
 
                 // 檢查用戶名和郵箱唯一性
@@ -387,6 +413,46 @@ namespace GameCore.Api.Services
             var lowerInput = input.ToLowerInvariant();
 
             return xssPatterns.Any(pattern => lowerInput.Contains(pattern));
+        }
+
+        private (bool IsValid, string ErrorMessage) ValidatePasswordComplexity(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return (false, "密碼不能為空");
+
+            if (password.Length < 8)
+                return (false, "密碼長度至少 8 個字符");
+
+            var hasUpperCase = password.Any(char.IsUpper);
+            var hasLowerCase = password.Any(char.IsLower);
+            var hasDigit = password.Any(char.IsDigit);
+            var hasSpecialChar = password.Any(c => !char.IsLetterOrDigit(c));
+
+            if (!hasUpperCase || !hasLowerCase || !hasDigit || !hasSpecialChar)
+            {
+                if (hasUpperCase && hasLowerCase && hasDigit && !hasSpecialChar)
+                    return (false, "密碼必須包含大小寫字母、數字和特殊字符");
+                else
+                    return (false, "密碼不符合安全要求");
+            }
+
+            return (true, string.Empty);
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<AuthResult> GetUserProfileAsync(int userId)
