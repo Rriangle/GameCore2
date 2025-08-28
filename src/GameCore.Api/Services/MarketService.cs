@@ -12,17 +12,20 @@ namespace GameCore.Api.Services
         private readonly IMarketRepository _marketRepository;
         private readonly IUserWalletRepository _walletRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ILogger<MarketService> _logger;
 
         public MarketService(
             IMarketRepository marketRepository,
             IUserWalletRepository walletRepository,
             IProductRepository productRepository,
+            IUserRepository userRepository,
             ILogger<MarketService> logger)
         {
             _marketRepository = marketRepository ?? throw new ArgumentNullException(nameof(marketRepository));
             _walletRepository = walletRepository ?? throw new ArgumentNullException(nameof(walletRepository));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -138,7 +141,7 @@ namespace GameCore.Api.Services
 
                 // 計算總金額和手續費
                 var totalAmount = marketItem.Price * request.Quantity;
-                var feeAmount = CalculateTransactionFee(totalAmount);
+                var feeAmount = await CalculateTransactionFeeAsync(totalAmount, request.BuyerId);
                 var sellerAmount = totalAmount - feeAmount;
 
                 // 檢查買家餘額
@@ -439,7 +442,7 @@ namespace GameCore.Api.Services
             }
         }
 
-        private decimal CalculateTransactionFee(decimal amount)
+        private async Task<decimal> CalculateTransactionFeeAsync(decimal amount, int userId)
         {
             // 手續費計算邏輯：
             // 1. 基礎手續費：5%
@@ -450,9 +453,13 @@ namespace GameCore.Api.Services
             var fee = Math.Max(baseFee, 10m);
             fee = Math.Min(fee, 500m);
 
-            // TODO: 檢查用戶是否為 VIP，如果是則手續費減半
-            // var isVip = await _userRepository.IsVipUserAsync(userId);
-            // if (isVip) fee *= 0.5m;
+            // 檢查用戶是否為 VIP，如果是則手續費減半
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user != null && user.Role == GameCore.Domain.Enums.UserRole.VIP)
+            {
+                fee *= 0.5m;
+                _logger.LogInformation("VIP用戶 {UserId} 享受手續費減半優惠", userId);
+            }
 
             return fee;
         }
