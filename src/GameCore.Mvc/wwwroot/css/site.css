@@ -1,0 +1,669 @@
+/* ========================================
+   GameCore 主要樣式表 (Main Stylesheet)
+   ========================================
+   
+   這個檔案整合了設計令牌、基礎組件和自訂樣式，
+   為整個 GameCore 平台提供一致的視覺體驗。
+   
+   主要功能：
+   - 導入設計令牌和基礎組件
+   - 優化 Bootstrap 5 樣式
+   - 提供自訂的遊戲平台樣式
+   - 響應式設計優化
+   
+   回滾方式：刪除此檔案即可恢復預設樣式
+   ======================================== */
+
+/* 導入設計令牌和基礎組件 */
+@import url('design-tokens.css');
+@import url('base-components.css');
+
+/* ========================================
+   全域樣式重置與優化 (Global Reset & Optimization)
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--gc-font-family-sans);
+    font-size: var(--gc-text-base);
+    line-height: var(--gc-leading-normal);
+    color: var(--gc-neutral-700);
+    background-color: var(--gc-neutral-50);
+    margin: 0;
+    padding: 0;
+}
+
+/* ========================================
+   標題樣式優化 (Typography Optimization)
+   ======================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--gc-font-family-sans);
+    font-weight: var(--gc-font-semibold);
+    line-height: var(--gc-leading-tight);
+    color: var(--gc-neutral-800);
+    margin-top: 0;
+    margin-bottom: var(--gc-space-4);
+}
+
+h1 {
+    font-size: var(--gc-text-5xl);
+    font-weight: var(--gc-font-bold);
+}
+
+h2 {
+    font-size: var(--gc-text-4xl);
+}
+
+h3 {
+    font-size: var(--gc-text-3xl);
+}
+
+h4 {
+    font-size: var(--gc-text-2xl);
+}
+
+h5 {
+    font-size: var(--gc-text-xl);
+}
+
+h6 {
+    font-size: var(--gc-text-lg);
+}
+
+/* ========================================
+   段落和文字樣式 (Paragraph & Text Styles)
+   ======================================== */
+
+p {
+    margin-top: 0;
+    margin-bottom: var(--gc-space-4);
+    line-height: var(--gc-leading-relaxed);
+}
+
+.lead {
+    font-size: var(--gc-text-lg);
+    font-weight: var(--gc-font-normal);
+    line-height: var(--gc-leading-relaxed);
+}
+
+.text-muted {
+    color: var(--gc-neutral-500);
+}
+
+.text-primary {
+    color: var(--gc-primary-600);
+}
+
+.text-success {
+    color: var(--gc-success-600);
+}
+
+.text-warning {
+    color: var(--gc-warning-600);
+}
+
+.text-error {
+    color: var(--gc-error-600);
+}
+
+/* ========================================
+   連結樣式優化 (Link Style Optimization)
+   ======================================== */
+
+a {
+    color: var(--gc-primary-500);
+    text-decoration: none;
+    transition: color var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+a:hover {
+    color: var(--gc-primary-600);
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: 2px solid var(--gc-primary-500);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   按鈕樣式優化 (Button Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 按鈕樣式 */
+.btn {
+    font-family: var(--gc-font-family-sans);
+    font-weight: var(--gc-font-medium);
+    border-radius: var(--gc-radius-base);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--gc-primary-500);
+    border-color: var(--gc-primary-500);
+    color: var(--gc-neutral-0);
+}
+
+.btn-primary:hover {
+    background-color: var(--gc-primary-600);
+    border-color: var(--gc-primary-600);
+    transform: translateY(-1px);
+    box-shadow: var(--gc-shadow-md);
+}
+
+.btn-primary:active {
+    background-color: var(--gc-primary-700);
+    border-color: var(--gc-primary-700);
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background-color: var(--gc-neutral-0);
+    border-color: var(--gc-neutral-300);
+    color: var(--gc-neutral-700);
+}
+
+.btn-secondary:hover {
+    background-color: var(--gc-neutral-50);
+    border-color: var(--gc-neutral-400);
+    color: var(--gc-neutral-800);
+}
+
+.btn-success {
+    background-color: var(--gc-success-500);
+    border-color: var(--gc-success-500);
+    color: var(--gc-neutral-0);
+}
+
+.btn-warning {
+    background-color: var(--gc-warning-500);
+    border-color: var(--gc-warning-500);
+    color: var(--gc-neutral-0);
+}
+
+.btn-danger {
+    background-color: var(--gc-error-500);
+    border-color: var(--gc-error-500);
+    color: var(--gc-neutral-0);
+}
+
+/* ========================================
+   表單樣式優化 (Form Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 表單樣式 */
+.form-control {
+    font-family: var(--gc-font-family-sans);
+    border-radius: var(--gc-radius-base);
+    border: 1px solid var(--gc-neutral-300);
+    transition: border-color var(--gc-transition-base) var(--gc-ease-in-out),
+        box-shadow var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.form-control:focus {
+    border-color: var(--gc-primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-control:hover:not(:focus) {
+    border-color: var(--gc-neutral-400);
+}
+
+.form-label {
+    font-weight: var(--gc-font-medium);
+    color: var(--gc-neutral-700);
+    margin-bottom: var(--gc-space-1);
+}
+
+.form-text {
+    color: var(--gc-neutral-500);
+    font-size: var(--gc-text-sm);
+}
+
+/* ========================================
+   導航樣式優化 (Navigation Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 導航樣式 */
+.navbar {
+    background-color: var(--gc-neutral-0) !important;
+    border-bottom: 1px solid var(--gc-neutral-200);
+    box-shadow: var(--gc-shadow-sm);
+}
+
+.navbar-brand {
+    font-weight: var(--gc-font-bold);
+    color: var(--gc-primary-600) !important;
+    font-size: var(--gc-text-xl);
+}
+
+.navbar-nav .nav-link {
+    color: var(--gc-neutral-700) !important;
+    font-weight: var(--gc-font-medium);
+    padding: var(--gc-space-2) var(--gc-space-3);
+    border-radius: var(--gc-radius-base);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--gc-primary-600) !important;
+    background-color: var(--gc-primary-50);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--gc-primary-600) !important;
+    background-color: var(--gc-primary-50);
+}
+
+/* ========================================
+   卡片樣式優化 (Card Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 卡片樣式 */
+.card {
+    border: 1px solid var(--gc-neutral-200);
+    border-radius: var(--gc-radius-lg);
+    box-shadow: var(--gc-shadow-sm);
+    transition: box-shadow var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.card:hover {
+    box-shadow: var(--gc-shadow-md);
+}
+
+.card-header {
+    background-color: var(--gc-neutral-50);
+    border-bottom: 1px solid var(--gc-neutral-200);
+    padding: var(--gc-space-4);
+}
+
+.card-title {
+    margin: 0;
+    color: var(--gc-neutral-800);
+    font-weight: var(--gc-font-semibold);
+}
+
+.card-body {
+    padding: var(--gc-space-4);
+}
+
+.card-footer {
+    background-color: var(--gc-neutral-50);
+    border-top: 1px solid var(--gc-neutral-200);
+    padding: var(--gc-space-4);
+}
+
+/* ========================================
+   警告樣式優化 (Alert Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 警告樣式 */
+.alert {
+    border-radius: var(--gc-radius-base);
+    border: 1px solid transparent;
+    padding: var(--gc-space-3) var(--gc-space-4);
+}
+
+.alert-primary {
+    color: var(--gc-primary-600);
+    background-color: var(--gc-primary-50);
+    border-color: var(--gc-primary-100);
+}
+
+.alert-success {
+    color: var(--gc-success-600);
+    background-color: var(--gc-success-50);
+    border-color: var(--gc-success-100);
+}
+
+.alert-warning {
+    color: var(--gc-warning-600);
+    background-color: var(--gc-warning-50);
+    border-color: var(--gc-warning-100);
+}
+
+.alert-danger {
+    color: var(--gc-error-600);
+    background-color: var(--gc-error-50);
+    border-color: var(--gc-error-100);
+}
+
+/* ========================================
+   表格樣式優化 (Table Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 表格樣式 */
+.table {
+    border-radius: var(--gc-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--gc-shadow-sm);
+}
+
+.table thead th {
+    background-color: var(--gc-neutral-50);
+    border-bottom: 2px solid var(--gc-neutral-200);
+    font-weight: var(--gc-font-semibold);
+    color: var(--gc-neutral-800);
+    padding: var(--gc-space-3) var(--gc-space-4);
+}
+
+.table tbody td {
+    padding: var(--gc-space-3) var(--gc-space-4);
+    border-bottom: 1px solid var(--gc-neutral-200);
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: var(--gc-neutral-50);
+}
+
+/* ========================================
+   分頁樣式優化 (Pagination Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 分頁樣式 */
+.pagination {
+    gap: var(--gc-space-1);
+}
+
+.page-link {
+    border-radius: var(--gc-radius-base);
+    border: 1px solid var(--gc-neutral-300);
+    color: var(--gc-primary-500);
+    padding: var(--gc-space-2) var(--gc-space-3);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.page-link:hover {
+    background-color: var(--gc-primary-50);
+    border-color: var(--gc-primary-300);
+    color: var(--gc-primary-600);
+}
+
+.page-item.active .page-link {
+    background-color: var(--gc-primary-500);
+    border-color: var(--gc-primary-500);
+    color: var(--gc-neutral-0);
+}
+
+/* ========================================
+   模態框樣式優化 (Modal Style Optimization)
+   ======================================== */
+
+/* 覆蓋 Bootstrap 模態框樣式 */
+.modal-content {
+    border-radius: var(--gc-radius-lg);
+    border: none;
+    box-shadow: var(--gc-shadow-2xl);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--gc-neutral-200);
+    padding: var(--gc-space-4);
+}
+
+.modal-title {
+    color: var(--gc-neutral-800);
+    font-weight: var(--gc-font-semibold);
+}
+
+.modal-body {
+    padding: var(--gc-space-4);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--gc-neutral-200);
+    padding: var(--gc-space-4);
+}
+
+/* ========================================
+   遊戲平台專用樣式 (Game Platform Specific Styles)
+   ======================================== */
+
+/* 遊戲卡片樣式 */
+.game-card {
+    background: linear-gradient(135deg, var(--gc-primary-50) 0%, var(--gc-neutral-50) 100%);
+    border: 2px solid var(--gc-primary-200);
+    border-radius: var(--gc-radius-xl);
+    padding: var(--gc-space-6);
+    text-align: center;
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.game-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--gc-shadow-xl);
+    border-color: var(--gc-primary-300);
+}
+
+.game-card-icon {
+    font-size: var(--gc-text-5xl);
+    margin-bottom: var(--gc-space-4);
+    color: var(--gc-primary-500);
+}
+
+.game-card-title {
+    font-size: var(--gc-text-2xl);
+    font-weight: var(--gc-font-bold);
+    color: var(--gc-neutral-800);
+    margin-bottom: var(--gc-space-3);
+}
+
+.game-card-description {
+    color: var(--gc-neutral-600);
+    margin-bottom: var(--gc-space-4);
+    line-height: var(--gc-leading-relaxed);
+}
+
+/* 功能區塊樣式 */
+.feature-section {
+    padding: var(--gc-space-16) 0;
+    background-color: var(--gc-neutral-0);
+}
+
+.feature-section:nth-child(even) {
+    background-color: var(--gc-neutral-50);
+}
+
+.feature-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--gc-space-4);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--gc-space-8);
+    margin-top: var(--gc-space-8);
+}
+
+/* 英雄區塊樣式 */
+.hero-section {
+    background: linear-gradient(135deg, var(--gc-primary-500) 0%, var(--gc-primary-700) 100%);
+    color: var(--gc-neutral-0);
+    padding: var(--gc-space-24) 0;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: var(--gc-text-5xl);
+    font-weight: var(--gc-font-bold);
+    margin-bottom: var(--gc-space-6);
+    line-height: var(--gc-leading-tight);
+}
+
+.hero-subtitle {
+    font-size: var(--gc-text-xl);
+    margin-bottom: var(--gc-space-8);
+    opacity: 0.9;
+    line-height: var(--gc-leading-relaxed);
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--gc-space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ========================================
+   響應式設計優化 (Responsive Design Optimization)
+   ======================================== */
+
+/* 小螢幕適配 */
+@media (max-width: 767.98px) {
+    .hero-title {
+        font-size: var(--gc-text-4xl);
+    }
+
+    .hero-subtitle {
+        font-size: var(--gc-text-lg);
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: var(--gc-space-6);
+    }
+
+    .game-card {
+        padding: var(--gc-space-4);
+    }
+}
+
+/* 中等螢幕適配 */
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        margin-top: var(--gc-space-3);
+    }
+
+    .navbar-nav .nav-link {
+        padding: var(--gc-space-2);
+        text-align: center;
+    }
+}
+
+/* 大螢幕優化 */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ========================================
+   列印樣式 (Print Styles)
+   ======================================== */
+
+@media print {
+
+    .navbar,
+    .footer,
+    .btn,
+    .game-card {
+        display: none !important;
+    }
+
+    body {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .hero-section {
+        background: white !important;
+        color: black !important;
+        padding: var(--gc-space-4) 0;
+    }
+
+    .feature-section {
+        background-color: white !important;
+        padding: var(--gc-space-4) 0;
+    }
+}
+
+/* ========================================
+   效能優化 (Performance Optimization)
+   ======================================== */
+
+/* 減少重繪和重排 */
+.game-card,
+.btn,
+.form-control {
+    will-change: transform;
+}
+
+/* 硬體加速 */
+.game-card:hover,
+.btn:hover {
+    transform: translateZ(0);
+}
+
+/* 平滑滾動 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   無障礙功能增強 (Accessibility Enhancement)
+   ======================================== */
+
+/* 焦點可見性 */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus {
+    outline: 2px solid var(--gc-primary-500);
+    outline-offset: 2px;
+}
+
+/* 高對比度支援 */
+@media (prefers-contrast: high) {
+
+    .btn,
+    .form-control,
+    .card {
+        border-width: 2px;
+    }
+
+    .game-card {
+        border-width: 3px;
+    }
+}
+
+/* 減少動畫支援 */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}

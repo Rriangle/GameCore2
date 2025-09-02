@@ -1,0 +1,1468 @@
+/* ========================================
+   GameCore 實用工具樣式 (Utility Styles)
+   ========================================
+   
+   這個檔案提供了常用的 CSS 工具類別，
+   包含間距、文字、背景、邊框等實用樣式。
+   
+   所有樣式都基於設計令牌，確保一致性。
+   
+   回滾方式：刪除此檔案即可恢復預設樣式
+   ======================================== */
+
+/* ========================================
+   間距工具類 (Spacing Utilities)
+   ======================================== */
+
+/* Margin 工具類 */
+.gc-m-0 {
+    margin: var(--gc-space-0) !important;
+}
+
+.gc-m-1 {
+    margin: var(--gc-space-1) !important;
+}
+
+.gc-m-2 {
+    margin: var(--gc-space-2) !important;
+}
+
+.gc-m-3 {
+    margin: var(--gc-space-3) !important;
+}
+
+.gc-m-4 {
+    margin: var(--gc-space-4) !important;
+}
+
+.gc-m-5 {
+    margin: var(--gc-space-5) !important;
+}
+
+.gc-m-6 {
+    margin: var(--gc-space-6) !important;
+}
+
+.gc-m-8 {
+    margin: var(--gc-space-8) !important;
+}
+
+.gc-m-10 {
+    margin: var(--gc-space-10) !important;
+}
+
+.gc-m-12 {
+    margin: var(--gc-space-12) !important;
+}
+
+.gc-m-16 {
+    margin: var(--gc-space-16) !important;
+}
+
+.gc-m-20 {
+    margin: var(--gc-space-20) !important;
+}
+
+.gc-m-24 {
+    margin: var(--gc-space-24) !important;
+}
+
+.gc-m-32 {
+    margin: var(--gc-space-32) !important;
+}
+
+/* Margin Top 工具類 */
+.gc-mt-0 {
+    margin-top: var(--gc-space-0) !important;
+}
+
+.gc-mt-1 {
+    margin-top: var(--gc-space-1) !important;
+}
+
+.gc-mt-2 {
+    margin-top: var(--gc-space-2) !important;
+}
+
+.gc-mt-3 {
+    margin-top: var(--gc-space-3) !important;
+}
+
+.gc-mt-4 {
+    margin-top: var(--gc-space-4) !important;
+}
+
+.gc-mt-5 {
+    margin-top: var(--gc-space-5) !important;
+}
+
+.gc-mt-6 {
+    margin-top: var(--gc-space-6) !important;
+}
+
+.gc-mt-8 {
+    margin-top: var(--gc-space-8) !important;
+}
+
+.gc-mt-10 {
+    margin-top: var(--gc-space-10) !important;
+}
+
+.gc-mt-12 {
+    margin-top: var(--gc-space-12) !important;
+}
+
+.gc-mt-16 {
+    margin-top: var(--gc-space-16) !important;
+}
+
+.gc-mt-20 {
+    margin-top: var(--gc-space-20) !important;
+}
+
+.gc-mt-24 {
+    margin-top: var(--gc-space-24) !important;
+}
+
+.gc-mt-32 {
+    margin-top: var(--gc-space-32) !important;
+}
+
+/* Margin Bottom 工具類 */
+.gc-mb-0 {
+    margin-bottom: var(--gc-space-0) !important;
+}
+
+.gc-mb-1 {
+    margin-bottom: var(--gc-space-1) !important;
+}
+
+.gc-mb-2 {
+    margin-bottom: var(--gc-space-2) !important;
+}
+
+.gc-mb-3 {
+    margin-bottom: var(--gc-space-3) !important;
+}
+
+.gc-mb-4 {
+    margin-bottom: var(--gc-space-4) !important;
+}
+
+.gc-mb-5 {
+    margin-bottom: var(--gc-space-5) !important;
+}
+
+.gc-mb-6 {
+    margin-bottom: var(--gc-space-6) !important;
+}
+
+.gc-mb-8 {
+    margin-bottom: var(--gc-space-8) !important;
+}
+
+.gc-mb-10 {
+    margin-bottom: var(--gc-space-10) !important;
+}
+
+.gc-mb-12 {
+    margin-bottom: var(--gc-space-12) !important;
+}
+
+.gc-mb-16 {
+    margin-bottom: var(--gc-space-16) !important;
+}
+
+.gc-mb-20 {
+    margin-bottom: var(--gc-space-20) !important;
+}
+
+.gc-mb-24 {
+    margin-bottom: var(--gc-space-24) !important;
+}
+
+.gc-mb-32 {
+    margin-bottom: var(--gc-space-32) !important;
+}
+
+/* Margin Left 工具類 */
+.gc-ml-0 {
+    margin-left: var(--gc-space-0) !important;
+}
+
+.gc-ml-1 {
+    margin-left: var(--gc-space-1) !important;
+}
+
+.gc-ml-2 {
+    margin-left: var(--gc-space-2) !important;
+}
+
+.gc-ml-3 {
+    margin-left: var(--gc-space-3) !important;
+}
+
+.gc-ml-4 {
+    margin-left: var(--gc-space-4) !important;
+}
+
+.gc-ml-5 {
+    margin-left: var(--gc-space-5) !important;
+}
+
+.gc-ml-6 {
+    margin-left: var(--gc-space-6) !important;
+}
+
+.gc-ml-8 {
+    margin-left: var(--gc-space-8) !important;
+}
+
+.gc-ml-10 {
+    margin-left: var(--gc-space-10) !important;
+}
+
+.gc-ml-12 {
+    margin-left: var(--gc-space-12) !important;
+}
+
+.gc-ml-16 {
+    margin-left: var(--gc-space-16) !important;
+}
+
+.gc-ml-20 {
+    margin-left: var(--gc-space-20) !important;
+}
+
+.gc-ml-24 {
+    margin-left: var(--gc-space-24) !important;
+}
+
+.gc-ml-32 {
+    margin-left: var(--gc-space-32) !important;
+}
+
+/* Margin Right 工具類 */
+.gc-mr-0 {
+    margin-right: var(--gc-space-0) !important;
+}
+
+.gc-mr-1 {
+    margin-right: var(--gc-space-1) !important;
+}
+
+.gc-mr-2 {
+    margin-right: var(--gc-space-2) !important;
+}
+
+.gc-mr-3 {
+    margin-right: var(--gc-space-3) !important;
+}
+
+.gc-mr-4 {
+    margin-right: var(--gc-space-4) !important;
+}
+
+.gc-mr-5 {
+    margin-right: var(--gc-space-5) !important;
+}
+
+.gc-mr-6 {
+    margin-right: var(--gc-space-6) !important;
+}
+
+.gc-mr-8 {
+    margin-right: var(--gc-space-8) !important;
+}
+
+.gc-mr-10 {
+    margin-right: var(--gc-space-10) !important;
+}
+
+.gc-mr-12 {
+    margin-right: var(--gc-space-12) !important;
+}
+
+.gc-mr-16 {
+    margin-right: var(--gc-space-16) !important;
+}
+
+.gc-mr-20 {
+    margin-right: var(--gc-space-20) !important;
+}
+
+.gc-mr-24 {
+    margin-right: var(--gc-space-24) !important;
+}
+
+.gc-mr-32 {
+    margin-right: var(--gc-space-32) !important;
+}
+
+/* Padding 工具類 */
+.gc-p-0 {
+    padding: var(--gc-space-0) !important;
+}
+
+.gc-p-1 {
+    padding: var(--gc-space-1) !important;
+}
+
+.gc-p-2 {
+    padding: var(--gc-space-2) !important;
+}
+
+.gc-p-3 {
+    padding: var(--gc-space-3) !important;
+}
+
+.gc-p-4 {
+    padding: var(--gc-space-4) !important;
+}
+
+.gc-p-5 {
+    padding: var(--gc-space-5) !important;
+}
+
+.gc-p-6 {
+    padding: var(--gc-space-6) !important;
+}
+
+.gc-p-8 {
+    padding: var(--gc-space-8) !important;
+}
+
+.gc-p-10 {
+    padding: var(--gc-space-10) !important;
+}
+
+.gc-p-12 {
+    padding: var(--gc-space-12) !important;
+}
+
+.gc-p-16 {
+    padding: var(--gc-space-16) !important;
+}
+
+.gc-p-20 {
+    padding: var(--gc-space-20) !important;
+}
+
+.gc-p-24 {
+    padding: var(--gc-space-24) !important;
+}
+
+.gc-p-32 {
+    padding: var(--gc-space-32) !important;
+}
+
+/* Padding Top 工具類 */
+.gc-pt-0 {
+    padding-top: var(--gc-space-0) !important;
+}
+
+.gc-pt-1 {
+    padding-top: var(--gc-space-1) !important;
+}
+
+.gc-pt-2 {
+    padding-top: var(--gc-space-2) !important;
+}
+
+.gc-pt-3 {
+    padding-top: var(--gc-space-3) !important;
+}
+
+.gc-pt-4 {
+    padding-top: var(--gc-space-4) !important;
+}
+
+.gc-pt-5 {
+    padding-top: var(--gc-space-5) !important;
+}
+
+.gc-pt-6 {
+    padding-top: var(--gc-space-6) !important;
+}
+
+.gc-pt-8 {
+    padding-top: var(--gc-space-8) !important;
+}
+
+.gc-pt-10 {
+    padding-top: var(--gc-space-10) !important;
+}
+
+.gc-pt-12 {
+    padding-top: var(--gc-space-12) !important;
+}
+
+.gc-pt-16 {
+    padding-top: var(--gc-space-16) !important;
+}
+
+.gc-pt-20 {
+    padding-top: var(--gc-space-20) !important;
+}
+
+.gc-pt-24 {
+    padding-top: var(--gc-space-24) !important;
+}
+
+.gc-pt-32 {
+    padding-top: var(--gc-space-32) !important;
+}
+
+/* Padding Bottom 工具類 */
+.gc-pb-0 {
+    padding-bottom: var(--gc-space-0) !important;
+}
+
+.gc-pb-1 {
+    padding-bottom: var(--gc-space-1) !important;
+}
+
+.gc-pb-2 {
+    padding-bottom: var(--gc-space-2) !important;
+}
+
+.gc-pb-3 {
+    padding-bottom: var(--gc-space-3) !important;
+}
+
+.gc-pb-4 {
+    padding-bottom: var(--gc-space-4) !important;
+}
+
+.gc-pb-5 {
+    padding-bottom: var(--gc-space-5) !important;
+}
+
+.gc-pb-6 {
+    padding-bottom: var(--gc-space-6) !important;
+}
+
+.gc-pb-8 {
+    padding-bottom: var(--gc-space-8) !important;
+}
+
+.gc-pb-10 {
+    padding-bottom: var(--gc-space-10) !important;
+}
+
+.gc-pb-12 {
+    padding-bottom: var(--gc-space-12) !important;
+}
+
+.gc-pb-16 {
+    padding-bottom: var(--gc-space-16) !important;
+}
+
+.gc-pb-20 {
+    padding-bottom: var(--gc-space-20) !important;
+}
+
+.gc-pb-24 {
+    padding-bottom: var(--gc-space-24) !important;
+}
+
+.gc-pb-32 {
+    padding-bottom: var(--gc-space-32) !important;
+}
+
+/* Padding Left 工具類 */
+.gc-pl-0 {
+    padding-left: var(--gc-space-0) !important;
+}
+
+.gc-pl-1 {
+    padding-left: var(--gc-space-1) !important;
+}
+
+.gc-pl-2 {
+    padding-left: var(--gc-space-2) !important;
+}
+
+.gc-pl-3 {
+    padding-left: var(--gc-space-3) !important;
+}
+
+.gc-pl-4 {
+    padding-left: var(--gc-space-4) !important;
+}
+
+.gc-pl-5 {
+    padding-left: var(--gc-space-5) !important;
+}
+
+.gc-pl-6 {
+    padding-left: var(--gc-space-6) !important;
+}
+
+.gc-pl-8 {
+    padding-left: var(--gc-space-8) !important;
+}
+
+.gc-pl-10 {
+    padding-left: var(--gc-space-10) !important;
+}
+
+.gc-pl-12 {
+    padding-left: var(--gc-space-12) !important;
+}
+
+.gc-pl-16 {
+    padding-left: var(--gc-space-16) !important;
+}
+
+.gc-pl-20 {
+    padding-left: var(--gc-space-20) !important;
+}
+
+.gc-pl-24 {
+    padding-left: var(--gc-space-24) !important;
+}
+
+.gc-pl-32 {
+    padding-left: var(--gc-space-32) !important;
+}
+
+/* Padding Right 工具類 */
+.gc-pr-0 {
+    padding-right: var(--gc-space-0) !important;
+}
+
+.gc-pr-1 {
+    padding-right: var(--gc-space-1) !important;
+}
+
+.gc-pr-2 {
+    padding-right: var(--gc-space-2) !important;
+}
+
+.gc-pr-3 {
+    padding-right: var(--gc-space-3) !important;
+}
+
+.gc-pr-4 {
+    padding-right: var(--gc-space-4) !important;
+}
+
+.gc-pr-5 {
+    padding-right: var(--gc-space-5) !important;
+}
+
+.gc-pr-6 {
+    padding-right: var(--gc-space-6) !important;
+}
+
+.gc-pr-8 {
+    padding-right: var(--gc-space-8) !important;
+}
+
+.gc-pr-10 {
+    padding-right: var(--gc-space-10) !important;
+}
+
+.gc-pr-12 {
+    padding-right: var(--gc-space-12) !important;
+}
+
+.gc-pr-16 {
+    padding-right: var(--gc-space-16) !important;
+}
+
+.gc-pr-20 {
+    padding-right: var(--gc-space-20) !important;
+}
+
+.gc-pr-24 {
+    padding-right: var(--gc-space-24) !important;
+}
+
+.gc-pr-32 {
+    padding-right: var(--gc-space-32) !important;
+}
+
+/* ========================================
+   文字工具類 (Typography Utilities)
+   ======================================== */
+
+/* 文字大小 */
+.gc-text-xs {
+    font-size: var(--gc-text-xs) !important;
+}
+
+.gc-text-sm {
+    font-size: var(--gc-text-sm) !important;
+}
+
+.gc-text-base {
+    font-size: var(--gc-text-base) !important;
+}
+
+.gc-text-lg {
+    font-size: var(--gc-text-lg) !important;
+}
+
+.gc-text-xl {
+    font-size: var(--gc-text-xl) !important;
+}
+
+.gc-text-2xl {
+    font-size: var(--gc-text-2xl) !important;
+}
+
+.gc-text-3xl {
+    font-size: var(--gc-text-3xl) !important;
+}
+
+.gc-text-4xl {
+    font-size: var(--gc-text-4xl) !important;
+}
+
+.gc-text-5xl {
+    font-size: var(--gc-text-5xl) !important;
+}
+
+/* 文字粗細 */
+.gc-font-light {
+    font-weight: var(--gc-font-light) !important;
+}
+
+.gc-font-normal {
+    font-weight: var(--gc-font-normal) !important;
+}
+
+.gc-font-medium {
+    font-weight: var(--gc-font-medium) !important;
+}
+
+.gc-font-semibold {
+    font-weight: var(--gc-font-semibold) !important;
+}
+
+.gc-font-bold {
+    font-weight: var(--gc-font-bold) !important;
+}
+
+.gc-font-extrabold {
+    font-weight: var(--gc-font-extrabold) !important;
+}
+
+/* 行高 */
+.gc-leading-none {
+    line-height: var(--gc-leading-none) !important;
+}
+
+.gc-leading-tight {
+    line-height: var(--gc-leading-tight) !important;
+}
+
+.gc-leading-snug {
+    line-height: var(--gc-leading-snug) !important;
+}
+
+.gc-leading-normal {
+    line-height: var(--gc-leading-normal) !important;
+}
+
+.gc-leading-relaxed {
+    line-height: var(--gc-leading-relaxed) !important;
+}
+
+.gc-leading-loose {
+    line-height: var(--gc-leading-loose) !important;
+}
+
+/* 文字對齊 */
+.gc-text-left {
+    text-align: left !important;
+}
+
+.gc-text-center {
+    text-align: center !important;
+}
+
+.gc-text-right {
+    text-align: right !important;
+}
+
+.gc-text-justify {
+    text-align: justify !important;
+}
+
+/* 文字變形 */
+.gc-uppercase {
+    text-transform: uppercase !important;
+}
+
+.gc-lowercase {
+    text-transform: lowercase !important;
+}
+
+.gc-capitalize {
+    text-transform: capitalize !important;
+}
+
+.gc-normal-case {
+    text-transform: none !important;
+}
+
+/* 文字裝飾 */
+.gc-underline {
+    text-decoration: underline !important;
+}
+
+.gc-line-through {
+    text-decoration: line-through !important;
+}
+
+.gc-no-underline {
+    text-decoration: none !important;
+}
+
+/* ========================================
+   色彩工具類 (Color Utilities)
+   ======================================== */
+
+/* 主要色彩 */
+.gc-text-primary {
+    color: var(--gc-primary-500) !important;
+}
+
+.gc-text-primary-light {
+    color: var(--gc-primary-100) !important;
+}
+
+.gc-text-primary-dark {
+    color: var(--gc-primary-700) !important;
+}
+
+.gc-bg-primary {
+    background-color: var(--gc-primary-500) !important;
+}
+
+.gc-bg-primary-light {
+    background-color: var(--gc-primary-50) !important;
+}
+
+.gc-bg-primary-dark {
+    background-color: var(--gc-primary-700) !important;
+}
+
+.gc-border-primary {
+    border-color: var(--gc-primary-500) !important;
+}
+
+.gc-border-primary-light {
+    border-color: var(--gc-primary-100) !important;
+}
+
+.gc-border-primary-dark {
+    border-color: var(--gc-primary-700) !important;
+}
+
+/* 次要色彩 */
+.gc-text-secondary {
+    color: var(--gc-secondary-500) !important;
+}
+
+.gc-text-secondary-light {
+    color: var(--gc-secondary-100) !important;
+}
+
+.gc-text-secondary-dark {
+    color: var(--gc-secondary-700) !important;
+}
+
+.gc-bg-secondary {
+    background-color: var(--gc-secondary-500) !important;
+}
+
+.gc-bg-secondary-light {
+    background-color: var(--gc-secondary-50) !important;
+}
+
+.gc-bg-secondary-dark {
+    background-color: var(--gc-secondary-700) !important;
+}
+
+.gc-border-secondary {
+    border-color: var(--gc-secondary-500) !important;
+}
+
+.gc-border-secondary-light {
+    border-color: var(--gc-secondary-100) !important;
+}
+
+.gc-border-secondary-dark {
+    border-color: var(--gc-secondary-700) !important;
+}
+
+/* 成功色彩 */
+.gc-text-success {
+    color: var(--gc-success-500) !important;
+}
+
+.gc-text-success-light {
+    color: var(--gc-success-100) !important;
+}
+
+.gc-text-success-dark {
+    color: var(--gc-success-600) !important;
+}
+
+.gc-bg-success {
+    background-color: var(--gc-success-500) !important;
+}
+
+.gc-bg-success-light {
+    background-color: var(--gc-success-50) !important;
+}
+
+.gc-bg-success-dark {
+    background-color: var(--gc-success-600) !important;
+}
+
+.gc-border-success {
+    border-color: var(--gc-success-500) !important;
+}
+
+.gc-border-success-light {
+    border-color: var(--gc-success-100) !important;
+}
+
+.gc-border-success-dark {
+    border-color: var(--gc-success-600) !important;
+}
+
+/* 警告色彩 */
+.gc-text-warning {
+    color: var(--gc-warning-500) !important;
+}
+
+.gc-text-warning-light {
+    color: var(--gc-warning-100) !important;
+}
+
+.gc-text-warning-dark {
+    color: var(--gc-warning-600) !important;
+}
+
+.gc-bg-warning {
+    background-color: var(--gc-warning-500) !important;
+}
+
+.gc-bg-warning-light {
+    background-color: var(--gc-warning-50) !important;
+}
+
+.gc-bg-warning-dark {
+    background-color: var(--gc-warning-600) !important;
+}
+
+.gc-border-warning {
+    border-color: var(--gc-warning-500) !important;
+}
+
+.gc-border-warning-light {
+    border-color: var(--gc-warning-100) !important;
+}
+
+.gc-border-warning-dark {
+    border-color: var(--gc-warning-600) !important;
+}
+
+/* 錯誤色彩 */
+.gc-text-error {
+    color: var(--gc-error-500) !important;
+}
+
+.gc-text-error-light {
+    color: var(--gc-error-100) !important;
+}
+
+.gc-text-error-dark {
+    color: var(--gc-error-600) !important;
+}
+
+.gc-bg-error {
+    background-color: var(--gc-error-500) !important;
+}
+
+.gc-bg-error-light {
+    background-color: var(--gc-error-50) !important;
+}
+
+.gc-bg-error-dark {
+    background-color: var(--gc-error-600) !important;
+}
+
+.gc-border-error {
+    border-color: var(--gc-error-500) !important;
+}
+
+.gc-border-error-light {
+    border-color: var(--gc-error-100) !important;
+}
+
+.gc-border-error-dark {
+    border-color: var(--gc-error-600) !important;
+}
+
+/* 中性色彩 */
+.gc-text-neutral-0 {
+    color: var(--gc-neutral-0) !important;
+}
+
+.gc-text-neutral-50 {
+    color: var(--gc-neutral-50) !important;
+}
+
+.gc-text-neutral-100 {
+    color: var(--gc-neutral-100) !important;
+}
+
+.gc-text-neutral-200 {
+    color: var(--gc-neutral-200) !important;
+}
+
+.gc-text-neutral-300 {
+    color: var(--gc-neutral-300) !important;
+}
+
+.gc-text-neutral-400 {
+    color: var(--gc-neutral-400) !important;
+}
+
+.gc-text-neutral-500 {
+    color: var(--gc-neutral-500) !important;
+}
+
+.gc-text-neutral-600 {
+    color: var(--gc-neutral-600) !important;
+}
+
+.gc-text-neutral-700 {
+    color: var(--gc-neutral-700) !important;
+}
+
+.gc-text-neutral-800 {
+    color: var(--gc-neutral-800) !important;
+}
+
+.gc-text-neutral-900 {
+    color: var(--gc-neutral-900) !important;
+}
+
+.gc-bg-neutral-0 {
+    background-color: var(--gc-neutral-0) !important;
+}
+
+.gc-bg-neutral-50 {
+    background-color: var(--gc-neutral-50) !important;
+}
+
+.gc-bg-neutral-100 {
+    background-color: var(--gc-neutral-100) !important;
+}
+
+.gc-bg-neutral-200 {
+    background-color: var(--gc-neutral-200) !important;
+}
+
+.gc-bg-neutral-300 {
+    background-color: var(--gc-neutral-300) !important;
+}
+
+.gc-bg-neutral-400 {
+    background-color: var(--gc-neutral-400) !important;
+}
+
+.gc-bg-neutral-500 {
+    background-color: var(--gc-neutral-500) !important;
+}
+
+.gc-bg-neutral-600 {
+    background-color: var(--gc-neutral-600) !important;
+}
+
+.gc-bg-neutral-700 {
+    background-color: var(--gc-neutral-700) !important;
+}
+
+.gc-bg-neutral-800 {
+    background-color: var(--gc-neutral-800) !important;
+}
+
+.gc-bg-neutral-900 {
+    background-color: var(--gc-neutral-900) !important;
+}
+
+.gc-border-neutral-0 {
+    border-color: var(--gc-neutral-0) !important;
+}
+
+.gc-border-neutral-50 {
+    border-color: var(--gc-neutral-50) !important;
+}
+
+.gc-border-neutral-100 {
+    border-color: var(--gc-neutral-100) !important;
+}
+
+.gc-border-neutral-200 {
+    border-color: var(--gc-neutral-200) !important;
+}
+
+.gc-border-neutral-300 {
+    border-color: var(--gc-neutral-300) !important;
+}
+
+.gc-border-neutral-400 {
+    border-color: var(--gc-neutral-400) !important;
+}
+
+.gc-border-neutral-500 {
+    border-color: var(--gc-neutral-500) !important;
+}
+
+.gc-border-neutral-600 {
+    border-color: var(--gc-neutral-600) !important;
+}
+
+.gc-border-neutral-700 {
+    border-color: var(--gc-neutral-700) !important;
+}
+
+.gc-border-neutral-800 {
+    border-color: var(--gc-neutral-800) !important;
+}
+
+.gc-border-neutral-900 {
+    border-color: var(--gc-neutral-900) !important;
+}
+
+/* ========================================
+   邊框工具類 (Border Utilities)
+   ======================================== */
+
+/* 邊框寬度 */
+.gc-border-0 {
+    border-width: 0 !important;
+}
+
+.gc-border {
+    border-width: 1px !important;
+}
+
+.gc-border-2 {
+    border-width: 2px !important;
+}
+
+.gc-border-4 {
+    border-width: 4px !important;
+}
+
+.gc-border-8 {
+    border-width: 8px !important;
+}
+
+/* 邊框樣式 */
+.gc-border-solid {
+    border-style: solid !important;
+}
+
+.gc-border-dashed {
+    border-style: dashed !important;
+}
+
+.gc-border-dotted {
+    border-style: dotted !important;
+}
+
+.gc-border-none {
+    border-style: none !important;
+}
+
+/* 邊框圓角 */
+.gc-rounded-none {
+    border-radius: var(--gc-radius-none) !important;
+}
+
+.gc-rounded-sm {
+    border-radius: var(--gc-radius-sm) !important;
+}
+
+.gc-rounded {
+    border-radius: var(--gc-radius-base) !important;
+}
+
+.gc-rounded-md {
+    border-radius: var(--gc-radius-md) !important;
+}
+
+.gc-rounded-lg {
+    border-radius: var(--gc-radius-lg) !important;
+}
+
+.gc-rounded-xl {
+    border-radius: var(--gc-radius-xl) !important;
+}
+
+.gc-rounded-2xl {
+    border-radius: var(--gc-radius-2xl) !important;
+}
+
+.gc-rounded-3xl {
+    border-radius: var(--gc-radius-3xl) !important;
+}
+
+.gc-rounded-full {
+    border-radius: var(--gc-radius-full) !important;
+}
+
+/* ========================================
+   陰影工具類 (Shadow Utilities)
+   ======================================== */
+
+.gc-shadow-none {
+    box-shadow: var(--gc-shadow-none) !important;
+}
+
+.gc-shadow-sm {
+    box-shadow: var(--gc-shadow-sm) !important;
+}
+
+.gc-shadow {
+    box-shadow: var(--gc-shadow-base) !important;
+}
+
+.gc-shadow-md {
+    box-shadow: var(--gc-shadow-md) !important;
+}
+
+.gc-shadow-lg {
+    box-shadow: var(--gc-shadow-lg) !important;
+}
+
+.gc-shadow-xl {
+    box-shadow: var(--gc-shadow-xl) !important;
+}
+
+.gc-shadow-2xl {
+    box-shadow: var(--gc-shadow-2xl) !important;
+}
+
+/* ========================================
+   顯示工具類 (Display Utilities)
+   ======================================== */
+
+.gc-block {
+    display: block !important;
+}
+
+.gc-inline-block {
+    display: inline-block !important;
+}
+
+.gc-inline {
+    display: inline !important;
+}
+
+.gc-flex {
+    display: flex !important;
+}
+
+.gc-inline-flex {
+    display: inline-flex !important;
+}
+
+.gc-grid {
+    display: grid !important;
+}
+
+.gc-inline-grid {
+    display: inline-grid !important;
+}
+
+.gc-hidden {
+    display: none !important;
+}
+
+/* ========================================
+   定位工具類 (Position Utilities)
+   ======================================== */
+
+.gc-static {
+    position: static !important;
+}
+
+.gc-relative {
+    position: relative !important;
+}
+
+.gc-absolute {
+    position: absolute !important;
+}
+
+.gc-fixed {
+    position: fixed !important;
+}
+
+.gc-sticky {
+    position: sticky !important;
+}
+
+/* ========================================
+   寬高工具類 (Width & Height Utilities)
+   ======================================== */
+
+.gc-w-full {
+    width: 100% !important;
+}
+
+.gc-w-auto {
+    width: auto !important;
+}
+
+.gc-w-screen {
+    width: 100vw !important;
+}
+
+.gc-h-full {
+    height: 100% !important;
+}
+
+.gc-h-auto {
+    height: auto !important;
+}
+
+.gc-h-screen {
+    height: 100vh !important;
+}
+
+/* ========================================
+   響應式工具類 (Responsive Utilities)
+   ======================================== */
+
+/* 小螢幕 (sm) */
+@media (min-width: 576px) {
+    .gc-sm\:block {
+        display: block !important;
+    }
+
+    .gc-sm\:hidden {
+        display: none !important;
+    }
+
+    .gc-sm\:flex {
+        display: flex !important;
+    }
+
+    .gc-sm\:grid {
+        display: grid !important;
+    }
+}
+
+/* 中等螢幕 (md) */
+@media (min-width: 768px) {
+    .gc-md\:block {
+        display: block !important;
+    }
+
+    .gc-md\:hidden {
+        display: none !important;
+    }
+
+    .gc-md\:flex {
+        display: flex !important;
+    }
+
+    .gc-md\:grid {
+        display: grid !important;
+    }
+}
+
+/* 大螢幕 (lg) */
+@media (min-width: 992px) {
+    .gc-lg\:block {
+        display: block !important;
+    }
+
+    .gc-lg\:hidden {
+        display: none !important;
+    }
+
+    .gc-lg\:flex {
+        display: flex !important;
+    }
+
+    .gc-lg\:grid {
+        display: grid !important;
+    }
+}
+
+/* 超大螢幕 (xl) */
+@media (min-width: 1200px) {
+    .gc-xl\:block {
+        display: block !important;
+    }
+
+    .gc-xl\:hidden {
+        display: none !important;
+    }
+
+    .gc-xl\:flex {
+        display: flex !important;
+    }
+
+    .gc-xl\:grid {
+        display: grid !important;
+    }
+}
+
+/* ========================================
+   動畫工具類 (Animation Utilities)
+   ======================================== */
+
+.gc-transition {
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out) !important;
+}
+
+.gc-transition-fast {
+    transition: all var(--gc-transition-fast) var(--gc-ease-in-out) !important;
+}
+
+.gc-transition-slow {
+    transition: all var(--gc-transition-slow) var(--gc-ease-in-out) !important;
+}
+
+.gc-transform {
+    transform: translateZ(0) !important;
+}
+
+.gc-transform-gpu {
+    transform: translate3d(0, 0, 0) !important;
+}
+
+/* ========================================
+   無障礙工具類 (Accessibility Utilities)
+   ======================================== */
+
+.gc-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.gc-focus\:outline-none:focus {
+    outline: none !important;
+}
+
+.gc-focus\:ring:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* ========================================
+   載入狀態工具類 (Loading State Utilities)
+   ======================================== */
+
+.gc-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.gc-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin: -0.5rem 0 0 -0.5rem;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: gc-spin 1s linear infinite;
+}
+
+@keyframes gc-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   全域載入樣式 (Global Loading Styles)
+   ======================================== */
+
+.global-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--gc-z-modal);
+}
+
+.spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner-content {
+    background-color: var(--gc-neutral-0);
+    padding: var(--gc-space-6);
+    border-radius: var(--gc-radius-lg);
+    text-align: center;
+    box-shadow: var(--gc-shadow-2xl);
+}
+
+/* ========================================
+   響應式佈局工具類 (Responsive Layout Utilities)
+   ======================================== */
+
+.mobile-layout .gc-desktop-only {
+    display: none !important;
+}
+
+.desktop-layout .gc-mobile-only {
+    display: none !important;
+}
+
+/* ========================================
+   列印工具類 (Print Utilities)
+   ======================================== */
+
+@media print {
+    .gc-print\:hidden {
+        display: none !important;
+    }
+
+    .gc-print\:block {
+        display: block !important;
+    }
+
+    .gc-print\:text-black {
+        color: black !important;
+    }
+
+    .gc-print\:bg-white {
+        background-color: white !important;
+    }
+}

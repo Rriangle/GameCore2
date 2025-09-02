@@ -1,0 +1,6 @@
+@GameCore.Web_HostAddress = http://localhost:5063
+
+GET {{GameCore.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

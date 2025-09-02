@@ -1,0 +1,393 @@
+@{
+    ViewData["Title"] = "儀表板";
+    ViewData["Breadcrumbs"] = new List<dynamic> { new { Text = "儀表板", Url = "", IsActive = true } };
+}
+
+<!-- 頁面標題 -->
+<div class="gc-mb-6">
+    <h1 class="gc-text-3xl gc-font-bold gc-text-neutral-800">
+        <i class="bi bi-speedometer2 gc-text-primary gc-mr-3"></i>
+        系統儀表板
+    </h1>
+    <p class="gc-text-lg gc-text-neutral-600 gc-mt-2">
+        歡迎回來！這裡是 GameCore 管理後台的概況
+    </p>
+</div>
+
+<!-- 統計卡片 -->
+<div class="row gc-mb-6">
+    <div class="col-xl-3 col-md-6 gc-mb-4">
+        <div class="stats-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="gc-text-2xl gc-font-bold mb-0">12,847</h3>
+                    <p class="gc-text-neutral-100 mb-0">總用戶數</p>
+                </div>
+                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
+                    <i class="bi bi-people"></i>
+                </div>
+            </div>
+            <div class="gc-mt-3">
+                <small class="gc-text-neutral-100">
+                    <i class="bi bi-arrow-up"></i> +12% 本月
+                </small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 gc-mb-4">
+        <div class="stats-card success">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="gc-text-2xl gc-font-bold mb-0">¥89,432</h3>
+                    <p class="gc-text-neutral-100 mb-0">今日收入</p>
+                </div>
+                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
+                    <i class="bi bi-currency-yen"></i>
+                </div>
+            </div>
+            <div class="gc-mt-3">
+                <small class="gc-text-neutral-100">
+                    <i class="bi bi-arrow-up"></i> +8% 昨日
+                </small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 gc-mb-4">
+        <div class="stats-card warning">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="gc-text-2xl gc-font-bold mb-0">1,234</h3>
+                    <p class="gc-text-neutral-100 mb-0">待處理訂單</p>
+                </div>
+                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
+                    <i class="bi bi-cart"></i>
+                </div>
+            </div>
+            <div class="gc-mt-3">
+                <small class="gc-text-neutral-100">
+                    <i class="bi bi-arrow-down"></i> -5% 昨日
+                </small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 gc-mb-4">
+        <div class="stats-card error">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="gc-text-2xl gc-font-bold mb-0">98.7%</h3>
+                    <p class="gc-text-neutral-100 mb-0">系統可用性</p>
+                </div>
+                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
+                    <i class="bi bi-activity"></i>
+                </div>
+            </div>
+            <div class="gc-mt-3">
+                <small class="gc-text-neutral-100">
+                    <i class="bi bi-arrow-up"></i> +0.3% 昨日
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 圖表和詳細資訊 -->
+<div class="row">
+    <!-- 左側圖表 -->
+    <div class="col-lg-8 gc-mb-6">
+        <div class="gc-card gc-p-4">
+            <div class="d-flex justify-content-between align-items-center gc-mb-4">
+                <h3 class="gc-text-xl gc-font-semibold gc-text-neutral-800">
+                    <i class="bi bi-graph-up gc-text-primary gc-mr-2"></i>
+                    用戶增長趨勢
+                </h3>
+                <div class="btn-group btn-group-sm" role="group">
+                    <input type="radio" class="btn-check" name="chartPeriod" id="period7d" checked>
+                    <label class="btn btn-outline-primary" for="period7d">7天</label>
+                    
+                    <input type="radio" class="btn-check" name="chartPeriod" id="period30d">
+                    <label class="btn btn-outline-primary" for="period30d">30天</label>
+                    
+                    <input type="radio" class="btn-check" name="chartPeriod" id="period90d">
+                    <label class="btn btn-outline-primary" for="period90d">90天</label>
+                </div>
+            </div>
+            
+            <!-- 圖表佔位符 -->
+            <div class="gc-bg-neutral-100 gc-rounded gc-p-8 text-center" style="height: 300px;">
+                <i class="bi bi-bar-chart gc-text-neutral-400" style="font-size: 3rem;"></i>
+                <p class="gc-text-neutral-500 gc-mt-3">圖表區域 - 整合 Chart.js 或其他圖表庫</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 右側快速操作 -->
+    <div class="col-lg-4 gc-mb-6">
+        <div class="gc-card gc-p-4">
+            <h3 class="gc-text-xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
+                <i class="bi bi-lightning gc-text-warning gc-mr-2"></i>
+                快速操作
+            </h3>
+            
+            <div class="d-grid gap-2">
+                <a href="/Admin/User/Create" class="gc-btn gc-btn-primary">
+                    <i class="bi bi-person-plus gc-mr-2"></i>
+                    新增用戶
+                </a>
+                
+                <a href="/Admin/Product/Create" class="gc-btn gc-btn-success">
+                    <i class="bi bi-box-seam gc-mr-2"></i>
+                    新增商品
+                </a>
+                
+                <a href="/Admin/Order" class="gc-btn gc-btn-warning">
+                    <i class="bi bi-cart-check gc-mr-2"></i>
+                    處理訂單
+                </a>
+                
+                <a href="/Admin/System/Backup" class="gc-btn gc-btn-secondary">
+                    <i class="bi bi-download gc-mr-2"></i>
+                    系統備份
+                </a>
+                
+                <a href="/Admin/Log" class="gc-btn gc-btn-info">
+                    <i class="bi bi-file-text gc-mr-2"></i>
+                    查看日誌
+                </a>
+            </div>
+        </div>
+        
+        <!-- 系統狀態 -->
+        <div class="gc-card gc-p-4 gc-mt-4">
+            <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-800 gc-mb-3">
+                <i class="bi bi-activity gc-text-success gc-mr-2"></i>
+                系統狀態
+            </h3>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="gc-text-neutral-600">API 服務</span>
+                    <span class="badge bg-success">正常</span>
+                </div>
+            </div>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="gc-text-neutral-600">資料庫</span>
+                    <span class="badge bg-success">正常</span>
+                </div>
+            </div>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="gc-text-neutral-600">快取服務</span>
+                    <span class="badge bg-success">正常</span>
+                </div>
+            </div>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="gc-text-neutral-600">檔案儲存</span>
+                    <span class="badge bg-warning">警告</span>
+                </div>
+            </div>
+            
+            <div class="gc-mt-4">
+                <a href="/Admin/System/Status" class="gc-btn gc-btn-outline-secondary gc-btn-sm">
+                    詳細狀態
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 詳細統計表格 -->
+<div class="row">
+    <div class="col-12">
+        <div class="gc-card gc-p-4">
+            <div class="d-flex justify-content-between align-items-center gc-mb-4">
+                <h3 class="gc-text-xl gc-font-semibold gc-text-neutral-800">
+                    <i class="bi bi-table gc-text-primary gc-mr-2"></i>
+                    最近活動
+                </h3>
+                <a href="/Admin/Log" class="gc-btn gc-btn-outline-primary gc-btn-sm">
+                    查看全部
+                </a>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>時間</th>
+                            <th>用戶</th>
+                            <th>動作</th>
+                            <th>詳情</th>
+                            <th>狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-01-15 14:30:25</td>
+                            <td>user123</td>
+                            <td>登入系統</td>
+                            <td>從 192.168.1.100 登入</td>
+                            <td><span class="badge bg-success">成功</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-15 14:28:15</td>
+                            <td>admin001</td>
+                            <td>新增商品</td>
+                            <td>新增商品 ID: PROD-001</td>
+                            <td><span class="badge bg-success">成功</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-15 14:25:42</td>
+                            <td>user456</td>
+                            <td>購買商品</td>
+                            <td>訂單 ID: ORD-789</td>
+                            <td><span class="badge bg-success">成功</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-15 14:22:18</td>
+                            <td>user789</td>
+                            <td>註冊帳號</td>
+                            <td>新用戶註冊</td>
+                            <td><span class="badge bg-success">成功</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-15 14:20:05</td>
+                            <td>system</td>
+                            <td>系統備份</td>
+                            <td>自動備份完成</td>
+                            <td><span class="badge bg-info">資訊</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 效能指標 -->
+<div class="row gc-mt-6">
+    <div class="col-md-6 gc-mb-4">
+        <div class="gc-card gc-p-4">
+            <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-800 gc-mb-3">
+                <i class="bi bi-cpu gc-text-primary gc-mr-2"></i>
+                系統效能
+            </h3>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center gc-mb-2">
+                    <span class="gc-text-neutral-600">CPU 使用率</span>
+                    <span class="gc-text-neutral-800">45%</span>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-primary" style="width: 45%"></div>
+                </div>
+            </div>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center gc-mb-2">
+                    <span class="gc-text-neutral-600">記憶體使用率</span>
+                    <span class="gc-text-neutral-800">62%</span>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" style="width: 62%"></div>
+                </div>
+            </div>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center gc-mb-2">
+                    <span class="gc-text-neutral-600">磁碟使用率</span>
+                    <span class="gc-text-neutral-800">78%</span>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-danger" style="width: 78%"></div>
+                </div>
+            </div>
+            
+            <div class="gc-mb-3">
+                <div class="d-flex justify-content-between align-items-center gc-mb-2">
+                    <span class="gc-text-neutral-600">網路流量</span>
+                    <span class="gc-text-neutral-800">正常</span>
+                </div>
+                <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-success" style="width: 35%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 gc-mb-4">
+        <div class="gc-card gc-p-4">
+            <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-800 gc-mb-3">
+                <i class="bi bi-clock-history gc-text-primary gc-mr-2"></i>
+                今日統計
+            </h3>
+            
+            <div class="row text-center">
+                <div class="col-6 gc-mb-3">
+                    <div class="gc-text-2xl gc-font-bold gc-text-primary">156</div>
+                    <div class="gc-text-sm gc-text-neutral-600">新用戶</div>
+                </div>
+                <div class="col-6 gc-mb-3">
+                    <div class="gc-text-2xl gc-font-bold gc-text-success">89</div>
+                    <div class="gc-text-sm gc-text-neutral-600">新訂單</div>
+                </div>
+                <div class="col-6 gc-mb-3">
+                    <div class="gc-text-2xl gc-font-bold gc-text-warning">23</div>
+                    <div class="gc-text-sm gc-text-neutral-600">新商品</div>
+                </div>
+                <div class="col-6 gc-mb-3">
+                    <div class="gc-text-2xl gc-font-bold gc-text-info">45</div>
+                    <div class="gc-text-sm gc-text-neutral-600">新帖子</div>
+                </div>
+            </div>
+            
+            <hr class="gc-my-4">
+            
+            <div class="gc-text-center">
+                <a href="/Admin/Reports" class="gc-btn gc-btn-outline-primary gc-btn-sm">
+                    <i class="bi bi-file-earmark-text gc-mr-2"></i>
+                    生成報告
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 頁面特定腳本 -->
+@section Scripts {
+    <script>
+        // 圖表週期切換
+        document.addEventListener('DOMContentLoaded', function() {
+            const periodInputs = document.querySelectorAll('input[name="chartPeriod"]');
+            
+            periodInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // 這裡可以觸發圖表更新
+                    console.log('圖表週期切換為:', this.id);
+                    
+                    // 顯示載入狀態
+                    AdminCore.setLoading(true);
+                    
+                    // 模擬 API 調用
+                    setTimeout(() => {
+                        AdminCore.setLoading(false);
+                        AdminCore.showNotification('圖表已更新', 'success');
+                    }, 1000);
+                });
+            });
+        });
+        
+        // 自動刷新數據
+        setInterval(() => {
+            // 這裡可以定期更新儀表板數據
+            console.log('定期更新儀表板數據...');
+        }, 30000); // 每30秒更新一次
+    </script>
+} 

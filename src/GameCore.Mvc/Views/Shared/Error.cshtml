@@ -1,0 +1,68 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "錯誤";
+}
+
+<!-- 錯誤頁面內容 -->
+<section class="gc-py-8">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="gc-card gc-p-6">
+                    <!-- 錯誤圖標 -->
+                    <div class="gc-mb-6">
+                        <i class="bi bi-exclamation-triangle gc-text-error" style="font-size: 5rem;"></i>
+                    </div>
+                    
+                    <!-- 錯誤標題 -->
+                    <h1 class="gc-text-3xl gc-font-bold gc-text-neutral-800 gc-mb-4">
+                        發生錯誤
+                    </h1>
+                    
+                    <!-- 錯誤訊息 -->
+                    @if (Model.ShowRequestId)
+                    {
+                        <div class="gc-alert gc-alert-error gc-mb-4">
+                            <strong>錯誤 ID:</strong> <code>@Model.RequestId</code>
+                        </div>
+                    }
+                    
+                    <p class="gc-text-lg gc-text-neutral-600 gc-mb-6">
+                        很抱歉，處理您的請求時發生了錯誤。我們已經記錄了這個問題，並會盡快解決。
+                    </p>
+                    
+                    <!-- 建議操作 -->
+                    <div class="gc-card gc-p-4 gc-bg-neutral-50 gc-mb-6">
+                        <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-800 gc-mb-3">
+                            您可以嘗試：
+                        </h3>
+                        <ul class="gc-text-neutral-600 gc-text-left">
+                            <li class="gc-mb-2">• 重新整理頁面</li>
+                            <li class="gc-mb-2">• 檢查網址是否正確</li>
+                            <li class="gc-mb-2">• 稍後再試</li>
+                            <li class="gc-mb-0">• 聯絡客服支援</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 操作按鈕 -->
+                    <div class="gc-mb-4">
+                        <a href="/" class="gc-btn gc-btn-primary gc-mr-3">
+                            <i class="bi bi-house-door gc-mr-2"></i>
+                            返回首頁
+                        </a>
+                        <a href="javascript:history.back()" class="gc-btn gc-btn-secondary">
+                            <i class="bi bi-arrow-left gc-mr-2"></i>
+                            返回上頁
+                        </a>
+                    </div>
+                    
+                    <!-- 聯絡支援 -->
+                    <div class="gc-text-sm gc-text-neutral-500">
+                        如果問題持續發生，請聯絡我們的技術支援團隊：
+                        <a href="mailto:support@gamecore.com" class="gc-link">support@gamecore.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

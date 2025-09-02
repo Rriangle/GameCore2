@@ -1,0 +1,459 @@
+/* ========================================
+   GameCore 設計系統 - 玻璃風設計令牌 (Glass Morphism Design Tokens)
+   ========================================
+   
+   這個檔案定義了整個 GameCore 平台的玻璃風設計令牌，
+   參考 index.txt 的設計風格：玻璃風 + 彩色看板 + 強化排行
+   
+   設計令牌的優點：
+   - 確保 UI 一致性
+   - 簡化設計變更
+   - 提升開發效率
+   - 改善維護性
+   
+   回滾方式：刪除此檔案即可恢復預設樣式
+   ======================================== */
+
+:root {
+    /* ========================================
+     玻璃風背景系統 (Glass Morphism Background System)
+     ======================================== */
+
+    /* 主要背景 */
+    --gc-bg: #eef3f8;
+    /* 淺藍灰背景 */
+    --gc-bg2: #ffffff;
+    /* 純白背景 */
+    --gc-surface: rgba(255, 255, 255, 0.75);
+    /* 半透明白色表面 */
+    --gc-glass: rgba(255, 255, 255, 0.45);
+    /* 玻璃效果背景 */
+
+    /* 深色模式背景 */
+    --gc-bg-dark: #0c111b;
+    /* 深色背景 */
+    --gc-bg2-dark: #0a0f18;
+    /* 更深色背景 */
+    --gc-surface-dark: rgba(22, 30, 48, 0.65);
+    /* 深色半透明表面 */
+    --gc-glass-dark: rgba(18, 24, 39, 0.50);
+    /* 深色玻璃效果 */
+
+    /* ========================================
+     色彩系統 (Color System) - 玻璃風漸層
+     ======================================== */
+
+    /* 主要品牌色彩 */
+    --gc-primary-50: #eff6ff;
+    /* 淺藍色 - 背景 */
+    --gc-primary-100: #dbeafe;
+    /* 淺藍色 - 邊框 */
+    --gc-primary-500: #3b82f6;
+    /* 主要藍色 - 按鈕、連結 */
+    --gc-primary-600: #2563eb;
+    /* 深藍色 - hover 狀態 */
+    --gc-primary-700: #1d4ed8;
+    /* 更深藍色 - active 狀態 */
+    --gc-primary-900: #1e3a8a;
+    /* 最深藍色 - 文字 */
+
+    /* 玻璃風主色調 */
+    --gc-accent: #7557ff;
+    /* 主要紫色 - 玻璃風主色 */
+    --gc-accent-2: #34d2ff;
+    /* 次要藍色 - 玻璃風輔色 */
+    --gc-accent-3: #22c55e;
+    /* 綠色 - 玻璃風輔色 */
+
+    /* 彩色看板漸層 */
+    --gc-gradient-1: linear-gradient(135deg, #4f46e5, #22d3ee);
+    /* 藍綠漸層 */
+    --gc-gradient-2: linear-gradient(135deg, #f43f5e, #f59e0b);
+    /* 紅黃漸層 */
+    --gc-gradient-3: linear-gradient(135deg, #22c55e, #16a34a);
+    /* 綠漸層 */
+    --gc-gradient-4: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    /* 紫藍漸層 */
+    --gc-gradient-5: linear-gradient(135deg, #f97316, #ef4444);
+    /* 橙紅漸層 */
+    --gc-gradient-6: linear-gradient(135deg, #06b6d4, #3b82f6);
+    /* 藍漸層 */
+
+    /* 排行榜配色 */
+    --gc-ok: #22c55e;
+    /* 上升 - 綠色 */
+    --gc-down: #ff6b6b;
+    /* 下降 - 紅色 */
+    --gc-flat: #9aa8bf;
+    /* 持平 - 灰色 */
+    --gc-gold: #FFD700;
+    /* 金牌 - 金色 */
+    --gc-silver: #C0C0C0;
+    /* 銀牌 - 銀色 */
+    --gc-bronze: #CD7F32;
+    /* 銅牌 - 銅色 */
+    --gc-goldA: rgba(255, 215, 0, 0.18);
+    /* 金牌光暈 */
+    --gc-silverA: rgba(192, 192, 192, 0.18);
+    /* 銀牌光暈 */
+    --gc-bronzeA: rgba(205, 127, 50, 0.18);
+    /* 銅牌光暈 */
+
+    /* 次要色彩 */
+    --gc-secondary-50: #f8fafc;
+    /* 淺灰色 - 背景 */
+    --gc-secondary-100: #f1f5f9;
+    /* 淺灰色 - 邊框 */
+    --gc-secondary-500: #64748b;
+    /* 次要灰色 - 次要按鈕 */
+    --gc-secondary-600: #475569;
+    /* 深灰色 - hover 狀態 */
+    --gc-secondary-700: #334155;
+    /* 更深灰色 - active 狀態 */
+
+    /* 成功色彩 */
+    --gc-success-50: #f0fdf4;
+    /* 淺綠色 - 成功背景 */
+    --gc-success-500: #22c55e;
+    /* 綠色 - 成功狀態 */
+    --gc-success-600: #16a34a;
+    /* 深綠色 - hover 狀態 */
+
+    /* 警告色彩 */
+    --gc-warning-50: #fffbeb;
+    /* 淺黃色 - 警告背景 */
+    --gc-warning-500: #f59e0b;
+    /* 黃色 - 警告狀態 */
+    --gc-warning-600: #d97706;
+    /* 深黃色 - hover 狀態 */
+
+    /* 錯誤色彩 */
+    --gc-error-50: #fef2f2;
+    /* 淺紅色 - 錯誤背景 */
+    --gc-error-500: #ef4444;
+    /* 紅色 - 錯誤狀態 */
+    --gc-error-600: #dc2626;
+    /* 深紅色 - hover 狀態 */
+
+    /* 中性色彩 */
+    --gc-neutral-0: #ffffff;
+    /* 純白色 */
+    --gc-neutral-50: #f9fafb;
+    /* 淺灰色 - 背景 */
+    --gc-neutral-100: #f3f4f6;
+    /* 淺灰色 - 邊框 */
+    --gc-neutral-200: #e5e7eb;
+    /* 淺灰色 - 分隔線 */
+    --gc-neutral-300: #d1d5db;
+    /* 灰色 - 禁用狀態 */
+    --gc-neutral-400: #9ca3af;
+    /* 灰色 - 佔位符 */
+    --gc-neutral-500: #6b7280;
+    /* 灰色 - 次要文字 */
+    --gc-neutral-600: #4b5563;
+    /* 灰色 - 主要文字 */
+    --gc-neutral-700: #374151;
+    /* 深灰色 - 標題 */
+    --gc-neutral-800: #1f2937;
+    /* 更深灰色 - 副標題 */
+    --gc-neutral-900: #111827;
+    /* 最深灰色 - 主要標題 */
+
+    /* 文字色彩 */
+    --gc-ink: #1f2937;
+    /* 主要文字顏色 */
+    --gc-muted: #64748b;
+    /* 次要文字顏色 */
+    --gc-line: #e5e7eb;
+    /* 分隔線顏色 */
+
+    /* ========================================
+     字體系統 (Typography System)
+     ======================================== */
+
+    /* 字體家族 */
+    --gc-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    --gc-font-size-base: 16px;
+    /* 基礎字體大小 */
+    --gc-line-height-base: 1.65;
+    /* 基礎行高 */
+
+    /* 字體大小 */
+    --gc-text-xs: 0.75rem;
+    /* 12px */
+    --gc-text-sm: 0.875rem;
+    /* 14px */
+    --gc-text-base: 1rem;
+    /* 16px */
+    --gc-text-lg: 1.125rem;
+    /* 18px */
+    --gc-text-xl: 1.25rem;
+    /* 20px */
+    --gc-text-2xl: 1.5rem;
+    /* 24px */
+    --gc-text-3xl: 1.875rem;
+    /* 30px */
+    --gc-text-4xl: 2.25rem;
+    /* 36px */
+
+    /* 字體粗細 */
+    --gc-font-light: 300;
+    --gc-font-normal: 400;
+    --gc-font-medium: 500;
+    --gc-font-semibold: 600;
+    --gc-font-bold: 700;
+    --gc-font-extrabold: 800;
+    --gc-font-black: 900;
+
+    /* ========================================
+     間距系統 (Spacing System)
+     ======================================== */
+
+    /* 基礎間距單位 */
+    --gc-space-1: 0.25rem;
+    /* 4px */
+    --gc-space-2: 0.5rem;
+    /* 8px */
+    --gc-space-3: 0.75rem;
+    /* 12px */
+    --gc-space-4: 1rem;
+    /* 16px */
+    --gc-space-5: 1.25rem;
+    /* 20px */
+    --gc-space-6: 1.5rem;
+    /* 24px */
+    --gc-space-8: 2rem;
+    /* 32px */
+    --gc-space-10: 2.5rem;
+    /* 40px */
+    --gc-space-12: 3rem;
+    /* 48px */
+    --gc-space-16: 4rem;
+    /* 64px */
+    --gc-space-20: 5rem;
+    /* 80px */
+    --gc-space-24: 6rem;
+    /* 96px */
+    --gc-space-32: 8rem;
+    /* 128px */
+
+    /* ========================================
+     圓角系統 (Border Radius System)
+     ======================================== */
+
+    --gc-radius-none: 0;
+    /* 無圓角 */
+    --gc-radius-sm: 0.375rem;
+    /* 6px - 小圓角 */
+    --gc-radius-base: 0.5rem;
+    /* 8px - 基礎圓角 */
+    --gc-radius-md: 0.75rem;
+    /* 12px - 中等圓角 */
+    --gc-radius-lg: 1rem;
+    /* 16px - 大圓角 */
+    --gc-radius-xl: 1.5rem;
+    /* 24px - 超大圓角 */
+    --gc-radius-2xl: 2rem;
+    /* 32px - 最大圓角 */
+    --gc-radius-full: 9999px;
+    /* 完全圓角 */
+
+    /* 玻璃風特殊圓角 */
+    --gc-radius-glass: 18px;
+    /* 玻璃風基礎圓角 */
+    --gc-radius-glass-sm: 12px;
+    /* 玻璃風小圓角 */
+
+    /* ========================================
+     陰影系統 (Shadow System)
+     ======================================== */
+
+    /* 基礎陰影 */
+    --gc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --gc-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --gc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --gc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --gc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* 玻璃風特殊陰影 */
+    --gc-shadow-glass: 0 18px 40px rgba(17, 24, 39, 0.12);
+    /* 玻璃風主陰影 */
+    --gc-shadow-glass-dark: 0 18px 42px rgba(0, 0, 0, 0.35);
+    /* 深色模式玻璃風陰影 */
+
+    /* ========================================
+     模糊效果系統 (Blur System)
+     ======================================== */
+
+    --gc-blur-sm: 4px;
+    /* 小模糊 */
+    --gc-blur-base: 8px;
+    /* 基礎模糊 */
+    --gc-blur-md: 12px;
+    /* 中等模糊 */
+    --gc-blur-lg: 16px;
+    /* 大模糊 */
+    --gc-blur-xl: 24px;
+    /* 超大模糊 */
+    --gc-blur-2xl: 40px;
+    /* 最大模糊 */
+
+    /* 玻璃風特殊模糊 */
+    --gc-blur-glass: 14px;
+    /* 玻璃風基礎模糊 */
+
+    /* ========================================
+     Z-Index 系統
+     ======================================== */
+
+    --gc-z-dropdown: 1000;
+    --gc-z-sticky: 1020;
+    --gc-z-fixed: 1030;
+    --gc-z-modal-backdrop: 1040;
+    --gc-z-modal: 1050;
+    --gc-z-popover: 1060;
+    --gc-z-tooltip: 1070;
+    --gc-z-toast: 1080;
+
+    /* ========================================
+     過渡動畫系統 (Transition System)
+     ======================================== */
+
+    --gc-transition-fast: 0.15s ease;
+    --gc-transition-base: 0.2s ease;
+    --gc-transition-slow: 0.3s ease;
+    --gc-transition-slower: 0.5s ease;
+
+    /* 玻璃風特殊過渡 */
+    --gc-transition-glass: 0.16s ease;
+    /* 玻璃風基礎過渡 */
+    --gc-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ========================================
+     響應式斷點系統 (Breakpoint System)
+     ======================================== */
+
+    --gc-breakpoint-sm: 640px;
+    /* 小螢幕 */
+    --gc-breakpoint-md: 768px;
+    /* 中等螢幕 */
+    --gc-breakpoint-lg: 1024px;
+    /* 大螢幕 */
+    --gc-breakpoint-xl: 1280px;
+    /* 超大螢幕 */
+    --gc-breakpoint-2xl: 1536px;
+    /* 最大螢幕 */
+
+    /* ========================================
+     容器寬度系統 (Container System)
+     ======================================== */
+
+    --gc-container-max: 1380px;
+    /* 最大容器寬度 */
+    --gc-container-padding: 16px;
+    /* 容器內邊距 */
+}
+
+/* ========================================
+   深色模式變數覆寫
+   ======================================== */
+
+body.dark {
+    --gc-bg: var(--gc-bg-dark);
+    --gc-bg2: var(--gc-bg2-dark);
+    --gc-surface: var(--gc-surface-dark);
+    --gc-glass: var(--gc-glass-dark);
+    --gc-ink: #e5edff;
+    --gc-muted: #9fb1c9;
+    --gc-line: #1e2b43;
+    --gc-shadow-glass: var(--gc-shadow-glass-dark);
+}
+
+/* ========================================
+   緊湊模式變數覆寫
+   ======================================== */
+
+body.compact {
+    --gc-radius-glass: 14px;
+    --gc-radius-glass-sm: 10px;
+}
+
+/* ========================================
+   工具類別 (Utility Classes)
+   ======================================== */
+
+/* 玻璃風背景 */
+.gc-glass-bg {
+    background: var(--gc-glass);
+    backdrop-filter: blur(var(--gc-blur-glass));
+    border: 1px solid var(--gc-line);
+}
+
+.gc-surface-bg {
+    background: var(--gc-surface);
+    backdrop-filter: blur(var(--gc-blur-glass));
+    border: 1px solid var(--gc-line);
+}
+
+/* 彩色看板漸層 */
+.gc-gradient-1 {
+    background: var(--gc-gradient-1);
+}
+
+.gc-gradient-2 {
+    background: var(--gc-gradient-2);
+}
+
+.gc-gradient-3 {
+    background: var(--gc-gradient-3);
+}
+
+.gc-gradient-4 {
+    background: var(--gc-gradient-4);
+}
+
+.gc-gradient-5 {
+    background: var(--gc-gradient-5);
+}
+
+.gc-gradient-6 {
+    background: var(--gc-gradient-6);
+}
+
+/* 排行榜樣式 */
+.gc-rank-gold {
+    color: var(--gc-gold);
+}
+
+.gc-rank-silver {
+    color: var(--gc-silver);
+}
+
+.gc-rank-bronze {
+    color: var(--gc-bronze);
+}
+
+.gc-rank-glow-1::before {
+    background: var(--gc-goldA);
+}
+
+.gc-rank-glow-2::before {
+    background: var(--gc-silverA);
+}
+
+.gc-rank-glow-3::before {
+    background: var(--gc-bronzeA);
+}
+
+/* 狀態指示器 */
+.gc-status-up {
+    color: var(--gc-ok);
+}
+
+.gc-status-down {
+    color: var(--gc-down);
+}
+
+.gc-status-flat {
+    color: var(--gc-flat);
+}

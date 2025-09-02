@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="GameCore 管理後台 - 系統管理和監控" />
+    <meta name="keywords" content="管理後台,系統管理,GameCore" />
+    <meta name="author" content="GameCore Admin Team" />
+    
+    <!-- 無障礙功能支援 -->
+    <meta name="theme-color" content="#dc2626" />
+    <meta name="color-scheme" content="light dark" />
+    
+    <title>@ViewData["Title"] - GameCore 管理後台</title>
+    
+    <!-- 預載入關鍵資源 -->
+    <link rel="preload" href="~/lib/bootstrap/dist/css/bootstrap.min.css" as="style" />
+    <link rel="preload" href="~/css/design-tokens.css" as="style" />
+    <link rel="preload" href="~/css/base-components.css" as="style" />
+    
+    <!-- 樣式表 -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/design-tokens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/base-components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/utilities.css" asp-append-version="true" />
+    
+    <!-- 字體預載入 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- 圖標庫 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+    
+    <!-- 管理後台專用樣式 -->
+    <style>
+        .admin-sidebar {
+            background: linear-gradient(180deg, var(--gc-neutral-800) 0%, var(--gc-neutral-900) 100%);
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            z-index: var(--gc-z-fixed);
+            transition: transform var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .admin-sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+        
+        .admin-main {
+            margin-left: 280px;
+            transition: margin-left var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .admin-main.expanded {
+            margin-left: 0;
+        }
+        
+        .admin-header {
+            background-color: var(--gc-neutral-0);
+            border-bottom: 1px solid var(--gc-neutral-200);
+            box-shadow: var(--gc-shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: var(--gc-z-sticky);
+        }
+        
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--gc-neutral-600);
+            font-size: 1.25rem;
+            padding: 0.5rem;
+            border-radius: var(--gc-radius-base);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .sidebar-toggle:hover {
+            background-color: var(--gc-neutral-100);
+            color: var(--gc-neutral-800);
+        }
+        
+        .sidebar-nav .nav-link {
+            color: var(--gc-neutral-300);
+            padding: var(--gc-space-3) var(--gc-space-4);
+            border-radius: var(--gc-radius-base);
+            margin: var(--gc-space-1) var(--gc-space-3);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-nav .nav-link:hover {
+            color: var(--gc-neutral-0);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-nav .nav-link.active {
+            color: var(--gc-neutral-0);
+            background-color: var(--gc-primary-600);
+        }
+        
+        .sidebar-nav .nav-link i {
+            width: 1.5rem;
+            margin-right: var(--gc-space-3);
+        }
+        
+        .sidebar-header {
+            padding: var(--gc-space-4);
+            border-bottom: 1px solid var(--gc-neutral-700);
+            margin-bottom: var(--gc-space-4);
+        }
+        
+        .sidebar-brand {
+            color: var(--gc-neutral-0);
+            font-size: var(--gc-text-xl);
+            font-weight: var(--gc-font-bold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-brand:hover {
+            color: var(--gc-primary-400);
+        }
+        
+        .admin-content {
+            padding: var(--gc-space-6);
+            background-color: var(--gc-neutral-50);
+            min-height: calc(100vh - 70px);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, var(--gc-primary-500) 0%, var(--gc-primary-600) 100%);
+            color: var(--gc-neutral-0);
+            border-radius: var(--gc-radius-lg);
+            padding: var(--gc-space-4);
+            margin-bottom: var(--gc-space-4);
+        }
+        
+        .stats-card.success {
+            background: linear-gradient(135deg, var(--gc-success-500) 0%, var(--gc-success-600) 100%);
+        }
+        
+        .stats-card.warning {
+            background: linear-gradient(135deg, var(--gc-warning-500) 0%, var(--gc-warning-600) 100%);
+        }
+        
+        .stats-card.error {
+            background: linear-gradient(135deg, var(--gc-error-500) 0%, var(--gc-error-600) 100%);
+        }
+        
+        .stats-card.info {
+            background: linear-gradient(135deg, var(--gc-secondary-500) 0%, var(--gc-secondary-600) 100%);
+        }
+        
+        @media (max-width: 991.98px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .admin-sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .admin-main {
+                margin-left: 0;
+            }
+            
+            .admin-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: var(--gc-z-modal-backdrop);
+                display: none;
+            }
+            
+            .admin-overlay.show {
+                display: block;
+            }
+        }
+    </style>
+    
+    <!-- 自訂樣式區塊 -->
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <!-- 跳過導航連結 (無障礙功能) -->
+    <a href="#main-content" class="gc-skip-link">跳過導航</a>
+    
+    <!-- 全域載入指示器 -->
+    <div id="global-spinner" class="global-spinner" style="display: none;">
+        <div class="spinner-overlay">
+            <div class="spinner-content">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">載入中...</span>
+                </div>
+                <div class="mt-2">載入中...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 管理後台側邊欄 -->
+    <nav class="admin-sidebar" id="adminSidebar" role="navigation" aria-label="管理後台導航">
+        <div class="sidebar-header">
+            <a href="/Admin" class="sidebar-brand">
+                <i class="bi bi-shield-check gc-mr-2"></i>
+                GameCore Admin
+            </a>
+        </div>
+        
+        <ul class="sidebar-nav nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" && ViewContext.RouteData.Values["Controller"]?.ToString() == "Dashboard" ? "active" : "")" 
+                   href="/Admin/Dashboard" role="menuitem">
+                    <i class="bi bi-speedometer2"></i>
+                    儀表板
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "User" ? "active" : "")" 
+                   href="/Admin/User" role="menuitem">
+                    <i class="bi bi-people"></i>
+                    用戶管理
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Product" ? "active" : "")" 
+                   href="/Admin/Product" role="menuitem">
+                    <i class="bi bi-box"></i>
+                    商品管理
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Order" ? "active" : "")" 
+                   href="/Admin/Order" role="menuitem">
+                    <i class="bi bi-cart"></i>
+                    訂單管理
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Forum" ? "active" : "")" 
+                   href="/Admin/Forum" role="menuitem">
+                    <i class="bi bi-chat-dots"></i>
+                    論壇管理
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Game" ? "active" : "")" 
+                   href="/Admin/Game" role="menuitem">
+                    <i class="bi bi-joystick"></i>
+                    遊戲管理
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "System" ? "active" : "")" 
+                   href="/Admin/System" role="menuitem">
+                    <i class="bi bi-gear"></i>
+                    系統設定
+                </a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Log" ? "active" : "")" 
+                   href="/Admin/Log" role="menuitem">
+                    <i class="bi bi-file-text"></i>
+                    日誌查看
+                </a>
+            </li>
+        </ul>
+        
+        <!-- 側邊欄頁腳 -->
+        <div class="mt-auto p-3">
+            <div class="text-center">
+                <small class="text-muted">版本 1.0.0</small>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 管理後台主要內容區域 -->
+    <div class="admin-main" id="adminMain">
+        <!-- 管理後台頁首 -->
+        <header class="admin-header" role="banner">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    <div class="d-flex align-items-center">
+                        <button class="sidebar-toggle me-3" id="sidebarToggle" aria-label="切換側邊欄">
+                            <i class="bi bi-list"></i>
+                        </button>
+                        
+                        <nav aria-label="麵包屑導航">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="/Admin" class="text-decoration-none">
+                                        <i class="bi bi-house-door"></i>
+                                    </a>
+                                </li>
+                                @if (ViewData["Breadcrumbs"] != null)
+                                {
+                                    @foreach (var breadcrumb in (List<dynamic>)ViewData["Breadcrumbs"])
+                                    {
+                                        if (breadcrumb.IsActive)
+                                        {
+                                            <li class="breadcrumb-item active" aria-current="page">@breadcrumb.Text</li>
+                                        }
+                                        else
+                                        {
+                                            <li class="breadcrumb-item">
+                                                <a href="@breadcrumb.Url" class="text-decoration-none">@breadcrumb.Text</a>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ol>
+                        </nav>
+                    </div>
+                    
+                    <div class="d-flex align-items-center">
+                        <!-- 通知 -->
+                        <div class="dropdown me-3">
+                            <button class="btn btn-outline-secondary btn-sm position-relative" type="button" 
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-bell"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    3
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><h6 class="dropdown-header">通知</h6></li>
+                                <li><a class="dropdown-item" href="#">新用戶註冊</a></li>
+                                <li><a class="dropdown-item" href="#">新訂單待處理</a></li>
+                                <li><a class="dropdown-item" href="#">系統更新可用</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">查看所有通知</a></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 用戶選單 -->
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-2"></i>
+                                管理員
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="/Admin/Profile">個人資料</a></li>
+                                <li><a class="dropdown-item" href="/Admin/Settings">設定</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/">返回前台</a></li>
+                                <li><a class="dropdown-item" href="/api/auth/logout">登出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- 管理後台內容 -->
+        <main id="main-content" class="admin-content" role="main">
+            @RenderBody()
+        </main>
+    </div>
+    
+    <!-- 行動裝置遮罩 -->
+    <div class="admin-overlay" id="adminOverlay"></div>
+    
+    <!-- JavaScript 腳本 -->
+    <!-- 核心腳本 -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- 自訂腳本 -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- 管理後台專用腳本 -->
+    <script>
+        // 側邊欄切換功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('adminSidebar');
+            const main = document.getElementById('adminMain');
+            const overlay = document.getElementById('adminOverlay');
+            
+            if (sidebarToggle && sidebar && main) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    overlay.classList.toggle('show');
+                });
+                
+                // 點擊遮罩關閉側邊欄
+                if (overlay) {
+                    overlay.addEventListener('click', function() {
+                        sidebar.classList.remove('show');
+                        overlay.classList.remove('show');
+                    });
+                }
+                
+                // 響應式處理
+                function handleResize() {
+                    if (window.innerWidth <= 991.98) {
+                        sidebar.classList.remove('show');
+                        overlay.classList.remove('show');
+                    }
+                }
+                
+                window.addEventListener('resize', handleResize);
+                handleResize();
+            }
+        });
+        
+        // 管理後台特定功能
+        window.AdminCore = {
+            // 顯示通知
+            showNotification: function(message, type = 'info', duration = 5000) {
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                notification.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, duration);
+            },
+            
+            // 確認對話框
+            confirmAction: function(message, callback) {
+                if (confirm(message)) {
+                    callback();
+                }
+            },
+            
+            // 載入狀態管理
+            setLoading: function(isLoading) {
+                const spinner = document.getElementById('global-spinner');
+                if (spinner) {
+                    spinner.style.display = isLoading ? 'block' : 'none';
+                }
+            }
+        };
+    </script>
+    
+    <!-- 頁面特定腳本 -->
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html> 

@@ -1,0 +1,345 @@
+@{
+    ViewData["Title"] = "GameCore - 首頁";
+    ViewData["Breadcrumbs"] = new List<dynamic> { new { Text = "首頁", Url = "", IsActive = true } };
+}
+
+<!-- 英雄區塊 -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="hero-title">
+                    🎮 歡迎來到 GameCore
+                </h1>
+                <p class="hero-subtitle">
+                    整合遊戲熱度觀測、論壇社群、商城、玩家市場、寵物養成的綜合平台
+                </p>
+                <div class="hero-actions">
+                    <a href="/api/store" class="gc-btn gc-btn-primary gc-btn-lg">
+                        <i class="bi bi-shop me-2"></i>探索商城
+                    </a>
+                    <a href="/api/forum" class="gc-btn gc-btn-secondary gc-btn-lg">
+                        <i class="bi bi-chat-dots me-2"></i>加入社群
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-illustration">
+                    <i class="bi bi-controller" style="font-size: 8rem; color: rgba(255,255,255,0.2);"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 功能特色區塊 -->
+<section class="feature-section">
+    <div class="feature-container">
+        <div class="text-center mb-8">
+            <h2 class="gc-text-4xl gc-font-bold gc-text-neutral-800">
+                平台特色
+            </h2>
+            <p class="gc-text-lg gc-text-neutral-600 gc-mt-4">
+                發現 GameCore 的強大功能，讓您的遊戲體驗更加豐富
+            </p>
+        </div>
+        
+        <div class="feature-grid">
+            <!-- 遊戲熱度觀測 -->
+            <div class="game-card">
+                <div class="game-card-icon">
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <h3 class="game-card-title">遊戲熱度觀測</h3>
+                <p class="game-card-description">
+                    即時追蹤遊戲熱度趨勢，了解最新遊戲動態和玩家偏好
+                </p>
+                <a href="/api/leaderboard" class="gc-btn gc-btn-primary">
+                    <i class="bi bi-arrow-right me-2"></i>查看熱度
+                </a>
+            </div>
+            
+            <!-- 論壇社群 -->
+            <div class="game-card">
+                <div class="game-card-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3 class="game-card-title">論壇社群</h3>
+                <p class="game-card-description">
+                    與其他玩家交流心得，分享遊戲攻略，建立遊戲社群
+                </p>
+                <a href="/api/forum" class="gc-btn gc-btn-primary">
+                    <i class="bi bi-arrow-right me-2"></i>加入討論
+                </a>
+            </div>
+            
+            <!-- 遊戲商城 -->
+            <div class="game-card">
+                <div class="game-card-icon">
+                    <i class="bi bi-bag"></i>
+                </div>
+                <h3 class="game-card-title">遊戲商城</h3>
+                <p class="game-card-description">
+                    購買遊戲道具、裝備和虛擬商品，提升遊戲體驗
+                </p>
+                <a href="/api/store" class="gc-btn gc-btn-primary">
+                    <i class="bi bi-arrow-right me-2"></i>瀏覽商品
+                </a>
+            </div>
+            
+            <!-- 玩家市場 -->
+            <div class="game-card">
+                <div class="game-card-icon">
+                    <i class="bi bi-currency-exchange"></i>
+                </div>
+                <h3 class="game-card-title">玩家市場</h3>
+                <p class="game-card-description">
+                    與其他玩家交易遊戲物品，自由買賣，建立經濟系統
+                </p>
+                <a href="/api/market" class="gc-btn gc-btn-primary">
+                    <i class="bi bi-arrow-right me-2"></i>進入市場
+                </a>
+            </div>
+            
+            <!-- 寵物養成 -->
+            <div class="game-card">
+                <div class="game-card-icon">
+                    <i class="bi bi-heart"></i>
+                </div>
+                <h3 class="game-card-title">寵物養成</h3>
+                <p class="game-card-description">
+                    養成專屬寵物，陪伴您的遊戲旅程，獲得額外獎勵
+                </p>
+                <a href="/api/pet" class="gc-btn gc-btn-primary">
+                    <i class="bi bi-arrow-right me-2"></i>照顧寵物
+                </a>
+            </div>
+            
+            <!-- 小遊戲 -->
+            <div class="game-card">
+                <div class="game-card-icon">
+                    <i class="bi bi-joystick"></i>
+                </div>
+                <h3 class="game-card-title">小遊戲</h3>
+                <p class="game-card-description">
+                    體驗各種有趣的小遊戲，放鬆心情，獲得遊戲幣
+                </p>
+                <a href="/api/minigame" class="gc-btn gc-btn-primary">
+                    <i class="bi bi-arrow-right me-2"></i>開始遊戲
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 快速開始區塊 -->
+<section class="feature-section" style="background-color: var(--gc-neutral-0);">
+    <div class="feature-container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="gc-text-3xl gc-font-bold gc-text-neutral-800 gc-mb-4">
+                    快速開始您的 GameCore 之旅
+                </h2>
+                <p class="gc-text-lg gc-text-neutral-600 gc-mb-6">
+                    只需幾個簡單步驟，即可開始享受 GameCore 的所有功能
+                </p>
+                
+                <div class="gc-mb-6">
+                    <div class="d-flex align-items-center gc-mb-3">
+                        <div class="gc-bg-primary gc-text-neutral-0 gc-rounded-full" style="width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                        <span class="gc-text-lg gc-font-medium gc-ml-3">註冊帳號</span>
+                    </div>
+                    <p class="gc-text-neutral-600 gc-ml-5">創建您的 GameCore 帳號，開始遊戲之旅</p>
+                </div>
+                
+                <div class="gc-mb-6">
+                    <div class="d-flex align-items-center gc-mb-3">
+                        <div class="gc-bg-primary gc-text-neutral-0 gc-rounded-full" style="width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                        <span class="gc-text-lg gc-font-medium gc-ml-3">完成新手任務</span>
+                    </div>
+                    <p class="gc-text-neutral-600 gc-ml-5">完成新手任務，獲得初始獎勵和遊戲幣</p>
+                </div>
+                
+                <div class="gc-mb-6">
+                    <div class="d-flex align-items-center gc-mb-3">
+                        <div class="gc-bg-primary gc-text-neutral-0 gc-rounded-full" style="width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                        <span class="gc-text-lg gc-font-medium gc-ml-3">探索功能</span>
+                    </div>
+                    <p class="gc-text-neutral-600 gc-ml-5">探索各種功能，找到您最喜歡的遊戲方式</p>
+                </div>
+                
+                <div class="gc-mt-8">
+                    <a href="/api/auth/register" class="gc-btn gc-btn-primary gc-btn-lg gc-mr-3">
+                        <i class="bi bi-person-plus me-2"></i>立即註冊
+                    </a>
+                    <a href="/api-docs" class="gc-btn gc-btn-secondary gc-btn-lg">
+                        <i class="bi bi-book me-2"></i>查看文件
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 text-center">
+                <div class="gc-card gc-p-6" style="max-width: 400px; margin: 0 auto;">
+                    <div class="gc-text-center gc-mb-4">
+                        <i class="bi bi-rocket-takeoff" style="font-size: 4rem; color: var(--gc-primary-500);"></i>
+                    </div>
+                    <h3 class="gc-text-xl gc-font-bold gc-mb-3">新手福利</h3>
+                    <ul class="list-unstyled gc-text-left">
+                        <li class="gc-mb-2">
+                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                            註冊即送 1000 遊戲幣
+                        </li>
+                        <li class="gc-mb-2">
+                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                            免費寵物蛋一顆
+                        </li>
+                        <li class="gc-mb-2">
+                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                            7 天 VIP 體驗
+                        </li>
+                        <li class="gc-mb-2">
+                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                            專屬新手禮包
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 統計數據區塊 -->
+<section class="feature-section">
+    <div class="feature-container">
+        <div class="text-center gc-mb-8">
+            <h2 class="gc-text-3xl gc-font-bold gc-text-neutral-800">
+                平台數據
+            </h2>
+            <p class="gc-text-lg gc-text-neutral-600 gc-mt-4">
+                了解 GameCore 的成長和活躍度
+            </p>
+        </div>
+        
+        <div class="row text-center">
+            <div class="col-md-3 gc-mb-4">
+                <div class="gc-card gc-p-6">
+                    <div class="gc-text-4xl gc-font-bold gc-text-primary gc-mb-2">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">10,000+</h3>
+                    <p class="gc-text-neutral-600">活躍用戶</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 gc-mb-4">
+                <div class="gc-card gc-p-6">
+                    <div class="gc-text-4xl gc-font-bold gc-text-success gc-mb-2">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </div>
+                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">50,000+</h3>
+                    <p class="gc-text-neutral-600">論壇帖子</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 gc-mb-4">
+                <div class="gc-card gc-p-6">
+                    <div class="gc-text-4xl gc-font-bold gc-text-warning gc-mb-2">
+                        <i class="bi bi-shop"></i>
+                    </div>
+                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">1,000+</h3>
+                    <p class="gc-text-neutral-600">商品種類</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 gc-mb-4">
+                <div class="gc-card gc-p-6">
+                    <div class="gc-text-4xl gc-font-bold gc-text-error gc-mb-2">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">100+</h3>
+                    <p class="gc-text-neutral-600">遊戲成就</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 聯絡我們區塊 -->
+<section class="feature-section" style="background-color: var(--gc-neutral-0);">
+    <div class="feature-container">
+        <div class="text-center gc-mb-8">
+            <h2 class="gc-text-3xl gc-font-bold gc-text-neutral-800">
+                聯絡我們
+            </h2>
+            <p class="gc-text-lg gc-text-neutral-600 gc-mt-4">
+                有任何問題或建議？我們很樂意聽取您的意見
+            </p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="gc-card gc-p-6">
+                    <div class="row">
+                        <div class="col-md-6 gc-mb-4">
+                            <h4 class="gc-font-semibold gc-mb-3">
+                                <i class="bi bi-envelope gc-text-primary gc-mr-2"></i>
+                                電子郵件
+                            </h4>
+                            <p class="gc-text-neutral-600">support@gamecore.com</p>
+                            <p class="gc-text-sm gc-text-neutral-500">24 小時內回覆</p>
+                        </div>
+                        
+                        <div class="col-md-6 gc-mb-4">
+                            <h4 class="gc-font-semibold gc-mb-3">
+                                <i class="bi bi-discord gc-text-primary gc-mr-2"></i>
+                                Discord 社群
+                            </h4>
+                            <p class="gc-text-neutral-600">加入我們的 Discord 伺服器</p>
+                            <a href="#" class="gc-btn gc-btn-primary gc-btn-sm">加入社群</a>
+                        </div>
+                        
+                        <div class="col-md-6 gc-mb-4">
+                            <h4 class="gc-font-semibold gc-mb-3">
+                                <i class="bi bi-github gc-text-primary gc-mr-2"></i>
+                                GitHub
+                            </h4>
+                            <p class="gc-text-neutral-600">查看開源程式碼</p>
+                            <a href="#" class="gc-btn gc-btn-secondary gc-btn-sm">查看專案</a>
+                        </div>
+                        
+                        <div class="col-md-6 gc-mb-4">
+                            <h4 class="gc-font-semibold gc-mb-3">
+                                <i class="bi bi-question-circle gc-text-primary gc-mr-2"></i>
+                                常見問題
+                            </h4>
+                            <p class="gc-text-neutral-600">查看 FAQ 和說明文件</p>
+                            <a href="/api-docs" class="gc-btn gc-btn-secondary gc-btn-sm">查看文件</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 頁腳行動召喚 -->
+<section class="feature-section" style="background: linear-gradient(135deg, var(--gc-primary-600) 0%, var(--gc-primary-800) 100%);">
+    <div class="feature-container">
+        <div class="text-center gc-text-neutral-0">
+            <h2 class="gc-text-3xl gc-font-bold gc-mb-4">
+                準備好開始您的 GameCore 冒險了嗎？
+            </h2>
+            <p class="gc-text-lg gc-mb-6" style="opacity: 0.9;">
+                加入數千名玩家，體驗全新的遊戲社群平台
+            </p>
+            <div class="gc-mb-4">
+                <a href="/api/auth/register" class="gc-btn gc-btn-lg" style="background-color: var(--gc-neutral-0); color: var(--gc-primary-600); border-color: var(--gc-neutral-0);">
+                    <i class="bi bi-rocket-takeoff me-2"></i>立即開始
+                </a>
+            </div>
+            <p class="gc-text-sm" style="opacity: 0.8;">
+                免費註冊 • 無需信用卡 • 立即開始
+            </p>
+        </div>
+    </div>
+</section>
