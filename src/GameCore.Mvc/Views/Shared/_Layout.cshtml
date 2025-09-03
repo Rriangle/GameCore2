@@ -8,22 +8,37 @@
     <meta name="author" content="GameCore Team" />
     
     <!-- 無障礙功能支援 -->
-    <meta name="theme-color" content="#3b82f6" />
+    <meta name="theme-color" content="#7557ff" />
     <meta name="color-scheme" content="light dark" />
     
     <title>@ViewData["Title"] - GameCore</title>
     
     <!-- 預載入關鍵資源 -->
-    <link rel="preload" href="~/lib/bootstrap/dist/css/bootstrap.min.css" as="style" />
     <link rel="preload" href="~/css/design-tokens.css" as="style" />
     <link rel="preload" href="~/css/base-components.css" as="style" />
+    <link rel="preload" href="~/css/components.css" as="style" />
+    <link rel="preload" href="~/css/site.css" as="style" />
     
-    <!-- 樣式表 -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- 樣式表 - 使用新的設計令牌系統 -->
     <link rel="stylesheet" href="~/css/design-tokens.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/base-components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/utilities.css" asp-append-version="true" />
+    
+    <!-- 視覺微調工具 (僅開發環境) -->
+    @if (Context.Request.Host.Host.Contains("localhost") || Context.Request.Host.Host.Contains("127.0.0.1"))
+    {
+        <link rel="stylesheet" href="~/css/visual-polish-tools.css" asp-append-version="true" />
+        <script src="~/js/visual-polish-tools.js" asp-append-version="true"></script>
+    }
+    
+    <!-- Phase 10 最終優化器 (僅開發環境) -->
+    @if (Context.Request.Host.Host.Contains("localhost") || Context.Request.Host.Host.Contains("127.0.0.1"))
+    {
+        <link rel="stylesheet" href="~/css/final-optimizer.css" asp-append-version="true" />
+        <script src="~/js/final-optimizer.js" asp-append-version="true"></script>
+        <script src="~/js/cross-device-test.js" asp-append-version="true"></script>
+    }
     
     <!-- 字體預載入 -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,114 +47,121 @@
     <!-- 圖標庫 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
     
+    <!-- 效能優化工具 -->
+    <script src="~/js/css-optimizer.js" asp-append-version="true"></script>
+    
+    <!-- 無障礙性增強工具 -->
+    <script src="~/js/accessibility-enhancer.js" asp-append-version="true"></script>
+    
+    <!-- 效能監控工具 -->
+    <script src="~/js/performance-monitor.js" asp-append-version="true"></script>
+    
+    <!-- 視覺微調工具 (僅開發環境) -->
+    @if (Context.Request.Host.Host.Contains("localhost") || Context.Request.Host.Host.Contains("127.0.0.1"))
+    {
+        <link rel="stylesheet" href="~/css/visual-polish-tools.css" asp-append-version="true" />
+        <script src="~/js/visual-polish-tools.js" asp-append-version="true"></script>
+    }
+    
     <!-- 自訂樣式區塊 -->
     @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
+<body class="gc-body">
     <!-- 跳過導航連結 (無障礙功能) -->
     <a href="#main-content" class="gc-skip-link">跳過導航</a>
     
-    <!-- 全域載入指示器 -->
-    <div id="global-spinner" class="global-spinner" style="display: none;">
-        <div class="spinner-overlay">
-            <div class="spinner-content">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">載入中...</span>
-                </div>
-                <div class="mt-2">載入中...</div>
-            </div>
+    <!-- 全域載入指示器 - 使用新的設計令牌 -->
+    <div id="global-spinner" class="gc-loading-overlay" style="display: none;">
+        <div class="gc-loading-content">
+            <div class="gc-loading"></div>
+            <div class="gc-loading-text mt-3">載入中...</div>
         </div>
     </div>
     
-    <!-- 頁首導航 -->
+    <!-- 頁首導航 - 應用玻璃風設計系統 -->
     <header class="gc-header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3" role="navigation" aria-label="主要導航">
-            <div class="container">
+        <nav class="gc-nav" role="navigation" aria-label="主要導航">
+            <div class="gc-container">
                 <!-- 品牌標誌 -->
-                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index" aria-label="GameCore 首頁">
-                    <i class="bi bi-controller me-2" style="font-size: 1.5rem; color: var(--gc-primary-500);"></i>
-                    <span class="fw-bold">GameCore</span>
+                <a class="gc-brand" asp-area="" asp-controller="Home" asp-action="Index" aria-label="GameCore 首頁">
+                    <i class="bi bi-controller me-2"></i>
+                    <span class="gc-brand-text">GameCore</span>
                 </a>
                 
                 <!-- 響應式切換按鈕 -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+                <button class="gc-nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
                         aria-controls="navbarMain" aria-expanded="false" aria-label="切換導航選單">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="gc-nav-toggle-icon"></span>
                 </button>
                 
                 <!-- 導航選單 -->
-                <div class="collapse navbar-collapse" id="navbarMain">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" role="menuitem">
+                <div class="gc-nav-menu collapse" id="navbarMain">
+                    <ul class="gc-nav-list" role="menubar">
+                        <li class="gc-nav-item" role="none">
+                            <a class="gc-nav-link" asp-area="" asp-controller="Home" asp-action="Index" role="menuitem">
                                 <i class="bi bi-house-door me-1"></i>首頁
                             </a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="/api/store" role="menuitem">
+                        <li class="gc-nav-item" role="none">
+                            <a class="gc-nav-link" href="/api/store" role="menuitem">
                                 <i class="bi bi-shop me-1"></i>商城
                             </a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="/api/forum" role="menuitem">
+                        <li class="gc-nav-item" role="none">
+                            <a class="gc-nav-link" href="/api/forum" role="menuitem">
                                 <i class="bi bi-chat-dots me-1"></i>論壇
                             </a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="/api/market" role="menuitem">
+                        <li class="gc-nav-item" role="none">
+                            <a class="gc-nav-link" href="/api/market" role="menuitem">
                                 <i class="bi bi-currency-exchange me-1"></i>市場
                             </a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="/api/leaderboard" role="menuitem">
+                        <li class="gc-nav-item" role="none">
+                            <a class="gc-nav-link" href="/api/leaderboard" role="menuitem">
                                 <i class="bi bi-trophy me-1"></i>排行榜
-                            </a>
-                        </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="/api/minigame" role="menuitem">
-                                <i class="bi bi-joystick me-1"></i>小遊戲
                             </a>
                         </li>
                     </ul>
                     
                     <!-- 右側導航 -->
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0" role="menubar">
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="/api/signin" role="menuitem">
+                    <ul class="gc-nav-list gc-nav-right" role="menubar">
+                        <li class="gc-nav-item" role="none">
+                            <a class="gc-nav-link" href="/api/signin" role="menuitem">
                                 <i class="bi bi-calendar-check me-1"></i>簽到
                             </a>
                         </li>
-                        <li class="nav-item" role="none">
-                            <a class="nav-link" href="/api/pet" role="menuitem">
+                        <li class="gc-nav-item" role="none">
+                            <a class="gc-nav-link" href="/api/pet" role="menuitem">
                                 <i class="bi bi-heart me-1"></i>寵物
                             </a>
                         </li>
-                        <li class="nav-item dropdown" role="none">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
+                        <li class="gc-nav-item gc-nav-dropdown" role="none">
+                            <a class="gc-nav-link gc-nav-dropdown-toggle" href="#" id="userDropdown" role="button" 
                                data-bs-toggle="dropdown" aria-expanded="false" role="menuitem">
                                 <i class="bi bi-person-circle me-1"></i>用戶
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" role="menu">
+                            <ul class="gc-dropdown-menu" aria-labelledby="userDropdown" role="menu">
                                 <li role="none">
-                                    <a class="dropdown-item" href="/api/auth/login" role="menuitem">
+                                    <a class="gc-dropdown-item" href="/api/auth/login" role="menuitem">
                                         <i class="bi bi-box-arrow-in-right me-2"></i>登入
                                     </a>
                                 </li>
                                 <li role="none">
-                                    <a class="dropdown-item" href="/api/auth/register" role="menuitem">
+                                    <a class="gc-dropdown-item" href="/api/auth/register" role="menuitem">
                                         <i class="bi bi-person-plus me-2"></i>註冊
                                     </a>
                                 </li>
                                 <li role="none">
-                                    <hr class="dropdown-divider">
+                                    <hr class="gc-dropdown-divider">
                                 </li>
                                 <li role="none">
-                                    <a class="dropdown-item" href="/api/wallet" role="menuitem">
+                                    <a class="gc-dropdown-item" href="/api/wallet" role="menuitem">
                                         <i class="bi bi-wallet2 me-2"></i>錢包
                                     </a>
                                 </li>
                                 <li role="none">
-                                    <a class="dropdown-item" href="/api/notification" role="menuitem">
+                                    <a class="gc-dropdown-item" href="/api/notification" role="menuitem">
                                         <i class="bi bi-bell me-2"></i>通知
                                     </a>
                                 </li>
@@ -152,98 +174,62 @@
     </header>
 
     <!-- 主要內容區域 -->
-    <main id="main-content" role="main" class="gc-main">
-        <!-- 麵包屑導航 -->
-        @if (ViewData["Breadcrumbs"] != null)
-        {
-            <nav aria-label="麵包屑導航" class="gc-breadcrumb-nav">
-                <div class="container">
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item">
-                            <a href="/" aria-label="首頁">
-                                <i class="bi bi-house-door"></i>
-                            </a>
-                        </li>
-                        @foreach (var breadcrumb in (List<dynamic>)ViewData["Breadcrumbs"])
-                        {
-                            if (breadcrumb.IsActive)
-                            {
-                                <li class="breadcrumb-item active" aria-current="page">@breadcrumb.Text</li>
-                            }
-                            else
-                            {
-                                <li class="breadcrumb-item">
-                                    <a href="@breadcrumb.Url">@breadcrumb.Text</a>
-                                </li>
-                            }
-                        }
-                    </ol>
-                </div>
-            </nav>
-        }
-
-        <!-- 頁面內容 -->
-        <div class="gc-page-content">
-            @RenderBody()
-        </div>
+    <main id="main-content" class="gc-main">
+        @RenderBody()
     </main>
 
-    <!-- 頁尾 -->
-    <footer class="gc-footer border-top footer text-muted" role="contentinfo">
-        <div class="container">
-            <div class="row py-4">
-                <div class="col-md-6">
-                    <h5 class="text-dark mb-3">
+    <!-- 頁尾 - 應用玻璃風設計系統 -->
+    <footer class="gc-footer">
+        <div class="gc-container">
+            <div class="gc-footer-content">
+                <div class="gc-footer-section">
+                    <h5 class="gc-footer-title">
                         <i class="bi bi-controller me-2"></i>GameCore
                     </h5>
-                    <p class="text-muted mb-3">
+                    <p class="gc-footer-description">
                         整合遊戲熱度觀測、論壇社群、商城、玩家市場、寵物養成的綜合平台
                     </p>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-muted" aria-label="Facebook">
-                            <i class="bi bi-facebook fs-5"></i>
+                    <div class="gc-social-links">
+                        <a href="#" class="gc-social-link" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
                         </a>
-                        <a href="#" class="text-muted" aria-label="Twitter">
-                            <i class="bi bi-twitter fs-5"></i>
+                        <a href="#" class="gc-social-link" aria-label="Twitter">
+                            <i class="bi bi-twitter"></i>
                         </a>
-                        <a href="#" class="text-muted" aria-label="Discord">
-                            <i class="bi bi-discord fs-5"></i>
+                        <a href="#" class="gc-social-link" aria-label="Discord">
+                            <i class="bi bi-discord"></i>
                         </a>
-                        <a href="#" class="text-muted" aria-label="GitHub">
-                            <i class="bi bi-github fs-5"></i>
+                        <a href="#" class="gc-social-link" aria-label="GitHub">
+                            <i class="bi bi-github"></i>
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="text-dark mb-3">快速連結</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/api/store" class="text-muted text-decoration-none">商城</a></li>
-                        <li><a href="/api/forum" class="text-muted text-decoration-none">論壇</a></li>
-                        <li><a href="/api/market" class="text-muted text-decoration-none">市場</a></li>
-                        <li><a href="/api/leaderboard" class="text-muted text-decoration-none">排行榜</a></li>
+                <div class="gc-footer-section">
+                    <h6 class="gc-footer-subtitle">快速連結</h6>
+                    <ul class="gc-footer-links">
+                        <li><a href="/api/store" class="gc-footer-link">商城</a></li>
+                        <li><a href="/api/forum" class="gc-footer-link">論壇</a></li>
+                        <li><a href="/api/market" class="gc-footer-link">市場</a></li>
+                        <li><a href="/api/leaderboard" class="gc-footer-link">排行榜</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="text-dark mb-3">支援</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/api/health" class="text-muted text-decoration-none">系統狀態</a></li>
-                        <li><a href="/api-docs" class="text-muted text-decoration-none">API 文件</a></li>
-                        <li><a href="/privacy" class="text-muted text-decoration-none">隱私權政策</a></li>
-                        <li><a href="/terms" class="text-muted text-decoration-none">使用條款</a></li>
+                <div class="gc-footer-section">
+                    <h6 class="gc-footer-subtitle">支援</h6>
+                    <ul class="gc-footer-links">
+                        <li><a href="/api/health" class="gc-footer-link">系統狀態</a></li>
+                        <li><a href="/api-docs" class="gc-footer-link">API 文件</a></li>
+                        <li><a href="/privacy" class="gc-footer-link">隱私權政策</a></li>
+                        <li><a href="/terms" class="gc-footer-link">使用條款</a></li>
                     </ul>
                 </div>
             </div>
-            <hr class="my-3">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-0 text-muted">
-                        &copy; @DateTime.Now.Year - GameCore. 保留所有權利。
-                    </p>
+            <hr class="gc-footer-divider">
+            <div class="gc-footer-bottom">
+                <div class="gc-footer-copyright">
+                    &copy; @DateTime.Now.Year - GameCore. 保留所有權利。
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0 text-muted">
-                        <small>版本 1.0.0 | 最後更新: @DateTime.Now.ToString("yyyy-MM-dd")</small>
-                    </p>
+                <div class="gc-footer-version">
+                    <small>版本 1.0.0 | 最後更新: @DateTime.Now.ToString("yyyy-MM-dd")</small>
                 </div>
             </div>
         </div>

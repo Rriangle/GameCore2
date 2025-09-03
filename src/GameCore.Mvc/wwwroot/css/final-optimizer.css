@@ -1,0 +1,304 @@
+/**
+ * GameCore 最終優化器樣式
+ * 作者：GameCore UI-OPT 團隊
+ * 版本：1.0.0
+ * 日期：2024-12-19
+ * 
+ * 功能：
+ * - 調試面板樣式
+ * - 效能指標顯示
+ * - 優化建議樣式
+ * - 響應式設計
+ */
+
+/* 調試面板容器 */
+.gc-debug-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 400px;
+    max-height: 80vh;
+    background: var(--gc-surface);
+    border: 1px solid var(--gc-border);
+    border-radius: var(--gc-radius-lg);
+    box-shadow: var(--gc-shadow-xl);
+    backdrop-filter: blur(20px);
+    z-index: 9999;
+    font-family: var(--gc-font-sans);
+    font-size: var(--gc-text-sm);
+    overflow: hidden;
+    transition: all var(--gc-transition-base);
+}
+
+/* 調試面板標題 */
+.gc-debug-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--gc-spacing-4);
+    background: var(--gc-primary);
+    color: var(--gc-primary-foreground);
+    border-bottom: 1px solid var(--gc-border);
+}
+
+.gc-debug-header h3 {
+    margin: 0;
+    font-size: var(--gc-text-lg);
+    font-weight: var(--gc-font-semibold);
+}
+
+.gc-debug-close {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: var(--gc-text-xl);
+    cursor: pointer;
+    padding: var(--gc-spacing-1);
+    border-radius: var(--gc-radius-sm);
+    transition: background-color var(--gc-transition-fast);
+}
+
+.gc-debug-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 調試面板內容 */
+.gc-debug-content {
+    padding: var(--gc-spacing-4);
+    max-height: calc(80vh - 60px);
+    overflow-y: auto;
+}
+
+.gc-debug-section {
+    margin-bottom: var(--gc-spacing-6);
+}
+
+.gc-debug-section h4 {
+    margin: 0 0 var(--gc-spacing-3) 0;
+    font-size: var(--gc-text-base);
+    font-weight: var(--gc-font-semibold);
+    color: var(--gc-foreground);
+    border-bottom: 1px solid var(--gc-border);
+    padding-bottom: var(--gc-spacing-2);
+}
+
+/* 效能指標樣式 */
+#gc-performance-metrics {
+    display: grid;
+    gap: var(--gc-spacing-2);
+}
+
+#gc-performance-metrics>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--gc-spacing-2);
+    background: var(--gc-muted);
+    border-radius: var(--gc-radius-sm);
+    font-family: var(--gc-font-mono);
+    font-size: var(--gc-text-xs);
+}
+
+/* 狀態顯示樣式 */
+#gc-accessibility-status,
+#gc-responsive-status,
+#gc-interactivity-status {
+    display: grid;
+    gap: var(--gc-spacing-2);
+}
+
+#gc-accessibility-status>div,
+#gc-responsive-status>div,
+#gc-interactivity-status>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--gc-spacing-2);
+    background: var(--gc-muted);
+    border-radius: var(--gc-radius-sm);
+    font-size: var(--gc-text-sm);
+}
+
+/* 優化建議樣式 */
+.gc-recommendation {
+    margin-bottom: var(--gc-spacing-4);
+    padding: var(--gc-spacing-3);
+    border-radius: var(--gc-radius-md);
+    border-left: 4px solid;
+}
+
+.gc-recommendation.high {
+    background: var(--gc-destructive);
+    border-left-color: var(--gc-destructive);
+    color: var(--gc-destructive-foreground);
+}
+
+.gc-recommendation.medium {
+    background: var(--gc-warning);
+    border-left-color: var(--gc-warning);
+    color: var(--gc-warning-foreground);
+}
+
+.gc-recommendation.low {
+    background: var(--gc-info);
+    border-left-color: var(--gc-info);
+    color: var(--gc-info-foreground);
+}
+
+.gc-recommendation strong {
+    display: block;
+    margin-bottom: var(--gc-spacing-2);
+    font-weight: var(--gc-font-semibold);
+}
+
+.gc-recommendation p {
+    margin: 0 0 var(--gc-spacing-2) 0;
+    font-size: var(--gc-text-sm);
+}
+
+.gc-recommendation ul {
+    margin: 0;
+    padding-left: var(--gc-spacing-4);
+    font-size: var(--gc-text-xs);
+}
+
+.gc-recommendation li {
+    margin-bottom: var(--gc-spacing-1);
+}
+
+/* 操作按鈕樣式 */
+.gc-debug-actions {
+    display: flex;
+    gap: var(--gc-spacing-2);
+    margin-top: var(--gc-spacing-4);
+    padding-top: var(--gc-spacing-4);
+    border-top: 1px solid var(--gc-border);
+}
+
+.gc-debug-btn {
+    flex: 1;
+    padding: var(--gc-spacing-2) var(--gc-spacing-3);
+    background: var(--gc-primary);
+    color: var(--gc-primary-foreground);
+    border: none;
+    border-radius: var(--gc-radius-sm);
+    font-size: var(--gc-text-sm);
+    font-weight: var(--gc-font-medium);
+    cursor: pointer;
+    transition: all var(--gc-transition-fast);
+}
+
+.gc-debug-btn:hover {
+    background: var(--gc-primary-hover);
+    transform: translateY(-1px);
+}
+
+.gc-debug-btn:active {
+    transform: translateY(0);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .gc-debug-panel {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: 90vh;
+    }
+
+    .gc-debug-content {
+        max-height: calc(90vh - 60px);
+    }
+
+    .gc-debug-actions {
+        flex-direction: column;
+    }
+}
+
+/* 深色模式適配 */
+@media (prefers-color-scheme: dark) {
+    .gc-debug-panel {
+        background: var(--gc-surface-dark);
+        border-color: var(--gc-border-dark);
+    }
+
+    .gc-debug-section h4 {
+        color: var(--gc-foreground-dark);
+        border-color: var(--gc-border-dark);
+    }
+
+    #gc-performance-metrics>div,
+    #gc-accessibility-status>div,
+    #gc-responsive-status>div,
+    #gc-interactivity-status>div {
+        background: var(--gc-muted-dark);
+    }
+}
+
+/* 減少動畫模式 */
+@media (prefers-reduced-motion: reduce) {
+
+    .gc-debug-panel,
+    .gc-debug-close,
+    .gc-debug-btn {
+        transition: none;
+    }
+
+    .gc-debug-btn:hover {
+        transform: none;
+    }
+}
+
+/* 高對比度模式 */
+@media (prefers-contrast: high) {
+    .gc-debug-panel {
+        border-width: 2px;
+    }
+
+    .gc-debug-header {
+        border-bottom-width: 2px;
+    }
+
+    .gc-debug-section h4 {
+        border-bottom-width: 2px;
+    }
+
+    .gc-debug-actions {
+        border-top-width: 2px;
+    }
+
+    .gc-recommendation {
+        border-left-width: 6px;
+    }
+}
+
+/* 列印樣式 */
+@media print {
+    .gc-debug-panel {
+        display: none;
+    }
+}
+
+/* 緊湊模式 */
+@media (prefers-reduced-motion: reduce) and (max-width: 480px) {
+    .gc-debug-panel {
+        font-size: var(--gc-text-xs);
+    }
+
+    .gc-debug-header h3 {
+        font-size: var(--gc-text-base);
+    }
+
+    .gc-debug-section h4 {
+        font-size: var(--gc-text-sm);
+    }
+
+    .gc-debug-content {
+        padding: var(--gc-spacing-3);
+    }
+
+    .gc-debug-section {
+        margin-bottom: var(--gc-spacing-4);
+    }
+}

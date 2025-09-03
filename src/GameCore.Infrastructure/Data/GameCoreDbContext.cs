@@ -532,6 +532,41 @@ public class GameCoreDbContext : DbContext
             entity.Property(e => e.PProductImgID).HasMaxLength(100);
             entity.Property(e => e.CreatedAt).IsRequired();
             entity.Property(e => e.UpdatedAt).IsRequired();
+            
+            // 賣家關係
+            entity.HasOne(e => e.Seller)
+                  .WithMany(u => u.MarketProducts)
+                  .HasForeignKey(e => e.SellerID)
+                  .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // PlayerMarketOrderInfo 關係配置
+        modelBuilder.Entity<PlayerMarketOrderInfo>(entity =>
+        {
+            entity.HasKey(e => e.POrderID);
+            entity.Property(e => e.POrderStatus).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.PPaymentStatus).IsRequired().HasMaxLength(50);
+            entity.Property(e => e.POrderDate).IsRequired();
+            entity.Property(e => e.POrderCreatedAt).IsRequired();
+            entity.Property(e => e.POrderUpdatedAt).IsRequired();
+            
+            // 商品關係
+            entity.HasOne(e => e.Product)
+                  .WithMany(p => p.OrdersAsSeller)
+                  .HasForeignKey(e => e.PProductID)
+                  .OnDelete(DeleteBehavior.Restrict);
+            
+            // 買家關係
+            entity.HasOne(e => e.Buyer)
+                  .WithMany(u => u.MarketOrdersAsBuyer)
+                  .HasForeignKey(e => e.BuyerID)
+                  .OnDelete(DeleteBehavior.Restrict);
+            
+            // 賣家關係
+            entity.HasOne(e => e.Seller)
+                  .WithMany(u => u.MarketOrdersAsSeller)
+                  .HasForeignKey(e => e.SellerID)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
 
         // 熱度相關實體配置

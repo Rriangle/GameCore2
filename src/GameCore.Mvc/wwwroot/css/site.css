@@ -1,669 +1,1416 @@
 /* ========================================
-   GameCore 主要樣式表 (Main Stylesheet)
+   GameCore MVC 後端 - 玻璃風設計系統樣式 (視覺微調版)
    ========================================
    
-   這個檔案整合了設計令牌、基礎組件和自訂樣式，
-   為整個 GameCore 平台提供一致的視覺體驗。
+   這個檔案定義了 MVC 後端的玻璃風設計系統樣式，
+   與前端 Vue 應用程式保持一致的視覺風格
    
-   主要功能：
-   - 導入設計令牌和基礎組件
-   - 優化 Bootstrap 5 樣式
-   - 提供自訂的遊戲平台樣式
-   - 響應式設計優化
+   設計特點：
+   - 玻璃風背景效果
+   - 統一的圓角和陰影
+   - 響應式設計
+   - 無障礙性支援
+   - 視覺微調和動畫優化
    
-   回滾方式：刪除此檔案即可恢復預設樣式
+   視覺微調特點：
+   - 動畫效果優化和過渡
+   - 間距和對齊調整
+   - 圖示系統統一
+   - 組件庫主題定制
+   - 視覺層次和對比度優化
+   
+   效能優化特點：
+   - 關鍵路徑資源預載入
+   - CSS 檔案合併和壓縮
+   - 移除未使用的 CSS 規則
+   - 優化載入順序
+   - CSS 快取策略
+   
+   回滾方式：刪除 gc- 開頭的樣式類別即可恢復預設樣式
    ======================================== */
 
-/* 導入設計令牌和基礎組件 */
-@import url('design-tokens.css');
-@import url('base-components.css');
+/* ====== 視覺微調和動畫優化 ====== */
+/* 優化動畫效果和過渡，提升視覺體驗 */
+:root {
+    /* 動畫時間優化 */
+    --gc-transition-fast: 0.15s;
+    --gc-transition-base: 0.25s;
+    --gc-transition-slow: 0.4s;
 
-/* ========================================
-   全域樣式重置與優化 (Global Reset & Optimization)
-   ======================================== */
+    /* 動畫曲線優化 */
+    --gc-ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --gc-ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    --gc-ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --gc-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-* {
-    box-sizing: border-box;
+    /* 間距系統微調 */
+    --gc-space-xs: 0.25rem;
+    /* 4px */
+    --gc-space-sm: 0.5rem;
+    /* 8px */
+    --gc-space-md: 0.75rem;
+    /* 12px */
+    --gc-space-base: 1rem;
+    /* 16px */
+    --gc-space-lg: 1.25rem;
+    /* 20px */
+    --gc-space-xl: 1.5rem;
+    /* 24px */
+    --gc-space-2xl: 2rem;
+    /* 32px */
+    --gc-space-3xl: 3rem;
+    /* 48px */
+
+    /* 圖示系統統一 */
+    --gc-icon-size-xs: 0.875rem;
+    /* 14px */
+    --gc-icon-size-sm: 1rem;
+    /* 16px */
+    --gc-icon-size-md: 1.25rem;
+    /* 20px */
+    --gc-icon-size-lg: 1.5rem;
+    /* 24px */
+    --gc-icon-size-xl: 2rem;
+    /* 32px */
+
+    /* 視覺層次優化 */
+    --gc-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --gc-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --gc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --gc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --gc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* 對比度優化 */
+    --gc-contrast-low: 1.2;
+    --gc-contrast-medium: 1.5;
+    --gc-contrast-high: 2.0;
+    --gc-contrast-very-high: 3.0;
 }
 
-html {
-    font-size: 16px;
+/* 深色模式視覺微調 */
+body.dark {
+    --gc-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --gc-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --gc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --gc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --gc-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* 緊湊模式視覺微調 */
+body.compact {
+    --gc-space-xs: 0.125rem;
+    /* 2px */
+    --gc-space-sm: 0.25rem;
+    /* 4px */
+    --gc-space-md: 0.5rem;
+    /* 8px */
+    --gc-space-base: 0.75rem;
+    /* 12px */
+    --gc-space-lg: 1rem;
+    /* 16px */
+    --gc-space-xl: 1.25rem;
+    /* 20px */
+    --gc-space-2xl: 1.5rem;
+    /* 24px */
+    --gc-space-3xl: 2rem;
+    /* 32px */
+}
+
+/* ====== 動畫效果優化 ====== */
+/* 懸停動畫優化 */
+.gc-hover-lift {
+    transition: transform var(--gc-transition-base) var(--gc-ease-out),
+        box-shadow var(--gc-transition-base) var(--gc-ease-out);
+}
+
+.gc-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--gc-shadow-lg);
+}
+
+/* 縮放動畫優化 */
+.gc-hover-scale {
+    transition: transform var(--gc-transition-base) var(--gc-ease-out);
+}
+
+.gc-hover-scale:hover {
+    transform: scale(1.02);
+}
+
+/* 旋轉動畫優化 */
+.gc-hover-rotate {
+    transition: transform var(--gc-transition-base) var(--gc-ease-out);
+}
+
+.gc-hover-rotate:hover {
+    transform: rotate(5deg);
+}
+
+/* 脈衝動畫優化 */
+@keyframes gc-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+.gc-pulse {
+    animation: gc-pulse 2s var(--gc-ease-in-out) infinite;
+}
+
+/* 閃爍動畫優化 */
+@keyframes gc-shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.gc-shimmer {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 100%);
+    background-size: 200px 100%;
+    animation: gc-shimmer 1.5s var(--gc-ease-in-out) infinite;
+}
+
+/* ====== 圖示系統統一 ====== */
+/* 圖示基礎樣式 */
+.gc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--gc-icon-size-md);
+    height: var(--gc-icon-size-md);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-icon-xs {
+    width: var(--gc-icon-size-xs);
+    height: var(--gc-icon-size-xs);
+}
+
+.gc-icon-sm {
+    width: var(--gc-icon-size-sm);
+    height: var(--gc-icon-size-sm);
+}
+
+.gc-icon-lg {
+    width: var(--gc-icon-size-lg);
+    height: var(--gc-icon-size-lg);
+}
+
+.gc-icon-xl {
+    width: var(--gc-icon-size-xl);
+    height: var(--gc-icon-size-xl);
+}
+
+/* 圖示動畫效果 */
+.gc-icon-spin {
+    animation: gc-spin 1s linear infinite;
+}
+
+@keyframes gc-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.gc-icon-bounce {
+    animation: gc-bounce 1s var(--gc-ease-bounce) infinite;
+}
+
+@keyframes gc-bounce {
+
+    0%,
+    20%,
+    53%,
+    80%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    40%,
+    43% {
+        transform: translate3d(0, -8px, 0);
+    }
+
+    70% {
+        transform: translate3d(0, -4px, 0);
+    }
+
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
+}
+
+/* ====== 間距和對齊優化 ====== */
+/* 間距工具類別 */
+.gc-gap-xs {
+    gap: var(--gc-space-xs);
+}
+
+.gc-gap-sm {
+    gap: var(--gc-space-sm);
+}
+
+.gc-gap-md {
+    gap: var(--gc-space-md);
+}
+
+.gc-gap-base {
+    gap: var(--gc-space-base);
+}
+
+.gc-gap-lg {
+    gap: var(--gc-space-lg);
+}
+
+.gc-gap-xl {
+    gap: var(--gc-space-xl);
+}
+
+.gc-gap-2xl {
+    gap: var(--gc-space-2xl);
+}
+
+.gc-gap-3xl {
+    gap: var(--gc-space-3xl);
+}
+
+/* 內邊距工具類別 */
+.gc-p-xs {
+    padding: var(--gc-space-xs);
+}
+
+.gc-p-sm {
+    padding: var(--gc-space-sm);
+}
+
+.gc-p-md {
+    padding: var(--gc-space-md);
+}
+
+.gc-p-base {
+    padding: var(--gc-space-base);
+}
+
+.gc-p-lg {
+    padding: var(--gc-space-lg);
+}
+
+.gc-p-xl {
+    padding: var(--gc-space-xl);
+}
+
+.gc-p-2xl {
+    padding: var(--gc-space-2xl);
+}
+
+.gc-p-3xl {
+    padding: var(--gc-space-3xl);
+}
+
+/* 外邊距工具類別 */
+.gc-m-xs {
+    margin: var(--gc-space-xs);
+}
+
+.gc-m-sm {
+    margin: var(--gc-space-sm);
+}
+
+.gc-m-md {
+    margin: var(--gc-space-md);
+}
+
+.gc-m-base {
+    margin: var(--gc-space-base);
+}
+
+.gc-m-lg {
+    margin: var(--gc-space-lg);
+}
+
+.gc-m-xl {
+    margin: var(--gc-space-xl);
+}
+
+.gc-m-2xl {
+    margin: var(--gc-space-2xl);
+}
+
+.gc-m-3xl {
+    margin: var(--gc-space-3xl);
+}
+
+/* ====== 視覺層次優化 ====== */
+/* 陰影工具類別 */
+.gc-shadow-xs {
+    box-shadow: var(--gc-shadow-xs);
+}
+
+.gc-shadow-sm {
+    box-shadow: var(--gc-shadow-sm);
+}
+
+.gc-shadow-md {
+    box-shadow: var(--gc-shadow-md);
+}
+
+.gc-shadow-lg {
+    box-shadow: var(--gc-shadow-lg);
+}
+
+.gc-shadow-xl {
+    box-shadow: var(--gc-shadow-xl);
+}
+
+/* 對比度工具類別 */
+.gc-contrast-low {
+    filter: contrast(var(--gc-contrast-low));
+}
+
+.gc-contrast-medium {
+    filter: contrast(var(--gc-contrast-medium));
+}
+
+.gc-contrast-high {
+    filter: contrast(var(--gc-contrast-high));
+}
+
+.gc-contrast-very-high {
+    filter: contrast(var(--gc-contrast-very-high));
+}
+
+/* ====== 關鍵路徑資源預載入 ====== */
+/* 預載入關鍵字體和圖示，減少 FOUT (Flash of Unstyled Text) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ====== CSS 載入優化 ====== */
+/* 使用 will-change 提示瀏覽器優化動畫效能 */
+.gc-body {
+    will-change: scroll-position;
+}
+
+/* 使用 contain 屬性優化重繪效能 */
+.gc-container {
+    contain: layout style;
+}
+
+/* ====== 基礎玻璃風樣式 (視覺微調版) ====== */
+.gc-body {
+    background:
+        radial-gradient(900px 500px at -10% -10%, rgba(117, 87, 255, 0.10), transparent 60%),
+        radial-gradient(800px 460px at 110% 10%, rgba(52, 210, 255, 0.10), transparent 50%),
+        linear-gradient(180deg, var(--gc-bg), var(--gc-bg2));
+    min-height: 100vh;
+    font-family: var(--gc-font-family);
+    color: var(--gc-ink);
+    line-height: var(--gc-line-height-normal);
+    /* 優化重繪效能 */
+    contain: layout style paint;
+    /* 視覺微調：平滑滾動 */
     scroll-behavior: smooth;
+    /* 視覺微調：文字渲染優化 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-body {
-    font-family: var(--gc-font-family-sans);
+/* ====== 跳過導航連結 (無障礙功能) ====== */
+.gc-skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--gc-accent);
+    color: white;
+    padding: var(--gc-space-sm) var(--gc-space-base);
+    text-decoration: none;
+    border-radius: var(--gc-radius-sm);
+    z-index: 10000;
+    transition: top var(--gc-transition-base) var(--gc-ease-out);
+    /* 優化動畫效能 */
+    will-change: top;
+    /* 視覺微調：陰影效果 */
+    box-shadow: var(--gc-shadow-sm);
+}
+
+.gc-skip-link:focus {
+    top: 6px;
+    /* 視覺微調：焦點效果 */
+    box-shadow: var(--gc-shadow-md);
+}
+
+/* ====== 全域載入指示器 (視覺微調版) ====== */
+.gc-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(var(--gc-blur));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* 優化重繪效能 */
+    contain: layout style paint;
+    /* 視覺微調：動畫效果 */
+    animation: gc-fade-in var(--gc-transition-base) var(--gc-ease-out);
+}
+
+@keyframes gc-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.gc-loading-content {
+    background: var(--gc-surface);
+    backdrop-filter: blur(var(--gc-blur));
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius);
+    padding: var(--gc-space-xl);
+    text-align: center;
+    box-shadow: var(--gc-shadow-lg);
+    /* 優化重繪效能 */
+    contain: layout style;
+    /* 視覺微調：動畫效果 */
+    animation: gc-scale-in var(--gc-transition-base) var(--gc-ease-out);
+}
+
+@keyframes gc-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ====== 容器系統 (視覺微調版) ====== */
+.gc-container {
+    max-width: var(--gc-breakpoint-xl);
+    margin: 0 auto;
+    padding: 0 var(--gc-space-base);
+    /* 優化重繪效能 */
+    contain: layout style;
+    /* 視覺微調：平滑過渡 */
+    transition: padding var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+@media (max-width: 768px) {
+    .gc-container {
+        padding: 0 var(--gc-space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .gc-container {
+        padding: 0 var(--gc-space-sm);
+    }
+}
+
+/* ====== 頁首導航樣式 (視覺微調版) ====== */
+.gc-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--gc-z-sticky);
+    background: var(--gc-surface);
+    backdrop-filter: blur(var(--gc-blur));
+    border-bottom: 1px solid var(--gc-line);
+    box-shadow: var(--gc-shadow-sm);
+    /* 優化重繪效能 */
+    contain: layout style;
+    /* 視覺微調：平滑過渡 */
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--gc-space-base) 0;
+    /* 優化重繪效能 */
+    contain: layout style;
+    /* 視覺微調：間距優化 */
+    gap: var(--gc-space-lg);
+}
+
+.gc-brand {
+    display: flex;
+    align-items: center;
+    color: var(--gc-accent);
+    font-weight: var(--gc-font-bold);
+    font-size: var(--gc-text-xl);
+    text-decoration: none;
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+    /* 視覺微調：懸停效果 */
+    position: relative;
+    overflow: hidden;
+}
+
+.gc-brand::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left var(--gc-transition-slow) var(--gc-ease-in-out);
+}
+
+.gc-brand:hover::before {
+    left: 100%;
+}
+
+.gc-brand:hover {
+    color: var(--gc-accent-2);
+    transform: translateY(-1px);
+    /* 視覺微調：陰影效果 */
+    text-shadow: 0 2px 4px rgba(117, 87, 255, 0.3);
+}
+
+.gc-brand i {
+    font-size: var(--gc-text-2xl);
+    color: var(--gc-accent);
+    margin-right: var(--gc-space-sm);
+    /* 視覺微調：圖示動畫 */
+    transition: transform var(--gc-transition-base) var(--gc-ease-bounce);
+}
+
+.gc-brand:hover i {
+    transform: rotate(5deg) scale(1.1);
+}
+
+.gc-brand-text {
+    font-weight: var(--gc-font-black);
+    /* 視覺微調：文字效果 */
+    letter-spacing: -0.02em;
+}
+
+.gc-nav-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius-sm);
+    padding: var(--gc-space-2);
+    cursor: pointer;
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-nav-toggle:hover {
+    background: var(--gc-glass);
+    border-color: var(--gc-accent);
+}
+
+.gc-nav-toggle-icon {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--gc-ink);
+    position: relative;
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-nav-toggle-icon::before,
+.gc-nav-toggle-icon::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: var(--gc-ink);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-nav-toggle-icon::before {
+    top: -6px;
+}
+
+.gc-nav-toggle-icon::after {
+    bottom: -6px;
+}
+
+/* ====== 導航選單樣式 (視覺微調版) ====== */
+.gc-nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--gc-space-xl);
+    /* 視覺微調：平滑過渡 */
+    transition: gap var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--gc-space-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* 視覺微調：彈性佈局 */
+    flex-wrap: wrap;
+}
+
+.gc-nav-item {
+    position: relative;
+    /* 視覺微調：過渡效果 */
+    transition: transform var(--gc-transition-base) var(--gc-ease-out);
+}
+
+.gc-nav-item:hover {
+    transform: translateY(-1px);
+}
+
+/* ====== 導航連結樣式 (視覺微調版) ====== */
+.gc-nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--gc-space-sm);
+    color: var(--gc-ink);
+    text-decoration: none;
+    padding: var(--gc-space-sm) var(--gc-space-md);
+    border-radius: var(--gc-radius-sm);
+    font-weight: var(--gc-font-medium);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+    /* 優化重繪效能 */
+    contain: layout style;
+    /* 視覺微調：位置相對 */
+    position: relative;
+    overflow: hidden;
+}
+
+.gc-nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gc-accent);
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all var(--gc-transition-base) var(--gc-ease-out);
+    z-index: -1;
+}
+
+.gc-nav-link:hover::before {
+    opacity: 0.1;
+    transform: scaleX(1);
+}
+
+.gc-nav-link:hover {
+    color: var(--gc-accent);
+    background: var(--gc-glass);
+    transform: translateY(-1px);
+    /* 視覺微調：陰影效果 */
+    box-shadow: var(--gc-shadow-sm);
+}
+
+.gc-nav-link.active {
+    color: var(--gc-accent);
+    background: var(--gc-glass);
+    font-weight: var(--gc-font-semibold);
+    /* 視覺微調：活動狀態效果 */
+    box-shadow: var(--gc-shadow-md);
+    position: relative;
+}
+
+.gc-nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: var(--gc-accent);
+    border-radius: 1px;
+    /* 視覺微調：動畫效果 */
+    animation: gc-slide-in var(--gc-transition-base) var(--gc-ease-out);
+}
+
+@keyframes gc-slide-in {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: 20px;
+        opacity: 1;
+    }
+}
+
+/* ====== CSS 檔案合併和壓縮策略 ====== */
+/* 
+   效能優化策略：
+   1. 關鍵路徑 CSS 內聯到 HTML 中
+   2. 非關鍵 CSS 異步載入
+   3. 使用 CSS 快取和版本控制
+   4. 移除未使用的 CSS 規則
+   5. 優化選擇器效能
+*/
+
+/* ====== 關鍵路徑 CSS 內聯樣式 ====== */
+/* 這些樣式會內聯到 HTML 中，確保首屏渲染效能 */
+.gc-critical {
+    /* 關鍵渲染路徑樣式 */
+    font-family: var(--gc-font-family);
+    color: var(--gc-ink);
+    background: var(--gc-bg);
+}
+
+/* ====== 非關鍵 CSS 異步載入標記 ====== */
+/* 這些樣式會異步載入，不阻塞關鍵路徑 */
+.gc-async {
+    /* 異步載入的樣式 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gc-async.loaded {
+    opacity: 1;
+}
+
+/* ====== CSS 快取策略 ====== */
+/* 使用版本控制確保快取更新 */
+.gc-version {
+    /* 版本控制標記 */
+    content: "v1.0.0";
+}
+
+/* ====== 選擇器效能優化 ====== */
+/* 避免過深的選擇器嵌套，提升渲染效能 */
+.gc-nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--gc-space-1);
+    color: var(--gc-ink);
+    text-decoration: none;
+    padding: var(--gc-space-2) var(--gc-space-3);
+    border-radius: var(--gc-radius-sm);
+    font-weight: var(--gc-font-medium);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+    /* 優化重繪效能 */
+    contain: layout style;
+}
+
+.gc-nav-link:hover {
+    color: var(--gc-accent);
+    background: var(--gc-glass);
+    transform: translateY(-1px);
+}
+
+.gc-nav-link.active {
+    color: var(--gc-accent);
+    background: var(--gc-glass);
+    font-weight: var(--gc-font-semibold);
+}
+
+/* ====== 響應式導航優化 ====== */
+@media (max-width: 768px) {
+    .gc-nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: var(--gc-space-3) 0;
+    }
+
+    .gc-nav-toggle {
+        display: block;
+        align-self: flex-end;
+    }
+
+    .gc-nav-menu {
+        display: none;
+        flex-direction: column;
+        padding: var(--gc-space-3) 0;
+    }
+
+    .gc-nav-menu.active {
+        display: flex;
+    }
+
+    .gc-nav-link {
+        padding: var(--gc-space-3);
+        border-radius: 0;
+    }
+}
+
+/* ====== 下拉選單效能優化 ====== */
+.gc-nav-dropdown {
+    position: relative;
+    /* 優化重繪效能 */
+    contain: layout style;
+}
+
+.gc-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 200px;
+    background: var(--gc-surface);
+    backdrop-filter: blur(var(--gc-blur));
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius);
+    box-shadow: var(--gc-shadow);
+    padding: var(--gc-space-2) 0;
+    margin-top: var(--gc-space-1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+    z-index: var(--gc-z-dropdown);
+    /* 優化動畫效能 */
+    will-change: opacity, transform;
+}
+
+.gc-nav-dropdown:hover .gc-dropdown-menu,
+.gc-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.gc-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--gc-space-2);
+    color: var(--gc-ink);
+    text-decoration: none;
+    padding: var(--gc-space-2) var(--gc-space-4);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+    border-radius: 0;
+    margin: 0 var(--gc-space-1);
+}
+
+.gc-dropdown-item:hover {
+    background: var(--gc-glass);
+    color: var(--gc-accent);
+    transform: translateX(4px);
+}
+
+.gc-dropdown-divider {
+    border: none;
+    border-top: 1px solid var(--gc-line);
+    margin: var(--gc-space-2) var(--gc-space-4);
+}
+
+/* ====== 主要內容區域樣式 ====== */
+.gc-main {
+    min-height: calc(100vh - 200px);
+    padding: var(--gc-space-8) 0;
+}
+
+/* ====== 頁尾樣式 ====== */
+.gc-footer {
+    background: var(--gc-surface);
+    backdrop-filter: blur(var(--gc-blur));
+    border-top: 1px solid var(--gc-line);
+    padding: var(--gc-space-12) 0 var(--gc-space-4);
+    margin-top: var(--gc-space-12);
+}
+
+.gc-footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--gc-space-8);
+    margin-bottom: var(--gc-space-6);
+}
+
+.gc-footer-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.gc-footer-title {
+    color: var(--gc-accent);
+    font-weight: var(--gc-font-bold);
+    font-size: var(--gc-text-lg);
+    margin-bottom: var(--gc-space-3);
+}
+
+.gc-footer-title i {
+    color: var(--gc-accent);
+    margin-right: var(--gc-space-2);
+}
+
+.gc-footer-description {
+    color: var(--gc-muted);
+    line-height: var(--gc-line-height-relaxed);
+    margin-bottom: var(--gc-space-4);
+}
+
+.gc-footer-subtitle {
+    color: var(--gc-ink);
+    font-weight: var(--gc-font-semibold);
     font-size: var(--gc-text-base);
-    line-height: var(--gc-leading-normal);
-    color: var(--gc-neutral-700);
-    background-color: var(--gc-neutral-50);
+    margin-bottom: var(--gc-space-3);
+}
+
+.gc-footer-links {
+    list-style: none;
     margin: 0;
     padding: 0;
 }
 
-/* ========================================
-   標題樣式優化 (Typography Optimization)
-   ======================================== */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--gc-font-family-sans);
-    font-weight: var(--gc-font-semibold);
-    line-height: var(--gc-leading-tight);
-    color: var(--gc-neutral-800);
-    margin-top: 0;
-    margin-bottom: var(--gc-space-4);
+.gc-footer-links li {
+    margin-bottom: var(--gc-space-2);
 }
 
-h1 {
-    font-size: var(--gc-text-5xl);
-    font-weight: var(--gc-font-bold);
-}
-
-h2 {
-    font-size: var(--gc-text-4xl);
-}
-
-h3 {
-    font-size: var(--gc-text-3xl);
-}
-
-h4 {
-    font-size: var(--gc-text-2xl);
-}
-
-h5 {
-    font-size: var(--gc-text-xl);
-}
-
-h6 {
-    font-size: var(--gc-text-lg);
-}
-
-/* ========================================
-   段落和文字樣式 (Paragraph & Text Styles)
-   ======================================== */
-
-p {
-    margin-top: 0;
-    margin-bottom: var(--gc-space-4);
-    line-height: var(--gc-leading-relaxed);
-}
-
-.lead {
-    font-size: var(--gc-text-lg);
-    font-weight: var(--gc-font-normal);
-    line-height: var(--gc-leading-relaxed);
-}
-
-.text-muted {
-    color: var(--gc-neutral-500);
-}
-
-.text-primary {
-    color: var(--gc-primary-600);
-}
-
-.text-success {
-    color: var(--gc-success-600);
-}
-
-.text-warning {
-    color: var(--gc-warning-600);
-}
-
-.text-error {
-    color: var(--gc-error-600);
-}
-
-/* ========================================
-   連結樣式優化 (Link Style Optimization)
-   ======================================== */
-
-a {
-    color: var(--gc-primary-500);
+.gc-footer-link {
+    color: var(--gc-muted);
     text-decoration: none;
-    transition: color var(--gc-transition-base) var(--gc-ease-in-out);
-}
-
-a:hover {
-    color: var(--gc-primary-600);
-    text-decoration: underline;
-}
-
-a:focus {
-    outline: 2px solid var(--gc-primary-500);
-    outline-offset: 2px;
-}
-
-/* ========================================
-   按鈕樣式優化 (Button Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 按鈕樣式 */
-.btn {
-    font-family: var(--gc-font-family-sans);
-    font-weight: var(--gc-font-medium);
-    border-radius: var(--gc-radius-base);
     transition: all var(--gc-transition-base) var(--gc-ease-in-out);
-    border: 1px solid transparent;
+    display: block;
+    padding: var(--gc-space-1) 0;
 }
 
-.btn-primary {
-    background-color: var(--gc-primary-500);
-    border-color: var(--gc-primary-500);
-    color: var(--gc-neutral-0);
+.gc-footer-link:hover {
+    color: var(--gc-accent);
+    transform: translateX(4px);
 }
 
-.btn-primary:hover {
-    background-color: var(--gc-primary-600);
-    border-color: var(--gc-primary-600);
-    transform: translateY(-1px);
-    box-shadow: var(--gc-shadow-md);
-}
-
-.btn-primary:active {
-    background-color: var(--gc-primary-700);
-    border-color: var(--gc-primary-700);
-    transform: translateY(0);
-}
-
-.btn-secondary {
-    background-color: var(--gc-neutral-0);
-    border-color: var(--gc-neutral-300);
-    color: var(--gc-neutral-700);
-}
-
-.btn-secondary:hover {
-    background-color: var(--gc-neutral-50);
-    border-color: var(--gc-neutral-400);
-    color: var(--gc-neutral-800);
-}
-
-.btn-success {
-    background-color: var(--gc-success-500);
-    border-color: var(--gc-success-500);
-    color: var(--gc-neutral-0);
-}
-
-.btn-warning {
-    background-color: var(--gc-warning-500);
-    border-color: var(--gc-warning-500);
-    color: var(--gc-neutral-0);
-}
-
-.btn-danger {
-    background-color: var(--gc-error-500);
-    border-color: var(--gc-error-500);
-    color: var(--gc-neutral-0);
-}
-
-/* ========================================
-   表單樣式優化 (Form Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 表單樣式 */
-.form-control {
-    font-family: var(--gc-font-family-sans);
-    border-radius: var(--gc-radius-base);
-    border: 1px solid var(--gc-neutral-300);
-    transition: border-color var(--gc-transition-base) var(--gc-ease-in-out),
-        box-shadow var(--gc-transition-base) var(--gc-ease-in-out);
-}
-
-.form-control:focus {
-    border-color: var(--gc-primary-500);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.form-control:hover:not(:focus) {
-    border-color: var(--gc-neutral-400);
-}
-
-.form-label {
-    font-weight: var(--gc-font-medium);
-    color: var(--gc-neutral-700);
-    margin-bottom: var(--gc-space-1);
-}
-
-.form-text {
-    color: var(--gc-neutral-500);
-    font-size: var(--gc-text-sm);
-}
-
-/* ========================================
-   導航樣式優化 (Navigation Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 導航樣式 */
-.navbar {
-    background-color: var(--gc-neutral-0) !important;
-    border-bottom: 1px solid var(--gc-neutral-200);
-    box-shadow: var(--gc-shadow-sm);
-}
-
-.navbar-brand {
-    font-weight: var(--gc-font-bold);
-    color: var(--gc-primary-600) !important;
-    font-size: var(--gc-text-xl);
-}
-
-.navbar-nav .nav-link {
-    color: var(--gc-neutral-700) !important;
-    font-weight: var(--gc-font-medium);
-    padding: var(--gc-space-2) var(--gc-space-3);
-    border-radius: var(--gc-radius-base);
-    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
-}
-
-.navbar-nav .nav-link:hover {
-    color: var(--gc-primary-600) !important;
-    background-color: var(--gc-primary-50);
-}
-
-.navbar-nav .nav-link.active {
-    color: var(--gc-primary-600) !important;
-    background-color: var(--gc-primary-50);
-}
-
-/* ========================================
-   卡片樣式優化 (Card Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 卡片樣式 */
-.card {
-    border: 1px solid var(--gc-neutral-200);
-    border-radius: var(--gc-radius-lg);
-    box-shadow: var(--gc-shadow-sm);
-    transition: box-shadow var(--gc-transition-base) var(--gc-ease-in-out);
-}
-
-.card:hover {
-    box-shadow: var(--gc-shadow-md);
-}
-
-.card-header {
-    background-color: var(--gc-neutral-50);
-    border-bottom: 1px solid var(--gc-neutral-200);
-    padding: var(--gc-space-4);
-}
-
-.card-title {
-    margin: 0;
-    color: var(--gc-neutral-800);
-    font-weight: var(--gc-font-semibold);
-}
-
-.card-body {
-    padding: var(--gc-space-4);
-}
-
-.card-footer {
-    background-color: var(--gc-neutral-50);
-    border-top: 1px solid var(--gc-neutral-200);
-    padding: var(--gc-space-4);
-}
-
-/* ========================================
-   警告樣式優化 (Alert Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 警告樣式 */
-.alert {
-    border-radius: var(--gc-radius-base);
-    border: 1px solid transparent;
-    padding: var(--gc-space-3) var(--gc-space-4);
-}
-
-.alert-primary {
-    color: var(--gc-primary-600);
-    background-color: var(--gc-primary-50);
-    border-color: var(--gc-primary-100);
-}
-
-.alert-success {
-    color: var(--gc-success-600);
-    background-color: var(--gc-success-50);
-    border-color: var(--gc-success-100);
-}
-
-.alert-warning {
-    color: var(--gc-warning-600);
-    background-color: var(--gc-warning-50);
-    border-color: var(--gc-warning-100);
-}
-
-.alert-danger {
-    color: var(--gc-error-600);
-    background-color: var(--gc-error-50);
-    border-color: var(--gc-error-100);
-}
-
-/* ========================================
-   表格樣式優化 (Table Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 表格樣式 */
-.table {
-    border-radius: var(--gc-radius-lg);
-    overflow: hidden;
-    box-shadow: var(--gc-shadow-sm);
-}
-
-.table thead th {
-    background-color: var(--gc-neutral-50);
-    border-bottom: 2px solid var(--gc-neutral-200);
-    font-weight: var(--gc-font-semibold);
-    color: var(--gc-neutral-800);
-    padding: var(--gc-space-3) var(--gc-space-4);
-}
-
-.table tbody td {
-    padding: var(--gc-space-3) var(--gc-space-4);
-    border-bottom: 1px solid var(--gc-neutral-200);
-    vertical-align: middle;
-}
-
-.table tbody tr:hover {
-    background-color: var(--gc-neutral-50);
-}
-
-/* ========================================
-   分頁樣式優化 (Pagination Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 分頁樣式 */
-.pagination {
-    gap: var(--gc-space-1);
-}
-
-.page-link {
-    border-radius: var(--gc-radius-base);
-    border: 1px solid var(--gc-neutral-300);
-    color: var(--gc-primary-500);
-    padding: var(--gc-space-2) var(--gc-space-3);
-    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
-}
-
-.page-link:hover {
-    background-color: var(--gc-primary-50);
-    border-color: var(--gc-primary-300);
-    color: var(--gc-primary-600);
-}
-
-.page-item.active .page-link {
-    background-color: var(--gc-primary-500);
-    border-color: var(--gc-primary-500);
-    color: var(--gc-neutral-0);
-}
-
-/* ========================================
-   模態框樣式優化 (Modal Style Optimization)
-   ======================================== */
-
-/* 覆蓋 Bootstrap 模態框樣式 */
-.modal-content {
-    border-radius: var(--gc-radius-lg);
-    border: none;
-    box-shadow: var(--gc-shadow-2xl);
-}
-
-.modal-header {
-    border-bottom: 1px solid var(--gc-neutral-200);
-    padding: var(--gc-space-4);
-}
-
-.modal-title {
-    color: var(--gc-neutral-800);
-    font-weight: var(--gc-font-semibold);
-}
-
-.modal-body {
-    padding: var(--gc-space-4);
-}
-
-.modal-footer {
-    border-top: 1px solid var(--gc-neutral-200);
-    padding: var(--gc-space-4);
-}
-
-/* ========================================
-   遊戲平台專用樣式 (Game Platform Specific Styles)
-   ======================================== */
-
-/* 遊戲卡片樣式 */
-.game-card {
-    background: linear-gradient(135deg, var(--gc-primary-50) 0%, var(--gc-neutral-50) 100%);
-    border: 2px solid var(--gc-primary-200);
-    border-radius: var(--gc-radius-xl);
-    padding: var(--gc-space-6);
-    text-align: center;
-    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
-}
-
-.game-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--gc-shadow-xl);
-    border-color: var(--gc-primary-300);
-}
-
-.game-card-icon {
-    font-size: var(--gc-text-5xl);
-    margin-bottom: var(--gc-space-4);
-    color: var(--gc-primary-500);
-}
-
-.game-card-title {
-    font-size: var(--gc-text-2xl);
-    font-weight: var(--gc-font-bold);
-    color: var(--gc-neutral-800);
-    margin-bottom: var(--gc-space-3);
-}
-
-.game-card-description {
-    color: var(--gc-neutral-600);
-    margin-bottom: var(--gc-space-4);
-    line-height: var(--gc-leading-relaxed);
-}
-
-/* 功能區塊樣式 */
-.feature-section {
-    padding: var(--gc-space-16) 0;
-    background-color: var(--gc-neutral-0);
-}
-
-.feature-section:nth-child(even) {
-    background-color: var(--gc-neutral-50);
-}
-
-.feature-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--gc-space-4);
-}
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--gc-space-8);
-    margin-top: var(--gc-space-8);
-}
-
-/* 英雄區塊樣式 */
-.hero-section {
-    background: linear-gradient(135deg, var(--gc-primary-500) 0%, var(--gc-primary-700) 100%);
-    color: var(--gc-neutral-0);
-    padding: var(--gc-space-24) 0;
-    text-align: center;
-}
-
-.hero-title {
-    font-size: var(--gc-text-5xl);
-    font-weight: var(--gc-font-bold);
-    margin-bottom: var(--gc-space-6);
-    line-height: var(--gc-leading-tight);
-}
-
-.hero-subtitle {
-    font-size: var(--gc-text-xl);
-    margin-bottom: var(--gc-space-8);
-    opacity: 0.9;
-    line-height: var(--gc-leading-relaxed);
-}
-
-.hero-actions {
+.gc-social-links {
     display: flex;
-    gap: var(--gc-space-4);
-    justify-content: center;
-    flex-wrap: wrap;
+    gap: var(--gc-space-3);
 }
 
-/* ========================================
-   響應式設計優化 (Responsive Design Optimization)
-   ======================================== */
+.gc-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--gc-muted);
+    text-decoration: none;
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius-sm);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
 
-/* 小螢幕適配 */
-@media (max-width: 767.98px) {
-    .hero-title {
-        font-size: var(--gc-text-4xl);
+.gc-social-link:hover {
+    color: var(--gc-accent);
+    border-color: var(--gc-accent);
+    background: var(--gc-glass);
+    transform: translateY(-2px);
+}
+
+.gc-footer-divider {
+    border: none;
+    border-top: 1px solid var(--gc-line);
+    margin: var(--gc-space-6) 0;
+}
+
+.gc-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--gc-space-4);
+}
+
+.gc-footer-copyright {
+    color: var(--gc-muted);
+    margin: 0;
+}
+
+.gc-footer-version {
+    color: var(--gc-muted);
+    margin: 0;
+    text-align: right;
+}
+
+/* ====== 響應式設計 ====== */
+@media (max-width: 1024px) {
+    .gc-footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gc-space-6);
+    }
+}
+
+@media (max-width: 768px) {
+    .gc-nav-toggle {
+        display: block;
     }
 
-    .hero-subtitle {
-        font-size: var(--gc-text-lg);
-    }
-
-    .hero-actions {
+    .gc-nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        background: var(--gc-surface);
+        backdrop-filter: blur(var(--gc-blur));
+        border: 1px solid var(--gc-line);
+        border-top: none;
+        border-radius: 0 0 var(--gc-radius) var(--gc-radius);
+        box-shadow: var(--gc-shadow);
+        padding: var(--gc-space-4);
+        gap: var(--gc-space-2);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all var(--gc-transition-base) var(--gc-ease-in-out);
     }
 
-    .feature-grid {
+    .gc-nav-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .gc-nav-list {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--gc-space-1);
+    }
+
+    .gc-nav-right {
+        margin-left: 0;
+        margin-top: var(--gc-space-4);
+        padding-top: var(--gc-space-4);
+        border-top: 1px solid var(--gc-line);
+    }
+
+    .gc-dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        margin-top: var(--gc-space-2);
+        padding-left: var(--gc-space-4);
+    }
+
+    .gc-footer-content {
         grid-template-columns: 1fr;
         gap: var(--gc-space-6);
     }
 
-    .game-card {
-        padding: var(--gc-space-4);
-    }
-}
-
-/* 中等螢幕適配 */
-@media (max-width: 991.98px) {
-    .navbar-nav {
-        margin-top: var(--gc-space-3);
+    .gc-footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--gc-space-2);
     }
 
-    .navbar-nav .nav-link {
-        padding: var(--gc-space-2);
+    .gc-footer-version {
         text-align: center;
     }
 }
 
-/* 大螢幕優化 */
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1200px;
+@media (max-width: 480px) {
+    .gc-container {
+        padding: 0 var(--gc-space-2);
     }
 
-    .feature-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* ========================================
-   列印樣式 (Print Styles)
-   ======================================== */
-
-@media print {
-
-    .navbar,
-    .footer,
-    .btn,
-    .game-card {
-        display: none !important;
+    .gc-nav {
+        padding: var(--gc-space-3) 0;
     }
 
-    body {
-        background-color: white !important;
-        color: black !important;
+    .gc-brand {
+        font-size: var(--gc-text-lg);
     }
 
-    .hero-section {
-        background: white !important;
-        color: black !important;
-        padding: var(--gc-space-4) 0;
+    .gc-main {
+        padding: var(--gc-space-6) 0;
     }
 
-    .feature-section {
-        background-color: white !important;
-        padding: var(--gc-space-4) 0;
+    .gc-footer {
+        padding: var(--gc-space-8) 0 var(--gc-space-3);
     }
 }
 
-/* ========================================
-   效能優化 (Performance Optimization)
-   ======================================== */
-
-/* 減少重繪和重排 */
-.game-card,
-.btn,
-.form-control {
-    will-change: transform;
+/* ====== 深色模式支援 ====== */
+@media (prefers-color-scheme: dark) {
+    .gc-body {
+        background:
+            radial-gradient(900px 500px at -10% -10%, rgba(117, 87, 255, 0.15), transparent 60%),
+            radial-gradient(800px 460px at 110% 10%, rgba(52, 210, 255, 0.15), transparent 50%),
+            linear-gradient(180deg, var(--gc-bg-dark), var(--gc-bg2-dark));
+    }
 }
 
-/* 硬體加速 */
-.game-card:hover,
-.btn:hover {
-    transform: translateZ(0);
-}
-
-/* 平滑滾動 */
-html {
-    scroll-behavior: smooth;
-}
-
-/* ========================================
-   無障礙功能增強 (Accessibility Enhancement)
-   ======================================== */
-
-/* 焦點可見性 */
-.btn:focus,
-.form-control:focus,
-.nav-link:focus {
-    outline: 2px solid var(--gc-primary-500);
-    outline-offset: 2px;
-}
-
-/* 高對比度支援 */
+/* ====== 高對比模式支援 ====== */
 @media (prefers-contrast: high) {
-
-    .btn,
-    .form-control,
-    .card {
-        border-width: 2px;
+    .gc-header {
+        border-bottom: 2px solid var(--gc-line);
     }
 
-    .game-card {
-        border-width: 3px;
+    .gc-footer {
+        border-top: 2px solid var(--gc-line);
+    }
+
+    .gc-nav-link:hover,
+    .gc-dropdown-item:hover,
+    .gc-footer-link:hover,
+    .gc-social-link:hover {
+        outline: 2px solid var(--gc-accent);
+        outline-offset: 2px;
     }
 }
 
-/* 減少動畫支援 */
+/* ====== 減少動畫模式支援 ====== */
 @media (prefers-reduced-motion: reduce) {
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    .gc-nav-link,
+    .gc-dropdown-item,
+    .gc-footer-link,
+    .gc-social-link,
+    .gc-brand {
+        transition: none;
     }
 
-    html {
-        scroll-behavior: auto;
+    .gc-nav-menu,
+    .gc-dropdown-menu {
+        transition: opacity var(--gc-transition-base) var(--gc-ease-in-out);
+    }
+}
+
+/* ====== 按鈕樣式 (視覺微調版) ====== */
+.gc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gc-space-sm);
+    padding: var(--gc-space-sm) var(--gc-space-lg);
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius-sm);
+    background: var(--gc-surface);
+    color: var(--gc-ink);
+    font-weight: var(--gc-font-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--gc-transition-base) var(--gc-ease-out);
+    /* 優化重繪效能 */
+    contain: layout style;
+    /* 視覺微調：位置相對 */
+    position: relative;
+    overflow: hidden;
+    /* 視覺微調：文字渲染 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.gc-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left var(--gc-transition-slow) var(--gc-ease-in-out);
+}
+
+.gc-btn:hover::before {
+    left: 100%;
+}
+
+.gc-btn:hover {
+    background: var(--gc-glass);
+    border-color: var(--gc-accent);
+    transform: translateY(-1px);
+    box-shadow: var(--gc-shadow-md);
+}
+
+.gc-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--gc-shadow-sm);
+}
+
+.gc-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(117, 87, 255, 0.2);
+}
+
+/* 主要按鈕樣式 */
+.gc-btn-primary {
+    background: linear-gradient(135deg, var(--gc-accent), var(--gc-accent-2));
+    color: white;
+    border-color: transparent;
+    box-shadow: var(--gc-shadow-sm);
+}
+
+.gc-btn-primary:hover {
+    background: linear-gradient(135deg, var(--gc-accent-2), var(--gc-accent));
+    box-shadow: var(--gc-shadow-lg);
+    transform: translateY(-2px);
+}
+
+.gc-btn-primary:active {
+    transform: translateY(-1px);
+    box-shadow: var(--gc-shadow-md);
+}
+
+/* 次要按鈕樣式 */
+.gc-btn-secondary {
+    background: var(--gc-glass);
+    border-color: var(--gc-accent);
+    color: var(--gc-accent);
+}
+
+.gc-btn-secondary:hover {
+    background: var(--gc-accent);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* 危險按鈕樣式 */
+.gc-btn-danger {
+    background: var(--gc-danger);
+    color: white;
+    border-color: transparent;
+}
+
+.gc-btn-danger:hover {
+    background: var(--gc-danger-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--gc-shadow-md);
+}
+
+/* 按鈕尺寸變體 */
+.gc-btn-sm {
+    padding: var(--gc-space-xs) var(--gc-space-md);
+    font-size: var(--gc-text-sm);
+}
+
+.gc-btn-lg {
+    padding: var(--gc-space-md) var(--gc-space-xl);
+    font-size: var(--gc-text-lg);
+}
+
+/* 按鈕狀態 */
+.gc-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.gc-btn-loading {
+    position: relative;
+    color: transparent;
+}
+
+.gc-btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: gc-spin 1s linear infinite;
+}
+
+/* ====== 表單樣式 (視覺微調版) ====== */
+.gc-form-group {
+    margin-bottom: var(--gc-space-lg);
+    /* 視覺微調：位置相對 */
+    position: relative;
+}
+
+.gc-form-label {
+    display: block;
+    margin-bottom: var(--gc-space-sm);
+    color: var(--gc-ink);
+    font-weight: var(--gc-font-medium);
+    /* 視覺微調：文字效果 */
+    letter-spacing: -0.01em;
+}
+
+.gc-form-input {
+    width: 100%;
+    padding: var(--gc-space-sm) var(--gc-space-md);
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius-sm);
+    background: var(--gc-surface);
+    color: var(--gc-ink);
+    font-size: var(--gc-text-base);
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+    /* 視覺微調：文字渲染 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.gc-form-input:focus {
+    outline: none;
+    border-color: var(--gc-accent);
+    box-shadow: 0 0 0 3px rgba(117, 87, 255, 0.1);
+    background: var(--gc-glass);
+}
+
+.gc-form-input:hover {
+    border-color: var(--gc-accent-2);
+}
+
+.gc-form-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--gc-muted);
+}
+
+/* 表單驗證狀態 */
+.gc-form-input.is-valid {
+    border-color: var(--gc-success);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.gc-form-input.is-invalid {
+    border-color: var(--gc-danger);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.gc-form-error {
+    color: var(--gc-danger);
+    font-size: var(--gc-text-sm);
+    margin-top: var(--gc-space-xs);
+    /* 視覺微調：動畫效果 */
+    animation: gc-shake var(--gc-transition-base) var(--gc-ease-out);
+}
+
+@keyframes gc-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
     }
 }

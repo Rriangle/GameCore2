@@ -4,198 +4,188 @@
 }
 
 <!-- 頁面標題 -->
-<div class="gc-mb-6">
-    <h1 class="gc-text-3xl gc-font-bold gc-text-neutral-800">
-        <i class="bi bi-speedometer2 gc-text-primary gc-mr-3"></i>
+<div style="margin-bottom: var(--gc-space-6);">
+    <h1 style="font-size: var(--gc-text-3xl); font-weight: var(--gc-font-bold); color: var(--gc-ink);">
+        <i class="bi bi-speedometer2" style="color: var(--gc-accent); margin-right: var(--gc-space-3);"></i>
         系統儀表板
     </h1>
-    <p class="gc-text-lg gc-text-neutral-600 gc-mt-2">
+    <p style="font-size: var(--gc-text-lg); color: var(--gc-muted); margin-top: var(--gc-space-2);">
         歡迎回來！這裡是 GameCore 管理後台的概況
     </p>
 </div>
 
 <!-- 統計卡片 -->
-<div class="row gc-mb-6">
-    <div class="col-xl-3 col-md-6 gc-mb-4">
-        <div class="stats-card">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="gc-text-2xl gc-font-bold mb-0">12,847</h3>
-                    <p class="gc-text-neutral-100 mb-0">總用戶數</p>
-                </div>
-                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
-                    <i class="bi bi-people"></i>
-                </div>
+<div class="gc-admin-stats-grid">
+    <div class="gc-admin-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div class="gc-admin-stat-number">12,847</div>
+                <div class="gc-admin-stat-label">總用戶數</div>
             </div>
-            <div class="gc-mt-3">
-                <small class="gc-text-neutral-100">
-                    <i class="bi bi-arrow-up"></i> +12% 本月
-                </small>
+            <div style="color: var(--gc-accent); font-size: var(--gc-text-3xl);">
+                <i class="bi bi-people"></i>
             </div>
+        </div>
+        <div style="margin-top: var(--gc-space-3);">
+            <small style="color: var(--gc-accent-3);">
+                <i class="bi bi-arrow-up"></i> +12% 本月
+            </small>
         </div>
     </div>
     
-    <div class="col-xl-3 col-md-6 gc-mb-4">
-        <div class="stats-card success">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="gc-text-2xl gc-font-bold mb-0">¥89,432</h3>
-                    <p class="gc-text-neutral-100 mb-0">今日收入</p>
-                </div>
-                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
-                    <i class="bi bi-currency-yen"></i>
-                </div>
+    <div class="gc-admin-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div class="gc-admin-stat-number">¥89,432</div>
+                <div class="gc-admin-stat-label">今日收入</div>
             </div>
-            <div class="gc-mt-3">
-                <small class="gc-text-neutral-100">
-                    <i class="bi bi-arrow-up"></i> +8% 昨日
-                </small>
+            <div style="color: var(--gc-accent-3); font-size: var(--gc-text-3xl);">
+                <i class="bi bi-currency-yen"></i>
             </div>
+        </div>
+        <div style="margin-top: var(--gc-space-3);">
+            <small style="color: var(--gc-accent-3);">
+                <i class="bi bi-arrow-up"></i> +8% 昨日
+            </small>
         </div>
     </div>
     
-    <div class="col-xl-3 col-md-6 gc-mb-4">
-        <div class="stats-card warning">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="gc-text-2xl gc-font-bold mb-0">1,234</h3>
-                    <p class="gc-text-neutral-100 mb-0">待處理訂單</p>
-                </div>
-                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
-                    <i class="bi bi-cart"></i>
-                </div>
+    <div class="gc-admin-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div class="gc-admin-stat-number">1,234</div>
+                <div class="gc-admin-stat-label">待處理訂單</div>
             </div>
-            <div class="gc-mt-3">
-                <small class="gc-text-neutral-100">
-                    <i class="bi bi-arrow-down"></i> -5% 昨日
-                </small>
+            <div style="color: #f59e0b; font-size: var(--gc-text-3xl);">
+                <i class="bi bi-cart"></i>
             </div>
+        </div>
+        <div style="margin-top: var(--gc-space-3);">
+            <small style="color: var(--gc-down);">
+                <i class="bi bi-arrow-down"></i> -5% 昨日
+            </small>
         </div>
     </div>
     
-    <div class="col-xl-3 col-md-6 gc-mb-4">
-        <div class="stats-card error">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="gc-text-2xl gc-font-bold mb-0">98.7%</h3>
-                    <p class="gc-text-neutral-100 mb-0">系統可用性</p>
-                </div>
-                <div class="gc-text-neutral-100" style="font-size: 2.5rem;">
-                    <i class="bi bi-activity"></i>
-                </div>
+    <div class="gc-admin-stat-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div class="gc-admin-stat-number">98.7%</div>
+                <div class="gc-admin-stat-label">系統可用性</div>
             </div>
-            <div class="gc-mt-3">
-                <small class="gc-text-neutral-100">
-                    <i class="bi bi-arrow-up"></i> +0.3% 昨日
-                </small>
+            <div style="color: var(--gc-accent-3); font-size: var(--gc-text-3xl);">
+                <i class="bi bi-activity"></i>
             </div>
+        </div>
+        <div style="margin-top: var(--gc-space-3);">
+            <small style="color: var(--gc-accent-3);">
+                <i class="bi bi-arrow-up"></i> +0.3% 昨日
+            </small>
         </div>
     </div>
 </div>
 
 <!-- 圖表和詳細資訊 -->
-<div class="row">
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--gc-space-6);">
     <!-- 左側圖表 -->
-    <div class="col-lg-8 gc-mb-6">
-        <div class="gc-card gc-p-4">
-            <div class="d-flex justify-content-between align-items-center gc-mb-4">
-                <h3 class="gc-text-xl gc-font-semibold gc-text-neutral-800">
-                    <i class="bi bi-graph-up gc-text-primary gc-mr-2"></i>
-                    用戶增長趨勢
-                </h3>
-                <div class="btn-group btn-group-sm" role="group">
-                    <input type="radio" class="btn-check" name="chartPeriod" id="period7d" checked>
-                    <label class="btn btn-outline-primary" for="period7d">7天</label>
-                    
-                    <input type="radio" class="btn-check" name="chartPeriod" id="period30d">
-                    <label class="btn btn-outline-primary" for="period30d">30天</label>
-                    
-                    <input type="radio" class="btn-check" name="chartPeriod" id="period90d">
-                    <label class="btn btn-outline-primary" for="period90d">90天</label>
-                </div>
+    <div class="gc-admin-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--gc-space-4);">
+            <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink);">
+                <i class="bi bi-graph-up" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                用戶增長趨勢
+            </h3>
+            <div style="display: flex; gap: var(--gc-space-1);">
+                <input type="radio" name="chartPeriod" id="period7d" checked style="display: none;">
+                <label for="period7d" class="gc-admin-btn-secondary" style="padding: var(--gc-space-1) var(--gc-space-3); font-size: var(--gc-text-sm);">7天</label>
+                
+                <input type="radio" name="chartPeriod" id="period30d" style="display: none;">
+                <label for="period30d" class="gc-admin-btn-secondary" style="padding: var(--gc-space-1) var(--gc-space-3); font-size: var(--gc-text-sm);">30天</label>
+                
+                <input type="radio" name="chartPeriod" id="period90d" style="display: none;">
+                <label for="period90d" class="gc-admin-btn-secondary" style="padding: var(--gc-space-1) var(--gc-space-3); font-size: var(--gc-text-sm);">90天</label>
             </div>
-            
-            <!-- 圖表佔位符 -->
-            <div class="gc-bg-neutral-100 gc-rounded gc-p-8 text-center" style="height: 300px;">
-                <i class="bi bi-bar-chart gc-text-neutral-400" style="font-size: 3rem;"></i>
-                <p class="gc-text-neutral-500 gc-mt-3">圖表區域 - 整合 Chart.js 或其他圖表庫</p>
-            </div>
+        </div>
+        
+        <!-- 圖表佔位符 -->
+        <div style="background: var(--gc-glass); border-radius: var(--gc-radius); padding: var(--gc-space-8); text-align: center; height: 300px;">
+            <i class="bi bi-bar-chart" style="color: var(--gc-muted); font-size: var(--gc-text-4xl);"></i>
+            <p style="color: var(--gc-muted); margin-top: var(--gc-space-3);">圖表區域 - 整合 Chart.js 或其他圖表庫</p>
         </div>
     </div>
     
     <!-- 右側快速操作 -->
-    <div class="col-lg-4 gc-mb-6">
-        <div class="gc-card gc-p-4">
-            <h3 class="gc-text-xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                <i class="bi bi-lightning gc-text-warning gc-mr-2"></i>
+    <div>
+        <div class="gc-admin-card">
+            <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                <i class="bi bi-lightning" style="color: #f59e0b; margin-right: var(--gc-space-2);"></i>
                 快速操作
             </h3>
             
-            <div class="d-grid gap-2">
-                <a href="/Admin/User/Create" class="gc-btn gc-btn-primary">
-                    <i class="bi bi-person-plus gc-mr-2"></i>
-                    新增用戶
+            <div style="display: flex; flex-direction: column; gap: var(--gc-space-2);">
+                <a href="/Admin/User/Create" class="gc-admin-btn">
+                    <i class="bi bi-person-plus"></i>
+                    <span>新增用戶</span>
                 </a>
                 
-                <a href="/Admin/Product/Create" class="gc-btn gc-btn-success">
-                    <i class="bi bi-box-seam gc-mr-2"></i>
-                    新增商品
+                <a href="/Admin/Product/Create" class="gc-admin-btn" style="background: var(--gc-accent-3);">
+                    <i class="bi bi-box-seam"></i>
+                    <span>新增商品</span>
                 </a>
                 
-                <a href="/Admin/Order" class="gc-btn gc-btn-warning">
-                    <i class="bi bi-cart-check gc-mr-2"></i>
-                    處理訂單
+                <a href="/Admin/Order" class="gc-admin-btn" style="background: #f59e0b;">
+                    <i class="bi bi-cart-check"></i>
+                    <span>處理訂單</span>
                 </a>
                 
-                <a href="/Admin/System/Backup" class="gc-btn gc-btn-secondary">
-                    <i class="bi bi-download gc-mr-2"></i>
-                    系統備份
+                <a href="/Admin/System/Backup" class="gc-admin-btn-secondary">
+                    <i class="bi bi-download"></i>
+                    <span>系統備份</span>
                 </a>
                 
-                <a href="/Admin/Log" class="gc-btn gc-btn-info">
-                    <i class="bi bi-file-text gc-mr-2"></i>
-                    查看日誌
+                <a href="/Admin/Log" class="gc-admin-btn" style="background: var(--gc-accent-2);">
+                    <i class="bi bi-file-text"></i>
+                    <span>查看日誌</span>
                 </a>
             </div>
         </div>
         
         <!-- 系統狀態 -->
-        <div class="gc-card gc-p-4 gc-mt-4">
-            <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-800 gc-mb-3">
-                <i class="bi bi-activity gc-text-success gc-mr-2"></i>
+        <div class="gc-admin-card" style="margin-top: var(--gc-space-4);">
+            <h3 style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">
+                <i class="bi bi-activity" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
                 系統狀態
             </h3>
             
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="gc-text-neutral-600">API 服務</span>
-                    <span class="badge bg-success">正常</span>
+            <div style="margin-bottom: var(--gc-space-3);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: var(--gc-muted);">API 服務</span>
+                    <span style="background: var(--gc-accent-3); color: white; padding: var(--gc-space-1) var(--gc-space-2); border-radius: var(--gc-radius-sm); font-size: var(--gc-text-sm);">正常</span>
                 </div>
             </div>
             
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="gc-text-neutral-600">資料庫</span>
-                    <span class="badge bg-success">正常</span>
+            <div style="margin-bottom: var(--gc-space-3);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: var(--gc-muted);">資料庫</span>
+                    <span style="background: var(--gc-accent-3); color: white; padding: var(--gc-space-1) var(--gc-space-2); border-radius: var(--gc-radius-sm); font-size: var(--gc-text-sm);">正常</span>
                 </div>
             </div>
             
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="gc-text-neutral-600">快取服務</span>
-                    <span class="badge bg-success">正常</span>
+            <div style="margin-bottom: var(--gc-space-3);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: var(--gc-muted);">快取服務</span>
+                    <span style="background: var(--gc-accent-3); color: white; padding: var(--gc-space-1) var(--gc-space-2); border-radius: var(--gc-radius-sm); font-size: var(--gc-text-sm);">正常</span>
                 </div>
             </div>
             
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="gc-text-neutral-600">檔案儲存</span>
-                    <span class="badge bg-warning">警告</span>
+            <div style="margin-bottom: var(--gc-space-3);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: var(--gc-muted);">檔案儲存</span>
+                    <span style="background: #f59e0b; color: white; padding: var(--gc-space-1) var(--gc-space-2); border-radius: var(--gc-radius-sm); font-size: var(--gc-text-sm);">警告</span>
                 </div>
             </div>
             
-            <div class="gc-mt-4">
-                <a href="/Admin/System/Status" class="gc-btn gc-btn-outline-secondary gc-btn-sm">
+            <div style="margin-top: var(--gc-space-4);">
+                <a href="/Admin/System/Status" class="gc-admin-btn-secondary" style="font-size: var(--gc-text-sm); padding: var(--gc-space-2) var(--gc-space-3);">
                     詳細狀態
                 </a>
             </div>
@@ -204,158 +194,331 @@
 </div>
 
 <!-- 詳細統計表格 -->
-<div class="row">
-    <div class="col-12">
-        <div class="gc-card gc-p-4">
-            <div class="d-flex justify-content-between align-items-center gc-mb-4">
-                <h3 class="gc-text-xl gc-font-semibold gc-text-neutral-800">
-                    <i class="bi bi-table gc-text-primary gc-mr-2"></i>
-                    最近活動
-                </h3>
-                <a href="/Admin/Log" class="gc-btn gc-btn-outline-primary gc-btn-sm">
+<div style="margin-top: var(--gc-space-8);">
+    <div class="gc-admin-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--gc-space-4);">
+            <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink);">
+                <i class="bi bi-table" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                最近活動
+            </h3>
+            <div style="display: flex; gap: var(--gc-space-2); align-items: center;">
+                <!-- 搜尋框 -->
+                <div class="gc-input-wrapper" style="position: relative;">
+                    <i class="bi bi-search" style="position: absolute; left: var(--gc-space-3); top: 50%; transform: translateY(-50%); color: var(--gc-muted);"></i>
+                    <input type="text" placeholder="搜尋活動..." class="gc-input" style="padding-left: var(--gc-space-8); width: 200px;" id="activitySearch">
+                </div>
+                
+                <!-- 篩選下拉選單 -->
+                <div class="gc-dropdown" style="position: relative;">
+                    <button class="gc-admin-btn-secondary" style="display: flex; align-items: center; gap: var(--gc-space-2);" onclick="toggleFilterDropdown()">
+                        <i class="bi bi-funnel"></i>
+                        <span>篩選</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <div class="gc-dropdown-menu" id="filterDropdown" style="display: none; position: absolute; top: 100%; right: 0; min-width: 200px; z-index: 1000;">
+                        <div style="padding: var(--gc-space-3);">
+                            <label style="display: block; margin-bottom: var(--gc-space-2); font-weight: var(--gc-font-medium);">狀態</label>
+                            <label style="display: flex; align-items: center; gap: var(--gc-space-2); margin-bottom: var(--gc-space-2);">
+                                <input type="checkbox" value="success" checked> 成功
+                            </label>
+                            <label style="display: flex; align-items: center; gap: var(--gc-space-2); margin-bottom: var(--gc-space-2);">
+                                <input type="checkbox" value="info" checked> 資訊
+                            </label>
+                            <label style="display: flex; align-items: center; gap: var(--gc-space-2); margin-bottom: var(--gc-space-2);">
+                                <input type="checkbox" value="warning"> 警告
+                            </label>
+                            <label style="display: flex; align-items: center; gap: var(--gc-space-2); margin-bottom: var(--gc-space-2);">
+                                <input type="checkbox" value="error"> 錯誤
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="/Admin/Log" class="gc-admin-btn-secondary" style="font-size: var(--gc-text-sm); padding: var(--gc-space-2) var(--gc-space-3);">
                     查看全部
                 </a>
             </div>
-            
-            <div class="table-responsive">
-                <table class="table table-hover">
+        </div>
+        
+        <!-- 載入狀態 -->
+        <div class="gc-skeleton" id="tableSkeleton" style="display: none;">
+            <div class="gc-skeleton-item" style="height: 20px; margin-bottom: var(--gc-space-2);"></div>
+            <div class="gc-skeleton-item" style="height: 20px; margin-bottom: var(--gc-space-2);"></div>
+            <div class="gc-skeleton-item" style="height: 20px; margin-bottom: var(--gc-space-2);"></div>
+            <div class="gc-skeleton-item" style="height: 20px; margin-bottom: var(--gc-space-2);"></div>
+            <div class="gc-skeleton-item" style="height: 20px;"></div>
+        </div>
+        
+        <!-- 表格容器 -->
+        <div id="tableContainer">
+            <div style="overflow-x: auto;">
+                <table class="gc-table">
                     <thead>
                         <tr>
-                            <th>時間</th>
-                            <th>用戶</th>
-                            <th>動作</th>
-                            <th>詳情</th>
-                            <th>狀態</th>
+                            <th class="gc-table-header gc-table-sortable" onclick="sortTable('time')">
+                                時間
+                                <i class="bi bi-arrow-down-up" style="margin-left: var(--gc-space-1); font-size: var(--gc-text-sm);"></i>
+                            </th>
+                            <th class="gc-table-header gc-table-sortable" onclick="sortTable('user')">
+                                用戶
+                                <i class="bi bi-arrow-down-up" style="margin-left: var(--gc-space-1); font-size: var(--gc-text-sm);"></i>
+                            </th>
+                            <th class="gc-table-header gc-table-sortable" onclick="sortTable('action')">
+                                動作
+                                <i class="bi bi-arrow-down-up" style="margin-left: var(--gc-space-1); font-size: var(--gc-text-sm);"></i>
+                            </th>
+                            <th class="gc-table-header">詳情</th>
+                            <th class="gc-table-header gc-table-sortable" onclick="sortTable('status')">
+                                狀態
+                                <i class="bi bi-arrow-down-up" style="margin-left: var(--gc-space-1); font-size: var(--gc-text-sm);"></i>
+                            </th>
+                            <th class="gc-table-header">操作</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>2024-01-15 14:30:25</td>
-                            <td>user123</td>
-                            <td>登入系統</td>
-                            <td>從 192.168.1.100 登入</td>
-                            <td><span class="badge bg-success">成功</span></td>
+                    <tbody id="tableBody">
+                        <tr class="gc-table-row">
+                            <td class="gc-table-cell">2024-01-15 14:30:25</td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; align-items: center; gap: var(--gc-space-2);">
+                                    <div style="width: 32px; height: 32px; background: var(--gc-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--gc-text-sm); font-weight: var(--gc-font-medium);">U</div>
+                                    <span>user123</span>
+                                </div>
+                            </td>
+                            <td class="gc-table-cell">登入系統</td>
+                            <td class="gc-table-cell">從 192.168.1.100 登入</td>
+                            <td class="gc-table-cell">
+                                <span class="gc-badge gc-badge-success">成功</span>
+                            </td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; gap: var(--gc-space-1);">
+                                    <button class="gc-btn-icon" title="查看詳情" onclick="viewActivityDetail('login-001')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="gc-btn-icon" title="複製詳情" onclick="copyActivityDetail('login-001')">
+                                        <i class="bi bi-clipboard"></i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2024-01-15 14:28:15</td>
-                            <td>admin001</td>
-                            <td>新增商品</td>
-                            <td>新增商品 ID: PROD-001</td>
-                            <td><span class="badge bg-success">成功</span></td>
+                        <tr class="gc-table-row">
+                            <td class="gc-table-cell">2024-01-15 14:28:15</td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; align-items: center; gap: var(--gc-space-2);">
+                                    <div style="width: 32px; height: 32px; background: var(--gc-accent-2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--gc-text-sm); font-weight: var(--gc-font-medium);">A</div>
+                                    <span>admin001</span>
+                                </div>
+                            </td>
+                            <td class="gc-table-cell">新增商品</td>
+                            <td class="gc-table-cell">新增商品 ID: PROD-001</td>
+                            <td class="gc-table-cell">
+                                <span class="gc-badge gc-badge-success">成功</span>
+                            </td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; gap: var(--gc-space-1);">
+                                    <button class="gc-btn-icon" title="查看詳情" onclick="viewActivityDetail('product-001')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="gc-btn-icon" title="複製詳情" onclick="copyActivityDetail('product-001')">
+                                        <i class="bi bi-clipboard"></i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2024-01-15 14:25:42</td>
-                            <td>user456</td>
-                            <td>購買商品</td>
-                            <td>訂單 ID: ORD-789</td>
-                            <td><span class="badge bg-success">成功</span></td>
+                        <tr class="gc-table-row">
+                            <td class="gc-table-cell">2024-01-15 14:25:42</td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; align-items: center; gap: var(--gc-space-2);">
+                                    <div style="width: 32px; height: 32px; background: var(--gc-accent-3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--gc-text-sm); font-weight: var(--gc-font-medium);">U</div>
+                                    <span>user456</span>
+                                </div>
+                            </td>
+                            <td class="gc-table-cell">購買商品</td>
+                            <td class="gc-table-cell">訂單 ID: ORD-789</td>
+                            <td class="gc-table-cell">
+                                <span class="gc-badge gc-badge-success">成功</span>
+                            </td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; gap: var(--gc-space-1);">
+                                    <button class="gc-btn-icon" title="查看詳情" onclick="viewActivityDetail('order-789')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="gc-btn-icon" title="複製詳情" onclick="copyActivityDetail('order-789')">
+                                        <i class="bi bi-clipboard"></i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2024-01-15 14:22:18</td>
-                            <td>user789</td>
-                            <td>註冊帳號</td>
-                            <td>新用戶註冊</td>
-                            <td><span class="badge bg-success">成功</span></td>
+                        <tr class="gc-table-row">
+                            <td class="gc-table-cell">2024-01-15 14:22:18</td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; align-items: center; gap: var(--gc-space-2);">
+                                    <div style="width: 32px; height: 32px; background: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--gc-text-sm); font-weight: var(--gc-font-medium);">U</div>
+                                    <span>user789</span>
+                                </div>
+                            </td>
+                            <td class="gc-table-cell">註冊帳號</td>
+                            <td class="gc-table-cell">新用戶註冊</td>
+                            <td class="gc-table-cell">
+                                <span class="gc-badge gc-badge-success">成功</span>
+                            </td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; gap: var(--gc-space-1);">
+                                    <button class="gc-btn-icon" title="查看詳情" onclick="viewActivityDetail('register-001')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="gc-btn-icon" title="複製詳情" onclick="copyActivityDetail('register-001')">
+                                        <i class="bi bi-clipboard"></i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2024-01-15 14:20:05</td>
-                            <td>system</td>
-                            <td>系統備份</td>
-                            <td>自動備份完成</td>
-                            <td><span class="badge bg-info">資訊</span></td>
+                        <tr class="gc-table-row">
+                            <td class="gc-table-cell">2024-01-15 14:20:05</td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; align-items: center; gap: var(--gc-space-2);">
+                                    <div style="width: 32px; height: 32px; background: var(--gc-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--gc-text-sm); font-weight: var(--gc-font-medium);">S</div>
+                                    <span>system</span>
+                                </div>
+                            </td>
+                            <td class="gc-table-cell">系統備份</td>
+                            <td class="gc-table-cell">自動備份完成</td>
+                            <td class="gc-table-cell">
+                                <span class="gc-badge gc-badge-info">資訊</span>
+                            </td>
+                            <td class="gc-table-cell">
+                                <div style="display: flex; gap: var(--gc-space-1);">
+                                    <button class="gc-btn-icon" title="查看詳情" onclick="viewActivityDetail('backup-001')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="gc-btn-icon" title="複製詳情" onclick="copyActivityDetail('backup-001')">
+                                        <i class="bi bi-clipboard"></i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            
+            <!-- 分頁控制項 -->
+            <div class="gc-pagination" style="margin-top: var(--gc-space-4);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="color: var(--gc-muted); font-size: var(--gc-text-sm);">
+                        顯示 1-5 筆，共 25 筆記錄
+                    </div>
+                    <div style="display: flex; gap: var(--gc-space-1);">
+                        <button class="gc-pagination-btn gc-pagination-btn-disabled" disabled>
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="gc-pagination-btn gc-pagination-btn-active">1</button>
+                        <button class="gc-pagination-btn">2</button>
+                        <button class="gc-pagination-btn">3</button>
+                        <button class="gc-pagination-btn">4</button>
+                        <button class="gc-pagination-btn">5</button>
+                        <button class="gc-pagination-btn">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 空狀態 -->
+        <div class="gc-empty-state" id="emptyState" style="display: none;">
+            <div class="gc-empty-state-icon">
+                <i class="bi bi-table" style="font-size: var(--gc-text-4xl); color: var(--gc-muted);"></i>
+            </div>
+            <h3 class="gc-empty-state-title">暫無活動記錄</h3>
+            <p class="gc-empty-state-description">目前沒有符合條件的活動記錄，請嘗試調整篩選條件或稍後再試。</p>
+            <button class="gc-admin-btn" onclick="refreshTable()">
+                <i class="bi bi-arrow-clockwise" style="margin-right: var(--gc-space-2);"></i>
+                重新整理
+            </button>
         </div>
     </div>
 </div>
 
 <!-- 效能指標 -->
-<div class="row gc-mt-6">
-    <div class="col-md-6 gc-mb-4">
-        <div class="gc-card gc-p-4">
-            <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-800 gc-mb-3">
-                <i class="bi bi-cpu gc-text-primary gc-mr-2"></i>
-                系統效能
-            </h3>
-            
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center gc-mb-2">
-                    <span class="gc-text-neutral-600">CPU 使用率</span>
-                    <span class="gc-text-neutral-800">45%</span>
-                </div>
-                <div class="progress" style="height: 8px;">
-                    <div class="progress-bar bg-primary" style="width: 45%"></div>
-                </div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--gc-space-6); margin-top: var(--gc-space-8);">
+    <div class="gc-admin-card">
+        <h3 style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">
+            <i class="bi bi-cpu" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+            系統效能
+        </h3>
+        
+        <div style="margin-bottom: var(--gc-space-3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--gc-space-2);">
+                <span style="color: var(--gc-muted);">CPU 使用率</span>
+                <span style="color: var(--gc-ink);">45%</span>
             </div>
-            
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center gc-mb-2">
-                    <span class="gc-text-neutral-600">記憶體使用率</span>
-                    <span class="gc-text-neutral-800">62%</span>
-                </div>
-                <div class="progress" style="height: 8px;">
-                    <div class="progress-bar bg-warning" style="width: 62%"></div>
-                </div>
+            <div style="background: var(--gc-glass); height: 8px; border-radius: var(--gc-radius-sm); overflow: hidden;">
+                <div style="background: var(--gc-accent); height: 100%; width: 45%;"></div>
             </div>
-            
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center gc-mb-2">
-                    <span class="gc-text-neutral-600">磁碟使用率</span>
-                    <span class="gc-text-neutral-800">78%</span>
-                </div>
-                <div class="progress" style="height: 8px;">
-                    <div class="progress-bar bg-danger" style="width: 78%"></div>
-                </div>
+        </div>
+        
+        <div style="margin-bottom: var(--gc-space-3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--gc-space-2);">
+                <span style="color: var(--gc-muted);">記憶體使用率</span>
+                <span style="color: var(--gc-ink);">62%</span>
             </div>
-            
-            <div class="gc-mb-3">
-                <div class="d-flex justify-content-between align-items-center gc-mb-2">
-                    <span class="gc-text-neutral-600">網路流量</span>
-                    <span class="gc-text-neutral-800">正常</span>
-                </div>
-                <div class="progress" style="height: 8px;">
-                    <div class="progress-bar bg-success" style="width: 35%"></div>
-                </div>
+            <div style="background: var(--gc-glass); height: 8px; border-radius: var(--gc-radius-sm); overflow: hidden;">
+                <div style="background: #f59e0b; height: 100%; width: 62%;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: var(--gc-space-3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--gc-space-2);">
+                <span style="color: var(--gc-muted);">磁碟使用率</span>
+                <span style="color: var(--gc-ink);">78%</span>
+            </div>
+            <div style="background: var(--gc-glass); height: 8px; border-radius: var(--gc-radius-sm); overflow: hidden;">
+                <div style="background: var(--gc-down); height: 100%; width: 78%;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: var(--gc-space-3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--gc-space-2);">
+                <span style="color: var(--gc-muted);">網路流量</span>
+                <span style="color: var(--gc-ink);">正常</span>
+            </div>
+            <div style="background: var(--gc-glass); height: 8px; border-radius: var(--gc-radius-sm); overflow: hidden;">
+                <div style="background: var(--gc-accent-3); height: 100%; width: 35%;"></div>
             </div>
         </div>
     </div>
     
-    <div class="col-md-6 gc-mb-4">
-        <div class="gc-card gc-p-4">
-            <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-800 gc-mb-3">
-                <i class="bi bi-clock-history gc-text-primary gc-mr-2"></i>
-                今日統計
-            </h3>
-            
-            <div class="row text-center">
-                <div class="col-6 gc-mb-3">
-                    <div class="gc-text-2xl gc-font-bold gc-text-primary">156</div>
-                    <div class="gc-text-sm gc-text-neutral-600">新用戶</div>
-                </div>
-                <div class="col-6 gc-mb-3">
-                    <div class="gc-text-2xl gc-font-bold gc-text-success">89</div>
-                    <div class="gc-text-sm gc-text-neutral-600">新訂單</div>
-                </div>
-                <div class="col-6 gc-mb-3">
-                    <div class="gc-text-2xl gc-font-bold gc-text-warning">23</div>
-                    <div class="gc-text-sm gc-text-neutral-600">新商品</div>
-                </div>
-                <div class="col-6 gc-mb-3">
-                    <div class="gc-text-2xl gc-font-bold gc-text-info">45</div>
-                    <div class="gc-text-sm gc-text-neutral-600">新帖子</div>
-                </div>
+    <div class="gc-admin-card">
+        <h3 style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">
+            <i class="bi bi-clock-history" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+            今日統計
+        </h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--gc-space-3); text-align: center;">
+            <div>
+                <div style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: var(--gc-accent);">156</div>
+                <div style="font-size: var(--gc-text-sm); color: var(--gc-muted);">新用戶</div>
             </div>
-            
-            <hr class="gc-my-4">
-            
-            <div class="gc-text-center">
-                <a href="/Admin/Reports" class="gc-btn gc-btn-outline-primary gc-btn-sm">
-                    <i class="bi bi-file-earmark-text gc-mr-2"></i>
-                    生成報告
-                </a>
+            <div>
+                <div style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: var(--gc-accent-3);">89</div>
+                <div style="font-size: var(--gc-text-sm); color: var(--gc-muted);">新訂單</div>
             </div>
+            <div>
+                <div style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: #f59e0b;">23</div>
+                <div style="font-size: var(--gc-text-sm); color: var(--gc-muted);">新商品</div>
+            </div>
+            <div>
+                <div style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: var(--gc-accent-2);">45</div>
+                <div style="font-size: var(--gc-text-sm); color: var(--gc-muted);">新帖子</div>
+            </div>
+        </div>
+        
+        <hr style="margin: var(--gc-space-4) 0; border: none; border-top: 1px solid var(--gc-line);">
+        
+        <div style="text-align: center;">
+            <a href="/Admin/Reports" class="gc-admin-btn-secondary" style="font-size: var(--gc-text-sm); padding: var(--gc-space-2) var(--gc-space-3);">
+                <i class="bi bi-file-earmark-text" style="margin-right: var(--gc-space-2);"></i>
+                生成報告
+            </a>
         </div>
     </div>
 </div>
@@ -373,15 +536,330 @@
                     console.log('圖表週期切換為:', this.id);
                     
                     // 顯示載入狀態
-                    AdminCore.setLoading(true);
+                    const spinner = document.getElementById('global-spinner');
+                    if (spinner) {
+                        spinner.style.display = 'flex';
+                    }
                     
                     // 模擬 API 調用
                     setTimeout(() => {
-                        AdminCore.setLoading(false);
-                        AdminCore.showNotification('圖表已更新', 'success');
+                        if (spinner) {
+                            spinner.style.display = 'none';
+                        }
+                        // 這裡可以顯示通知
+                        console.log('圖表已更新');
                     }, 1000);
                 });
             });
+            
+            // 初始化表格功能
+            initializeTableFeatures();
+        });
+        
+        // 表格功能初始化
+        function initializeTableFeatures() {
+            // 搜尋功能
+            const searchInput = document.getElementById('activitySearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', debounce(function() {
+                    filterTable();
+                }, 300));
+            }
+            
+            // 篩選功能
+            const filterCheckboxes = document.querySelectorAll('#filterDropdown input[type="checkbox"]');
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    filterTable();
+                });
+            });
+            
+            // 分頁功能
+            const paginationButtons = document.querySelectorAll('.gc-pagination-btn:not(.gc-pagination-btn-disabled)');
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!this.classList.contains('gc-pagination-btn-active')) {
+                        changePage(this.textContent.trim());
+                    }
+                });
+            });
+        }
+        
+        // 篩選下拉選單切換
+        function toggleFilterDropdown() {
+            const dropdown = document.getElementById('filterDropdown');
+            if (dropdown) {
+                dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+        
+        // 表格排序
+        function sortTable(column) {
+            const table = document.querySelector('.gc-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // 更新排序圖示
+            const headers = table.querySelectorAll('.gc-table-sortable');
+            headers.forEach(header => {
+                const icon = header.querySelector('i');
+                if (icon) {
+                    icon.className = 'bi bi-arrow-down-up';
+                }
+            });
+            
+            const currentHeader = table.querySelector(`th[onclick*="${column}"]`);
+            if (currentHeader) {
+                const icon = currentHeader.querySelector('i');
+                if (icon) {
+                    // 切換排序方向
+                    const isAscending = icon.classList.contains('bi-arrow-up');
+                    icon.className = isAscending ? 'bi bi-arrow-down' : 'bi bi-arrow-up';
+                    
+                    // 排序行
+                    rows.sort((a, b) => {
+                        const aValue = getCellValue(a, column);
+                        const bValue = getCellValue(b, column);
+                        
+                        if (isAscending) {
+                            return bValue.localeCompare(aValue);
+                        } else {
+                            return aValue.localeCompare(bValue);
+                        }
+                    });
+                    
+                    // 重新插入排序後的行
+                    rows.forEach(row => tbody.appendChild(row));
+                }
+            }
+        }
+        
+        // 獲取單元格值
+        function getCellValue(row, column) {
+            const cellIndex = getColumnIndex(column);
+            if (cellIndex !== -1) {
+                const cell = row.cells[cellIndex];
+                if (cell) {
+                    // 如果是狀態欄位，獲取徽章文字
+                    if (column === 'status') {
+                        const badge = cell.querySelector('.gc-badge');
+                        return badge ? badge.textContent : cell.textContent;
+                    }
+                    // 如果是用戶欄位，獲取用戶名
+                    if (column === 'user') {
+                        const span = cell.querySelector('span');
+                        return span ? span.textContent : cell.textContent;
+                    }
+                    return cell.textContent;
+                }
+            }
+            return '';
+        }
+        
+        // 獲取欄位索引
+        function getColumnIndex(column) {
+            const columnMap = {
+                'time': 0,
+                'user': 1,
+                'action': 2,
+                'status': 4
+            };
+            return columnMap[column] || -1;
+        }
+        
+        // 表格篩選
+        function filterTable() {
+            const searchTerm = document.getElementById('activitySearch').value.toLowerCase();
+            const statusFilters = Array.from(document.querySelectorAll('#filterDropdown input[type="checkbox"]:checked'))
+                .map(cb => cb.value);
+            
+            const rows = document.querySelectorAll('#tableBody tr');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const timeCell = row.cells[0].textContent.toLowerCase();
+                const userCell = row.cells[1].textContent.toLowerCase();
+                const actionCell = row.cells[2].textContent.toLowerCase();
+                const detailCell = row.cells[3].textContent.toLowerCase();
+                const statusBadge = row.cells[4].querySelector('.gc-badge');
+                const status = statusBadge ? statusBadge.textContent.toLowerCase() : '';
+                
+                const matchesSearch = timeCell.includes(searchTerm) || 
+                                    userCell.includes(searchTerm) || 
+                                    actionCell.includes(searchTerm) || 
+                                    detailCell.includes(searchTerm);
+                
+                const matchesStatus = statusFilters.length === 0 || 
+                                    statusFilters.some(filter => status.includes(filter));
+                
+                if (matchesSearch && matchesStatus) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // 顯示空狀態或表格
+            const tableContainer = document.getElementById('tableContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (visibleCount === 0) {
+                tableContainer.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                tableContainer.style.display = 'block';
+                emptyState.style.display = 'none';
+            }
+        }
+        
+        // 分頁切換
+        function changePage(pageNumber) {
+            // 更新分頁按鈕狀態
+            const buttons = document.querySelectorAll('.gc-pagination-btn');
+            buttons.forEach(btn => btn.classList.remove('gc-pagination-btn-active'));
+            
+            const targetButton = Array.from(buttons).find(btn => btn.textContent.trim() === pageNumber);
+            if (targetButton) {
+                targetButton.classList.add('gc-pagination-btn-active');
+            }
+            
+            // 這裡可以發送 AJAX 請求獲取新頁面的數據
+            console.log('切換到第', pageNumber, '頁');
+            
+            // 模擬載入
+            showTableLoading();
+            setTimeout(() => {
+                hideTableLoading();
+                showToast('success', `已切換到第 ${pageNumber} 頁`);
+            }, 500);
+        }
+        
+        // 顯示表格載入狀態
+        function showTableLoading() {
+            const skeleton = document.getElementById('tableSkeleton');
+            const container = document.getElementById('tableContainer');
+            if (skeleton && container) {
+                skeleton.style.display = 'block';
+                container.style.display = 'none';
+            }
+        }
+        
+        // 隱藏表格載入狀態
+        function hideTableLoading() {
+            const skeleton = document.getElementById('tableSkeleton');
+            const container = document.getElementById('tableContainer');
+            if (skeleton && container) {
+                skeleton.style.display = 'none';
+                container.style.display = 'block';
+            }
+        }
+        
+        // 查看活動詳情
+        function viewActivityDetail(activityId) {
+            // 這裡可以打開 Modal 顯示詳情
+            console.log('查看活動詳情:', activityId);
+            showToast('info', `正在載入活動 ${activityId} 的詳情...`);
+        }
+        
+        // 複製活動詳情
+        function copyActivityDetail(activityId) {
+            // 這裡可以複製活動詳情到剪貼簿
+            const detail = `活動 ID: ${activityId}\n時間: 2024-01-15 14:30:25\n用戶: user123\n動作: 登入系統\n詳情: 從 192.168.1.100 登入`;
+            
+            navigator.clipboard.writeText(detail).then(() => {
+                showToast('success', '活動詳情已複製到剪貼簿');
+            }).catch(() => {
+                showToast('error', '複製失敗，請手動複製');
+            });
+        }
+        
+        // 重新整理表格
+        function refreshTable() {
+            showTableLoading();
+            setTimeout(() => {
+                hideTableLoading();
+                filterTable();
+                showToast('success', '表格已重新整理');
+            }, 1000);
+        }
+        
+        // 顯示 Toast 通知
+        function showToast(type, message) {
+            // 使用現有的 Toast 系統
+            const toastContainer = document.querySelector('.gc-toast-container') || createToastContainer();
+            
+            const toast = document.createElement('div');
+            toast.className = `gc-toast gc-toast-${type}`;
+            toast.innerHTML = `
+                <div class="gc-toast-content">
+                    <i class="bi bi-${getToastIcon(type)}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="gc-toast-close" onclick="this.parentElement.remove()">
+                    <i class="bi bi-x"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // 自動移除
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+        
+        // 創建 Toast 容器
+        function createToastContainer() {
+            const container = document.createElement('div');
+            container.className = 'gc-toast-container';
+            container.style.cssText = `
+                position: fixed;
+                top: var(--gc-space-4);
+                right: var(--gc-space-4);
+                z-index: 9999;
+                display: flex;
+                flex-direction: column;
+                gap: var(--gc-space-2);
+            `;
+            document.body.appendChild(container);
+            return container;
+        }
+        
+        // 獲取 Toast 圖示
+        function getToastIcon(type) {
+            const icons = {
+                'success': 'check-circle',
+                'error': 'x-circle',
+                'warning': 'exclamation-triangle',
+                'info': 'info-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
+        
+        // 防抖函數
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // 點擊外部關閉下拉選單
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('filterDropdown');
+            const filterButton = event.target.closest('button[onclick*="toggleFilterDropdown"]');
+            
+            if (dropdown && !filterButton && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
         });
         
         // 自動刷新數據

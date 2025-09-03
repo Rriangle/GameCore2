@@ -1,0 +1,12 @@
+D:\GameCore2\src\GameCore.Shared\bin\Release\net8.0\GameCore.Shared.deps.json
+D:\GameCore2\src\GameCore.Shared\bin\Release\net8.0\GameCore.Shared.dll
+D:\GameCore2\src\GameCore.Shared\bin\Release\net8.0\GameCore.Shared.pdb
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\GameCore.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\GameCore.Shared.AssemblyInfoInputs.cache
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\GameCore.Shared.AssemblyInfo.cs
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\GameCore.Shared.csproj.CoreCompileInputs.cache
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\GameCore.Shared.sourcelink.json
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\GameCore.Shared.dll
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\refint\GameCore.Shared.dll
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\GameCore.Shared.pdb
+D:\GameCore2\src\GameCore.Shared\obj\Release\net8.0\ref\GameCore.Shared.dll

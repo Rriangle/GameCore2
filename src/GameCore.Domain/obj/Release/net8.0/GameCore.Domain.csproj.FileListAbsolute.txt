@@ -1,0 +1,16 @@
+D:\GameCore2\src\GameCore.Domain\bin\Release\net8.0\GameCore.Domain.deps.json
+D:\GameCore2\src\GameCore.Domain\bin\Release\net8.0\GameCore.Domain.dll
+D:\GameCore2\src\GameCore.Domain\bin\Release\net8.0\GameCore.Domain.pdb
+D:\GameCore2\src\GameCore.Domain\bin\Release\net8.0\GameCore.Shared.dll
+D:\GameCore2\src\GameCore.Domain\bin\Release\net8.0\GameCore.Shared.pdb
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.csproj.AssemblyReference.cache
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.AssemblyInfoInputs.cache
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.AssemblyInfo.cs
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.csproj.CoreCompileInputs.cache
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.sourcelink.json
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.1E2209DA.Up2Date
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.dll
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\refint\GameCore.Domain.dll
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\GameCore.Domain.pdb
+D:\GameCore2\src\GameCore.Domain\obj\Release\net8.0\ref\GameCore.Domain.dll

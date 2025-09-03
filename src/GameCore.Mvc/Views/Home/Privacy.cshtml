@@ -8,17 +8,17 @@
 }
 
 <!-- 頁面標題區塊 -->
-<section class="gc-bg-neutral-50 gc-py-8">
-    <div class="container">
-        <div class="text-center">
-            <h1 class="gc-text-4xl gc-font-bold gc-text-neutral-800 gc-mb-4">
-                <i class="bi bi-shield-check gc-text-primary gc-mr-3"></i>
+<section style="background: var(--gc-surface); padding: var(--gc-space-8) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4);">
+        <div style="text-align: center;">
+            <h1 style="font-size: var(--gc-text-4xl); font-weight: var(--gc-font-bold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                <i class="bi bi-shield-check" style="color: var(--gc-accent); margin-right: var(--gc-space-3);"></i>
                 隱私權政策
             </h1>
-            <p class="gc-text-lg gc-text-neutral-600">
+            <p style="font-size: var(--gc-text-lg); color: var(--gc-muted);">
                 我們重視您的隱私，並致力於保護您的個人資料
             </p>
-            <p class="gc-text-sm gc-text-neutral-500 gc-mt-2">
+            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted-2); margin-top: var(--gc-space-2);">
                 最後更新：@DateTime.Now.ToString("yyyy年MM月dd日")
             </p>
         </div>
@@ -26,322 +26,296 @@
 </section>
 
 <!-- 隱私權政策內容 -->
-<section class="gc-py-8">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="gc-card gc-p-6">
-                    <!-- 概述 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-info-circle gc-text-primary gc-mr-2"></i>
-                            概述
-                        </h2>
-                        <p class="gc-text-neutral-600 gc-mb-3">
-                            GameCore 致力於保護您的隱私權。本隱私權政策說明我們如何收集、使用、儲存和保護您的個人資料。
-                        </p>
-                        <p class="gc-text-neutral-600">
-                            使用我們的服務即表示您同意本隱私權政策的條款。如果您不同意這些條款，請不要使用我們的服務。
-                        </p>
-                    </div>
+<section style="padding: var(--gc-space-8) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4);">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="gc-card" style="padding: var(--gc-space-6);">
+                <!-- 概述 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-info-circle" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        概述
+                    </h2>
+                    <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-3); line-height: 1.6;">
+                        GameCore 致力於保護您的隱私權。本隱私權政策說明我們如何收集、使用、儲存和保護您的個人資料。
+                    </p>
+                    <p style="color: var(--gc-muted); line-height: 1.6;">
+                        使用我們的服務即表示您同意本隱私權政策的條款。如果您不同意這些條款，請不要使用我們的服務。
+                    </p>
+                </div>
 
-                    <!-- 資料收集 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-database gc-text-primary gc-mr-2"></i>
-                            我們收集的資料
-                        </h2>
-                        
-                        <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-700 gc-mb-3">個人識別資料</h3>
-                        <ul class="gc-text-neutral-600 gc-mb-4">
-                            <li class="gc-mb-2">• 姓名和電子郵件地址</li>
-                            <li class="gc-mb-2">• 用戶名稱和密碼</li>
-                            <li class="gc-mb-2">• 個人資料圖片</li>
-                            <li class="gc-mb-2">• 聯絡資訊</li>
-                        </ul>
-                        
-                        <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-700 gc-mb-3">使用資料</h3>
-                        <ul class="gc-text-neutral-600 gc-mb-4">
-                            <li class="gc-mb-2">• 登入時間和頻率</li>
-                            <li class="gc-mb-2">• 遊戲活動和偏好</li>
-                            <li class="gc-mb-2">• 購買記錄</li>
-                            <li class="gc-mb-2">• 社群互動</li>
-                        </ul>
-                        
-                        <h3 class="gc-text-lg gc-font-semibold gc-text-neutral-700 gc-mb-3">技術資料</h3>
-                        <ul class="gc-text-neutral-600">
-                            <li class="gc-mb-2">• IP 地址和位置資訊</li>
-                            <li class="gc-mb-2">• 瀏覽器類型和版本</li>
-                            <li class="gc-mb-2">• 裝置資訊</li>
-                            <li class="gc-mb-2">• Cookie 和追蹤技術</li>
-                        </ul>
-                    </div>
+                <!-- 資料收集 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-database" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        我們收集的資料
+                    </h2>
+                    
+                    <h3 style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">個人識別資料</h3>
+                    <ul style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); padding-left: var(--gc-space-4);">
+                        <li style="margin-bottom: var(--gc-space-2);">• 姓名和電子郵件地址</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 用戶名稱和密碼</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 個人資料圖片</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 聯絡資訊</li>
+                    </ul>
+                    
+                    <h3 style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">使用資料</h3>
+                    <ul style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); padding-left: var(--gc-space-4);">
+                        <li style="margin-bottom: var(--gc-space-2);">• 登入時間和頻率</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 遊戲活動和偏好</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 購買記錄</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 社群互動</li>
+                    </ul>
+                    
+                    <h3 style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">技術資料</h3>
+                    <ul style="color: var(--gc-muted); padding-left: var(--gc-space-4);">
+                        <li style="margin-bottom: var(--gc-space-2);">• IP 地址和位置資訊</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 瀏覽器類型和版本</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 裝置資訊</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• Cookie 和追蹤技術</li>
+                    </ul>
+                </div>
 
-                    <!-- 資料使用 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-gear gc-text-primary gc-mr-2"></i>
-                            我們如何使用您的資料
-                        </h2>
-                        
-                        <div class="row">
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-primary-50">
-                                    <h4 class="gc-font-semibold gc-text-primary gc-mb-2">
-                                        <i class="bi bi-person-check gc-mr-2"></i>
-                                        帳戶管理
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        建立和管理您的帳戶，提供客戶支援
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-success-50">
-                                    <h4 class="gc-font-semibold gc-text-success gc-mb-2">
-                                        <i class="bi bi-graph-up gc-mr-2"></i>
-                                        服務改進
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        分析使用模式，改進服務品質和用戶體驗
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-warning-50">
-                                    <h4 class="gc-font-semibold gc-text-warning gc-mb-2">
-                                        <i class="bi bi-bell gc-mr-2"></i>
-                                        通訊通知
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        發送重要更新、安全通知和服務相關訊息
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-error-50">
-                                    <h4 class="gc-font-semibold gc-text-error gc-mb-2">
-                                        <i class="bi bi-shield gc-mr-2"></i>
-                                        安全保護
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        防止詐騙、濫用和未經授權的存取
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 資料分享 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-share gc-text-primary gc-mr-2"></i>
-                            資料分享政策
-                        </h2>
-                        
-                        <div class="gc-alert gc-alert-info">
-                            <strong>重要：</strong> 我們不會出售、出租或交易您的個人資料給第三方。
-                        </div>
-                        
-                        <p class="gc-text-neutral-600 gc-mb-3">
-                            我們可能在以下情況下分享您的資料：
-                        </p>
-                        
-                        <ul class="gc-text-neutral-600 gc-mb-4">
-                            <li class="gc-mb-2">• 經您明確同意</li>
-                            <li class="gc-mb-2">• 法律要求或政府機關要求</li>
-                            <li class="gc-mb-2">• 保護我們的權利和財產</li>
-                            <li class="gc-mb-2">• 與可信賴的服務提供商合作（如支付處理商）</li>
-                        </ul>
-                    </div>
-
-                    <!-- 資料安全 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-lock gc-text-primary gc-mr-2"></i>
-                            資料安全
-                        </h2>
-                        
-                        <p class="gc-text-neutral-600 gc-mb-4">
-                            我們採用業界標準的安全措施來保護您的個人資料：
-                        </p>
-                        
-                        <div class="row">
-                            <div class="col-md-6 gc-mb-3">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
-                                    <span class="gc-text-neutral-600">SSL 加密傳輸</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 gc-mb-3">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
-                                    <span class="gc-text-neutral-600">密碼雜湊儲存</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 gc-mb-3">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
-                                    <span class="gc-text-neutral-600">定期安全審計</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 gc-mb-3">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
-                                    <span class="gc-text-neutral-600">存取控制</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 您的權利 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-person-check gc-text-primary gc-mr-2"></i>
-                            您的權利
-                        </h2>
-                        
-                        <p class="gc-text-neutral-600 gc-mb-4">
-                            根據相關法律，您享有以下權利：
-                        </p>
-                        
-                        <div class="row">
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-neutral-50">
-                                    <h4 class="gc-font-semibold gc-text-neutral-800 gc-mb-2">
-                                        <i class="bi bi-eye gc-text-primary gc-mr-2"></i>
-                                        存取權
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        要求存取我們持有的您的個人資料
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-neutral-50">
-                                    <h4 class="gc-font-semibold gc-text-neutral-800 gc-mb-2">
-                                        <i class="bi bi-pencil gc-text-primary gc-mr-2"></i>
-                                        更正權
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        要求更正不準確或不完整的個人資料
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-neutral-50">
-                                    <h4 class="gc-font-semibold gc-text-neutral-800 gc-mb-2">
-                                        <i class="bi bi-trash gc-text-primary gc-mr-2"></i>
-                                        刪除權
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        要求刪除您的個人資料（在某些情況下）
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 gc-mb-4">
-                                <div class="gc-card gc-p-4 gc-bg-neutral-50">
-                                    <h4 class="gc-font-semibold gc-text-neutral-800 gc-mb-2">
-                                        <i class="bi bi-x-circle gc-text-primary gc-mr-2"></i>
-                                        反對權
-                                    </h4>
-                                    <p class="gc-text-sm gc-text-neutral-600">
-                                        反對我們處理您的個人資料
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Cookie 政策 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-cookie gc-text-primary gc-mr-2"></i>
-                            Cookie 政策
-                        </h2>
-                        
-                        <p class="gc-text-neutral-600 gc-mb-3">
-                            我們使用 Cookie 和類似技術來改善您的使用體驗：
-                        </p>
-                        
-                        <div class="gc-card gc-p-4 gc-bg-warning-50">
-                            <h4 class="gc-font-semibold gc-text-warning gc-mb-2">Cookie 類型</h4>
-                            <ul class="gc-text-neutral-600 gc-mb-0">
-                                <li class="gc-mb-1">• <strong>必要 Cookie：</strong> 網站基本功能所需</li>
-                                <li class="gc-mb-1">• <strong>功能 Cookie：</strong> 記住您的偏好設定</li>
-                                <li class="gc-mb-1">• <strong>分析 Cookie：</strong> 了解網站使用情況</li>
-                                <li class="gc-mb-0">• <strong>行銷 Cookie：</strong> 顯示相關內容</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- 聯絡我們 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-envelope gc-text-primary gc-mr-2"></i>
-                            聯絡我們
-                        </h2>
-                        
-                        <p class="gc-text-neutral-600 gc-mb-4">
-                            如果您對本隱私權政策有任何問題或疑慮，請聯絡我們：
-                        </p>
-                        
-                        <div class="gc-card gc-p-4 gc-bg-primary-50">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4 class="gc-font-semibold gc-text-primary gc-mb-2">電子郵件</h4>
-                                    <p class="gc-text-neutral-600">privacy@gamecore.com</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <h4 class="gc-font-semibold gc-text-primary gc-mb-2">郵寄地址</h4>
-                                    <p class="gc-text-neutral-600">GameCore 隱私權團隊<br>台北市信義區信義路五段7號</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 政策更新 -->
-                    <div class="gc-mb-6">
-                        <h2 class="gc-text-2xl gc-font-semibold gc-text-neutral-800 gc-mb-4">
-                            <i class="bi bi-arrow-clockwise gc-text-primary gc-mr-2"></i>
-                            政策更新
-                        </h2>
-                        
-                        <p class="gc-text-neutral-600 gc-mb-3">
-                            我們可能會不時更新本隱私權政策。重大變更時，我們會：
-                        </p>
-                        
-                        <ul class="gc-text-neutral-600 gc-mb-4">
-                            <li class="gc-mb-2">• 在網站上發布更新版本</li>
-                            <li class="gc-mb-2">• 透過電子郵件通知您</li>
-                            <li class="gc-mb-2">• 更新頁面頂部的「最後更新」日期</li>
-                        </ul>
-                        
-                        <div class="gc-alert gc-alert-warning">
-                            <strong>注意：</strong> 繼續使用我們的服務即表示您接受更新後的隱私權政策。
-                        </div>
-                    </div>
-
-                    <!-- 同意聲明 -->
-                    <div class="gc-text-center gc-mt-8">
-                        <div class="gc-card gc-p-6 gc-bg-success-50">
-                            <h3 class="gc-text-lg gc-font-semibold gc-text-success gc-mb-3">
-                                <i class="bi bi-check-circle-fill gc-mr-2"></i>
-                                隱私權保護承諾
-                            </h3>
-                            <p class="gc-text-neutral-600 gc-mb-4">
-                                我們承諾持續改進我們的隱私權保護措施，確保您的個人資料安全。
+                <!-- 資料使用 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-gear" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        我們如何使用您的資料
+                    </h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--gc-space-4);">
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-accent-2); background-opacity: 0.1;">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-accent); margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-person-check" style="margin-right: var(--gc-space-2);"></i>
+                                帳戶管理
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                建立和管理您的帳戶，提供客戶支援
                             </p>
-                            <a href="/" class="gc-btn gc-btn-success">
-                                <i class="bi bi-house-door gc-mr-2"></i>返回首頁
-                            </a>
                         </div>
+                        
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-accent-3); background-opacity: 0.1;">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-accent-3); margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-graph-up" style="margin-right: var(--gc-space-2);"></i>
+                                服務改善
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                分析使用模式，改善服務品質和用戶體驗
+                            </p>
+                        </div>
+                        
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: #f59e0b; background-opacity: 0.1;">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: #f59e0b; margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-shield-lock" style="margin-right: var(--gc-space-2);"></i>
+                                安全保護
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                防止詐騙、濫用和未經授權的存取
+                            </p>
+                        </div>
+                        
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-accent); background-opacity: 0.1;">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-accent); margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-bell" style="margin-right: var(--gc-space-2);"></i>
+                                通訊通知
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                發送重要通知、更新和行銷資訊
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 資料分享 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-share" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        資料分享政策
+                    </h2>
+                    
+                    <div style="background: var(--gc-accent-2); background-opacity: 0.1; border: 1px solid var(--gc-accent-2); border-radius: var(--gc-radius); padding: var(--gc-space-4); margin-bottom: var(--gc-space-3);">
+                        <strong style="color: var(--gc-accent);">重要：</strong> 我們不會出售、出租或交易您的個人資料給第三方。
+                    </div>
+                    
+                    <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-3);">
+                        我們可能在以下情況下分享您的資料：
+                    </p>
+                    
+                    <ul style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); padding-left: var(--gc-space-4);">
+                        <li style="margin-bottom: var(--gc-space-2);">• 經您明確同意</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 法律要求或政府機關要求</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 保護我們的權利和財產</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 與可信賴的服務提供商合作（如支付處理商）</li>
+                    </ul>
+                </div>
+
+                <!-- 資料安全 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-lock" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        資料安全
+                    </h2>
+                    
+                    <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4);">
+                        我們採用業界標準的安全措施來保護您的個人資料：
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--gc-space-3);">
+                        <div style="display: flex; align-items: center;">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                            <span style="color: var(--gc-muted);">SSL 加密傳輸</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                            <span style="color: var(--gc-muted);">密碼雜湊儲存</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                            <span style="color: var(--gc-muted);">定期安全審計</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                            <span style="color: var(--gc-muted);">存取控制</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 您的權利 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-person-check" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        您的權利
+                    </h2>
+                    
+                    <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4);">
+                        根據相關法律，您享有以下權利：
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--gc-space-4);">
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-surface);">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-eye" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                                存取權
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                要求存取我們持有的您的個人資料
+                            </p>
+                        </div>
+                        
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-surface);">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-pencil" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                                更正權
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                要求更正不準確或不完整的個人資料
+                            </p>
+                        </div>
+                        
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-surface);">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-trash" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                                刪除權
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                要求刪除您的個人資料（在某些情況下）
+                            </p>
+                        </div>
+                        
+                        <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-surface);">
+                            <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-2);">
+                                <i class="bi bi-x-circle" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                                反對權
+                            </h4>
+                            <p style="font-size: var(--gc-text-sm); color: var(--gc-muted);">
+                                反對我們處理您的個人資料
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cookie 政策 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-cookie" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        Cookie 政策
+                    </h2>
+                    
+                    <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-3);">
+                        我們使用 Cookie 和類似技術來改善您的使用體驗：
+                    </p>
+                    
+                    <div class="gc-card" style="padding: var(--gc-space-4); background: #f59e0b; background-opacity: 0.1;">
+                        <h4 style="font-weight: var(--gc-font-semibold); color: #f59e0b; margin-bottom: var(--gc-space-2);">Cookie 類型</h4>
+                        <ul style="color: var(--gc-muted); margin: 0; padding-left: var(--gc-space-4);">
+                            <li style="margin-bottom: var(--gc-space-1);">• <strong>必要 Cookie：</strong> 網站基本功能所需</li>
+                            <li style="margin-bottom: var(--gc-space-1);">• <strong>功能 Cookie：</strong> 記住您的偏好設定</li>
+                            <li style="margin-bottom: var(--gc-space-1);">• <strong>分析 Cookie：</strong> 了解網站使用情況</li>
+                            <li style="margin: 0;">• <strong>行銷 Cookie：</strong> 顯示相關內容</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 聯絡我們 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-envelope" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        聯絡我們
+                    </h2>
+                    
+                    <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4);">
+                        如果您對本隱私權政策有任何問題或疑慮，請聯絡我們：
+                    </p>
+                    
+                    <div class="gc-card" style="padding: var(--gc-space-4); background: var(--gc-accent); background-opacity: 0.1;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--gc-space-4);">
+                            <div>
+                                <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-accent); margin-bottom: var(--gc-space-2);">電子郵件</h4>
+                                <p style="color: var(--gc-muted);">privacy@gamecore.com</p>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: var(--gc-font-semibold); color: var(--gc-accent); margin-bottom: var(--gc-space-2);">郵寄地址</h4>
+                                <p style="color: var(--gc-muted);">GameCore 隱私權團隊<br>台北市信義區信義路五段7號</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 政策更新 -->
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <h2 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-arrow-clockwise" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                        政策更新
+                    </h2>
+                    
+                    <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-3);">
+                        我們可能會不時更新本隱私權政策。重大變更時，我們會：
+                    </p>
+                    
+                    <ul style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); padding-left: var(--gc-space-4);">
+                        <li style="margin-bottom: var(--gc-space-2);">• 在網站上發布更新版本</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 透過電子郵件通知您</li>
+                        <li style="margin-bottom: var(--gc-space-2);">• 更新頁面頂部的「最後更新」日期</li>
+                    </ul>
+                    
+                    <div style="background: #f59e0b; background-opacity: 0.1; border: 1px solid #f59e0b; border-radius: var(--gc-radius); padding: var(--gc-space-4);">
+                        <strong style="color: #f59e0b;">注意：</strong> 繼續使用我們的服務即表示您接受更新後的隱私權政策。
+                    </div>
+                </div>
+
+                <!-- 同意聲明 -->
+                <div style="text-align: center; margin-top: var(--gc-space-8);">
+                    <div class="gc-card" style="padding: var(--gc-space-6); background: var(--gc-accent-3); background-opacity: 0.1;">
+                        <h3 style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-semibold); color: var(--gc-accent-3); margin-bottom: var(--gc-space-3);">
+                            <i class="bi bi-check-circle-fill" style="margin-right: var(--gc-space-2);"></i>
+                            隱私權保護承諾
+                        </h3>
+                        <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4);">
+                            我們承諾持續改進我們的隱私權保護措施，確保您的個人資料安全。
+                        </p>
+                        <a href="/" class="gc-btn" style="background: var(--gc-accent-3);">
+                            <i class="bi bi-house-door" style="margin-right: var(--gc-space-2);"></i>返回首頁
+                        </a>
                     </div>
                 </div>
             </div>

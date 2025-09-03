@@ -2,18 +2,951 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ====== GameCore 玻璃風設計系統 ====== */
+/* 基於 index.txt 的設計規範，統一前端和後台 UI */
+
 @layer base {
-    html {
-        font-family: 'Inter', system-ui, sans-serif;
+
+    /* CSS 變數定義 - 玻璃風設計系統 */
+    :root {
+        /* 背景系統 */
+        --gc-bg: #eef3f8;
+        --gc-bg2: #ffffff;
+        --gc-ink: #1f2937;
+        --gc-muted: #64748b;
+        --gc-line: #e5e7eb;
+
+        /* 玻璃風表面 */
+        --gc-surface: rgba(255, 255, 255, 0.75);
+        --gc-glass: rgba(255, 255, 255, 0.45);
+
+        /* 主色調 */
+        --gc-accent: #7557ff;
+        --gc-accent-2: #34d2ff;
+        --gc-accent-3: #22c55e;
+
+        /* 圓角和陰影 */
+        --gc-radius: 18px;
+        --gc-radius-sm: 12px;
+        --gc-shadow: 0 18px 40px rgba(17, 24, 39, 0.12);
+        --gc-blur: 14px;
+
+        /* 排行榜配色 */
+        --gc-ok: #22c55e;
+        --gc-down: #ff6b6b;
+        --gc-flat: #9aa8bf;
+        --gc-gold: #FFD700;
+        --gc-silver: #C0C0C0;
+        --gc-bronze: #CD7F32;
+        --gc-goldA: rgba(255, 215, 0, 0.18);
+        --gc-silverA: rgba(192, 192, 192, 0.18);
+        --gc-bronzeA: rgba(205, 127, 50, 0.18);
+
+        /* 彩色看板漸層 */
+        --gc-gradient-1: #4f46e5;
+        --gc-gradient-2: #22d3ee;
+        --gc-gradient-3: #f43f5e;
+        --gc-gradient-4: #f59e0b;
+        --gc-gradient-5: #22c55e;
+        --gc-gradient-6: #16a34a;
+        --gc-gradient-7: #8b5cf6;
+        --gc-gradient-8: #06b6d4;
+        --gc-gradient-9: #f97316;
+        --gc-gradient-10: #ef4444;
+        --gc-gradient-11: #06b6d4;
+        --gc-gradient-12: #3b82f6;
+
+        /* 間距系統 */
+        --gc-space-1: 0.25rem;
+        --gc-space-2: 0.5rem;
+        --gc-space-3: 0.75rem;
+        --gc-space-4: 1rem;
+        --gc-space-5: 1.25rem;
+        --gc-space-6: 1.5rem;
+        --gc-space-8: 2rem;
+        --gc-space-10: 2.5rem;
+        --gc-space-12: 3rem;
+        --gc-space-16: 4rem;
+        --gc-space-20: 5rem;
+        --gc-space-24: 6rem;
+        --gc-space-32: 8rem;
+
+        /* 字體系統 */
+        --gc-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+        --gc-text-xs: 0.75rem;
+        --gc-text-sm: 0.875rem;
+        --gc-text-base: 1rem;
+        --gc-text-lg: 1.125rem;
+        --gc-text-xl: 1.25rem;
+        --gc-text-2xl: 1.5rem;
+        --gc-text-3xl: 1.875rem;
+        --gc-text-4xl: 2.25rem;
+        --gc-text-5xl: 3rem;
+        --gc-text-6xl: 3.75rem;
+
+        /* 字體粗細 */
+        --gc-font-light: 300;
+        --gc-font-normal: 400;
+        --gc-font-medium: 500;
+        --gc-font-semibold: 600;
+        --gc-font-bold: 700;
+        --gc-font-extrabold: 800;
+        --gc-font-black: 900;
+
+        /* 動畫系統 */
+        --gc-transition-fast: 150ms;
+        --gc-transition-base: 250ms;
+        --gc-transition-slow: 350ms;
+        --gc-transition-slower: 500ms;
+
+        /* 緩動函數 */
+        --gc-ease-linear: linear;
+        --gc-ease-in: cubic-bezier(0.4, 0, 1, 1);
+        --gc-ease-out: cubic-bezier(0, 0, 0.2, 1);
+        --gc-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* Z-Index 系統 */
+        --gc-z-dropdown: 1000;
+        --gc-z-sticky: 1020;
+        --gc-z-fixed: 1030;
+        --gc-z-modal-backdrop: 1040;
+        --gc-z-modal: 1050;
+        --gc-z-popover: 1060;
+        --gc-z-tooltip: 1070;
+        --gc-z-toast: 1080;
+
+        /* 響應式斷點 */
+        --gc-breakpoint-sm: 640px;
+        --gc-breakpoint-md: 768px;
+        --gc-breakpoint-lg: 1024px;
+        --gc-breakpoint-xl: 1280px;
+        --gc-breakpoint-2xl: 1536px;
+
+        /* 狀態色彩 */
+        --gc-success-50: #f0fdf4;
+        --gc-success-100: #dcfce7;
+        --gc-success-500: #22c55e;
+        --gc-success-600: #16a34a;
+        --gc-success-700: #15803d;
+
+        --gc-warning-50: #fffbeb;
+        --gc-warning-100: #fef3c7;
+        --gc-warning-500: #f59e0b;
+        --gc-warning-600: #d97706;
+        --gc-warning-700: #b45309;
+
+        --gc-error-50: #fef2f2;
+        --gc-error-100: #fee2e2;
+        --gc-error-500: #ef4444;
+        --gc-error-600: #dc2626;
+        --gc-error-700: #b91c1c;
+
+        --gc-info-50: #eff6ff;
+        --gc-info-100: #dbeafe;
+        --gc-info-500: #3b82f6;
+        --gc-info-600: #2563eb;
+        --gc-info-700: #1d4ed8;
+    }
+
+    /* 深色模式 */
+    .dark {
+        --gc-bg: #0c111b;
+        --gc-bg2: #0a0f18;
+        --gc-ink: #e5edff;
+        --gc-muted: #9fb1c9;
+        --gc-line: #1e2b43;
+        --gc-surface: rgba(22, 30, 48, 0.65);
+        --gc-glass: rgba(18, 24, 39, 0.50);
+        --gc-shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
+    }
+
+    /* 緊湊模式 */
+    .compact {
+        --gc-radius: 14px;
+        --gc-radius-sm: 10px;
+        --gc-space-1: 0.125rem;
+        --gc-space-2: 0.25rem;
+        --gc-space-3: 0.5rem;
+        --gc-space-4: 0.75rem;
+        --gc-space-5: 1rem;
+        --gc-space-6: 1.25rem;
+        --gc-space-8: 1.5rem;
+        --gc-space-10: 2rem;
+        --gc-space-12: 2.5rem;
+        --gc-space-16: 3rem;
+        --gc-space-20: 4rem;
+        --gc-space-24: 5rem;
+        --gc-space-32: 6rem;
+    }
+
+    /* 基礎樣式 */
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        color: var(--gc-ink);
+        font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+        background:
+            radial-gradient(900px 500px at -10% -10%, rgba(117, 87, 255, 0.10), transparent 60%),
+            radial-gradient(800px 460px at 110% 10%, rgba(52, 210, 255, 0.10), transparent 50%),
+            linear-gradient(180deg, var(--gc-bg), var(--gc-bg2));
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* 高對比模式支援 */
+    @media (prefers-contrast: high) {
+        :root {
+            --gc-line: #000000;
+            --gc-line-dark: #ffffff;
+            --gc-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    /* 減少動畫模式支援 */
+    @media (prefers-reduced-motion: reduce) {
+        :root {
+            --gc-transition-fast: 0ms;
+            --gc-transition-base: 0ms;
+            --gc-transition-slow: 0ms;
+            --gc-transition-slower: 0ms;
+        }
+    }
+
+    /* 列印樣式支援 */
+    @media print {
+        :root {
+            --gc-bg: #ffffff;
+            --gc-bg2: #ffffff;
+            --gc-ink: #000000;
+            --gc-muted: #666666;
+            --gc-line: #cccccc;
+            --gc-surface: #ffffff;
+            --gc-glass: #ffffff;
+            --gc-shadow: none;
+            --gc-blur: 0;
+        }
     }
 }
 
 @layer components {
-    .btn-primary {
-        @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
-    }
 
-    .btn-secondary {
-        @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
-    }
-}
+    /* ====== 按鈕系統 ====== */
+    .gc-btn {
+        @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 cursor-pointer border;
+        border-color: var(--gc-line);
+        background: var(--gc-surface);
+        backdrop-filter: blur(var(--gc-blur);
+                font-family: var(--gc-font-family);
+                font-size: var(--gc-text-sm);
+                font-weight: var(--gc-font-medium);
+        }
+
+        .gc-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--gc-shadow);
+            border-color: var(--gc-accent);
+        }
+
+        .gc-btn:active {
+            transform: translateY(0);
+            box-shadow: var(--gc-shadow-sm);
+        }
+
+        .gc-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(117, 87, 255, 0.1);
+            border-color: var(--gc-accent);
+        }
+
+        .gc-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 按鈕尺寸變體 */
+        .gc-btn-sm {
+            @apply px-2 py-1 text-xs;
+            border-radius: var(--gc-radius-sm);
+        }
+
+        .gc-btn-lg {
+            @apply px-6 py-3 text-lg;
+            border-radius: var(--gc-radius);
+        }
+
+        .gc-btn-xl {
+            @apply px-8 py-4 text-xl;
+            border-radius: var(--gc-radius);
+        }
+
+        /* 按鈕樣式變體 */
+        .gc-btn-primary {
+            border: 0;
+            background: linear-gradient(135deg, var(--gc-accent), var(--gc-info-500));
+            color: white;
+            box-shadow: var(--gc-shadow);
+        }
+
+        .gc-btn-primary:hover {
+            background: linear-gradient(135deg, var(--gc-info-600), var(--gc-accent));
+            transform: translateY(-2px);
+            box-shadow: var(--gc-shadow);
+        }
+
+        .gc-btn-secondary {
+            background: var(--gc-glass);
+            border-color: var(--gc-line);
+            color: var(--gc-ink);
+        }
+
+        .gc-btn-secondary:hover {
+            background: var(--gc-surface);
+            border-color: var(--gc-accent);
+        }
+
+        .gc-btn-danger {
+            background: var(--gc-error-500);
+            border-color: var(--gc-error-500);
+            color: white;
+        }
+
+        .gc-btn-danger:hover {
+            background: var(--gc-error-600);
+            border-color: var(--gc-error-600);
+        }
+
+        .gc-btn-ghost {
+            background: transparent;
+            border-color: transparent;
+            color: var(--gc-ink);
+        }
+
+        .gc-btn-ghost:hover {
+            background: var(--gc-glass);
+            border-color: var(--gc-line);
+        }
+
+        .gc-btn-link {
+            background: transparent;
+            border: 1px dashed var(--gc-line);
+            color: var(--gc-accent);
+        }
+
+        .gc-btn-link:hover {
+            background: var(--gc-glass);
+            border-style: solid;
+        }
+
+        /* 按鈕載入狀態 */
+        .gc-btn-loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .gc-btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin: -8px 0 0 -8px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: gc-spin 1s linear infinite;
+        }
+
+        @keyframes gc-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ====== 輸入框系統 ====== */
+        .gc-input {
+            @apply block w-full px-3 py-2 border rounded-lg transition-all duration-200;
+            border-color: var(--gc-line);
+            background: var(--gc-surface);
+            color: var(--gc-ink);
+            font-family: var(--gc-font-family);
+            font-size: var(--gc-text-base);
+            backdrop-filter: blur(var(--gc-blur);
+            }
+
+            .gc-input:focus {
+                outline: none;
+                border-color: var(--gc-accent);
+                box-shadow: 0 0 0 3px rgba(117, 87, 255, 0.1);
+                background: var(--gc-bg2);
+            }
+
+            .gc-input:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                background: var(--gc-glass);
+            }
+
+            .gc-input.error {
+                border-color: var(--gc-error-500);
+                box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+            }
+
+            .gc-input.success {
+                border-color: var(--gc-success-500);
+                box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+            }
+
+            /* 輸入框尺寸變體 */
+            .gc-input-sm {
+                @apply px-2 py-1 text-sm;
+                border-radius: var(--gc-radius-sm);
+            }
+
+            .gc-input-lg {
+                @apply px-4 py-3 text-lg;
+                border-radius: var(--gc-radius);
+            }
+
+            /* 輸入框類型變體 */
+            .gc-input-search {
+                padding-left: var(--gc-space-10);
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: var(--gc-space-3) center;
+                background-size: 20px;
+            }
+
+            /* ====== 卡片系統 ====== */
+            .gc-card {
+                @apply bg-white border rounded-xl shadow-sm transition-all duration-200;
+                border-color: var(--gc-line);
+                background: var(--gc-surface);
+                box-shadow: var(--gc-shadow-sm);
+                backdrop-filter: blur(var(--gc-blur);
+                }
+
+                .gc-card:hover {
+                    transform: translateY(-2px);
+                    box-shadow: var(--gc-shadow);
+                }
+
+                .gc-card-header {
+                    @apply p-4 border-b;
+                    border-color: var(--gc-line);
+                }
+
+                .gc-card-title {
+                    @apply m-0 text-lg font-semibold;
+                    color: var(--gc-ink);
+                }
+
+                .gc-card-subtitle {
+                    @apply mt-1 text-sm;
+                    color: var(--gc-muted);
+                }
+
+                .gc-card-body {
+                    @apply p-4;
+                }
+
+                .gc-card-footer {
+                    @apply p-4 border-t;
+                    border-color: var(--gc-line);
+                    background: var(--gc-glass);
+                }
+
+                /* 卡片變體 */
+                .gc-card-interactive {
+                    cursor: pointer;
+                }
+
+                .gc-card-interactive:hover {
+                    border-color: var(--gc-accent);
+                }
+
+                .gc-card-elevated {
+                    box-shadow: var(--gc-shadow);
+                }
+
+                .gc-card-elevated:hover {
+                    box-shadow: var(--gc-shadow);
+                }
+
+                /* ====== 面板系統 ====== */
+                .gc-panel {
+                    @apply bg-white border rounded-xl shadow-lg;
+                    border-color: var(--gc-line);
+                    background: var(--gc-surface);
+                    box-shadow: var(--gc-shadow);
+                    backdrop-filter: blur(var(--gc-blur);
+                    }
+
+                    .gc-panel-header {
+                        @apply flex items-center gap-2 mb-2;
+                    }
+
+                    .gc-panel-title {
+                        @apply text-lg font-bold m-0;
+                        color: var(--gc-ink);
+                    }
+
+                    .gc-panel-content {
+                        @apply p-4;
+                    }
+
+                    .gc-panel-footer {
+                        @apply p-4 border-t;
+                        border-color: var(--gc-line);
+                        background: var(--gc-glass);
+                    }
+
+                    /* ====== 導航系統 ====== */
+                    .gc-nav {
+                        @apply flex items-center gap-4;
+                    }
+
+                    .gc-nav-item {
+                        @apply inline-flex items-center gap-1 px-3 py-2 rounded-lg transition-all duration-200 font-medium;
+                        color: var(--gc-ink);
+                        text-decoration: none;
+                        border-radius: var(--gc-radius-sm);
+                        font-weight: var(--gc-font-medium);
+                    }
+
+                    .gc-nav-item:hover {
+                        color: var(--gc-accent);
+                        background: var(--gc-glass);
+                        transform: translateY(-1px);
+                    }
+
+                    .gc-nav-item.active {
+                        color: var(--gc-accent);
+                        background: var(--gc-glass);
+                        font-weight: var(--gc-font-semibold);
+                    }
+
+                    /* 導航變體 */
+                    .gc-nav-pills {
+                        @apply inline-flex border rounded-full overflow-hidden;
+                        border-color: var(--gc-line);
+                    }
+
+                    .gc-nav-pills .gc-nav-item {
+                        border-radius: 0;
+                        border-right: 1px solid var(--gc-line);
+                        margin: 0;
+                    }
+
+                    .gc-nav-pills .gc-nav-item:last-child {
+                        border-right: none;
+                    }
+
+                    .gc-nav-pills .gc-nav-item.active {
+                        background: var(--gc-info-500);
+                        color: white;
+                        border-color: var(--gc-info-500);
+                    }
+
+                    /* ====== 表單系統 ====== */
+                    .gc-form-group {
+                        @apply mb-4;
+                    }
+
+                    .gc-form-label {
+                        @apply block mb-1 text-sm font-medium;
+                        color: var(--gc-ink);
+                    }
+
+                    .gc-form-required {
+                        @apply text-red-500 ml-1;
+                        color: var(--gc-error-500);
+                    }
+
+                    .gc-form-help {
+                        @apply mt-1 text-sm;
+                        color: var(--gc-muted);
+                    }
+
+                    .gc-form-error {
+                        @apply mt-1 text-sm;
+                        color: var(--gc-error-500);
+                    }
+
+                    .gc-form-success {
+                        @apply mt-1 text-sm;
+                        color: var(--gc-success-500);
+                    }
+
+                    /* 表單驗證狀態 */
+                    .gc-form-group.has-error .gc-form-label {
+                        color: var(--gc-error-500);
+                    }
+
+                    .gc-form-group.has-success .gc-form-label {
+                        color: var(--gc-success-500);
+                    }
+
+                    /* ====== 工具提示系統 ====== */
+                    .gc-tooltip {
+                        @apply relative inline-block;
+                    }
+
+                    .gc-tooltip-content {
+                        @apply absolute bottom-full left-1/2 mb-2 px-3 py-2 text-sm whitespace-nowrap opacity-0 invisible transition-all duration-200 z-50;
+                        transform: translateX(-50%);
+                        background: var(--gc-ink);
+                        color: white;
+                        border-radius: var(--gc-radius-sm);
+                        z-index: var(--gc-z-tooltip);
+                    }
+
+                    .gc-tooltip-content::after {
+                        content: "";
+                        @apply absolute top-full left-1/2 border-4 border-transparent;
+                        transform: translateX(-50%);
+                        border-top-color: var(--gc-ink);
+                    }
+
+                    .gc-tooltip:hover .gc-tooltip-content {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateX(-50%) translateY(-4px);
+                    }
+
+                    /* ====== 載入狀態系統 ====== */
+                    .gc-loading {
+                        @apply inline-block w-5 h-5 border-2 border-gray-300 border-t-blue-500 rounded-full;
+                        border-color: var(--gc-line);
+                        border-top-color: var(--gc-accent);
+                        animation: gc-spin 1s linear infinite;
+                    }
+
+                    .gc-loading-sm {
+                        @apply w-4 h-4;
+                        border-width: 1.5px;
+                    }
+
+                    .gc-loading-lg {
+                        @apply w-8 h-8;
+                        border-width: 3px;
+                    }
+
+                    .gc-loading-text {
+                        @apply flex items-center gap-2 text-sm;
+                        color: var(--gc-muted);
+                    }
+
+                    /* ====== 彩色看板系統 ====== */
+                    .gc-tile {
+                        @apply relative min-h-[120px] rounded-2xl p-4 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-200;
+                        background: var(--gc-glass);
+                        border: 1px solid var(--gc-line);
+                        backdrop-filter: blur(var(--gc-blur);
+                            box-shadow: var(--gc-shadow);
+                            border-radius: var(--gc-radius);
+                        }
+
+                        .gc-tile:hover {
+                            transform: translateY(-3px) scale(1.01);
+                        }
+
+                        .gc-tile .name {
+                            @apply font-black;
+                        }
+
+                        .gc-tile .meta {
+                            @apply text-xs;
+                            color: var(--gc-muted);
+                        }
+
+                        .gc-tile .mini {
+                            @apply bg-white/65 px-2 py-0.5 rounded-full text-xs border;
+                            background: rgba(255, 255, 255, 0.65);
+                            border-color: var(--gc-line);
+                        }
+
+                        .dark .gc-tile .mini {
+                            background: rgba(0, 0, 0, 0.25);
+                            color: #e5edff;
+                        }
+
+                        /* 彩色漸層看板 */
+                        .gc-tile.colorful:nth-child(1) {
+                            background: linear-gradient(135deg, var(--gc-gradient-1), var(--gc-gradient-2));
+                        }
+
+                        .gc-tile.colorful:nth-child(2) {
+                            background: linear-gradient(135deg, var(--gc-gradient-3), var(--gc-gradient-4));
+                        }
+
+                        .gc-tile.colorful:nth-child(3) {
+                            background: linear-gradient(135deg, var(--gc-gradient-5), var(--gc-gradient-6));
+                        }
+
+                        .gc-tile.colorful:nth-child(4) {
+                            background: linear-gradient(135deg, var(--gc-gradient-7), var(--gc-gradient-8));
+                        }
+
+                        .gc-tile.colorful:nth-child(5) {
+                            background: linear-gradient(135deg, var(--gc-gradient-9), var(--gc-gradient-10));
+                        }
+
+                        .gc-tile.colorful:nth-child(6) {
+                            background: linear-gradient(135deg, var(--gc-gradient-11), var(--gc-gradient-12));
+                        }
+
+                        .gc-tile.colorful .name,
+                        .gc-tile.colorful .meta,
+                        .gc-tile.colorful .mini {
+                            color: white;
+                        }
+
+                        .gc-tile.colorful .mini {
+                            background: rgba(255, 255, 255, 0.25);
+                            border-color: rgba(255, 255, 255, 0.35);
+                        }
+
+                        /* ====== 排行榜系統 ====== */
+                        .gc-rank-row {
+                            @apply relative grid grid-cols-[40px_1fr_auto] gap-3 items-center border rounded-xl p-3 overflow-hidden;
+                            border-color: var(--gc-line);
+                            background: var(--gc-bg2);
+                        }
+
+                        .gc-rank {
+                            @apply font-black text-center;
+                        }
+
+                        .gc-delta {
+                            @apply text-right min-w-16 font-extrabold;
+                        }
+
+                        .gc-up {
+                            color: var(--gc-ok);
+                        }
+
+                        .gc-down {
+                            color: var(--gc-down);
+                        }
+
+                        .gc-flat {
+                            color: var(--gc-flat);
+                        }
+
+                        .gc-rank-row.top::before {
+                            content: "";
+                            @apply absolute inset-0 pointer-events-none z-0 opacity-90;
+                            filter: blur(14px);
+                        }
+
+                        .gc-rank-row.top1::before {
+                            background: linear-gradient(90deg, var(--gc-goldA), transparent 60%);
+                        }
+
+                        .gc-rank-row.top2::before {
+                            background: linear-gradient(90deg, var(--gc-silverA), transparent 60%);
+                        }
+
+                        .gc-rank-row.top3::before {
+                            background: linear-gradient(90deg, var(--gc-bronzeA), transparent 60%);
+                        }
+
+                        .gc-rank-row.top1 .rank,
+                        .gc-rank-row.top1 .title-2 {
+                            color: var(--gc-gold);
+                        }
+
+                        .gc-rank-row.top2 .rank,
+                        .gc-rank-row.top2 .title-2 {
+                            color: var(--gc-silver);
+                        }
+
+                        .gc-rank-row.top3 .rank,
+                        .gc-rank-row.top3 .title-2 {
+                            color: var(--gc-bronze);
+                        }
+
+                        .gc-rank-row > * {
+                            @apply relative z-10;
+                        }
+
+                        /* ====== 響應式工具類別 ====== */
+                        /* 小螢幕 */
+                        @media (max-width: 640px) {
+                            .gc-btn {
+                                @apply px-2 py-1 text-xs;
+                            }
+
+                            .gc-input {
+                                @apply px-2 py-1 text-sm;
+                            }
+
+                            .gc-card-body,
+                            .gc-panel-content {
+                                @apply p-3;
+                            }
+                        }
+
+                        /* 中等螢幕 */
+                        @media (max-width: 768px) {
+                            .gc-nav {
+                                @apply flex-col gap-2;
+                            }
+
+                            .gc-nav-pills {
+                                @apply flex-col;
+                                border-radius: var(--gc-radius-sm);
+                            }
+
+                            .gc-nav-pills .gc-nav-item {
+                                border-right: none;
+                                border-bottom: 1px solid var(--gc-line);
+                            }
+
+                            .gc-nav-pills .gc-nav-item:last-child {
+                                border-bottom: none;
+                            }
+                        }
+
+                        /* 大螢幕 */
+                        @media (min-width: 1024px) {
+                            .gc-btn-lg {
+                                @apply px-6 py-4 text-lg;
+                            }
+
+                            .gc-card-body,
+                            .gc-panel-content {
+                                @apply p-6;
+                            }
+                        }
+                    }
+
+                    @layer utilities {
+
+                        /* 玻璃風背景工具類 */
+                        .gc-glass-bg {
+                            background: var(--gc-glass);
+                            backdrop-filter: blur(var(--gc-blur);
+                                border: 1px solid var(--gc-line);
+                            }
+
+                            .gc-surface-bg {
+                                background: var(--gc-surface);
+                                backdrop-filter: blur(var(--gc-blur);
+                                    border: 1px solid var(--gc-line);
+                                }
+
+                                /* 彩色看板漸層工具類 */
+                                .gc-gradient-1 {
+                                    background: var(--gc-gradient-1);
+                                }
+
+                                .gc-gradient-2 {
+                                    background: var(--gc-gradient-2);
+                                }
+
+                                .gc-gradient-3 {
+                                    background: var(--gc-gradient-3);
+                                }
+
+                                .gc-gradient-4 {
+                                    background: var(--gc-gradient-4);
+                                }
+
+                                .gc-gradient-5 {
+                                    background: var(--gc-gradient-5);
+                                }
+
+                                .gc-gradient-6 {
+                                    background: var(--gc-gradient-6);
+                                }
+
+                                /* 排行榜樣式工具類 */
+                                .gc-rank-gold {
+                                    color: var(--gc-gold);
+                                }
+
+                                .gc-rank-silver {
+                                    color: var(--gc-silver);
+                                }
+
+                                .gc-rank-bronze {
+                                    color: var(--gc-bronze);
+                                }
+
+                                .gc-rank-glow-1::before {
+                                    background: var(--gc-goldA);
+                                }
+
+                                .gc-rank-glow-2::before {
+                                    background: var(--gc-silverA);
+                                }
+
+                                .gc-rank-glow-3::before {
+                                    background: var(--gc-bronzeA);
+                                }
+
+                                /* 狀態指示器工具類 */
+                                .gc-status-up {
+                                    color: var(--gc-ok);
+                                }
+
+                                .gc-status-down {
+                                    color: var(--gc-down);
+                                }
+
+                                .gc-status-flat {
+                                    color: var(--gc-flat);
+                                }
+
+                                /* 響應式隱藏/顯示工具類 */
+                                @media (max-width: 640px) {
+                                    .gc-hidden-sm {
+                                        display: none !important;
+                                    }
+                                }
+
+                                @media (max-width: 768px) {
+                                    .gc-hidden-md {
+                                        display: none !important;
+                                    }
+                                }
+
+                                @media (max-width: 1024px) {
+                                    .gc-hidden-lg {
+                                        display: none !important;
+                                    }
+                                }
+
+                                @media (min-width: 641px) {
+                                    .gc-visible-sm {
+                                        display: block !important;
+                                    }
+                                }
+
+                                @media (min-width: 769px) {
+                                    .gc-visible-md {
+                                        display: block !important;
+                                    }
+                                }
+
+                                @media (min-width: 1025px) {
+                                    .gc-visible-lg {
+                                        display: block !important;
+                                    }
+                                }
+                            }

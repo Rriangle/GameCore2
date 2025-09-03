@@ -3,39 +3,64 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="GameCore 管理後台 - 系統管理和監控" />
-    <meta name="keywords" content="管理後台,系統管理,GameCore" />
+    <meta name="description" content="GameCore 管�?後台 - 系統管�??�監?? />
+    <meta name="keywords" content="管�?後台,系統管�?,GameCore" />
     <meta name="author" content="GameCore Admin Team" />
     
-    <!-- 無障礙功能支援 -->
-    <meta name="theme-color" content="#dc2626" />
+    <!-- ?��?礙�??�支??-->
+    <meta name="theme-color" content="#7557ff" />
     <meta name="color-scheme" content="light dark" />
     
-    <title>@ViewData["Title"] - GameCore 管理後台</title>
+    <title>@ViewData["Title"] - GameCore 管�?後台</title>
     
-    <!-- 預載入關鍵資源 -->
-    <link rel="preload" href="~/lib/bootstrap/dist/css/bootstrap.min.css" as="style" />
+    <!-- ?��??��??��?�?-->
     <link rel="preload" href="~/css/design-tokens.css" as="style" />
     <link rel="preload" href="~/css/base-components.css" as="style" />
+    <link rel="preload" href="~/css/components.css" as="style" />
+    <link rel="preload" href="~/css/site.css" as="style" />
     
-    <!-- 樣式表 -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- �??�?-->
     <link rel="stylesheet" href="~/css/design-tokens.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/base-components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/utilities.css" asp-append-version="true" />
     
-    <!-- 字體預載入 -->
+    <!-- 字�??��???-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- 圖標庫 -->
+    <!-- ?��?�?-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
     
-    <!-- 管理後台專用樣式 -->
+    <!-- Phase 10 ?�終優?�器 (?��??�環�? -->
+    @if (Context.Request.Host.Host.Contains("localhost") || Context.Request.Host.Host.Contains("127.0.0.1"))
+    {
+        <link rel="stylesheet" href="~/css/final-optimizer.css" asp-append-version="true" />
+        <script src="~/js/final-optimizer.js" asp-append-version="true"></script>
+        <script src="~/js/cross-device-test.js" asp-append-version="true"></script>
+    }
+    
+    <!-- 管�?後台專用�?? -->
     <style>
-        .admin-sidebar {
-            background: linear-gradient(180deg, var(--gc-neutral-800) 0%, var(--gc-neutral-900) 100%);
+        /* ====== 管�?後台?��?風設計系�?====== */
+        
+        /* 管�?後台主�?�?? */
+        .gc-admin-body {
+            background:
+                radial-gradient(900px 500px at -10% -10%, rgba(117, 87, 255, 0.10), transparent 60%),
+                radial-gradient(800px 460px at 110% 10%, rgba(52, 210, 255, 0.10), transparent 50%),
+                linear-gradient(180deg, var(--gc-bg), var(--gc-bg2));
+            min-height: 100vh;
+            font-family: var(--gc-font-family);
+            color: var(--gc-ink);
+            line-height: var(--gc-line-height-normal);
+        }
+        
+        /* 管�?後台?��?�?*/
+        .gc-admin-sidebar {
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border-right: 1px solid var(--gc-line);
             min-height: 100vh;
             position: fixed;
             top: 0;
@@ -43,322 +68,609 @@
             width: 280px;
             z-index: var(--gc-z-fixed);
             transition: transform var(--gc-transition-base) var(--gc-ease-in-out);
+            box-shadow: var(--gc-shadow);
         }
         
-        .admin-sidebar.collapsed {
+        .gc-admin-sidebar.collapsed {
             transform: translateX(-100%);
         }
         
-        .admin-main {
+        /* 管�?後台主�??�容?�??*/
+        .gc-admin-main {
             margin-left: 280px;
             transition: margin-left var(--gc-transition-base) var(--gc-ease-in-out);
+            min-height: 100vh;
         }
         
-        .admin-main.expanded {
+        .gc-admin-main.expanded {
             margin-left: 0;
         }
         
-        .admin-header {
-            background-color: var(--gc-neutral-0);
-            border-bottom: 1px solid var(--gc-neutral-200);
+        /* 管�?後台?��? */
+        .gc-admin-header {
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border-bottom: 1px solid var(--gc-line);
             box-shadow: var(--gc-shadow-sm);
             position: sticky;
             top: 0;
             z-index: var(--gc-z-sticky);
+            padding: var(--gc-space-4);
         }
         
-        .sidebar-toggle {
-            background: none;
-            border: none;
-            color: var(--gc-neutral-600);
-            font-size: 1.25rem;
-            padding: 0.5rem;
-            border-radius: var(--gc-radius-base);
+        /* ?��?欄�??��???*/
+        .gc-admin-toggle {
+            background: transparent;
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius-sm);
+            padding: var(--gc-space-2);
+            cursor: pointer;
             transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+            color: var(--gc-ink);
         }
         
-        .sidebar-toggle:hover {
-            background-color: var(--gc-neutral-100);
-            color: var(--gc-neutral-800);
+        .gc-admin-toggle:hover {
+            background: var(--gc-glass);
+            border-color: var(--gc-accent);
+            color: var(--gc-accent);
         }
         
-        .sidebar-nav .nav-link {
-            color: var(--gc-neutral-300);
-            padding: var(--gc-space-3) var(--gc-space-4);
-            border-radius: var(--gc-radius-base);
-            margin: var(--gc-space-1) var(--gc-space-3);
-            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+        /* ?��?欄�??��?�?*/
+        .gc-admin-brand {
             display: flex;
             align-items: center;
-        }
-        
-        .sidebar-nav .nav-link:hover {
-            color: var(--gc-neutral-0);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .sidebar-nav .nav-link.active {
-            color: var(--gc-neutral-0);
-            background-color: var(--gc-primary-600);
-        }
-        
-        .sidebar-nav .nav-link i {
-            width: 1.5rem;
-            margin-right: var(--gc-space-3);
-        }
-        
-        .sidebar-header {
-            padding: var(--gc-space-4);
-            border-bottom: 1px solid var(--gc-neutral-700);
-            margin-bottom: var(--gc-space-4);
-        }
-        
-        .sidebar-brand {
-            color: var(--gc-neutral-0);
-            font-size: var(--gc-text-xl);
+            color: var(--gc-accent);
             font-weight: var(--gc-font-bold);
+            font-size: var(--gc-text-xl);
             text-decoration: none;
+            padding: var(--gc-space-4);
+            border-bottom: 1px solid var(--gc-line);
+            margin-bottom: var(--gc-space-4);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .gc-admin-brand:hover {
+            color: var(--gc-accent-2);
+            transform: translateY(-1px);
+        }
+        
+        .gc-admin-brand i {
+            font-size: var(--gc-text-2xl);
+            color: var(--gc-accent);
+            margin-right: var(--gc-space-2);
+        }
+        
+        /* ?��?欄�???*/
+        .gc-admin-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .gc-admin-nav-item {
+            margin-bottom: var(--gc-space-1);
+        }
+        
+        .gc-admin-nav-link {
             display: flex;
             align-items: center;
+            gap: var(--gc-space-2);
+            color: var(--gc-ink);
+            text-decoration: none;
+            padding: var(--gc-space-3) var(--gc-space-4);
+            border-radius: var(--gc-radius-sm);
+            margin: 0 var(--gc-space-2);
+            font-weight: var(--gc-font-medium);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
         }
         
-        .sidebar-brand:hover {
-            color: var(--gc-primary-400);
+        .gc-admin-nav-link:hover {
+            color: var(--gc-accent);
+            background: var(--gc-glass);
+            transform: translateX(4px);
         }
         
-        .admin-content {
+        .gc-admin-nav-link.active {
+            color: var(--gc-accent);
+            background: var(--gc-glass);
+            font-weight: var(--gc-font-semibold);
+        }
+        
+        .gc-admin-nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* 管�?後台?�容?�??*/
+        .gc-admin-content {
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius);
+            box-shadow: var(--gc-shadow);
             padding: var(--gc-space-6);
-            background-color: var(--gc-neutral-50);
-            min-height: calc(100vh - 70px);
+            margin: var(--gc-space-4);
         }
         
-        .stats-card {
-            background: linear-gradient(135deg, var(--gc-primary-500) 0%, var(--gc-primary-600) 100%);
-            color: var(--gc-neutral-0);
-            border-radius: var(--gc-radius-lg);
+        /* 管�?後台?��? */
+        .gc-admin-card {
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius);
+            box-shadow: var(--gc-shadow-sm);
+            padding: var(--gc-space-6);
+            margin-bottom: var(--gc-space-6);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .gc-admin-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--gc-shadow);
+        }
+        
+        .gc-admin-card-title {
+            color: var(--gc-accent);
+            font-weight: var(--gc-font-semibold);
+            font-size: var(--gc-text-lg);
+            margin-bottom: var(--gc-space-4);
+        }
+        
+        /* 管�?後台統�?網格 */
+        .gc-admin-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--gc-space-6);
+            margin-bottom: var(--gc-space-8);
+        }
+        
+        .gc-admin-stat-card {
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius);
+            padding: var(--gc-space-6);
+            text-align: center;
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .gc-admin-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--gc-shadow);
+        }
+        
+        .gc-admin-stat-number {
+            font-size: var(--gc-text-3xl);
+            font-weight: var(--gc-font-bold);
+            color: var(--gc-accent);
+            margin-bottom: var(--gc-space-2);
+        }
+        
+        .gc-admin-stat-label {
+            color: var(--gc-muted);
+            font-size: var(--gc-text-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* 管�?後台表格 */
+        .gc-admin-table {
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius);
+            overflow: hidden;
+            box-shadow: var(--gc-shadow-sm);
+            width: 100%;
+        }
+        
+        .gc-admin-table th {
+            background: var(--gc-glass);
+            color: var(--gc-ink);
+            font-weight: var(--gc-font-semibold);
+            border-bottom: 1px solid var(--gc-line);
+            padding: var(--gc-space-4);
+            text-align: left;
+        }
+        
+        .gc-admin-table td {
+            padding: var(--gc-space-4);
+            border-bottom: 1px solid var(--gc-line);
+            color: var(--gc-ink);
+        }
+        
+        .gc-admin-table tbody tr:hover {
+            background: var(--gc-glass);
+        }
+        
+        /* 管�?後台?��? */
+        .gc-admin-btn {
+            background: var(--gc-accent);
+            color: white;
+            border: none;
+            border-radius: var(--gc-radius-sm);
+            padding: var(--gc-space-3) var(--gc-space-6);
+            font-weight: var(--gc-font-medium);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--gc-space-2);
+        }
+        
+        .gc-admin-btn:hover {
+            background: var(--gc-accent-2);
+            transform: translateY(-1px);
+            box-shadow: var(--gc-shadow-sm);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .gc-admin-btn-secondary {
+            background: var(--gc-glass);
+            color: var(--gc-ink);
+            border: 1px solid var(--gc-line);
+        }
+        
+        .gc-admin-btn-secondary:hover {
+            background: var(--gc-surface);
+            border-color: var(--gc-accent);
+            color: var(--gc-accent);
+        }
+        
+        .gc-admin-btn-danger {
+            background: var(--gc-down);
+            color: white;
+        }
+        
+        .gc-admin-btn-danger:hover {
+            background: var(--gc-down-2);
+            color: white;
+        }
+        
+        /* 管�?後台表單 */
+        .gc-admin-form-group {
+            margin-bottom: var(--gc-space-6);
+        }
+        
+        .gc-admin-form-label {
+            color: var(--gc-ink);
+            font-weight: var(--gc-font-medium);
+            margin-bottom: var(--gc-space-2);
+            display: block;
+        }
+        
+        .gc-admin-form-input {
+            width: 100%;
+            padding: var(--gc-space-3);
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius-sm);
+            background: var(--gc-surface);
+            color: var(--gc-ink);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .gc-admin-form-input:focus {
+            outline: none;
+            border-color: var(--gc-accent);
+            box-shadow: 0 0 0 3px rgba(117, 87, 255, 0.1);
+        }
+        
+        /* 管�?後台警�?訊息 */
+        .gc-admin-alert {
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius);
             padding: var(--gc-space-4);
             margin-bottom: var(--gc-space-4);
         }
         
-        .stats-card.success {
-            background: linear-gradient(135deg, var(--gc-success-500) 0%, var(--gc-success-600) 100%);
+        .gc-admin-alert-success {
+            border-color: var(--gc-accent-3);
+            background: rgba(34, 197, 94, 0.1);
         }
         
-        .stats-card.warning {
-            background: linear-gradient(135deg, var(--gc-warning-500) 0%, var(--gc-warning-600) 100%);
+        .gc-admin-alert-error {
+            border-color: var(--gc-down);
+            background: rgba(255, 107, 107, 0.1);
         }
         
-        .stats-card.error {
-            background: linear-gradient(135deg, var(--gc-error-500) 0%, var(--gc-error-600) 100%);
+        .gc-admin-alert-warning {
+            border-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
         }
         
-        .stats-card.info {
-            background: linear-gradient(135deg, var(--gc-secondary-500) 0%, var(--gc-secondary-600) 100%);
+        .gc-admin-alert-info {
+            border-color: var(--gc-accent-2);
+            background: rgba(52, 210, 255, 0.1);
         }
         
-        @media (max-width: 991.98px) {
-            .admin-sidebar {
+        /* ?�戶下�??�單 */
+        .gc-admin-user-dropdown {
+            position: relative;
+        }
+        
+        .gc-admin-user-toggle {
+            background: transparent;
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius-sm);
+            padding: var(--gc-space-2) var(--gc-space-3);
+            color: var(--gc-ink);
+            cursor: pointer;
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+            display: flex;
+            align-items: center;
+            gap: var(--gc-space-2);
+        }
+        
+        .gc-admin-user-toggle:hover {
+            background: var(--gc-glass);
+            border-color: var(--gc-accent);
+        }
+        
+        .gc-admin-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 200px;
+            background: var(--gc-surface);
+            backdrop-filter: blur(var(--gc-blur));
+            border: 1px solid var(--gc-line);
+            border-radius: var(--gc-radius);
+            box-shadow: var(--gc-shadow);
+            padding: var(--gc-space-2) 0;
+            margin-top: var(--gc-space-1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+            z-index: var(--gc-z-dropdown);
+        }
+        
+        .gc-admin-user-dropdown:hover .gc-admin-dropdown-menu,
+        .gc-admin-dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .gc-admin-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: var(--gc-space-2);
+            color: var(--gc-ink);
+            text-decoration: none;
+            padding: var(--gc-space-2) var(--gc-space-4);
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+            border-radius: 0;
+            margin: 0 var(--gc-space-1);
+        }
+        
+        .gc-admin-dropdown-item:hover {
+            background: var(--gc-glass);
+            color: var(--gc-accent);
+            transform: translateX(4px);
+        }
+        
+        .gc-admin-dropdown-divider {
+            border: none;
+            border-top: 1px solid var(--gc-line);
+            margin: var(--gc-space-2) var(--gc-space-4);
+        }
+        
+        /* 行�?裝置?�罩 */
+        .gc-admin-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(var(--gc-blur));
+            z-index: var(--gc-z-modal);
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+        }
+        
+        .gc-admin-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ?��?式設�?*/
+        @@media (max-width: 1024px) {
+            .gc-admin-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @@media (max-width: 768px) {
+            .gc-admin-sidebar {
                 transform: translateX(-100%);
             }
             
-            .admin-sidebar.show {
+            .gc-admin-sidebar.expanded {
                 transform: translateX(0);
             }
             
-            .admin-main {
+            .gc-admin-main {
                 margin-left: 0;
             }
             
-            .admin-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: var(--gc-z-modal-backdrop);
-                display: none;
+            .gc-admin-content {
+                margin: var(--gc-space-2);
+                padding: var(--gc-space-4);
             }
             
-            .admin-overlay.show {
-                display: block;
+            .gc-admin-stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gc-admin-overlay.show {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        
+        @@media (max-width: 480px) {
+            .gc-admin-content {
+                margin: var(--gc-space-1);
+                padding: var(--gc-space-3);
+            }
+            
+            .gc-admin-card {
+                padding: var(--gc-space-4);
+            }
+            
+            .gc-admin-stat-card {
+                padding: var(--gc-space-4);
+            }
+        }
+        
+        /* 深色模�??�援 */
+        @@media (prefers-color-scheme: dark) {
+            .gc-admin-body {
+                background:
+                    radial-gradient(900px 500px at -10% -10%, rgba(117, 87, 255, 0.15), transparent 60%),
+                    radial-gradient(800px 460px at 110% 10%, rgba(52, 210, 255, 0.15), transparent 50%),
+                    linear-gradient(180deg, var(--gc-bg-dark), var(--gc-bg2-dark));
+            }
+        }
+        
+        /* 高�?比模式支??*/
+        @@media (prefers-contrast: high) {
+            .gc-admin-sidebar {
+                border-right: 2px solid var(--gc-line);
+            }
+            
+            .gc-admin-header {
+                border-bottom: 2px solid var(--gc-line);
+            }
+            
+            .gc-admin-nav-link:hover,
+            .gc-admin-dropdown-item:hover {
+                outline: 2px solid var(--gc-accent);
+                outline-offset: 2px;
+            }
+        }
+        
+        /* 減�??�畫模�??�援 */
+        @@media (prefers-reduced-motion: reduce) {
+            .gc-admin-nav-link,
+            .gc-admin-dropdown-item,
+            .gc-admin-card,
+            .gc-admin-stat-card {
+                transition: none;
+            }
+            
+            .gc-admin-sidebar,
+            .gc-admin-main,
+            .gc-admin-dropdown-menu {
+                transition: opacity var(--gc-transition-base) var(--gc-ease-in-out);
             }
         }
     </style>
     
-    <!-- 自訂樣式區塊 -->
+    <!-- ?��?�???��?-->
     @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
-    <!-- 跳過導航連結 (無障礙功能) -->
-    <a href="#main-content" class="gc-skip-link">跳過導航</a>
+<body class="gc-admin-body">
+    <!-- 跳�?導航??? (?��?礙�??? -->
+    <a href="#main-content" class="gc-skip-link">跳�?導航</a>
     
-    <!-- 全域載入指示器 -->
-    <div id="global-spinner" class="global-spinner" style="display: none;">
-        <div class="spinner-overlay">
-            <div class="spinner-content">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">載入中...</span>
-                </div>
-                <div class="mt-2">載入中...</div>
+    <!-- ?��?載入?�示??-->
+    <div id="global-spinner" class="gc-loading-overlay" style="display: none;">
+        <div class="gc-loading-content">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">載入�?..</span>
             </div>
+            <div class="mt-2">載入�?..</div>
         </div>
     </div>
     
-    <!-- 管理後台側邊欄 -->
-    <nav class="admin-sidebar" id="adminSidebar" role="navigation" aria-label="管理後台導航">
-        <div class="sidebar-header">
-            <a href="/Admin" class="sidebar-brand">
-                <i class="bi bi-shield-check gc-mr-2"></i>
-                GameCore Admin
-            </a>
-        </div>
+    <!-- ?��?�?-->
+    <aside class="gc-admin-sidebar" id="adminSidebar">
+        <a href="@Url.Action("Index", "Dashboard", new { area = "Admin" })" class="gc-admin-brand">
+            <i class="bi bi-controller"></i>
+            <span class="gc-brand-text">GameCore 管�?後台</span>
+        </a>
         
-        <ul class="sidebar-nav nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" && ViewContext.RouteData.Values["Controller"]?.ToString() == "Dashboard" ? "active" : "")" 
-                   href="/Admin/Dashboard" role="menuitem">
+        <nav class="gc-admin-nav">
+            <div class="gc-admin-nav-item">
+                <a href="@Url.Action("Index", "Dashboard", new { area = "Admin" })" class="gc-admin-nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
                     <i class="bi bi-speedometer2"></i>
-                    儀表板
+                    <span>?�表板</span>
                 </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "User" ? "active" : "")" 
-                   href="/Admin/User" role="menuitem">
-                    <i class="bi bi-people"></i>
-                    用戶管理
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Product" ? "active" : "")" 
-                   href="/Admin/Product" role="menuitem">
-                    <i class="bi bi-box"></i>
-                    商品管理
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Order" ? "active" : "")" 
-                   href="/Admin/Order" role="menuitem">
-                    <i class="bi bi-cart"></i>
-                    訂單管理
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Forum" ? "active" : "")" 
-                   href="/Admin/Forum" role="menuitem">
-                    <i class="bi bi-chat-dots"></i>
-                    論壇管理
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Game" ? "active" : "")" 
-                   href="/Admin/Game" role="menuitem">
-                    <i class="bi bi-joystick"></i>
-                    遊戲管理
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "System" ? "active" : "")" 
-                   href="/Admin/System" role="menuitem">
-                    <i class="bi bi-gear"></i>
-                    系統設定
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Log" ? "active" : "")" 
-                   href="/Admin/Log" role="menuitem">
-                    <i class="bi bi-file-text"></i>
-                    日誌查看
-                </a>
-            </li>
-        </ul>
-        
-        <!-- 側邊欄頁腳 -->
-        <div class="mt-auto p-3">
-            <div class="text-center">
-                <small class="text-muted">版本 1.0.0</small>
             </div>
-        </div>
-    </nav>
+            <div class="gc-admin-nav-item">
+                <a href="@Url.Action("Users", "Dashboard", new { area = "Admin" })" class="gc-admin-nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Users" ? "active" : "")">
+                    <i class="bi bi-people"></i>
+                    <span>?�戶管�?</span>
+                </a>
+            </div>
+            <div class="gc-admin-nav-item">
+                <a href="@Url.Action("Content", "Dashboard", new { area = "Admin" })" class="gc-admin-nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Content" ? "active" : "")">
+                    <i class="bi bi-file-text"></i>
+                    <span>?�容管�?</span>
+                </a>
+            </div>
+            <div class="gc-admin-nav-item">
+                <a href="@Url.Action("System", "Dashboard", new { area = "Admin" })" class="gc-admin-nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "System" ? "active" : "")">
+                    <i class="bi bi-gear"></i>
+                    <span>系統設�?</span>
+                </a>
+            </div>
+            <div class="gc-admin-nav-item">
+                <a href="@Url.Action("Reports", "Dashboard", new { area = "Admin" })" class="gc-admin-nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Reports" ? "active" : "")">
+                    <i class="bi bi-graph-up"></i>
+                    <span>?�表?��?</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
     
-    <!-- 管理後台主要內容區域 -->
-    <div class="admin-main" id="adminMain">
-        <!-- 管理後台頁首 -->
-        <header class="admin-header" role="banner">
-            <div class="container-fluid">
-                <div class="d-flex justify-content-between align-items-center py-3">
-                    <div class="d-flex align-items-center">
-                        <button class="sidebar-toggle me-3" id="sidebarToggle" aria-label="切換側邊欄">
-                            <i class="bi bi-list"></i>
-                        </button>
-                        
-                        <nav aria-label="麵包屑導航">
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item">
-                                    <a href="/Admin" class="text-decoration-none">
-                                        <i class="bi bi-house-door"></i>
+    <!-- 主�??�容?�??-->
+    <main class="gc-admin-main" id="main-content">
+        <!-- ?��? -->
+        <header class="gc-admin-header">
+            <div class="gc-container">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <button class="gc-admin-toggle" id="sidebarToggle" aria-label="?��??��?�?>
+                        <i class="bi bi-list"></i>
+                    </button>
+                    
+                    <div style="display: flex; align-items: center; gap: var(--gc-space-3);">
+                        <div class="gc-admin-user-dropdown">
+                            <button class="gc-admin-user-toggle" id="userDropdown" aria-expanded="false" aria-label="?�戶?�單">
+                                <i class="bi bi-person-circle"></i>
+                                <span>管�???/span>
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                            <ul class="gc-admin-dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="gc-admin-dropdown-item" href="#">
+                                        <i class="bi bi-person"></i>
+                                        <span>?�人資�?</span>
                                     </a>
                                 </li>
-                                @if (ViewData["Breadcrumbs"] != null)
-                                {
-                                    @foreach (var breadcrumb in (List<dynamic>)ViewData["Breadcrumbs"])
-                                    {
-                                        if (breadcrumb.IsActive)
-                                        {
-                                            <li class="breadcrumb-item active" aria-current="page">@breadcrumb.Text</li>
-                                        }
-                                        else
-                                        {
-                                            <li class="breadcrumb-item">
-                                                <a href="@breadcrumb.Url" class="text-decoration-none">@breadcrumb.Text</a>
-                                            </li>
-                                        }
-                                    }
-                                }
-                            </ol>
-                        </nav>
-                    </div>
-                    
-                    <div class="d-flex align-items-center">
-                        <!-- 通知 -->
-                        <div class="dropdown me-3">
-                            <button class="btn btn-outline-secondary btn-sm position-relative" type="button" 
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-bell"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    3
-                                </span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><h6 class="dropdown-header">通知</h6></li>
-                                <li><a class="dropdown-item" href="#">新用戶註冊</a></li>
-                                <li><a class="dropdown-item" href="#">新訂單待處理</a></li>
-                                <li><a class="dropdown-item" href="#">系統更新可用</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">查看所有通知</a></li>
-                            </ul>
-                        </div>
-                        
-                        <!-- 用戶選單 -->
-                        <div class="dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle me-2"></i>
-                                管理員
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="/Admin/Profile">個人資料</a></li>
-                                <li><a class="dropdown-item" href="/Admin/Settings">設定</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/">返回前台</a></li>
-                                <li><a class="dropdown-item" href="/api/auth/logout">登出</a></li>
+                                <li>
+                                    <a class="gc-admin-dropdown-item" href="#">
+                                        <i class="bi bi-gear"></i>
+                                        <span>設�?</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="gc-admin-dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="gc-admin-dropdown-item" href="#">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        <span>?�出</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -366,98 +678,100 @@
             </div>
         </header>
         
-        <!-- 管理後台內容 -->
-        <main id="main-content" class="admin-content" role="main">
+        <!-- ?�面?�容 -->
+        <div class="gc-admin-content">
             @RenderBody()
-        </main>
-    </div>
+        </div>
+    </main>
+
+    <!-- 行�?裝置?�罩 -->
+    <div class="gc-admin-overlay" id="adminOverlay"></div>
     
-    <!-- 行動裝置遮罩 -->
-    <div class="admin-overlay" id="adminOverlay"></div>
-    
-    <!-- JavaScript 腳本 -->
-    <!-- 核心腳本 -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- 自訂腳本 -->
+    <!-- JavaScript ?�本 -->
     <script src="~/js/site.js" asp-append-version="true"></script>
     
-    <!-- 管理後台專用腳本 -->
+    <!-- 管�?後台專用?�本 -->
     <script>
-        // 側邊欄切換功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarToggle = document.getElementById('sidebarToggle');
+        // ?��?欄�??��???
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
             const sidebar = document.getElementById('adminSidebar');
-            const main = document.getElementById('adminMain');
+            const main = document.querySelector('.gc-admin-main');
             const overlay = document.getElementById('adminOverlay');
             
-            if (sidebarToggle && sidebar && main) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('show');
-                    overlay.classList.toggle('show');
-                });
-                
-                // 點擊遮罩關閉側邊欄
-                if (overlay) {
-                    overlay.addEventListener('click', function() {
-                        sidebar.classList.remove('show');
-                        overlay.classList.remove('show');
-                    });
-                }
-                
-                // 響應式處理
-                function handleResize() {
-                    if (window.innerWidth <= 991.98) {
-                        sidebar.classList.remove('show');
-                        overlay.classList.remove('show');
-                    }
-                }
-                
-                window.addEventListener('resize', handleResize);
-                handleResize();
-            }
+            sidebar.classList.toggle('collapsed');
+            main.classList.toggle('expanded');
+            overlay.classList.toggle('show');
         });
         
-        // 管理後台特定功能
-        window.AdminCore = {
-            // 顯示通知
-            showNotification: function(message, type = 'info', duration = 5000) {
-                const notification = document.createElement('div');
-                notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-                notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
-                notification.innerHTML = `
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.remove();
-                    }
-                }, duration);
-            },
+        // 點�??�罩?��??��?�?
+        document.getElementById('adminOverlay').addEventListener('click', function() {
+            const sidebar = document.getElementById('adminSidebar');
+            const main = document.querySelector('.gc-admin-main');
+            const overlay = document.getElementById('adminOverlay');
             
-            // 確認對話框
-            confirmAction: function(message, callback) {
-                if (confirm(message)) {
-                    callback();
-                }
-            },
+            sidebar.classList.add('collapsed');
+            main.classList.add('expanded');
+            overlay.classList.remove('show');
+        });
+        
+        // ?��?式側?��?
+        function handleResize() {
+            const sidebar = document.getElementById('adminSidebar');
+            const main = document.querySelector('.gc-admin-main');
+            const overlay = document.getElementById('adminOverlay');
             
-            // 載入狀態管理
-            setLoading: function(isLoading) {
-                const spinner = document.getElementById('global-spinner');
-                if (spinner) {
-                    spinner.style.display = isLoading ? 'block' : 'none';
-                }
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+                main.classList.add('expanded');
+                overlay.classList.remove('show');
+            } else {
+                sidebar.classList.remove('collapsed');
+                main.classList.remove('expanded');
+                overlay.classList.remove('show');
             }
-        };
+        }
+        
+        // ??��視�?大�?變�?
+        window.addEventListener('resize', handleResize);
+        
+        // ?��???
+        handleResize();
+        
+        // ?��?礙�??��?�?
+        document.addEventListener('DOMContentLoaded', function() {
+            // ?��??��??�添?�適?��? ARIA 標籤
+            const buttons = document.querySelectorAll('button:not([aria-label]):not([aria-labelledby])');
+            buttons.forEach(button => {
+                if (button.textContent.trim()) {
+                    button.setAttribute('aria-label', button.textContent.trim());
+                }
+            });
+            
+            // ?��??��??添�??�當??ARIA 標籤
+            const links = document.querySelectorAll('a:not([aria-label]):not([aria-labelledby])');
+            links.forEach(link => {
+                if (link.textContent.trim() && !link.querySelector('img')) {
+                    link.setAttribute('aria-label', link.textContent.trim());
+                }
+            });
+            
+            // ?�盤導航?�援
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const sidebar = document.getElementById('adminSidebar');
+                    const overlay = document.getElementById('adminOverlay');
+                    
+                    if (!sidebar.classList.contains('collapsed')) {
+                        sidebar.classList.add('collapsed');
+                        document.querySelector('.gc-admin-main').classList.add('expanded');
+                        overlay.classList.remove('show');
+                    }
+                }
+            });
+        });
     </script>
     
-    <!-- 頁面特定腳本 -->
+    <!-- ?�面?��??�本 -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html> 

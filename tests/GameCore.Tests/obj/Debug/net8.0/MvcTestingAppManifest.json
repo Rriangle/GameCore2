@@ -1,0 +1,7 @@
+{
+  "GameCore.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\GameCore2\\src\\GameCore.Application",
+  "GameCore.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\GameCore2\\src\\GameCore.Domain",
+  "GameCore.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\GameCore2\\src\\GameCore.Infrastructure",
+  "GameCore.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\GameCore2\\src\\GameCore.Shared",
+  "GameCore.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\GameCore2\\src\\GameCore.Web"
+}

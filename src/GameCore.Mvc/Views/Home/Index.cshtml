@@ -4,28 +4,31 @@
 }
 
 <!-- 英雄區塊 -->
-<section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="hero-title">
+<section style="background: var(--gc-bg); padding: var(--gc-space-16) 0; position: relative; overflow: hidden;">
+    <!-- 背景裝飾 -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, var(--gc-accent-2) 0%, var(--gc-accent-3) 100%); opacity: 0.1;"></div>
+    
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4); position: relative; z-index: 1;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--gc-space-8); align-items: center;">
+            <div>
+                <h1 style="font-size: var(--gc-text-5xl); font-weight: var(--gc-font-bold); color: var(--gc-ink); margin-bottom: var(--gc-space-4); line-height: 1.2;">
                     🎮 歡迎來到 GameCore
                 </h1>
-                <p class="hero-subtitle">
+                <p style="font-size: var(--gc-text-xl); color: var(--gc-muted); margin-bottom: var(--gc-space-6); line-height: 1.6;">
                     整合遊戲熱度觀測、論壇社群、商城、玩家市場、寵物養成的綜合平台
                 </p>
-                <div class="hero-actions">
-                    <a href="/api/store" class="gc-btn gc-btn-primary gc-btn-lg">
-                        <i class="bi bi-shop me-2"></i>探索商城
+                <div style="display: flex; gap: var(--gc-space-4); flex-wrap: wrap;">
+                    <a href="/api/store" class="gc-btn" style="font-size: var(--gc-text-lg); padding: var(--gc-space-4) var(--gc-space-6);">
+                        <i class="bi bi-shop" style="margin-right: var(--gc-space-2);"></i>探索商城
                     </a>
-                    <a href="/api/forum" class="gc-btn gc-btn-secondary gc-btn-lg">
-                        <i class="bi bi-chat-dots me-2"></i>加入社群
+                    <a href="/api/forum" class="gc-btn-secondary" style="font-size: var(--gc-text-lg); padding: var(--gc-space-4) var(--gc-space-6);">
+                        <i class="bi bi-chat-dots" style="margin-right: var(--gc-space-2);"></i>加入社群
                     </a>
                 </div>
             </div>
-            <div class="col-lg-6 text-center">
-                <div class="hero-illustration">
-                    <i class="bi bi-controller" style="font-size: 8rem; color: rgba(255,255,255,0.2);"></i>
+            <div style="text-align: center;">
+                <div style="background: var(--gc-glass); border-radius: var(--gc-radius-lg); padding: var(--gc-space-8); backdrop-filter: blur(10px);">
+                    <i class="bi bi-controller" style="font-size: var(--gc-text-6xl); color: var(--gc-accent); opacity: 0.8;"></i>
                 </div>
             </div>
         </div>
@@ -33,99 +36,99 @@
 </section>
 
 <!-- 功能特色區塊 -->
-<section class="feature-section">
-    <div class="feature-container">
-        <div class="text-center mb-8">
-            <h2 class="gc-text-4xl gc-font-bold gc-text-neutral-800">
+<section style="background: var(--gc-surface); padding: var(--gc-space-16) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4);">
+        <div style="text-align: center; margin-bottom: var(--gc-space-12);">
+            <h2 style="font-size: var(--gc-text-4xl); font-weight: var(--gc-font-bold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
                 平台特色
             </h2>
-            <p class="gc-text-lg gc-text-neutral-600 gc-mt-4">
+            <p style="font-size: var(--gc-text-lg); color: var(--gc-muted);">
                 發現 GameCore 的強大功能，讓您的遊戲體驗更加豐富
             </p>
         </div>
         
-        <div class="feature-grid">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--gc-space-6);">
             <!-- 遊戲熱度觀測 -->
-            <div class="game-card">
-                <div class="game-card-icon">
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center; transition: transform 0.3s ease;">
+                <div style="background: var(--gc-accent-2); color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
                     <i class="bi bi-graph-up"></i>
                 </div>
-                <h3 class="game-card-title">遊戲熱度觀測</h3>
-                <p class="game-card-description">
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">遊戲熱度觀測</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
                     即時追蹤遊戲熱度趨勢，了解最新遊戲動態和玩家偏好
                 </p>
-                <a href="/api/leaderboard" class="gc-btn gc-btn-primary">
-                    <i class="bi bi-arrow-right me-2"></i>查看熱度
+                <a href="/api/leaderboard" class="gc-btn" style="width: 100%;">
+                    <i class="bi bi-arrow-right" style="margin-right: var(--gc-space-2);"></i>查看熱度
                 </a>
             </div>
             
             <!-- 論壇社群 -->
-            <div class="game-card">
-                <div class="game-card-icon">
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center; transition: transform 0.3s ease;">
+                <div style="background: var(--gc-accent-3); color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
                     <i class="bi bi-people"></i>
                 </div>
-                <h3 class="game-card-title">論壇社群</h3>
-                <p class="game-card-description">
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">論壇社群</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
                     與其他玩家交流心得，分享遊戲攻略，建立遊戲社群
                 </p>
-                <a href="/api/forum" class="gc-btn gc-btn-primary">
-                    <i class="bi bi-arrow-right me-2"></i>加入討論
+                <a href="/api/forum" class="gc-btn" style="width: 100%;">
+                    <i class="bi bi-arrow-right" style="margin-right: var(--gc-space-2);"></i>加入討論
                 </a>
             </div>
             
             <!-- 遊戲商城 -->
-            <div class="game-card">
-                <div class="game-card-icon">
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center; transition: transform 0.3s ease;">
+                <div style="background: #f59e0b; color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
                     <i class="bi bi-bag"></i>
                 </div>
-                <h3 class="game-card-title">遊戲商城</h3>
-                <p class="game-card-description">
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">遊戲商城</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
                     購買遊戲道具、裝備和虛擬商品，提升遊戲體驗
                 </p>
-                <a href="/api/store" class="gc-btn gc-btn-primary">
-                    <i class="bi bi-arrow-right me-2"></i>瀏覽商品
+                <a href="/api/store" class="gc-btn" style="width: 100%;">
+                    <i class="bi bi-arrow-right" style="margin-right: var(--gc-space-2);"></i>瀏覽商品
                 </a>
             </div>
             
             <!-- 玩家市場 -->
-            <div class="game-card">
-                <div class="game-card-icon">
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center; transition: transform 0.3s ease;">
+                <div style="background: var(--gc-accent); color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
                     <i class="bi bi-currency-exchange"></i>
                 </div>
-                <h3 class="game-card-title">玩家市場</h3>
-                <p class="game-card-description">
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">玩家市場</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
                     與其他玩家交易遊戲物品，自由買賣，建立經濟系統
                 </p>
-                <a href="/api/market" class="gc-btn gc-btn-primary">
-                    <i class="bi bi-arrow-right me-2"></i>進入市場
+                <a href="/api/market" class="gc-btn" style="width: 100%;">
+                    <i class="bi bi-arrow-right" style="margin-right: var(--gc-space-2);"></i>進入市場
                 </a>
             </div>
             
             <!-- 寵物養成 -->
-            <div class="game-card">
-                <div class="game-card-icon">
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center; transition: transform 0.3s ease;">
+                <div style="background: #ec4899; color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
                     <i class="bi bi-heart"></i>
                 </div>
-                <h3 class="game-card-title">寵物養成</h3>
-                <p class="game-card-description">
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">寵物養成</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
                     養成專屬寵物，陪伴您的遊戲旅程，獲得額外獎勵
                 </p>
-                <a href="/api/pet" class="gc-btn gc-btn-primary">
-                    <i class="bi bi-arrow-right me-2"></i>照顧寵物
+                <a href="/api/pet" class="gc-btn" style="width: 100%;">
+                    <i class="bi bi-arrow-right" style="margin-right: var(--gc-space-2);"></i>照顧寵物
                 </a>
             </div>
             
             <!-- 小遊戲 -->
-            <div class="game-card">
-                <div class="game-card-icon">
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center; transition: transform 0.3s ease;">
+                <div style="background: var(--gc-down); color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
                     <i class="bi bi-joystick"></i>
                 </div>
-                <h3 class="game-card-title">小遊戲</h3>
-                <p class="game-card-description">
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">小遊戲</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
                     體驗各種有趣的小遊戲，放鬆心情，獲得遊戲幣
                 </p>
-                <a href="/api/minigame" class="gc-btn gc-btn-primary">
-                    <i class="bi bi-arrow-right me-2"></i>開始遊戲
+                <a href="/api/minigame" class="gc-btn" style="width: 100%;">
+                    <i class="bi bi-arrow-right" style="margin-right: var(--gc-space-2);"></i>開始遊戲
                 </a>
             </div>
         </div>
@@ -133,72 +136,72 @@
 </section>
 
 <!-- 快速開始區塊 -->
-<section class="feature-section" style="background-color: var(--gc-neutral-0);">
-    <div class="feature-container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h2 class="gc-text-3xl gc-font-bold gc-text-neutral-800 gc-mb-4">
+<section style="background: var(--gc-bg); padding: var(--gc-space-16) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4);">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--gc-space-8); align-items: center;">
+            <div>
+                <h2 style="font-size: var(--gc-text-3xl); font-weight: var(--gc-font-bold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
                     快速開始您的 GameCore 之旅
                 </h2>
-                <p class="gc-text-lg gc-text-neutral-600 gc-mb-6">
+                <p style="font-size: var(--gc-text-lg); color: var(--gc-muted); margin-bottom: var(--gc-space-6); line-height: 1.6;">
                     只需幾個簡單步驟，即可開始享受 GameCore 的所有功能
                 </p>
                 
-                <div class="gc-mb-6">
-                    <div class="d-flex align-items-center gc-mb-3">
-                        <div class="gc-bg-primary gc-text-neutral-0 gc-rounded-full" style="width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
-                        <span class="gc-text-lg gc-font-medium gc-ml-3">註冊帳號</span>
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <div style="display: flex; align-items: center; margin-bottom: var(--gc-space-3);">
+                        <div style="background: var(--gc-accent); color: white; width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: var(--gc-font-bold);">1</div>
+                        <span style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-medium); margin-left: var(--gc-space-3);">註冊帳號</span>
                     </div>
-                    <p class="gc-text-neutral-600 gc-ml-5">創建您的 GameCore 帳號，開始遊戲之旅</p>
+                    <p style="color: var(--gc-muted); margin-left: var(--gc-space-5);">創建您的 GameCore 帳號，開始遊戲之旅</p>
                 </div>
                 
-                <div class="gc-mb-6">
-                    <div class="d-flex align-items-center gc-mb-3">
-                        <div class="gc-bg-primary gc-text-neutral-0 gc-rounded-full" style="width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
-                        <span class="gc-text-lg gc-font-medium gc-ml-3">完成新手任務</span>
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <div style="display: flex; align-items: center; margin-bottom: var(--gc-space-3);">
+                        <div style="background: var(--gc-accent); color: white; width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: var(--gc-font-bold);">2</div>
+                        <span style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-medium); margin-left: var(--gc-space-3);">完成新手任務</span>
                     </div>
-                    <p class="gc-text-neutral-600 gc-ml-5">完成新手任務，獲得初始獎勵和遊戲幣</p>
+                    <p style="color: var(--gc-muted); margin-left: var(--gc-space-5);">完成新手任務，獲得初始獎勵和遊戲幣</p>
                 </div>
                 
-                <div class="gc-mb-6">
-                    <div class="d-flex align-items-center gc-mb-3">
-                        <div class="gc-bg-primary gc-text-neutral-0 gc-rounded-full" style="width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
-                        <span class="gc-text-lg gc-font-medium gc-ml-3">探索功能</span>
+                <div style="margin-bottom: var(--gc-space-6);">
+                    <div style="display: flex; align-items: center; margin-bottom: var(--gc-space-3);">
+                        <div style="background: var(--gc-accent); color: white; width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: var(--gc-font-bold);">3</div>
+                        <span style="font-size: var(--gc-text-lg); font-weight: var(--gc-font-medium); margin-left: var(--gc-space-3);">探索功能</span>
                     </div>
-                    <p class="gc-text-neutral-600 gc-ml-5">探索各種功能，找到您最喜歡的遊戲方式</p>
+                    <p style="color: var(--gc-muted); margin-left: var(--gc-space-5);">探索各種功能，找到您最喜歡的遊戲方式</p>
                 </div>
                 
-                <div class="gc-mt-8">
-                    <a href="/api/auth/register" class="gc-btn gc-btn-primary gc-btn-lg gc-mr-3">
-                        <i class="bi bi-person-plus me-2"></i>立即註冊
+                <div style="margin-top: var(--gc-space-8);">
+                    <a href="/api/auth/register" class="gc-btn" style="font-size: var(--gc-text-lg); padding: var(--gc-space-4) var(--gc-space-6); margin-right: var(--gc-space-3);">
+                        <i class="bi bi-person-plus" style="margin-right: var(--gc-space-2);"></i>立即註冊
                     </a>
-                    <a href="/api-docs" class="gc-btn gc-btn-secondary gc-btn-lg">
-                        <i class="bi bi-book me-2"></i>查看文件
+                    <a href="/api-docs" class="gc-btn-secondary" style="font-size: var(--gc-text-lg); padding: var(--gc-space-4) var(--gc-space-6);">
+                        <i class="bi bi-book" style="margin-right: var(--gc-space-2);"></i>查看文件
                     </a>
                 </div>
             </div>
             
-            <div class="col-lg-6 text-center">
-                <div class="gc-card gc-p-6" style="max-width: 400px; margin: 0 auto;">
-                    <div class="gc-text-center gc-mb-4">
-                        <i class="bi bi-rocket-takeoff" style="font-size: 4rem; color: var(--gc-primary-500);"></i>
+            <div style="text-align: center;">
+                <div class="gc-card" style="max-width: 400px; margin: 0 auto; padding: var(--gc-space-6);">
+                    <div style="text-align: center; margin-bottom: var(--gc-space-4);">
+                        <i class="bi bi-rocket-takeoff" style="font-size: var(--gc-text-4xl); color: var(--gc-accent);"></i>
                     </div>
-                    <h3 class="gc-text-xl gc-font-bold gc-mb-3">新手福利</h3>
-                    <ul class="list-unstyled gc-text-left">
-                        <li class="gc-mb-2">
-                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                    <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-bold); margin-bottom: var(--gc-space-3);">新手福利</h3>
+                    <ul style="list-style: none; padding: 0; text-align: left;">
+                        <li style="margin-bottom: var(--gc-space-2);">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
                             註冊即送 1000 遊戲幣
                         </li>
-                        <li class="gc-mb-2">
-                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                        <li style="margin-bottom: var(--gc-space-2);">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
                             免費寵物蛋一顆
                         </li>
-                        <li class="gc-mb-2">
-                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                        <li style="margin-bottom: var(--gc-space-2);">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
                             7 天 VIP 體驗
                         </li>
-                        <li class="gc-mb-2">
-                            <i class="bi bi-check-circle-fill gc-text-success gc-mr-2"></i>
+                        <li style="margin-bottom: var(--gc-space-2);">
+                            <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
                             專屬新手禮包
                         </li>
                     </ul>
@@ -208,113 +211,390 @@
     </div>
 </section>
 
-<!-- 統計數據區塊 -->
-<section class="feature-section">
-    <div class="feature-container">
-        <div class="text-center gc-mb-8">
-            <h2 class="gc-text-3xl gc-font-bold gc-text-neutral-800">
-                平台數據
+<!-- 組件展示區塊 -->
+<section style="background: var(--gc-bg); padding: var(--gc-space-16) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4);">
+        <div style="text-align: center; margin-bottom: var(--gc-space-12);">
+            <h2 style="font-size: var(--gc-text-3xl); font-weight: var(--gc-font-bold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                互動組件展示
             </h2>
-            <p class="gc-text-lg gc-text-neutral-600 gc-mt-4">
-                了解 GameCore 的成長和活躍度
+            <p style="font-size: var(--gc-text-lg); color: var(--gc-muted);">
+                體驗 GameCore 的現代化 UI 組件系統
             </p>
         </div>
         
-        <div class="row text-center">
-            <div class="col-md-3 gc-mb-4">
-                <div class="gc-card gc-p-6">
-                    <div class="gc-text-4xl gc-font-bold gc-text-primary gc-mb-2">
-                        <i class="bi bi-people-fill"></i>
-                    </div>
-                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">10,000+</h3>
-                    <p class="gc-text-neutral-600">活躍用戶</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--gc-space-6);">
+            <!-- Modal 組件展示 -->
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center;">
+                <div style="background: var(--gc-accent-2); color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
+                    <i class="bi bi-window"></i>
+                </div>
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">Modal 彈出層</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
+                    現代化的彈出層系統，支援多種尺寸和動畫效果
+                </p>
+                <button class="gc-btn" onclick="showModal()" style="width: 100%;">
+                    <i class="bi bi-eye" style="margin-right: var(--gc-space-2);"></i>開啟 Modal
+                </button>
+            </div>
+            
+            <!-- Toast 通知展示 -->
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center;">
+                <div style="background: var(--gc-accent-3); color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
+                    <i class="bi bi-bell"></i>
+                </div>
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">Toast 通知</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
+                    即時通知系統，支援成功、錯誤、警告、資訊四種類型
+                </p>
+                <div style="display: flex; gap: var(--gc-space-2); flex-wrap: wrap;">
+                    <button class="gc-btn" onclick="showToast('success')" style="flex: 1; min-width: 80px;">
+                        <i class="bi bi-check-circle" style="margin-right: var(--gc-space-1);"></i>成功
+                    </button>
+                    <button class="gc-btn-secondary" onclick="showToast('error')" style="flex: 1; min-width: 80px;">
+                        <i class="bi bi-x-circle" style="margin-right: var(--gc-space-1);"></i>錯誤
+                    </button>
+                    <button class="gc-btn-secondary" onclick="showToast('warning')" style="flex: 1; min-width: 80px;">
+                        <i class="bi bi-exclamation-triangle" style="margin-right: var(--gc-space-1);"></i>警告
+                    </button>
+                    <button class="gc-btn-secondary" onclick="showToast('info')" style="flex: 1; min-width: 80px;">
+                        <i class="bi bi-info-circle" style="margin-right: var(--gc-space-1);"></i>資訊
+                    </button>
                 </div>
             </div>
             
-            <div class="col-md-3 gc-mb-4">
-                <div class="gc-card gc-p-6">
-                    <div class="gc-text-4xl gc-font-bold gc-text-success gc-mb-2">
-                        <i class="bi bi-chat-dots-fill"></i>
+            <!-- Accordion 手風琴展示 -->
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center;">
+                <div style="background: var(--gc-accent); color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
+                    <i class="bi bi-list-ul"></i>
+                </div>
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">Accordion 手風琴</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
+                    可展開收合的內容區塊，節省空間並改善用戶體驗
+                </p>
+                <div class="gc-accordion" style="text-align: left;">
+                    <div class="gc-accordion-item">
+                        <button class="gc-accordion-header" onclick="toggleAccordion(this)">
+                            <i class="bi bi-chevron-right" style="margin-right: var(--gc-space-2); transition: transform 0.3s ease;"></i>
+                            平台特色
+                        </button>
+                        <div class="gc-accordion-content" style="display: none;">
+                            <p style="padding: var(--gc-space-3); color: var(--gc-muted);">GameCore 提供遊戲熱度觀測、論壇社群、商城、玩家市場、寵物養成等豐富功能。</p>
+                        </div>
                     </div>
-                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">50,000+</h3>
-                    <p class="gc-text-neutral-600">論壇帖子</p>
+                    <div class="gc-accordion-item">
+                        <button class="gc-accordion-header" onclick="toggleAccordion(this)">
+                            <i class="bi bi-chevron-right" style="margin-right: var(--gc-space-2); transition: transform 0.3s ease;"></i>
+                            技術架構
+                        </button>
+                        <div class="gc-accordion-content" style="display: none;">
+                            <p style="padding: var(--gc-space-3); color: var(--gc-muted);">採用現代化的 .NET Core 和 Vue.js 技術棧，確保高效能和良好的用戶體驗。</p>
+                        </div>
+                    </div>
+                    <div class="gc-accordion-item">
+                        <button class="gc-accordion-header" onclick="toggleAccordion(this)">
+                            <i class="bi bi-chevron-right" style="margin-right: var(--gc-space-2); transition: transform 0.3s ease;"></i>
+                            安全機制
+                        </button>
+                        <div class="gc-accordion-content" style="display: none;">
+                            <p style="padding: var(--gc-space-3); color: var(--gc-muted);">多重安全驗證、資料加密、防範 SQL 注入和 XSS 攻擊，保障用戶資料安全。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="col-md-3 gc-mb-4">
-                <div class="gc-card gc-p-6">
-                    <div class="gc-text-4xl gc-font-bold gc-text-warning gc-mb-2">
-                        <i class="bi bi-shop"></i>
-                    </div>
-                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">1,000+</h3>
-                    <p class="gc-text-neutral-600">商品種類</p>
+            <!-- Tabs 標籤頁展示 -->
+            <div class="gc-card" style="padding: var(--gc-space-6); text-align: center;">
+                <div style="background: #f59e0b; color: white; width: 60px; height: 60px; border-radius: var(--gc-radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--gc-space-4); font-size: var(--gc-text-2xl);">
+                    <i class="bi bi-collection"></i>
                 </div>
-            </div>
-            
-            <div class="col-md-3 gc-mb-4">
-                <div class="gc-card gc-p-6">
-                    <div class="gc-text-4xl gc-font-bold gc-text-error gc-mb-2">
-                        <i class="bi bi-trophy-fill"></i>
+                <h3 style="font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold); color: var(--gc-ink); margin-bottom: var(--gc-space-3);">Tabs 標籤頁</h3>
+                <p style="color: var(--gc-muted); margin-bottom: var(--gc-space-4); line-height: 1.6;">
+                    響應式標籤頁系統，支援內容切換和鍵盤導航
+                </p>
+                <div class="gc-tabs" style="text-align: left;">
+                    <div class="gc-tabs-header">
+                        <button class="gc-tab-button active" onclick="switchTab(this, 'tab1')">功能</button>
+                        <button class="gc-tab-button" onclick="switchTab(this, 'tab2')">技術</button>
+                        <button class="gc-tab-button" onclick="switchTab(this, 'tab3')">社群</button>
                     </div>
-                    <h3 class="gc-text-2xl gc-font-bold gc-text-neutral-800">100+</h3>
-                    <p class="gc-text-neutral-600">遊戲成就</p>
+                    <div class="gc-tabs-content">
+                        <div id="tab1" class="gc-tab-panel active">
+                            <p style="padding: var(--gc-space-3); color: var(--gc-muted);">遊戲熱度觀測、論壇社群、商城、玩家市場、寵物養成、小遊戲等豐富功能。</p>
+                        </div>
+                        <div id="tab2" class="gc-tab-panel">
+                            <p style="padding: var(--gc-space-3); color: var(--gc-muted);">.NET Core、Vue.js、設計令牌系統、響應式設計、無障礙性支援。</p>
+                        </div>
+                        <div id="tab3" class="gc-tab-panel">
+                            <p style="padding: var(--gc-space-3); color: var(--gc-muted);">Discord 社群、GitHub 開源、技術交流、用戶反饋、持續改進。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Modal 組件 -->
+<div id="demoModal" class="gc-modal" style="display: none;">
+    <div class="gc-modal-backdrop" onclick="closeModal()"></div>
+    <div class="gc-modal-content">
+        <div class="gc-modal-header">
+            <h3 style="margin: 0; font-size: var(--gc-text-xl); font-weight: var(--gc-font-semibold);">Modal 組件展示</h3>
+            <button class="gc-modal-close" onclick="closeModal()">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="gc-modal-body">
+            <p style="margin-bottom: var(--gc-space-4); color: var(--gc-muted);">
+                這是一個現代化的 Modal 彈出層組件，具有以下特色：
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                    玻璃風背景效果
+                </li>
+                <li style="margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                    平滑的動畫過渡
+                </li>
+                <li style="margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                    響應式設計支援
+                </li>
+                <li style="margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                    鍵盤導航支援
+                </li>
+                <li style="margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-check-circle-fill" style="color: var(--gc-accent-3); margin-right: var(--gc-space-2);"></i>
+                    深色模式相容
+                </li>
+            </ul>
+        </div>
+        <div class="gc-modal-footer">
+            <button class="gc-btn-secondary" onclick="closeModal()">關閉</button>
+            <button class="gc-btn" onclick="showToast('success')">了解更多</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast 容器 -->
+<div id="toastContainer" class="gc-toast-container"></div>
+
+<!-- JavaScript 互動功能 -->
+<script>
+// Modal 組件功能
+function showModal() {
+    const modal = document.getElementById('demoModal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    // 聚焦到 Modal 內容
+    setTimeout(() => {
+        const modalContent = modal.querySelector('.gc-modal-content');
+        modalContent.focus();
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('demoModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+// Toast 通知功能
+function showToast(type) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `gc-toast gc-toast-${type}`;
+    
+    const icons = {
+        success: 'bi-check-circle-fill',
+        error: 'bi-x-circle-fill',
+        warning: 'bi-exclamation-triangle-fill',
+        info: 'bi-info-circle-fill'
+    };
+    
+    const messages = {
+        success: '操作成功完成！',
+        error: '發生錯誤，請稍後再試。',
+        warning: '請注意，這是一個警告訊息。',
+        info: '這是一條資訊訊息。'
+    };
+    
+    toast.innerHTML = `
+        <i class="bi ${icons[type]}" style="margin-right: var(--gc-space-2);"></i>
+        <span>${messages[type]}</span>
+        <button onclick="this.parentElement.remove()" style="background: none; border: none; color: inherit; cursor: pointer; margin-left: auto;">
+            <i class="bi bi-x"></i>
+        </button>
+    `;
+    
+    container.appendChild(toast);
+    
+    // 自動移除
+    setTimeout(() => {
+        if (toast.parentElement) {
+            toast.remove();
+        }
+    }, 5000);
+}
+
+// Accordion 手風琴功能
+function toggleAccordion(button) {
+    const content = button.nextElementSibling;
+    const icon = button.querySelector('i');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        icon.style.transform = 'rotate(90deg)';
+        button.setAttribute('aria-expanded', 'true');
+    } else {
+        content.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)';
+        button.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Tabs 標籤頁功能
+function switchTab(button, tabId) {
+    // 移除所有活動狀態
+    const tabButtons = button.parentElement.querySelectorAll('.gc-tab-button');
+    const tabPanels = button.parentElement.parentElement.querySelectorAll('.gc-tab-panel');
+    
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    tabPanels.forEach(panel => panel.classList.remove('active'));
+    
+    // 設定活動狀態
+    button.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+}
+
+// 鍵盤導航支援
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('demoModal');
+        if (modal.style.display === 'flex') {
+            closeModal();
+        }
+    }
+});
+
+// 頁面載入完成後的初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 設定 Accordion 的初始狀態
+    const accordionHeaders = document.querySelectorAll('.gc-accordion-header');
+    accordionHeaders.forEach(header => {
+        header.setAttribute('aria-expanded', 'false');
+    });
+    
+    // 設定 Tabs 的初始狀態
+    const tabButtons = document.querySelectorAll('.gc-tab-button');
+    tabButtons.forEach(button => {
+        button.setAttribute('role', 'tab');
+        button.setAttribute('aria-selected', button.classList.contains('active'));
+    });
+});
+</script>
+
+<!-- 統計數據區塊 -->
+<section style="background: var(--gc-surface); padding: var(--gc-space-16) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4);">
+        <div style="text-align: center; margin-bottom: var(--gc-space-12);">
+            <h2 style="font-size: var(--gc-text-3xl); font-weight: var(--gc-font-bold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
+                平台數據
+            </h2>
+            <p style="font-size: var(--gc-text-lg); color: var(--gc-muted);">
+                了解 GameCore 的成長和活躍度
+            </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--gc-space-6); text-align: center;">
+            <div class="gc-card" style="padding: var(--gc-space-6);">
+                <div style="font-size: var(--gc-text-4xl); font-weight: var(--gc-font-bold); color: var(--gc-accent); margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <h3 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: var(--gc-ink);">10,000+</h3>
+                <p style="color: var(--gc-muted);">活躍用戶</p>
+            </div>
+            
+            <div class="gc-card" style="padding: var(--gc-space-6);">
+                <div style="font-size: var(--gc-text-4xl); font-weight: var(--gc-font-bold); color: var(--gc-accent-3); margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-chat-dots-fill"></i>
+                </div>
+                <h3 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: var(--gc-ink);">50,000+</h3>
+                <p style="color: var(--gc-muted);">論壇帖子</p>
+            </div>
+            
+            <div class="gc-card" style="padding: var(--gc-space-6);">
+                <div style="font-size: var(--gc-text-4xl); font-weight: var(--gc-font-bold); color: #f59e0b; margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-shop"></i>
+                </div>
+                <h3 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: var(--gc-ink);">1,000+</h3>
+                <p style="color: var(--gc-muted);">商品種類</p>
+            </div>
+            
+            <div class="gc-card" style="padding: var(--gc-space-6);">
+                <div style="font-size: var(--gc-text-4xl); font-weight: var(--gc-font-bold); color: var(--gc-down); margin-bottom: var(--gc-space-2);">
+                    <i class="bi bi-trophy-fill"></i>
+                </div>
+                <h3 style="font-size: var(--gc-text-2xl); font-weight: var(--gc-font-bold); color: var(--gc-ink);">100+</h3>
+                <p style="color: var(--gc-muted);">遊戲成就</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- 聯絡我們區塊 -->
-<section class="feature-section" style="background-color: var(--gc-neutral-0);">
-    <div class="feature-container">
-        <div class="text-center gc-mb-8">
-            <h2 class="gc-text-3xl gc-font-bold gc-text-neutral-800">
+<section style="background: var(--gc-bg); padding: var(--gc-space-16) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4);">
+        <div style="text-align: center; margin-bottom: var(--gc-space-12);">
+            <h2 style="font-size: var(--gc-text-3xl); font-weight: var(--gc-font-bold); color: var(--gc-ink); margin-bottom: var(--gc-space-4);">
                 聯絡我們
             </h2>
-            <p class="gc-text-lg gc-text-neutral-600 gc-mt-4">
+            <p style="font-size: var(--gc-text-lg); color: var(--gc-muted);">
                 有任何問題或建議？我們很樂意聽取您的意見
             </p>
         </div>
         
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="gc-card gc-p-6">
-                    <div class="row">
-                        <div class="col-md-6 gc-mb-4">
-                            <h4 class="gc-font-semibold gc-mb-3">
-                                <i class="bi bi-envelope gc-text-primary gc-mr-2"></i>
-                                電子郵件
-                            </h4>
-                            <p class="gc-text-neutral-600">support@gamecore.com</p>
-                            <p class="gc-text-sm gc-text-neutral-500">24 小時內回覆</p>
-                        </div>
-                        
-                        <div class="col-md-6 gc-mb-4">
-                            <h4 class="gc-font-semibold gc-mb-3">
-                                <i class="bi bi-discord gc-text-primary gc-mr-2"></i>
-                                Discord 社群
-                            </h4>
-                            <p class="gc-text-neutral-600">加入我們的 Discord 伺服器</p>
-                            <a href="#" class="gc-btn gc-btn-primary gc-btn-sm">加入社群</a>
-                        </div>
-                        
-                        <div class="col-md-6 gc-mb-4">
-                            <h4 class="gc-font-semibold gc-mb-3">
-                                <i class="bi bi-github gc-text-primary gc-mr-2"></i>
-                                GitHub
-                            </h4>
-                            <p class="gc-text-neutral-600">查看開源程式碼</p>
-                            <a href="#" class="gc-btn gc-btn-secondary gc-btn-sm">查看專案</a>
-                        </div>
-                        
-                        <div class="col-md-6 gc-mb-4">
-                            <h4 class="gc-font-semibold gc-mb-3">
-                                <i class="bi bi-question-circle gc-text-primary gc-mr-2"></i>
-                                常見問題
-                            </h4>
-                            <p class="gc-text-neutral-600">查看 FAQ 和說明文件</p>
-                            <a href="/api-docs" class="gc-btn gc-btn-secondary gc-btn-sm">查看文件</a>
-                        </div>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="gc-card" style="padding: var(--gc-space-6);">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--gc-space-6);">
+                    <div>
+                        <h4 style="font-weight: var(--gc-font-semibold); margin-bottom: var(--gc-space-3);">
+                            <i class="bi bi-envelope" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                            電子郵件
+                        </h4>
+                        <p style="color: var(--gc-muted);">support@gamecore.com</p>
+                        <p style="font-size: var(--gc-text-sm); color: var(--gc-muted-2);">24 小時內回覆</p>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-weight: var(--gc-font-semibold); margin-bottom: var(--gc-space-3);">
+                            <i class="bi bi-discord" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                            Discord 社群
+                        </h4>
+                        <p style="color: var(--gc-muted);">加入我們的 Discord 伺服器</p>
+                        <a href="#" class="gc-btn" style="font-size: var(--gc-text-sm); padding: var(--gc-space-2) var(--gc-space-3);">加入社群</a>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-weight: var(--gc-font-semibold); margin-bottom: var(--gc-space-3);">
+                            <i class="bi bi-github" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                            GitHub
+                        </h4>
+                        <p style="color: var(--gc-muted);">查看開源程式碼</p>
+                        <a href="#" class="gc-btn-secondary" style="font-size: var(--gc-text-sm); padding: var(--gc-space-2) var(--gc-space-3);">查看專案</a>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-weight: var(--gc-font-semibold); margin-bottom: var(--gc-space-3);">
+                            <i class="bi bi-question-circle" style="color: var(--gc-accent); margin-right: var(--gc-space-2);"></i>
+                            常見問題
+                        </h4>
+                        <p style="color: var(--gc-muted);">查看 FAQ 和說明文件</p>
+                        <a href="/api-docs" class="gc-btn-secondary" style="font-size: var(--gc-text-sm); padding: var(--gc-space-2) var(--gc-space-3);">查看文件</a>
                     </div>
                 </div>
             </div>
@@ -323,23 +603,21 @@
 </section>
 
 <!-- 頁腳行動召喚 -->
-<section class="feature-section" style="background: linear-gradient(135deg, var(--gc-primary-600) 0%, var(--gc-primary-800) 100%);">
-    <div class="feature-container">
-        <div class="text-center gc-text-neutral-0">
-            <h2 class="gc-text-3xl gc-font-bold gc-mb-4">
-                準備好開始您的 GameCore 冒險了嗎？
-            </h2>
-            <p class="gc-text-lg gc-mb-6" style="opacity: 0.9;">
-                加入數千名玩家，體驗全新的遊戲社群平台
-            </p>
-            <div class="gc-mb-4">
-                <a href="/api/auth/register" class="gc-btn gc-btn-lg" style="background-color: var(--gc-neutral-0); color: var(--gc-primary-600); border-color: var(--gc-neutral-0);">
-                    <i class="bi bi-rocket-takeoff me-2"></i>立即開始
-                </a>
-            </div>
-            <p class="gc-text-sm" style="opacity: 0.8;">
-                免費註冊 • 無需信用卡 • 立即開始
-            </p>
+<section style="background: linear-gradient(135deg, var(--gc-accent) 0%, var(--gc-accent-2) 100%); padding: var(--gc-space-16) 0;">
+    <div style="max-width: var(--gc-container-max); margin: 0 auto; padding: 0 var(--gc-space-4); text-align: center; color: white;">
+        <h2 style="font-size: var(--gc-text-3xl); font-weight: var(--gc-font-bold); margin-bottom: var(--gc-space-4);">
+            準備好開始您的 GameCore 冒險了嗎？
+        </h2>
+        <p style="font-size: var(--gc-text-lg); margin-bottom: var(--gc-space-6); opacity: 0.9;">
+            加入數千名玩家，體驗全新的遊戲社群平台
+        </p>
+        <div style="margin-bottom: var(--gc-space-4);">
+            <a href="/api/auth/register" class="gc-btn" style="background: white; color: var(--gc-accent); border-color: white; font-size: var(--gc-text-lg); padding: var(--gc-space-4) var(--gc-space-6);">
+                <i class="bi bi-rocket-takeoff" style="margin-right: var(--gc-space-2);"></i>立即開始
+            </a>
         </div>
+        <p style="font-size: var(--gc-text-sm); opacity: 0.8;">
+            免費註冊 • 無需信用卡 • 立即開始
+        </p>
     </div>
 </section>

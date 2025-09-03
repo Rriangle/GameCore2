@@ -1,0 +1,497 @@
+/* ========================================
+   GameCore 組件庫強化系統 - 玻璃風設計
+   ========================================
+   
+   這個檔案定義了 GameCore 平台的高級組件樣式，
+   補充 base-components.css 中缺失的組件，
+   採用玻璃風設計語言，參考 index.txt 的設計風格
+   
+   新增組件包含：
+   - Modal 彈出層系統
+   - Drawer 抽屜系統
+   - Tooltip 提示系統
+   - Toast 通知系統
+   - Accordion 手風琴系統
+   - Tabs 標籤頁系統
+   - Pagination 分頁系統
+   - Skeleton 骨架屏系統
+   - Empty State 空狀態系統
+   
+   回滾方式：刪除此檔案即可恢復預設樣式
+   ======================================== */
+
+/* ========================================
+   Modal 彈出層系統 (Modal System)
+   ======================================== */
+
+.gc-modal-overlay {
+    /* 遮罩層 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: var(--gc-z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--gc-space-4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-modal-overlay.show {
+    /* 顯示狀態 */
+    opacity: 1;
+    visibility: visible;
+}
+
+.gc-modal {
+    /* 彈出層容器 */
+    background: var(--gc-glass);
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius-lg);
+    box-shadow: var(--gc-shadow-glass);
+    backdrop-filter: blur(var(--gc-blur-glass));
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 100%;
+    overflow: hidden;
+    transform: scale(0.95) translateY(20px);
+    transition: all var(--gc-transition-base) var(--gc-ease-out);
+}
+
+.gc-modal-overlay.show .gc-modal {
+    /* 顯示動畫 */
+    transform: scale(1) translateY(0);
+}
+
+.gc-modal-header {
+    /* 彈出層標題區 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--gc-space-4) var(--gc-space-6);
+    border-bottom: 1px solid var(--gc-line);
+    background: var(--gc-surface);
+}
+
+.gc-modal-title {
+    /* 彈出層標題 */
+    font-size: var(--gc-text-lg);
+    font-weight: var(--gc-font-semibold);
+    color: var(--gc-ink);
+    margin: 0;
+}
+
+.gc-modal-close {
+    /* 關閉按鈕 */
+    background: none;
+    border: none;
+    color: var(--gc-muted);
+    font-size: var(--gc-text-xl);
+    cursor: pointer;
+    padding: var(--gc-space-1);
+    border-radius: var(--gc-radius-sm);
+    transition: all var(--gc-transition-base);
+}
+
+.gc-modal-close:hover {
+    /* hover 狀態 */
+    color: var(--gc-ink);
+    background: var(--gc-surface);
+}
+
+.gc-modal-body {
+    /* 彈出層內容區 */
+    padding: var(--gc-space-6);
+    overflow-y: auto;
+    max-height: calc(90vh - 120px);
+}
+
+.gc-modal-footer {
+    /* 彈出層底部區 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--gc-space-3);
+    padding: var(--gc-space-4) var(--gc-space-6);
+    border-top: 1px solid var(--gc-line);
+    background: var(--gc-surface);
+}
+
+/* Modal 尺寸變體 */
+.gc-modal-sm {
+    max-width: 400px;
+}
+
+.gc-modal-md {
+    max-width: 600px;
+}
+
+.gc-modal-lg {
+    max-width: 800px;
+}
+
+.gc-modal-xl {
+    max-width: 1000px;
+}
+
+/* ========================================
+   Drawer 抽屜系統 (Drawer System)
+   ======================================== */
+
+.gc-drawer-overlay {
+    /* 遮罩層 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: var(--gc-z-drawer);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--gc-transition-base) var(--gc-ease-in-out);
+}
+
+.gc-drawer-overlay.show {
+    /* 顯示狀態 */
+    opacity: 1;
+    visibility: visible;
+}
+
+.gc-drawer {
+    /* 抽屜容器 */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background: var(--gc-glass);
+    border: 1px solid var(--gc-line);
+    box-shadow: var(--gc-shadow-glass);
+    backdrop-filter: blur(var(--gc-blur-glass));
+    display: flex;
+    flex-direction: column;
+    z-index: var(--gc-z-drawer);
+    transition: all var(--gc-transition-base) var(--gc-ease-out);
+}
+
+.gc-drawer-left {
+    /* 左側抽屜 */
+    left: 0;
+    width: 400px;
+    max-width: 90vw;
+    transform: translateX(-100%);
+}
+
+.gc-drawer-right {
+    /* 右側抽屜 */
+    right: 0;
+    width: 400px;
+    max-width: 90vw;
+    transform: translateX(100%);
+}
+
+.gc-drawer-top {
+    /* 頂部抽屜 */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 400px;
+    max-height: 90vh;
+    transform: translateY(-100%);
+}
+
+.gc-drawer-bottom {
+    /* 底部抽屜 */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 400px;
+    max-height: 90vh;
+    transform: translateY(100%);
+}
+
+.gc-drawer-overlay.show .gc-drawer {
+    /* 顯示動畫 */
+    transform: translate(0, 0);
+}
+
+.gc-drawer-header {
+    /* 抽屜標題區 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--gc-space-4) var(--gc-space-6);
+    border-bottom: 1px solid var(--gc-line);
+    background: var(--gc-surface);
+    flex-shrink: 0;
+}
+
+.gc-drawer-title {
+    /* 抽屜標題 */
+    font-size: var(--gc-text-lg);
+    font-weight: var(--gc-font-semibold);
+    color: var(--gc-ink);
+    margin: 0;
+}
+
+.gc-drawer-close {
+    /* 關閉按鈕 */
+    background: none;
+    border: none;
+    color: var(--gc-muted);
+    font-size: var(--gc-text-xl);
+    cursor: pointer;
+    padding: var(--gc-space-1);
+    border-radius: var(--gc-radius-sm);
+    transition: all var(--gc-transition-base);
+}
+
+.gc-drawer-close:hover {
+    /* hover 狀態 */
+    color: var(--gc-ink);
+    background: var(--gc-surface);
+}
+
+.gc-drawer-body {
+    /* 抽屜內容區 */
+    padding: var(--gc-space-6);
+    overflow-y: auto;
+    flex: 1;
+}
+
+.gc-drawer-footer {
+    /* 抽屜底部區 */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--gc-space-3);
+    padding: var(--gc-space-4) var(--gc-space-6);
+    border-top: 1px solid var(--gc-line);
+    background: var(--gc-surface);
+    flex-shrink: 0;
+}
+
+/* ========================================
+   Tooltip 提示系統 (Tooltip System)
+   ======================================== */
+
+.gc-tooltip {
+    /* 提示容器 */
+    position: relative;
+    display: inline-block;
+}
+
+.gc-tooltip-content {
+    /* 提示內容 */
+    position: absolute;
+    background: var(--gc-glass);
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius);
+    box-shadow: var(--gc-shadow-glass);
+    backdrop-filter: blur(var(--gc-blur-glass));
+    padding: var(--gc-space-2) var(--gc-space-3);
+    font-size: var(--gc-text-sm);
+    color: var(--gc-ink);
+    white-space: nowrap;
+    z-index: var(--gc-z-tooltip);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transition: all var(--gc-transition-base) var(--gc-ease-out);
+    pointer-events: none;
+}
+
+white-space: nowrap;
+z-index: var(--gc-z-tooltip);
+opacity: 0;
+visibility: hidden;
+transform: scale(0.95);
+transition: all var(--gc-transition-base) var(--gc-ease-out);
+pointer-events: none;
+}
+
+.gc-tooltip:hover .gc-tooltip-content,
+.gc-tooltip:focus .gc-tooltip-content {
+    /* 顯示狀態 */
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* Tooltip 位置變體 */
+.gc-tooltip-top .gc-tooltip-content {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    margin-bottom: var(--gc-space-2);
+}
+
+.gc-tooltip-top:hover .gc-tooltip-content,
+.gc-tooltip-top:focus .gc-tooltip-content {
+    transform: translateX(-50%) scale(1);
+}
+
+.gc-tooltip-bottom .gc-tooltip-content {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    margin-top: var(--gc-space-2);
+}
+
+.gc-tooltip-bottom:hover .gc-tooltip-content,
+.gc-tooltip-bottom:focus .gc-tooltip-content {
+    transform: translateX(-50%) scale(1);
+}
+
+.gc-tooltip-left .gc-tooltip-content {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%) scale(0.95);
+    margin-right: var(--gc-space-2);
+}
+
+.gc-tooltip-left:hover .gc-tooltip-content,
+.gc-tooltip-left:focus .gc-tooltip-content {
+    transform: translateY(-50%) scale(1);
+}
+
+.gc-tooltip-right .gc-tooltip-content {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%) scale(0.95);
+    margin-left: var(--gc-space-2);
+}
+
+.gc-tooltip-right:hover .gc-tooltip-content,
+.gc-tooltip-right:focus .gc-tooltip-content {
+    transform: translateY(-50%) scale(1);
+}
+
+/* ========================================
+   Toast 通知系統 (Toast System)
+   ======================================== */
+
+.gc-toast-container {
+    /* 通知容器 */
+    position: fixed;
+    top: var(--gc-space-4);
+    right: var(--gc-space-4);
+    z-index: var(--gc-z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gc-space-2);
+    max-width: 400px;
+}
+
+.gc-toast {
+    /* 通知項目 */
+    background: var(--gc-glass);
+    border: 1px solid var(--gc-line);
+    border-radius: var(--gc-radius);
+    box-shadow: var(--gc-shadow-glass);
+    backdrop-filter: blur(var(--gc-blur-glass));
+    padding: var(--gc-space-4);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gc-space-3);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all var(--gc-transition-base) var(--gc-ease-out);
+}
+
+.gc-toast.show {
+    /* 顯示狀態 */
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.gc-toast-icon {
+    /* 通知圖示 */
+    flex-shrink: 0;
+    font-size: var(--gc-text-lg);
+    margin-top: 2px;
+}
+
+.gc-toast-content {
+    /* 通知內容 */
+    flex: 1;
+    min-width: 0;
+}
+
+.gc-toast-title {
+    /* 通知標題 */
+    font-size: var(--gc-text-sm);
+    font-weight: var(--gc-font-semibold);
+    color: var(--gc-ink);
+    margin: 0 0 var(--gc-space-1) 0;
+}
+
+.gc-toast-message {
+    /* 通知訊息 */
+    font-size: var(--gc-text-sm);
+    color: var(--gc-muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.gc-toast-close {
+    /* 關閉按鈕 */
+    background: none;
+    border: none;
+    color: var(--gc-muted);
+    font-size: var(--gc-text-lg);
+    cursor: pointer;
+    padding: var(--gc-space-1);
+    border-radius: var(--gc-radius-sm);
+    transition: all var(--gc-transition-base);
+    flex-shrink: 0;
+}
+
+.gc-toast-close:hover {
+    /* hover 狀態 */
+    color: var(--gc-ink);
+    background: var(--gc-surface);
+}
+
+/* Toast 類型變體 */
+.gc-toast-success {
+    border-color: var(--gc-accent-3);
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.gc-toast-success .gc-toast-icon {
+    color: var(--gc-accent-3);
+}
+
+.gc-toast-error {
+    border-color: var(--gc-down);
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.gc-toast-error .gc-toast-icon {
+    color: var(--gc-down);
+}
+
+.gc-toast-warning {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.gc-toast-warning .gc-toast-icon {
+    color: #f59e0b;
+}
+
+.gc-toast-info {
+    border-color: var(--gc-accent-2);
+    background: rgba(52, 210, 255, 0.1);
+}
+
+.gc-toast-info .gc-toast-icon {
+    color: var(--gc-accent-2);
+}
